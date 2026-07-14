@@ -7,7 +7,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 
 ## Current
 
-- Goal 68 is active in the private owner repository `mineclover/data-governance`. DPM-86 through DPM-89 are complete, and DPM-90 external runtime, declaration, rollback, workflow, pack, and owner CI rehearsal passed; formal release authority, publication metadata, compatibility-window definition, and canonical-document sign-off remain pending.
+- Goal 68 is active in the private owner repository `mineclover/data-governance`. DPM-86 through DPM-89 are complete, and DPM-90 external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, and GitHub Issues review-location verification passed/are enabled as recorded by owner commit `0c14ad9` and workflow `29352088888`; formal release authority, publication metadata, compatibility-window definition, and canonical-document sign-off remain pending.
 
 ## Recently Completed
 

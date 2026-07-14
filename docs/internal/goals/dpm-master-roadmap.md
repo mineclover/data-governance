@@ -84,14 +84,14 @@ and local extraction is not evidence of production runtime readiness.
 ### G-01 — Ownership and authority
 
 Current `@oa-sdk/dpm` is private, maintenance-only, and marked as a data-governance extraction
-candidate. The private canonical repository is now `https://github.com/mineclover/data-governance`;
+candidate. The private owner candidate is now `https://github.com/mineclover/data-governance`;
 artifact acceptance and the release authority are still being established.
 
 The 2026-07-15 owner decision created the private repository and started the extraction handoff.
-The interim decision record is [here](./owner-decision-record.md), and owner workflow
-[29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558) passed for
-commit `34dff0f`. The public package policy, compatibility window, and formal owner sign-off
-remain open gates.
+The interim decision record is [here](./owner-decision-record.md), and the latest owner workflow
+[29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) passed for
+commit `0c14ad9`. GitHub Issues are enabled as the current issue/review location. The public
+package policy, compatibility window, and formal owner sign-off remain open gates.
 
 Required decision:
 

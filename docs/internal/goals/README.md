@@ -17,7 +17,7 @@ The repository remains private under the interim decision in
 
 | Goal | Status | Package |
 |---|---|---|
-| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — private extraction and owner CI passed; formal release/cutover acceptance pending | `@oa-sdk/dpm` |
+| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — private extraction, owner CI, document gate, and GitHub Issues location verified; formal release/cutover acceptance pending | `@oa-sdk/dpm` |
 
 ## Canonical document set
 
@@ -40,11 +40,12 @@ goals.
 
 Run the owner checks from the repository root:
 
-``bash
+```bash
 corepack pnpm install
 corepack pnpm build
 corepack pnpm typecheck
 corepack pnpm check:boundary
+corepack pnpm check:docs
 corepack pnpm test
 corepack pnpm smoke:dpm
-``
+```

@@ -1,6 +1,6 @@
 # Goal 68 Extraction Migration and Rollback Contract
 
-**Status: private owner repository and CI verified 2026-07-15; formal external owner acceptance pending**
+**Status: private owner repository, CI, document gate, and issue/review location verified 2026-07-15; formal external owner acceptance pending**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 
@@ -90,8 +90,9 @@ If external extraction or a consumer migration fails:
 - Owner handoff checklist: `docs/internal/goals/goal-68-extraction-acceptance-checklist.md`.
 - Public package/type smoke: `packages/dpm/test/package-subpath-import-smoke.mjs` and
   `packages/dpm/test/package-subpath-type-consumer.ts`.
-- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. Owner CI
-  workflow [29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558)
-  passed for commit `34dff0f` with Node.js 25 and pnpm 10.30.3.
+- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. GitHub Issues are
+  enabled as the current issue/review location. Owner CI workflow
+  [29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) passed for
+  commit `0c14ad9` with Node.js 25 and pnpm 10.30.3.
 - Formal owner acceptance, registry publication, compatibility-window decision, and canonical
   adapter transition remain intentionally pending; they are not implied by the rehearsal.

@@ -37,14 +37,15 @@ The document set is indexed in
 
 The authoritative local commands are:
 
-``bash
+```bash
 corepack pnpm install --frozen-lockfile
 corepack pnpm build
 corepack pnpm typecheck
 corepack pnpm check:boundary
+corepack pnpm check:docs
 corepack pnpm test
 corepack pnpm smoke:dpm
-``
+```
 
 The same gates run in
 [.github/workflows/ci.yml](../../.github/workflows/ci.yml).

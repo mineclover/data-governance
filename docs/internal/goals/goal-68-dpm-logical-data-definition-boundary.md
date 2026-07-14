@@ -1,6 +1,6 @@
 # Goal 68 — DPM Logical Data Definition and Extraction Boundary
 
-**Status: active — private owner repository and CI verified; 68.0·68.1·68.2·68.3 complete; formal 68.4 acceptance pending**
+**Status: active — private owner repository, CI, document gate, and issue/review location verified; 68.0·68.1·68.2·68.3 complete; formal 68.4 acceptance pending**
 
 > Predecessor: [Goal 67 — DPM Canonical Key Typed Encoding v2](./goal-67-dpm-canonical-key-typed-v2.md)<br>
 > Architecture boundary: [Package Architecture](../architecture/packages.md)<br>
@@ -26,9 +26,10 @@ and authoring convenience are a follow-on control-plane capability after the neu
 is stable; they are not silently included in the Goal 68 compiler scope.
 
 Private owner candidate: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
-The interim decision is recorded in [owner-decision-record.md](./owner-decision-record.md), and
-owner CI passed in [workflow 29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558)
-for commit `34dff0f`.
+The interim decision is recorded in [owner-decision-record.md](./owner-decision-record.md). GitHub
+Issues are enabled at `https://github.com/mineclover/data-governance/issues`, and owner CI passed in
+[workflow 29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) for
+commit `0c14ad9`.
 
 ## Expressive boundary
 
@@ -138,9 +139,11 @@ canonical-owner, release-authority, and compatibility-window acceptance remain o
 ## 68.4 private owner repository transition record
 
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
-contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the
-interim decision record at `34dff0f`. Workflow 29350009558 passed build, typecheck, boundary,
-tests, and all DPM consumer smokes with Node.js 25 and pnpm 10.30.3.
+contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the latest
+governance/document update at `0c14ad9`. Workflow
+[29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) passed build,
+typecheck, boundary, owner documentation, tests, and all DPM consumer smokes with Node.js 25 and
+pnpm 10.30.3.
 
 ## Review verdict of the current implementation
 
