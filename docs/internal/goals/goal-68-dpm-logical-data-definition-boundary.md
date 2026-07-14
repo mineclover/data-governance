@@ -27,9 +27,9 @@ is stable; they are not silently included in the Goal 68 compiler scope.
 
 Private owner candidate: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
 The interim decision is recorded in [owner-decision-record.md](./owner-decision-record.md). GitHub
-Issues are enabled at `https://github.com/mineclover/data-governance/issues`, and owner CI passed in
-[workflow 29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) for
-commit `0c14ad9`.
+Issues and the structured owner acceptance form are enabled at the current issue/review workflow,
+and owner CI passed in [workflow 29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517)
+for commit `60c6c36`.
 
 ## Expressive boundary
 
@@ -140,8 +140,8 @@ canonical-owner, release-authority, and compatibility-window acceptance remain o
 
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the latest
-governance/document update at `0c14ad9`. Workflow
-[29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) passed build,
+governance/document update at `60c6c36`. Workflow
+[29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed build,
 typecheck, boundary, owner documentation, tests, and all DPM consumer smokes with Node.js 25 and
 pnpm 10.30.3.
 

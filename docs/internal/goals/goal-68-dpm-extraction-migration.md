@@ -90,9 +90,9 @@ If external extraction or a consumer migration fails:
 - Owner handoff checklist: `docs/internal/goals/goal-68-extraction-acceptance-checklist.md`.
 - Public package/type smoke: `packages/dpm/test/package-subpath-import-smoke.mjs` and
   `packages/dpm/test/package-subpath-type-consumer.ts`.
-- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. GitHub Issues are
-  enabled as the current issue/review location. Owner CI workflow
-  [29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888) passed for
-  commit `0c14ad9` with Node.js 25 and pnpm 10.30.3.
+- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. GitHub Issues and
+  the structured owner acceptance form are enabled as the current issue/review workflow. Owner CI
+  workflow [29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517)
+  passed for commit `60c6c36` with Node.js 25 and pnpm 10.30.3.
 - Formal owner acceptance, registry publication, compatibility-window decision, and canonical
   adapter transition remain intentionally pending; they are not implied by the rehearsal.

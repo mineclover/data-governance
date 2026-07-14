@@ -29,8 +29,8 @@ external repository ownership, or acceptance of the experimental v1.1 wire shape
 
 The private owner repository is now `https://github.com/mineclover/data-governance`. The
 repository was created on 2026-07-15, and owner workflow
-[29352690749](https://github.com/mineclover/data-governance/actions/runs/29352690749) passed for
-commit `beabf42`. GitHub Issues are enabled at
+[29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed for
+commit `60c6c36`. GitHub Issues are enabled at
 `https://github.com/mineclover/data-governance/issues` as the current issue/review location.
 The structured review form is available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
 Formal owner acceptance, release authority, public package metadata,
