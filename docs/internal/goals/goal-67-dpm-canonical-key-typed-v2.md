@@ -2,7 +2,7 @@
 
 **Status: complete 2026-07-10**
 
-> Predecessor: [Goal 64 - DPM Column Policy Uniqueness](./goal-64-dpm-column-policy-uniqueness.md)
+> Predecessor: [Goal 64 - DPM Column Policy Uniqueness](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/goals/goal-64-dpm-column-policy-uniqueness.md)
 
 ## Purpose
 

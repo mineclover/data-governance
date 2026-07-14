@@ -78,10 +78,10 @@ OpenAPI root나 schema에 `x-dpm-version`, `x-dpm-policy-id`, `x-dpm-registry-ve
 
 | 기존 개념 | DPM에서의 의미 |
 |---|---|
-| [OpenAPI Projection](./openapi-projection.md) | DB catalog나 table schema projection을 DPM의 `catalog` 입력으로 사용할 수 있다. 다만 관계의 source of truth는 projection이 아니라 Relationship Registry다. |
-| [Data Persona](./data-persona.md) | `access: [pseudonymized]`와 `skills: [pseudonymized]`는 API audience 의무다. DPM은 그 의무를 데이터 제품으로 실현하는 정책이다. |
-| [Schema Annotations](../guides/schema-annotations.md) | 필드 소유자, 내부 note, lifecycle 같은 개발자 메타데이터를 담는다. 가명처리 실행 정책의 SSOT는 아니다. |
-| [Contract Governance](./contract-governance.md) | DPM, registry snapshot, compiled plan, validation report, AI schema context가 drift/freshness/review 대상이 된다. |
+| [OpenAPI Projection](https://github.com/mineclover/oa-sdk/blob/main/docs/concepts/openapi-projection.md) | DB catalog나 table schema projection을 DPM의 `catalog` 입력으로 사용할 수 있다. 다만 관계의 source of truth는 projection이 아니라 Relationship Registry다. |
+| [Data Persona](https://github.com/mineclover/oa-sdk/blob/main/docs/concepts/data-persona.md) | `access: [pseudonymized]`와 `skills: [pseudonymized]`는 API audience 의무다. DPM은 그 의무를 데이터 제품으로 실현하는 정책이다. |
+| [Schema Annotations](https://github.com/mineclover/oa-sdk/blob/main/docs/guides/schema-annotations.md) | 필드 소유자, 내부 note, lifecycle 같은 개발자 메타데이터를 담는다. 가명처리 실행 정책의 SSOT는 아니다. |
+| [Contract Governance](https://github.com/mineclover/oa-sdk/blob/main/docs/concepts/contract-governance.md) | DPM, registry snapshot, compiled plan, validation report, AI schema context가 drift/freshness/review 대상이 된다. |
 
 ## Manifest Shape
 

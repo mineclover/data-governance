@@ -1,6 +1,6 @@
 # Goal 68 Extraction Migration and Rollback Contract
 
-**Status: rehearsal contract drafted 2026-07-15; external owner acceptance pending**
+**Status: private owner repository and CI verified 2026-07-15; formal external owner acceptance pending**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 
@@ -8,14 +8,16 @@ The owner handoff gates and empty sign-off record are tracked in the
 [Goal 68.4 External Extraction Acceptance Checklist](./goal-68-extraction-acceptance-checklist.md).
 
 This document is the temporary migration contract for moving the DPM contract plane from the
-maintenance-only monorepo package to a future external `data-governance` owner. It defines what
+maintenance-only monorepo package to the private
+[`mineclover/data-governance`](https://github.com/mineclover/data-governance) owner candidate. It defines what
 can be copied or adapted, what must remain byte/version compatible, and how to roll back without
 silently changing logical data identity.
 
 ## Current boundary
 
-- The canonical implementation site remains `mineclover/oa-sdk/packages/dpm` until an external
-  owner accepts this contract.
+- The source implementation remains `mineclover/oa-sdk/packages/dpm` during the acceptance window.
+  The private external owner candidate contains the initial extraction at commit `7f1fb3f`;
+  this package becomes a compatibility adapter only after the owner accepts this contract.
 - `@oa-sdk/dpm` remains private and non-published. The local extraction rehearsal packages the
   built artifact and resolves a production dependency tree, but it does not claim registry
   publication readiness.
@@ -88,5 +90,8 @@ If external extraction or a consumer migration fails:
 - Owner handoff checklist: `docs/internal/goals/goal-68-extraction-acceptance-checklist.md`.
 - Public package/type smoke: `packages/dpm/test/package-subpath-import-smoke.mjs` and
   `packages/dpm/test/package-subpath-type-consumer.ts`.
-- The owner acceptance, registry publication, and canonical-document move remain intentionally
-  pending; they are not implied by the local rehearsal.
+- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. Owner CI
+  workflow [29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558)
+  passed for commit `34dff0f` with Node.js 25 and pnpm 10.30.3.
+- Formal owner acceptance, registry publication, compatibility-window decision, and canonical
+  adapter transition remain intentionally pending; they are not implied by the rehearsal.

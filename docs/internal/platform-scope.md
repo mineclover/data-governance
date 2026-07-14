@@ -1,9 +1,9 @@
 # Platform Scope
 
 이 문서는 oa-sdk가 앞으로 무엇을 1급 제품 범위로 관리하는지 정하는 scope SSOT다.
-구현 현황은 [`spec.md`](./spec.md), 패키지 구조는
-[`architecture/packages.md`](./architecture/packages.md), release 분류는
-[`release-policy.json`](./release-policy.json)에 둔다. 구현되어 있거나 같은 monorepo에 있다는
+구현 현황은 [source spec](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/spec.md),
+패키지 구조는 [`architecture/packages.md`](./architecture/packages.md), release 분류는
+[source release policy](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/release-policy.json)에 둔다. 구현되어 있거나 같은 monorepo에 있다는
 사실만으로 active product scope가 되지는 않는다.
 
 ## Core Mission

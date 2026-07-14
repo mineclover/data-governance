@@ -88,7 +88,7 @@ Extraction 전 migration은 package name/import compatibility와 소비자 검�
 
 ## 패키지별 주요 파일
 
-→ 상세: [api-index.md](../api-index.md) (SSOT)
+→ 상세: [api-index.md](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/api-index.md) (source SSOT)
 
 ### @oa-sdk/core
 

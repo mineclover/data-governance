@@ -7,7 +7,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 
 ## Current
 
-- Goal 68 is active in the private canonical repository `mineclover/data-governance`. DPM-86 through DPM-89 are complete and the local DPM-90 packed-consumer rehearsal, including runtime, declaration, and rollback consumers, is complete; artifact validation, release authority, publication metadata, and canonical-document migration remain pending.
+- Goal 68 is active in the private owner repository `mineclover/data-governance`. DPM-86 through DPM-89 are complete, and DPM-90 external runtime, declaration, rollback, workflow, pack, and owner CI rehearsal passed; formal release authority, publication metadata, compatibility-window definition, and canonical-document sign-off remain pending.
 
 ## Recently Completed
 
@@ -425,7 +425,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 - [x] DPM-87 - Namespace-safe identity contract
 - [x] DPM-88 - Semantic API/catalog binding validation
 - [x] DPM-89 - Compiler and provenance artifact integration
-- [ ] DPM-90 - External extraction rehearsal (local packed runtime/declaration/rollback rehearsal complete; pending external owner acceptance and canonical migration)
+- [ ] DPM-90 - External extraction rehearsal (private repository, owner decision record, and CI-backed runtime/declaration/rollback/workflow/pack rehearsal complete; pending formal owner acceptance, release policy, and canonical migration)
 
 ## Done Criteria
 

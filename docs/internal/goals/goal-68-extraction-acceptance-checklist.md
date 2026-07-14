@@ -1,6 +1,6 @@
 # Goal 68.4 — External Extraction Acceptance Checklist
 
-**Status: private canonical repository created 2026-07-15; artifact validation and owner acceptance pending**
+**Status: private owner repository and CI verified; formal external owner acceptance pending**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 >
@@ -27,9 +27,11 @@ external repository ownership, or acceptance of the experimental v1.1 wire shape
 
 ## Current repository audit
 
-The private canonical repository is now `https://github.com/mineclover/data-governance`. The
-repository was created on 2026-07-15; its owner acceptance, release authority, public package
-metadata, and artifact validation are still pending.
+The private owner repository is now `https://github.com/mineclover/data-governance`. The
+repository was created on 2026-07-15, and owner workflow
+[29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558) passed for
+commit `34dff0f`. Formal owner acceptance, release authority, public package metadata,
+compatibility window, and canonical sign-off remain pending.
 
 ## External owner acceptance gates
 
@@ -64,8 +66,8 @@ Complete this section in the owner environment; an empty record is intentional i
 | Accepted `data_definitions` versions | pending |
 | Accepted artifact kind/version | pending |
 | Compatibility window and deprecation release | pending |
-| Canonical-document location | pending |
-| Rollback fixture / review link | pending |
+| Canonical-document location | [Owner decision record](./owner-decision-record.md); formal canonical link pending |
+| Rollback fixture / review link | External rehearsal passed in `7f1fb3f`; formal review/sign-off pending |
 
 ## Transition rule
 
