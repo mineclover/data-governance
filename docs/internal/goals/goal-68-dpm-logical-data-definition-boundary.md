@@ -139,8 +139,8 @@ canonical-owner, release-authority, and compatibility-window acceptance remain o
 ## 68.4 private owner repository transition record
 
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
-contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the latest
-governance/document update at `60c6c36`. Workflow
+contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the
+acceptance-form implementation at `60c6c36`. Workflow
 [29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed build,
 typecheck, boundary, owner documentation, tests, and all DPM consumer smokes with Node.js 25 and
 pnpm 10.30.3.

@@ -88,7 +88,8 @@ candidate. The private owner candidate is now `https://github.com/mineclover/dat
 artifact acceptance and the release authority are still being established.
 
 The 2026-07-15 owner decision created the private repository and started the extraction handoff.
-The interim decision record is [here](./owner-decision-record.md), and the latest owner workflow
+The interim decision record is [here](./owner-decision-record.md), and the owner workflow for the
+acceptance-form implementation
 [29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed for
 commit `60c6c36`. GitHub Issues and the structured Goal 68.4 acceptance form are enabled as the
 current issue/review workflow. The public package policy, compatibility window, and formal owner
