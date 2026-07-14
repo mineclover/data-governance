@@ -29,6 +29,10 @@ completed.
 
 The migrated Goal 68 documents are under `docs/internal/goals/`.
 
+The interim owner decision is recorded in
+`docs/internal/goals/owner-decision-record.md`. Public publication and monorepo adapter cutover
+remain disabled until the formal sign-off items in that record are completed.
+
 ## Owner handoff state
 
 The private canonical repository was created on 2026-07-15 at
