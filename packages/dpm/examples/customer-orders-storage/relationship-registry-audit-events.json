@@ -1,0 +1,22 @@
+[
+  {
+    "eventId": "audit:storage-demo:rel-orders-customer-approved",
+    "eventType": "relationship_approved",
+    "datasetId": "commerce_ai_storage_demo",
+    "registryVersion": "reg-storage-2026-07-01",
+    "relationshipName": "rel_orders_customer",
+    "relationshipVersion": "1",
+    "relationshipStatus": "approved",
+    "actor": "privacy-reviewer",
+    "reason": "Customer relationship is required for AI analytics joins.",
+    "occurredAt": "2026-07-01T00:00:00.000Z",
+    "sourceFreshnessHash": "sha256:storage-demo-catalog-placeholder",
+    "approval": {
+      "owner": "privacy-platform",
+      "approvedBy": "privacy-reviewer",
+      "approvedAt": "2026-07-01T00:00:00.000Z",
+      "reason": "Customer relationship is required for AI analytics joins."
+    },
+    "createdAt": "2026-07-01T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,9 @@
+import { POSTGRES_CATALOG_PROFILE_COLUMN_RECORD_SELECT } from './profiler-postgres-query-column-records.js'
+import { POSTGRES_CATALOG_PROFILE_SCHEMA_RECORD_SELECT } from './profiler-postgres-query-schema-records.js'
+import { POSTGRES_CATALOG_PROFILE_TABLE_RECORD_SELECT } from './profiler-postgres-query-table-records.js'
+
+export const POSTGRES_CATALOG_PROFILE_STRUCTURE_RECORD_SELECTS = [
+  POSTGRES_CATALOG_PROFILE_SCHEMA_RECORD_SELECT,
+  POSTGRES_CATALOG_PROFILE_TABLE_RECORD_SELECT,
+  POSTGRES_CATALOG_PROFILE_COLUMN_RECORD_SELECT,
+] as const

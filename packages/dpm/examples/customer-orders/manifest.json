@@ -1,0 +1,129 @@
+{
+  "dpm_version": "1.0",
+  "metadata": {
+    "dataset_id": "commerce_ai_demo",
+    "policy_version": "2026.07.demo",
+    "owner": "privacy-platform",
+    "purpose": "AI analytics pseudonymized customer-orders dataset"
+  },
+  "source": {
+    "kind": "catalog_snapshot",
+    "snapshot_ref": "catalog.snapshot.json"
+  },
+  "target": {
+    "kind": "file",
+    "dataset_ref": "exports/commerce-ai-demo"
+  },
+  "vault": {
+    "mode": "external_ref",
+    "key_ref": "vault://demo/dpm/commerce"
+  },
+  "scope": {
+    "include_tables": ["public.customers", "public.orders"]
+  },
+  "catalog": {
+    "snapshot_ref": "catalog.snapshot.json",
+    "version_hash": "sha256:demo-commerce-catalog-v1"
+  },
+  "relationship_discovery": {
+    "enabled": true,
+    "approval": {
+      "auto_approve_enabled": false,
+      "require_human_approval": true
+    }
+  },
+  "relationship_registry": {
+    "dataset_id": "commerce_ai_demo",
+    "registry_version": "reg-demo-2026-07-01",
+    "status_filter": ["approved"]
+  },
+  "entities": [
+    {
+      "name": "customer",
+      "namespace": "customer",
+      "root": {
+        "table": "public.customers",
+        "columns": ["customer_no"]
+      },
+      "key_strategy": {
+        "type": "single_column",
+        "canonical_columns": ["customer_no"]
+      },
+      "transform": {
+        "type": "deterministic_token",
+        "namespace": "customer",
+        "prefix": "CUST",
+        "reversible": true
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "name": "rel_orders_customer",
+      "status": "approved",
+      "type": "one_to_many",
+      "parent": {
+        "table": "public.customers",
+        "columns": ["customer_no"]
+      },
+      "child": {
+        "table": "public.orders",
+        "columns": ["customer_no"]
+      },
+      "namespace": "customer",
+      "transform_strategy": "entity_token",
+      "orphan_policy": "block"
+    }
+  ],
+  "columns": [
+    {
+      "table": "public.customers",
+      "column": "customer_no",
+      "role": "direct_identifier",
+      "pii": true,
+      "entity": "customer",
+      "relationship": "rel_orders_customer",
+      "transform": {
+        "type": "relationship_token",
+        "relationship": "rel_orders_customer"
+      }
+    },
+    {
+      "table": "public.orders",
+      "column": "customer_no",
+      "role": "foreign_identifier",
+      "pii": true,
+      "entity": "customer",
+      "relationship": "rel_orders_customer",
+      "transform": {
+        "type": "relationship_token",
+        "relationship": "rel_orders_customer"
+      }
+    },
+    {
+      "table": "public.orders",
+      "column": "amount",
+      "role": "business_metric",
+      "pii": false,
+      "transform": {
+        "type": "keep"
+      }
+    }
+  ],
+  "privacy_controls": {
+    "residual_pii": "block"
+  },
+  "quality_gates": [
+    {
+      "name": "relationship_drift",
+      "relationships": ["rel_orders_customer"],
+      "fail_on_drift": true
+    }
+  ],
+  "validation": {
+    "report": "required"
+  },
+  "publishing": {
+    "ai_schema_context": true
+  }
+}

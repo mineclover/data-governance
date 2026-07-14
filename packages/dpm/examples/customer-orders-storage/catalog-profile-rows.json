@@ -1,0 +1,111 @@
+[
+  {
+    "record_kind": "schema",
+    "schema_name": "public",
+    "schema_owner": "postgres"
+  },
+  {
+    "record_kind": "table",
+    "schema_name": "public",
+    "table_name": "orders",
+    "table_kind": "table"
+  },
+  {
+    "record_kind": "table",
+    "schema_name": "public",
+    "table_name": "customers",
+    "table_kind": "table"
+  },
+  {
+    "record_kind": "column",
+    "schema_name": "public",
+    "table_name": "orders",
+    "column_name": "order_id",
+    "data_type": "bigint",
+    "is_nullable": false,
+    "ordinal_position": 1
+  },
+  {
+    "record_kind": "column",
+    "schema_name": "public",
+    "table_name": "orders",
+    "column_name": "customer_no",
+    "data_type": "text",
+    "is_nullable": false,
+    "ordinal_position": 2
+  },
+  {
+    "record_kind": "column",
+    "schema_name": "public",
+    "table_name": "orders",
+    "column_name": "amount",
+    "data_type": "numeric",
+    "is_nullable": false,
+    "ordinal_position": 3,
+    "default_value": "0"
+  },
+  {
+    "record_kind": "column",
+    "schema_name": "public",
+    "table_name": "customers",
+    "column_name": "customer_no",
+    "data_type": "text",
+    "is_nullable": false,
+    "ordinal_position": 1
+  },
+  {
+    "record_kind": "column",
+    "schema_name": "public",
+    "table_name": "customers",
+    "column_name": "tenant_id",
+    "data_type": "text",
+    "is_nullable": false,
+    "ordinal_position": 2
+  },
+  {
+    "record_kind": "primary_key",
+    "schema_name": "public",
+    "table_name": "customers",
+    "constraint_name": "customers_pkey",
+    "constraint_columns": ["customer_no"]
+  },
+  {
+    "record_kind": "primary_key",
+    "schema_name": "public",
+    "table_name": "orders",
+    "constraint_name": "orders_pkey",
+    "constraint_columns": ["order_id"]
+  },
+  {
+    "record_kind": "foreign_key",
+    "schema_name": "public",
+    "table_name": "orders",
+    "constraint_name": "orders_customer_no_fkey",
+    "constraint_columns": ["customer_no"],
+    "referenced_schema_name": "public",
+    "referenced_table_name": "customers",
+    "referenced_columns": ["customer_no"],
+    "on_delete": "no_action",
+    "on_update": "no_action"
+  },
+  {
+    "record_kind": "index",
+    "schema_name": "public",
+    "table_name": "customers",
+    "index_name": "customers_customer_no_idx",
+    "index_columns": ["customer_no"],
+    "index_unique": true,
+    "index_method": "btree",
+    "index_primary": false
+  },
+  {
+    "record_kind": "index",
+    "schema_name": "public",
+    "table_name": "orders",
+    "index_name": "orders_customer_no_idx",
+    "index_columns": ["customer_no"],
+    "index_unique": false,
+    "index_method": "btree",
+    "index_primary": false
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "profileId": "profile:commerce-events",
+  "datasetId": "commerce_ai",
+  "profileVersion": "2026-07-04.kafka",
+  "createdAt": "2026-07-04T00:00:00.000Z",
+  "connectorId": "dpm.kafka.fixture",
+  "connectorVersion": "0.1.0",
+  "clusterRef": "kafka://commerce",
+  "topic": {
+    "name": "orders.created",
+    "partitions": [0, 1, 2],
+    "messageRateEstimate": 42.5,
+    "key": {
+      "dataType": "string",
+      "coverageRatio": 0.998
+    },
+    "headers": [
+      {
+        "name": "correlation_id",
+        "dataType": "string",
+        "presenceRatio": 0.991
+      }
+    ],
+    "schema": {
+      "subject": "orders.created-value",
+      "format": "json-schema",
+      "versions": [7, 8]
+    },
+    "value": {
+      "fields": [
+        {
+          "name": "order",
+          "dataType": "object",
+          "presenceRatio": 1,
+          "fields": [
+            {
+              "name": "order_id",
+              "dataType": "string",
+              "presenceRatio": 1,
+              "nullRatio": 0
+            },
+            {
+              "name": "amount",
+              "dataType": "number",
+              "presenceRatio": 1,
+              "nullRatio": 0
+            },
+            {
+              "name": "promo_code",
+              "dataType": "string",
+              "presenceRatio": 0.12,
+              "nullRatio": 0.88
+            }
+          ]
+        },
+        {
+          "name": "customer",
+          "dataType": "object",
+          "presenceRatio": 1,
+          "fields": [
+            {
+              "name": "customer_no",
+              "dataType": "string",
+              "presenceRatio": 0.997,
+              "nullRatio": 0.003
+            },
+            {
+              "name": "tenant_id",
+              "dataType": "string",
+              "presenceRatio": 1,
+              "nullRatio": 0
+            }
+          ]
+        }
+      ]
+    },
+    "relationshipHints": [
+      {
+        "id": "hint:orders-created-customer",
+        "label": "orders.created customer_no resembles public.customers.customer_no",
+        "fromPath": "value.customer.customer_no",
+        "toRef": "catalog://commerce/public.customers.customer_no",
+        "confidence": 0.93,
+        "evidenceRef": "field-name-and-presence"
+      }
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "kind": "dpm.catalog.snapshot.v1",
+  "source": {
+    "kind": "postgresql",
+    "database": "commerce",
+    "capturedAt": "2026-07-01T00:00:00.000Z"
+  },
+  "schemas": [
+    {
+      "name": "public"
+    }
+  ],
+  "tables": [
+    {
+      "schema": "public",
+      "name": "customers",
+      "table": "public.customers",
+      "kind": "table"
+    },
+    {
+      "schema": "public",
+      "name": "orders",
+      "table": "public.orders",
+      "kind": "table"
+    }
+  ],
+  "columns": [
+    {
+      "table": "public.customers",
+      "name": "customer_no",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 1
+    },
+    {
+      "table": "public.customers",
+      "name": "email",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 2
+    },
+    {
+      "table": "public.orders",
+      "name": "order_id",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 1
+    },
+    {
+      "table": "public.orders",
+      "name": "customer_no",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 2
+    },
+    {
+      "table": "public.orders",
+      "name": "amount",
+      "dataType": "numeric",
+      "nullable": false,
+      "ordinal": 3
+    }
+  ],
+  "primaryKeys": [
+    {
+      "table": "public.customers",
+      "name": "customers_pkey",
+      "columns": ["customer_no"]
+    },
+    {
+      "table": "public.orders",
+      "name": "orders_pkey",
+      "columns": ["order_id"]
+    }
+  ],
+  "foreignKeys": [],
+  "indexes": [],
+  "uniqueCandidates": [
+    {
+      "table": "public.customers",
+      "name": "customers_customer_no_unique",
+      "columns": ["customer_no"],
+      "reason": "primary_key",
+      "confidence": 1
+    }
+  ],
+  "sources": {},
+  "diagnostics": [],
+  "freshness": {
+    "versionHash": "sha256:demo-commerce-catalog-v1"
+  }
+}

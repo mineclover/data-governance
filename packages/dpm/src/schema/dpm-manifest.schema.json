@@ -1,0 +1,951 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oa-sdk.dev/schemas/dpm-manifest.v1.json",
+  "title": "Relationship-First Data Pseudonymization Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dpm_version",
+    "metadata",
+    "source",
+    "target",
+    "vault",
+    "scope",
+    "relationship_discovery",
+    "relationship_registry",
+    "entities",
+    "relationships",
+    "columns",
+    "privacy_controls",
+    "quality_gates",
+    "validation",
+    "publishing"
+  ],
+  "properties": {
+    "dpm_version": {
+      "const": "1.0"
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "target": {
+      "$ref": "#/$defs/target"
+    },
+    "vault": {
+      "$ref": "#/$defs/vault"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "catalog": {
+      "$ref": "#/$defs/catalog"
+    },
+    "relationship_discovery": {
+      "$ref": "#/$defs/relationshipDiscovery"
+    },
+    "relationship_registry": {
+      "$ref": "#/$defs/relationshipRegistry"
+    },
+    "entities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/entity"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "data_definitions": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/dataDefinitions"
+        },
+        {
+          "$ref": "#/$defs/dataDefinitionsV11"
+        }
+      ]
+    },
+    "columns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/columnPolicy"
+      }
+    },
+    "text_policies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/textPolicy"
+      }
+    },
+    "privacy_controls": {
+      "$ref": "#/$defs/privacyControls"
+    },
+    "quality_gates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/qualityGate"
+      }
+    },
+    "validation": {
+      "$ref": "#/$defs/validation"
+    },
+    "publishing": {
+      "$ref": "#/$defs/publishing"
+    }
+  },
+  "not": {
+    "required": ["manifest_version"]
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonicalKeyEncodingVersion": {
+      "type": "string",
+      "enum": ["string-v1", "typed-v2"],
+      "default": "string-v1"
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+    },
+    "tableName": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*\\.[A-Za-z][A-Za-z0-9_]*$"
+    },
+    "columnList": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "policy_version", "owner", "purpose"],
+      "properties": {
+        "dataset_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "policy_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "owner": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "purpose": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "approved_by": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "snapshot_ref"],
+      "properties": {
+        "kind": {
+          "enum": ["postgresql", "sqlite_fixture", "catalog_snapshot"]
+        },
+        "snapshot_ref": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "dataset_ref"],
+      "properties": {
+        "kind": {
+          "enum": ["postgresql", "file", "memory"]
+        },
+        "dataset_ref": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "vault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": {
+          "enum": ["none", "external_ref", "runtime"]
+        },
+        "key_ref": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["include_tables"],
+      "properties": {
+        "include_tables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/tableName"
+          }
+        },
+        "exclude_tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tableName"
+          }
+        }
+      }
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["snapshot_ref", "version_hash"],
+      "properties": {
+        "snapshot_ref": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "version_hash": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "relationshipDiscovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "approval"],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "approval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["auto_approve_enabled", "require_human_approval"],
+          "properties": {
+            "auto_approve_enabled": {
+              "const": false
+            },
+            "require_human_approval": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "relationshipRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "registry_version", "status_filter"],
+      "properties": {
+        "dataset_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "registry_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "canonical_key_encoding_version": {
+          "$ref": "#/$defs/canonicalKeyEncodingVersion"
+        },
+        "status_filter": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "const": "approved"
+          }
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "namespace", "root", "key_strategy", "transform"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "namespace": {
+          "$ref": "#/$defs/identifier"
+        },
+        "root": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "key_strategy": {
+          "$ref": "#/$defs/keyStrategy"
+        },
+        "transform": {
+          "$ref": "#/$defs/entityTransform"
+        }
+      }
+    },
+    "keyStrategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "canonical_columns"],
+      "properties": {
+        "type": {
+          "enum": ["single_column", "composite"]
+        },
+        "canonical_columns": {
+          "$ref": "#/$defs/columnList"
+        },
+        "separator": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "entityTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "namespace", "reversible"],
+      "properties": {
+        "type": {
+          "enum": ["deterministic_token"]
+        },
+        "namespace": {
+          "$ref": "#/$defs/identifier"
+        },
+        "prefix": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reversible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["table", "columns"],
+      "properties": {
+        "table": {
+          "$ref": "#/$defs/tableName"
+        },
+        "columns": {
+          "$ref": "#/$defs/columnList"
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "status",
+        "type",
+        "parent",
+        "child",
+        "namespace",
+        "transform_strategy",
+        "orphan_policy"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "status": {
+          "const": "approved"
+        },
+        "type": {
+          "enum": [
+            "one_to_one",
+            "one_to_many",
+            "many_to_one",
+            "many_to_many_edge",
+            "self_reference",
+            "polymorphic",
+            "temporal",
+            "code_lookup"
+          ]
+        },
+        "parent": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "child": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "namespace": {
+          "$ref": "#/$defs/identifier"
+        },
+        "transform_strategy": {
+          "enum": ["entity_token", "relationship_token", "keep_code"]
+        },
+        "orphan_policy": {
+          "enum": ["block", "warn", "tolerate", "tolerate_null", "create_placeholder_parent", "lookup_archive"]
+        },
+        "condition_sql": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "temporal_condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "dataDefinitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "fields", "api_bindings"],
+      "properties": {
+        "version": {
+          "const": "1.0"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/dataField"
+          }
+        },
+        "api_bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/apiBinding"
+          }
+        }
+      }
+    },
+    "dataDefinitionsV11": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "fields", "api_bindings"],
+      "properties": {
+        "version": {
+          "const": "1.1"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identityDataField"
+          }
+        },
+        "api_bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identityApiBinding"
+          }
+        }
+      }
+    },
+    "identityDataField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "revision_id", "entity", "name", "type", "origin"],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "entity": {
+          "$ref": "#/$defs/entityRef"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean",
+            "date",
+            "date-time",
+            "object",
+            "array",
+            "json",
+            "unknown"
+          ]
+        },
+        "origin": {
+          "enum": ["persisted", "derived", "computed", "api_only"]
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "storage_ref": {
+          "$ref": "#/$defs/identityDatabaseColumnRef"
+        },
+        "lifecycle": {
+          "enum": ["active", "deprecated", "superseded"]
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "superseded_by_object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["origin"],
+            "properties": {
+              "origin": {
+                "const": "persisted"
+              }
+            }
+          },
+          "then": {
+            "required": ["storage_ref"]
+          }
+        },
+        {
+          "if": {
+            "required": ["origin"],
+            "properties": {
+              "origin": {
+                "enum": ["derived", "computed", "api_only"]
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": ["storage_ref"]
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["lifecycle"],
+            "properties": {
+              "lifecycle": {
+                "const": "superseded"
+              }
+            }
+          },
+          "then": {
+            "required": ["superseded_by_object_id"]
+          }
+        }
+      ]
+    },
+    "entityRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset_id", "namespace", "name"],
+      "properties": {
+        "dataset_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "namespace": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "identityDatabaseColumnRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["table", "column", "catalog"],
+      "properties": {
+        "table": {
+          "$ref": "#/$defs/tableName"
+        },
+        "column": {
+          "$ref": "#/$defs/identifier"
+        },
+        "catalog": {
+          "$ref": "#/$defs/catalogSnapshotRef"
+        }
+      }
+    },
+    "catalogSnapshotRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["snapshot_id", "version_hash"],
+      "properties": {
+        "snapshot_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "version_hash": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source_coordinate": {
+          "$ref": "#/$defs/dataSourceCoordinate"
+        }
+      }
+    },
+    "dataSourceCoordinate": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "file_path", "pointer"],
+          "properties": {
+            "kind": {
+              "const": "file"
+            },
+            "file_path": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "pointer": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "line": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "column": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "entity", "id", "pointer"],
+          "properties": {
+            "kind": {
+              "const": "db"
+            },
+            "entity": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "id": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "pointer": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      ]
+    },
+    "identityDataFieldRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "revision_id"],
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "identityApiObjectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "pointer", "version_hash"],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "pointer": {
+          "type": "string",
+          "pattern": "^#(?:/.*)?$"
+        },
+        "version_hash": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "identityApiBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "data_field", "api", "direction"],
+      "properties": {
+        "binding_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "data_field": {
+          "$ref": "#/$defs/identityDataFieldRef"
+        },
+        "api": {
+          "$ref": "#/$defs/identityApiObjectRef"
+        },
+        "direction": {
+          "enum": ["request", "response", "both"]
+        }
+      }
+    },
+    "dataField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity", "name", "type"],
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean",
+            "date",
+            "date-time",
+            "object",
+            "array",
+            "json",
+            "unknown"
+          ]
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "storage_ref": {
+          "$ref": "#/$defs/databaseColumnRef"
+        }
+      }
+    },
+    "databaseColumnRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["table", "column"],
+      "properties": {
+        "table": {
+          "$ref": "#/$defs/tableName"
+        },
+        "column": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "dataFieldRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity", "field"],
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "field": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "apiObjectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "pointer"],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "pointer": {
+          "type": "string",
+          "pattern": "^#(?:/.*)?$"
+        },
+        "version_hash": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "apiBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data_field", "api", "direction"],
+      "properties": {
+        "data_field": {
+          "$ref": "#/$defs/dataFieldRef"
+        },
+        "api": {
+          "$ref": "#/$defs/apiObjectRef"
+        },
+        "direction": {
+          "enum": ["request", "response", "both"]
+        }
+      }
+    },
+    "columnPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["table", "column", "role", "pii", "transform"],
+      "properties": {
+        "table": {
+          "$ref": "#/$defs/tableName"
+        },
+        "column": {
+          "$ref": "#/$defs/identifier"
+        },
+        "role": {
+          "enum": [
+            "direct_identifier",
+            "foreign_identifier",
+            "business_identifier",
+            "business_metric",
+            "unstructured_text",
+            "code_lookup"
+          ]
+        },
+        "pii": {
+          "type": "boolean"
+        },
+        "relationship": {
+          "$ref": "#/$defs/identifier"
+        },
+        "entity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "transform": {
+          "$ref": "#/$defs/columnTransform"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["role", "transform"],
+            "properties": {
+              "role": {
+                "const": "direct_identifier"
+              },
+              "transform": {
+                "required": ["type"],
+                "properties": {
+                  "type": {
+                    "const": "keep"
+                  }
+                }
+              }
+            }
+          },
+          "then": false
+        },
+        {
+          "if": {
+            "required": ["role", "pii"],
+            "properties": {
+              "role": {
+                "const": "foreign_identifier"
+              },
+              "pii": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": ["relationship"]
+          }
+        }
+      ]
+    },
+    "columnTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": [
+            "keep",
+            "redact",
+            "mask",
+            "null",
+            "hash",
+            "generalize",
+            "relationship_token",
+            "polymorphic_relationship_token"
+          ]
+        },
+        "relationship": {
+          "$ref": "#/$defs/identifier"
+        },
+        "relationships": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "relationship_token"
+              }
+            }
+          },
+          "then": {
+            "required": ["relationship"]
+          }
+        },
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "polymorphic_relationship_token"
+              }
+            }
+          },
+          "then": {
+            "required": ["relationships"]
+          }
+        }
+      ]
+    },
+    "textPolicy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "privacyControls": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "qualityGate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "publishing": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

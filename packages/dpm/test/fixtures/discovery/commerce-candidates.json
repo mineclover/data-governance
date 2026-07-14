@@ -1,0 +1,79 @@
+{
+  "datasetId": "commerce_ai",
+  "generatedAt": "2026-07-01T00:00:00.000Z",
+  "thresholds": {
+    "reviewMin": 0.9,
+    "rejectBelow": 0.9,
+    "highConfidenceMin": 0.995,
+    "maxOrphanRatioBlocking": 0.001
+  },
+  "candidates": [
+    {
+      "id": "candidate:orders_customer",
+      "relationshipName": "rel_orders_customer",
+      "type": "one_to_many",
+      "parent": {
+        "table": "public.customers",
+        "columns": ["customer_no"]
+      },
+      "child": {
+        "table": "public.orders",
+        "columns": ["customer_no"]
+      },
+      "confidenceScore": 0.998,
+      "evidence": [
+        {
+          "kind": "column_name_similarity",
+          "score": 1,
+          "message": "Both endpoints use customer_no."
+        },
+        {
+          "kind": "unique_candidate",
+          "score": 1,
+          "message": "public.customers.customer_no is a unique candidate."
+        },
+        {
+          "kind": "query_log",
+          "score": 0.99,
+          "message": "Observed joins from orders.customer_no to customers.customer_no.",
+          "metadata": {
+            "sampleCount": 128
+          }
+        },
+        {
+          "kind": "orm_metadata",
+          "message": "Order.customer belongsTo Customer."
+        }
+      ]
+    },
+    {
+      "id": "candidate:orders_status",
+      "relationshipName": "rel_orders_status",
+      "type": "code_lookup",
+      "parent": {
+        "table": "public.order_statuses",
+        "columns": ["status"]
+      },
+      "child": {
+        "table": "public.orders",
+        "columns": ["status"]
+      },
+      "confidenceScore": 0.72,
+      "evidence": [
+        {
+          "kind": "column_name_similarity",
+          "score": 0.7,
+          "message": "Status column names match but metric/status exclusions need review."
+        }
+      ],
+      "warnings": ["ambiguous-status-column"]
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "excluded:orders_amount",
+      "reason": "metric_like_column",
+      "message": "orders.amount is metric-like and must not become a relationship candidate."
+    }
+  ]
+}

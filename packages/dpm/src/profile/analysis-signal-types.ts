@@ -1,0 +1,5 @@
+export type { DpmProfileAnalysisCoverage } from './analysis-coverage-types.js'
+export type { DpmProfileDriftSignal } from './analysis-drift-signal-types.js'
+export type { DpmProfileKeyCandidate } from './analysis-key-candidate-types.js'
+export type { DpmProfileRelationshipHintProposal } from './analysis-relationship-hint-types.js'
+export type { DpmProfileRiskIndicator } from './analysis-risk-types.js'

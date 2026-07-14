@@ -1,0 +1,10 @@
+import { POSTGRES_CATALOG_PROFILE_CTES } from './profiler-postgres-query-ctes.js'
+import {
+  POSTGRES_CATALOG_PROFILE_ORDER_BY,
+  POSTGRES_CATALOG_PROFILE_RECORD_SELECTS,
+} from './profiler-postgres-query-records.js'
+
+export const POSTGRES_CATALOG_PROFILE_SQL = `${POSTGRES_CATALOG_PROFILE_CTES}
+${POSTGRES_CATALOG_PROFILE_RECORD_SELECTS.join('\nunion all\n')}
+${POSTGRES_CATALOG_PROFILE_ORDER_BY}
+`

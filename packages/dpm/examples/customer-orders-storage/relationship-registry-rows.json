@@ -1,0 +1,57 @@
+[
+  {
+    "datasetId": "commerce_ai_storage_demo",
+    "registryVersion": "reg-storage-2026-07-01",
+    "relationshipName": "rel_orders_customer",
+    "relationshipVersion": "1",
+    "status": "approved",
+    "relationshipType": "one_to_many",
+    "parentTable": "public.customers",
+    "parentColumns": ["customer_no"],
+    "childTable": "public.orders",
+    "childColumns": ["customer_no"],
+    "namespace": "customer",
+    "transformStrategy": "entity_token",
+    "orphanPolicy": "block",
+    "contextColumns": ["tenant_id"],
+    "confidenceScore": 0.998,
+    "evidence": [
+      {
+        "kind": "catalog_fk",
+        "score": 0.99,
+        "message": "orders.customer_no references customers.customer_no"
+      }
+    ],
+    "approval": {
+      "owner": "privacy-platform",
+      "approvedBy": "privacy-reviewer",
+      "approvedAt": "2026-07-01T00:00:00.000Z",
+      "reason": "Customer relationship is required for AI analytics joins."
+    },
+    "sourceFreshnessHash": "sha256:storage-demo-catalog-placeholder"
+  },
+  {
+    "datasetId": "commerce_ai_storage_demo",
+    "registryVersion": "reg-storage-2026-07-01",
+    "relationshipName": "rel_orders_status",
+    "relationshipVersion": "1",
+    "status": "rejected",
+    "relationshipType": "code_lookup",
+    "parentTable": "public.order_statuses",
+    "parentColumns": ["status"],
+    "childTable": "public.orders",
+    "childColumns": ["status"],
+    "namespace": "order_status",
+    "transformStrategy": "keep_code",
+    "orphanPolicy": "warn",
+    "contextColumns": [],
+    "evidence": [],
+    "approval": {
+      "owner": "privacy-platform",
+      "reviewedBy": "privacy-reviewer",
+      "reviewedAt": "2026-07-01T00:00:00.000Z",
+      "reason": "Candidate was ambiguous and is intentionally non-executable."
+    },
+    "sourceFreshnessHash": "sha256:storage-demo-catalog-placeholder"
+  }
+]

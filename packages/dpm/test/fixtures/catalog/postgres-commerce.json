@@ -1,0 +1,125 @@
+{
+  "database": "commerce",
+  "capturedAt": "2026-07-01T00:00:00.000Z",
+  "schemas": [
+    {
+      "name": "public",
+      "owner": "postgres"
+    }
+  ],
+  "tables": [
+    {
+      "schema": "public",
+      "name": "orders",
+      "table": "public.orders",
+      "kind": "table"
+    },
+    {
+      "schema": "public",
+      "name": "customers",
+      "table": "public.customers",
+      "kind": "table"
+    }
+  ],
+  "columns": [
+    {
+      "table": "public.orders",
+      "name": "order_id",
+      "dataType": "bigint",
+      "nullable": false,
+      "ordinal": 1
+    },
+    {
+      "table": "public.orders",
+      "name": "customer_no",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 2
+    },
+    {
+      "table": "public.orders",
+      "name": "amount",
+      "dataType": "numeric",
+      "nullable": false,
+      "ordinal": 3,
+      "defaultValue": "0"
+    },
+    {
+      "table": "public.customers",
+      "name": "customer_no",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 1
+    },
+    {
+      "table": "public.customers",
+      "name": "tenant_id",
+      "dataType": "text",
+      "nullable": false,
+      "ordinal": 2
+    }
+  ],
+  "primaryKeys": [
+    {
+      "table": "public.customers",
+      "name": "customers_pkey",
+      "columns": ["customer_no"]
+    },
+    {
+      "table": "public.orders",
+      "name": "orders_pkey",
+      "columns": ["order_id"]
+    }
+  ],
+  "foreignKeys": [
+    {
+      "table": "public.orders",
+      "name": "orders_customer_no_fkey",
+      "columns": ["customer_no"],
+      "referencedTable": "public.customers",
+      "referencedColumns": ["customer_no"],
+      "enforced": false,
+      "onDelete": "no_action",
+      "onUpdate": "no_action"
+    }
+  ],
+  "indexes": [
+    {
+      "table": "public.customers",
+      "name": "customers_customer_no_idx",
+      "columns": ["customer_no"],
+      "unique": true,
+      "method": "btree"
+    },
+    {
+      "table": "public.orders",
+      "name": "orders_customer_no_idx",
+      "columns": ["customer_no"],
+      "unique": false,
+      "method": "btree"
+    }
+  ],
+  "uniqueCandidates": [
+    {
+      "table": "public.customers",
+      "name": "customers_customer_no_unique_candidate",
+      "columns": ["customer_no"],
+      "reason": "unique_index",
+      "confidence": 1
+    }
+  ],
+  "sources": {
+    "table:public.customers": {
+      "kind": "db",
+      "entity": "table",
+      "id": "public.customers",
+      "pointer": "#/tables/public.customers"
+    },
+    "table:public.orders": {
+      "kind": "db",
+      "entity": "table",
+      "id": "public.orders",
+      "pointer": "#/tables/public.orders"
+    }
+  }
+}

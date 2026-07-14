@@ -1,0 +1,47 @@
+{
+  "profile": "component-bundle",
+  "projection": {
+    "openapi": "3.2.0",
+    "info": {
+      "title": "Commerce table projection",
+      "version": "1.0.0"
+    },
+    "paths": {},
+    "components": {
+      "schemas": {
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "customer_no": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "refs": [],
+  "diagnostics": [],
+  "sources": {
+    "table:public.customers": {
+      "kind": "db",
+      "entity": "table",
+      "id": "public.customers",
+      "pointer": "#/components/schemas/Customer"
+    }
+  },
+  "versionHash": "sha256:projection-commerce-v1",
+  "typeTargets": [
+    {
+      "id": "schema:public/customer/Customer",
+      "name": "Customer",
+      "kind": "schema",
+      "source": {
+        "kind": "db",
+        "entity": "table",
+        "id": "public.customers",
+        "pointer": "#/components/schemas/Customer"
+      }
+    }
+  ]
+}

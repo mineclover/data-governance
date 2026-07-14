@@ -1,0 +1,108 @@
+dataset_id: commerce_ai
+registry_version: reg-2026-07-01
+exported_at: "2026-07-01T00:00:00.000Z"
+relationships:
+  - name: rel_orders_customer
+    version: "1"
+    status: approved
+    type: one_to_many
+    parent:
+      table: public.customers
+      columns: [customer_no]
+    child:
+      table: public.orders
+      columns: [customer_no]
+    namespace: customer
+    transform_strategy: entity_token
+    orphan_policy: block
+    condition:
+      context_columns: [tenant_id]
+    confidence_score: 0.998
+    evidence:
+      - kind: query_log
+        score: 0.99
+        message: Observed joins from orders.customer_no to customers.customer_no.
+    approval:
+      owner: privacy-platform
+      approved_by: privacy-reviewer
+      approved_at: "2026-07-01T00:00:00.000Z"
+      reason: Customer relationship is required for AI analytics joins.
+  - name: rel_orders_status
+    version: "1"
+    status: rejected
+    type: code_lookup
+    parent:
+      table: public.order_statuses
+      columns: [status]
+    child:
+      table: public.orders
+      columns: [status]
+    namespace: order_status
+    transform_strategy: keep_code
+    orphan_policy: warn
+    confidence_score: 0.72
+    evidence:
+      - kind: column_name_similarity
+        score: 0.7
+        message: Status column requires manual modeling and is not approved.
+    approval:
+      owner: privacy-platform
+      reviewed_by: privacy-reviewer
+      reviewed_at: "2026-07-01T00:00:00.000Z"
+      reason: Candidate was ambiguous.
+  - name: rel_legacy_customer
+    version: "2"
+    status: deprecated
+    type: one_to_many
+    parent:
+      table: public.customers
+      columns: [legacy_customer_id]
+    child:
+      table: public.orders
+      columns: [legacy_customer_id]
+    namespace: legacy_customer
+    transform_strategy: entity_token
+    orphan_policy: warn
+    superseded_by: rel_orders_customer
+    approval:
+      owner: privacy-platform
+      reviewed_by: privacy-reviewer
+      reviewed_at: "2026-07-01T00:00:00.000Z"
+      reason: Replaced by customer_no relationship.
+  - name: rel_old_orders_customer
+    version: "1"
+    status: superseded
+    type: one_to_many
+    parent:
+      table: public.customers
+      columns: [customer_no]
+    child:
+      table: public.orders
+      columns: [customer_no]
+    namespace: customer
+    transform_strategy: entity_token
+    orphan_policy: warn
+    superseded_by: rel_orders_customer
+    approval:
+      owner: privacy-platform
+      reviewed_by: privacy-reviewer
+      reviewed_at: "2026-07-01T00:00:00.000Z"
+      reason: New version tightened orphan policy.
+  - name: rel_tickets_customer
+    version: "1"
+    status: proposed
+    type: one_to_many
+    parent:
+      table: public.customers
+      columns: [customer_no]
+    child:
+      table: public.tickets
+      columns: [customer_no]
+    namespace: customer
+    transform_strategy: entity_token
+    orphan_policy: warn
+    approval:
+      owner: support-platform
+      reviewed_by: privacy-reviewer
+      reviewed_at: "2026-07-01T00:00:00.000Z"
+      reason: Awaiting approval.

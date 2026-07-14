@@ -1,0 +1,19 @@
+{
+  "name": "data-governance",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Private owner repository for the DPM logical data definition and extraction boundary",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=25.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "corepack pnpm --filter @oa-sdk/openapi-projection-contract build && corepack pnpm --filter @oa-sdk/dpm build",
+    "test": "corepack pnpm --filter @oa-sdk/openapi-projection-contract test && corepack pnpm --filter @oa-sdk/dpm test",
+    "typecheck": "corepack pnpm --filter @oa-sdk/openapi-projection-contract typecheck && corepack pnpm --filter @oa-sdk/dpm typecheck",
+    "smoke:dpm": "corepack pnpm --filter @oa-sdk/dpm smoke:subpaths && corepack pnpm --filter @oa-sdk/dpm smoke:extraction && corepack pnpm --filter @oa-sdk/dpm smoke:consumer-workflow && corepack pnpm --filter @oa-sdk/dpm smoke:pack",
+    "check:boundary": "! rg -n '\\.\\./\\.\\./(parser|core|packages)/src' packages/dpm/src packages/dpm/test packages/dpm/examples packages/dpm/package.json"
+  }
+}

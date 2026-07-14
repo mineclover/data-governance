@@ -1,0 +1,92 @@
+{
+  "dpm_version": "1.0",
+  "metadata": {
+    "dataset_id": "commerce_ai",
+    "policy_version": "2026.07.01",
+    "owner": "privacy-platform",
+    "purpose": "AI analytics pseudonymized commerce dataset"
+  },
+  "source": {
+    "kind": "postgresql",
+    "snapshot_ref": "catalogs/commerce-postgres.json"
+  },
+  "target": {
+    "kind": "postgresql",
+    "dataset_ref": "ai_commerce_pseudo"
+  },
+  "vault": {
+    "mode": "external_ref",
+    "key_ref": "vault://dpm/commerce"
+  },
+  "scope": {
+    "include_tables": ["public.customers", "public.orders"]
+  },
+  "relationship_discovery": {
+    "enabled": true,
+    "approval": {
+      "auto_approve_enabled": false,
+      "require_human_approval": true
+    }
+  },
+  "relationship_registry": {
+    "dataset_id": "commerce_ai",
+    "registry_version": "reg-2026-07-01",
+    "status_filter": ["approved"]
+  },
+  "entities": [
+    {
+      "name": "customer",
+      "namespace": "customer",
+      "root": {
+        "table": "public.customers",
+        "columns": ["customer_no"]
+      },
+      "key_strategy": {
+        "type": "single_column",
+        "canonical_columns": ["customer_no"]
+      },
+      "transform": {
+        "type": "deterministic_token",
+        "namespace": "customer",
+        "reversible": true
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "name": "rel_orders_customer",
+      "status": "approved",
+      "type": "one_to_many",
+      "parent": {
+        "table": "public.customers",
+        "columns": ["customer_no"]
+      },
+      "child": {
+        "table": "public.orders",
+        "columns": ["customer_no"]
+      },
+      "namespace": "customer",
+      "transform_strategy": "entity_token",
+      "orphan_policy": "block"
+    }
+  ],
+  "columns": [
+    {
+      "table": "public.customers",
+      "column": "customer_no",
+      "role": "direct_identifier",
+      "pii": true,
+      "transform": {
+        "type": "keep"
+      }
+    }
+  ],
+  "privacy_controls": {},
+  "quality_gates": [
+    {
+      "name": "relationship_integrity"
+    }
+  ],
+  "validation": {},
+  "publishing": {}
+}
