@@ -21,8 +21,8 @@ candidate canonical owner for the extracted contract plane.
    deterministic and independently testable.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
 3. Keep owner CI green on Node.js 25 and pnpm 10.30.3 for `main` and pull requests.
-4. Record formal release authority, issue/review location, compatibility window, package metadata,
-   and canonical cutover decision.
+4. Use the structured Goal 68.4 owner acceptance issue form to record formal release authority,
+   issue/review location, compatibility window, package metadata, and canonical cutover decision.
 5. Only after sign-off, decide whether the monorepo package becomes an adapter or remains a
    private compatibility mirror.
 

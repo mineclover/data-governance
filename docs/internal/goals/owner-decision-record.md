@@ -30,9 +30,11 @@ completed compatibility-adapter cutover.
 - Repository governance check: GitHub Issues are enabled at
   `https://github.com/mineclover/data-governance/issues` as the current issue/review
   location; formal release authority is still unconfirmed.
-- Canonical owner-document set and reproducible link gate: `ffa9f5c`, `591aefb`, and
-  `0c14ad9`; owner CI run
-  [29352088888](https://github.com/mineclover/data-governance/actions/runs/29352088888)
+- Structured Goal 68.4 owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
+  The review workflow is available; no formal acceptance issue or approval has been recorded.
+- Canonical owner-document set and reproducible link gate: `ffa9f5c`, `591aefb`, `0c14ad9`,
+  and `beabf42`; owner CI run
+  [29352690749](https://github.com/mineclover/data-governance/actions/runs/29352690749)
   passed the build, typecheck, boundary, documentation, test, and DPM consumer-smoke checks.
 - External build, typecheck, boundary, 120 test files/269 tests, package subpath, declaration,
   packed runtime, workflow, rollback, and pack checks passed before the owner CI was added.

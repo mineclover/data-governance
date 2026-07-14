@@ -1,0 +1,109 @@
+name: DPM Goal 68.4 owner acceptance
+description: Record the formal owner decision for the private DPM contract plane.
+title: "[DPM] Goal 68.4 owner acceptance"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this issue only for the formal owner acceptance of Goal 68.4.
+        Attach or link the evidence for every required decision before approving the
+        monorepo adapter cutover or any public package release.
+
+        Reference documents:
+        - https://github.com/mineclover/data-governance/blob/main/docs/internal/goals/owner-decision-record.md
+        - https://github.com/mineclover/data-governance/blob/main/docs/internal/goals/goal-68-extraction-acceptance-checklist.md
+        - https://github.com/mineclover/data-governance/blob/main/docs/internal/goals/goal-68-dpm-extraction-migration.md
+
+  - type: input
+    id: release-authority
+    attributes:
+      label: Formal release authority
+      description: Name the person or team authorized to approve releases and the adapter cutover.
+      placeholder: "team or GitHub handle"
+    validations:
+      required: true
+
+  - type: input
+    id: ci-run
+    attributes:
+      label: Owner CI run
+      description: Link the successful owner CI run for the reviewed commit.
+      placeholder: "https://github.com/mineclover/data-governance/actions/runs/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: artifact-policy
+    attributes:
+      label: Artifact and manifest acceptance
+      description: Record the accepted artifact kind/version and data_definitions policy.
+      placeholder: |
+        Artifact: dpm.data-binding-artifact.v1 / 1.0
+        Manifest: data_definitions 1.0 accepted; 1.1 accepted, experimental, or deferred
+    validations:
+      required: true
+
+  - type: textarea
+    id: package-policy
+    attributes:
+      label: Package, registry, and license policy
+      description: Record the package name, registry scope, license, and publication policy.
+      placeholder: "Private package/no public registry, or the authorized release policy"
+    validations:
+      required: true
+
+  - type: textarea
+    id: compatibility-window
+    attributes:
+      label: Compatibility window and deprecation
+      description: Define how long existing @oa-sdk/dpm imports remain supported and the deprecation release.
+      placeholder: "Compatibility window, adapter behavior, and deprecation release"
+    validations:
+      required: true
+
+  - type: textarea
+    id: canonical-documents
+    attributes:
+      label: Canonical documents
+      description: Link the canonical roadmap, Goal 68, migration contract, and decision record.
+      placeholder: "One URL per canonical document"
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback-review
+    attributes:
+      label: Rollback review and sign-off
+      description: Link the rollback fixture result and the review or approval record.
+      placeholder: "Rollback evidence URL and reviewer/sign-off reference"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acceptance-gates
+    attributes:
+      label: Acceptance gates
+      description: Check each gate only after reviewing the linked evidence.
+      options:
+        - label: The private repository, owner, default branch, and issue/review location are confirmed.
+          required: true
+        - label: The owner CI run covers build, typecheck, boundary, documentation, tests, and consumer smoke.
+          required: true
+        - label: The artifact marker/version and data_definitions compatibility policy are accepted.
+          required: true
+        - label: Package, registry, license, and publication policy are recorded.
+          required: true
+        - label: The compatibility window and deprecation release are recorded.
+          required: true
+        - label: Canonical document links and provenance are reviewed.
+          required: true
+        - label: Rollback evidence and the formal review/sign-off reference are attached.
+          required: true
+
+  - type: checkboxes
+    id: final-approval
+    attributes:
+      label: Final approval
+      options:
+        - label: I am authorized to record this owner acceptance, and the completed fields are the final decision.
+          required: true

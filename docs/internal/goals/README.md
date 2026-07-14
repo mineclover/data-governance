@@ -13,6 +13,10 @@ release at this stage.
 The repository remains private under the interim decision in
 [owner-decision-record.md](./owner-decision-record.md).
 
+The formal acceptance review is collected through the GitHub Issues location; the structured
+issue form is `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`. Submitting the form does not
+itself approve a release or adapter cutover; the named release authority must still sign off.
+
 ## Current owner goal
 
 | Goal | Status | Package |
