@@ -1,6 +1,6 @@
 # Goal 68.4 — External Extraction Acceptance Checklist
 
-**Status: private owner repository and CI verified; formal external owner acceptance pending**
+**Status: private owner repository, CI, and issue/review location verified; formal external owner acceptance pending**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 >
@@ -29,8 +29,10 @@ external repository ownership, or acceptance of the experimental v1.1 wire shape
 
 The private owner repository is now `https://github.com/mineclover/data-governance`. The
 repository was created on 2026-07-15, and owner workflow
-[29350009558](https://github.com/mineclover/data-governance/actions/runs/29350009558) passed for
-commit `34dff0f`. Formal owner acceptance, release authority, public package metadata,
+[29351099635](https://github.com/mineclover/data-governance/actions/runs/29351099635) passed for
+commit `591aefb`. GitHub Issues are enabled at
+`https://github.com/mineclover/data-governance/issues` as the current issue/review location.
+Formal owner acceptance, release authority, public package metadata,
 compatibility window, and canonical sign-off remain pending.
 
 ## External owner acceptance gates
@@ -61,7 +63,8 @@ Complete this section in the owner environment; an empty record is intentional i
 | Decision | Recorded value |
 |---|---|
 | Canonical repository | `https://github.com/mineclover/data-governance` (private; created 2026-07-15) |
-| Owner / release authority | `mineclover`; release authority confirmation pending |
+| Owner / release authority | `mineclover`; formal release authority confirmation pending |
+| Issue / review location | [GitHub Issues](https://github.com/mineclover/data-governance/issues) is enabled; final review/sign-off workflow pending |
 | Public package and registry | pending |
 | Accepted `data_definitions` versions | pending |
 | Accepted artifact kind/version | pending |

@@ -51,7 +51,7 @@ The same gates run in
 
 ## Open formal decisions
 
-- release authority and issue/review location;
+- formal release authority and final review/sign-off workflow (GitHub Issues is enabled as the current issue/review location);
 - compatibility window and deprecation release;
 - license, package metadata, registry scope, and future publication policy;
 - rollback fixture review/sign-off reference;
