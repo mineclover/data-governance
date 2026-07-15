@@ -29,6 +29,8 @@ Issue is not required for ordinary roadmap updates.
   migration or deployment executed.
 - Async PostgreSQL storage contract, schema blocks, identity-index writer, and fake-client evidence
   implemented without adding a database driver or applying SQL.
+- Async authoring service façade and [operational migration packet](./phase-8-operational-migration-packet.md)
+  prepared; no production cutover or migration authorized.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next

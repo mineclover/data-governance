@@ -34,6 +34,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md)
 - [Phase 8 private activation decision record](./phase-8-decision-record.md)
 - [Phase 8 persistence and identity index proposal](./phase-8-persistence-proposal.md)
+- [Phase 8 operational migration packet](./phase-8-operational-migration-packet.md)
 - [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 - [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)
 - [Goal 68.4 acceptance checklist](./goal-68-extraction-acceptance-checklist.md)

@@ -100,8 +100,10 @@ import {
   type DpmPublishingContext,
 } from '@oa-sdk/dpm/publishing'
 import {
+  createDpmAsyncAuthoringService,
   createDpmAuthoringService,
   createDpmInMemoryAuthoringRepository,
+  type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
 } from '@oa-sdk/dpm/authoring'
 
@@ -166,6 +168,9 @@ const targetRefResolution: DpmProfileRelationshipTargetRefResolution = {
 const typeSmoke: DpmSubpathTypeSmoke = {}
 const authoringActor: DpmAuthoringActor = { id: 'smoke', roles: ['editor'] }
 const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
+const asyncAuthoring = createDpmAsyncAuthoringService({
+  repository: {} as DpmAsyncAuthoringRepository,
+})
 const dataDefinitions = createDpmIdentityDataDefinitions({
   version: '1.1',
   fields: [{
@@ -225,4 +230,5 @@ void [
   typeSmoke,
   authoringActor,
   authoring,
+  asyncAuthoring,
 ]

@@ -274,7 +274,7 @@ function previewDraftFor(
   return createDpmAuthoringSemanticDiff(base, draft)
 }
 
-function normalizeDefinitions(definitions: DpmIdentityDataDefinitions): DpmIdentityDataDefinitions {
+export function normalizeDefinitions(definitions: DpmIdentityDataDefinitions): DpmIdentityDataDefinitions {
   const input: DpmIdentityDataDefinitionsInput = {
     version: '1.1',
     fields: definitions.fields.map(field => ({
@@ -317,7 +317,7 @@ function copyStorageRef(storageRef: NonNullable<DpmIdentityDataDefinitions['fiel
   }
 }
 
-function copySource(source: DpmAuthoringSource): DpmAuthoringSource {
+export function copySource(source: DpmAuthoringSource): DpmAuthoringSource {
   return {
     artifactIdentity: source.artifactIdentity,
     freshnessIdentity: source.freshnessIdentity,

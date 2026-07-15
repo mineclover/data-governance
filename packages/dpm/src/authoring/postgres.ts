@@ -10,6 +10,8 @@ import type {
 import type {
   DpmAuthoringAuditEvent,
   DpmAuthoringDraft,
+  DpmAuthoringIdentityIndexKind,
+  DpmAuthoringIdentityIndexRow,
   DpmAuthoringPublishedRevision,
   DpmAuthoringSource,
 } from './types.js'
@@ -22,16 +24,6 @@ export type DpmPostgresAuthoringQueryClient = {
 
 export type DpmPostgresAuthoringClient = DpmPostgresAuthoringQueryClient & {
   transaction<T>(operation: (client: DpmPostgresAuthoringQueryClient) => Promise<T>): Promise<T>
-}
-
-export type DpmAuthoringIdentityIndexKind = 'object' | 'api' | 'db'
-
-export type DpmAuthoringIdentityIndexRow = {
-  definitionId: string
-  revisionId: string
-  identityKind: DpmAuthoringIdentityIndexKind
-  identityKey: string
-  objectId: string
 }
 
 export type DpmPostgresAuthoringStorage = {

@@ -51,4 +51,5 @@ contract and avoids indexing display names as canonical keys.
 - public package metadata, registry publication, license, T1 tag, and adapter cutover.
 
 The async PostgreSQL adapter contract and fake-client tests are now prepared. Actual migration
-requires a separate owner-approved operational change.
+requires the [Phase 8 operational migration packet](./phase-8-operational-migration-packet.md) and
+a separate owner-approved operational change.

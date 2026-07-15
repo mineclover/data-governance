@@ -80,6 +80,16 @@ export type DpmAuthoringLookupMatch = {
   bindings: readonly DpmIdentityApiBinding[]
 }
 
+export type DpmAuthoringIdentityIndexKind = 'object' | 'api' | 'db'
+
+export type DpmAuthoringIdentityIndexRow = {
+  definitionId: string
+  revisionId: string
+  identityKind: DpmAuthoringIdentityIndexKind
+  identityKey: string
+  objectId: string
+}
+
 export type DpmAuthoringChangeKind =
   | 'field.added'
   | 'field.removed'
@@ -170,8 +180,41 @@ export type DpmAuthoringService = {
   }): readonly DpmAuthoringAuditEvent[]
 }
 
+export type DpmAsyncAuthoringRepository = {
+  putPublishedRevision(revision: DpmAuthoringPublishedRevision): Promise<void>
+  getPublishedRevision(definitionId: string, revisionId: string): Promise<DpmAuthoringPublishedRevision | undefined>
+  getLatestPublishedRevision(definitionId: string): Promise<DpmAuthoringPublishedRevision | undefined>
+  listPublishedRevisions(definitionId: string): Promise<readonly DpmAuthoringPublishedRevision[]>
+  putDraft(draft: DpmAuthoringDraft): Promise<void>
+  getDraft(definitionId: string, draftId: string): Promise<DpmAuthoringDraft | undefined>
+  appendAuditEvent(event: DpmAuthoringAuditEvent): Promise<void>
+  listAuditEvents(definitionId: string): Promise<readonly DpmAuthoringAuditEvent[]>
+  lookupIdentity(input: {
+    identityKind: DpmAuthoringIdentityIndexKind
+    identityKey: string
+  }): Promise<readonly DpmAuthoringIdentityIndexRow[]>
+}
+
+export type DpmAsyncAuthoringService = {
+  seedPublishedRevision(input: Parameters<DpmAuthoringService['seedPublishedRevision']>[0]): Promise<DpmAuthoringPublishedRevision>
+  getPublishedRevision(input: Parameters<DpmAuthoringService['getPublishedRevision']>[0]): Promise<DpmAuthoringPublishedRevision | undefined>
+  lookup(input: Parameters<DpmAuthoringService['lookup']>[0]): Promise<readonly DpmAuthoringLookupMatch[]>
+  createDraft(input: Parameters<DpmAuthoringService['createDraft']>[0]): Promise<DpmAuthoringDraft>
+  previewDraft(input: Parameters<DpmAuthoringService['previewDraft']>[0]): Promise<DpmAuthoringSemanticDiff>
+  submitDraft(input: Parameters<DpmAuthoringService['submitDraft']>[0]): Promise<DpmAuthoringDraft>
+  publishDraft(input: Parameters<DpmAuthoringService['publishDraft']>[0]): Promise<DpmAuthoringPublishedRevision>
+  rollback(input: Parameters<DpmAuthoringService['rollback']>[0]): Promise<DpmAuthoringPublishedRevision>
+  listAuditEvents(input: Parameters<DpmAuthoringService['listAuditEvents']>[0]): Promise<readonly DpmAuthoringAuditEvent[]>
+}
+
 export type DpmAuthoringServiceOptions = {
   repository: DpmAuthoringRepository
+  clock?: () => string
+  idGenerator?: DpmAuthoringIdGenerator
+}
+
+export type DpmAsyncAuthoringServiceOptions = {
+  repository: DpmAsyncAuthoringRepository
   clock?: () => string
   idGenerator?: DpmAuthoringIdGenerator
 }

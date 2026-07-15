@@ -56,6 +56,7 @@ const checks = [
   ['publishing', typeof publishingModule.createDpmPublishingContext === 'function'],
   ['authoring', typeof authoringModule.createDpmAuthoringService === 'function'
     && typeof authoringModule.createDpmInMemoryAuthoringRepository === 'function'
+    && typeof authoringModule.createDpmAsyncAuthoringService === 'function'
     && typeof authoringModule.DpmAuthoringError === 'function'
     && typeof authoringModule.createDpmPostgresAuthoringStorage === 'function'
     && Array.isArray(authoringModule.DPM_AUTHORING_STORAGE_SCHEMA_SQL_BLOCKS)],

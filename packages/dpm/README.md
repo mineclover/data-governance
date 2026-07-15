@@ -47,7 +47,9 @@ actor role for editing, review, publishing, and rollback; its first repository i
 in-memory behind a repository port. Published revisions and audit events are immutable at the
 package boundary. PostgreSQL is the prepared durable target contract, but schema migration and
 deployment remain deferred. The identity index covers canonical object, API, and DB keys; it is not
-a generic cross-product search service.
+a generic cross-product search service. `createDpmAsyncAuthoringService()` can target the async
+PostgreSQL contract, but production cutover requires the operational migration packet and owner
+approval.
 
 ### Kafka profile review
 
