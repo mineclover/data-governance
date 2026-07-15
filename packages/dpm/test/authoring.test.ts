@@ -65,6 +65,34 @@ describe('DPM private Phase 8 authoring slice', () => {
         },
       },
     })).toHaveLength(1)
+    expect(service.lookup({
+      actor: editor,
+      definitionId: initial.definitionId,
+      query: {
+        field: {
+          entity: { datasetId: 'commerce', namespace: 'customer' },
+          locator: {
+            datasetId: 'commerce',
+            namespace: 'customer',
+            entity: 'customer',
+            field: 'customerNo',
+          },
+          name: 'customerNo',
+          type: 'string',
+          origin: 'persisted',
+          lifecycle: 'active',
+        },
+      },
+    })).toMatchObject([{
+      revisionId: 'revision-1',
+      field: { objectId: 'customer-number' },
+      bindings: [{ bindingId: 'customer-number-response' }],
+    }])
+    expect(service.lookup({
+      actor: editor,
+      definitionId: initial.definitionId,
+      query: { field: { locator: { ...createDefinitions('string').fields[0]!.locator, entity: 'other' } } },
+    })).toHaveLength(0)
 
     const draft = service.createDraft({
       actor: editor,

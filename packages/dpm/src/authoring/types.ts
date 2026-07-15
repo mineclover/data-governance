@@ -80,6 +80,16 @@ export type DpmAuthoringLookup =
   | { objectId: string }
   | { api: Pick<DpmIdentityApiObjectRef, 'artifactId' | 'pointer' | 'versionHash'> & { operationId?: string } }
   | { db: Pick<DpmIdentityDatabaseColumnRef, 'table' | 'column'> & { snapshotId: string; versionHash: string } }
+  | { field: DpmAuthoringFieldLookup }
+
+export type DpmAuthoringFieldLookup = {
+  entity?: Partial<DpmIdentityDataFieldDeclaration['entity']>
+  locator?: DpmIdentityDataFieldDeclaration['locator']
+  name?: string
+  type?: DpmIdentityDataFieldDeclaration['type']
+  origin?: DpmIdentityDataFieldDeclaration['origin']
+  lifecycle?: NonNullable<DpmIdentityDataFieldDeclaration['lifecycle']>
+}
 
 export type DpmAuthoringLookupMatch = {
   definitionId: string

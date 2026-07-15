@@ -6,6 +6,11 @@ import {
   createDpmIdentityDatabaseColumnIdentity,
 } from '../model/data-identity-normalize.js'
 import { createDpmAuthoringSemanticDiff } from './diff.js'
+import {
+  compareDpmAuthoringLookupMatches,
+  lookupDpmAuthoringRevision,
+  matchesDpmAuthoringLookup,
+} from './query.js'
 import { normalizeDefinitions, copySource } from './service.js'
 import {
   DpmAuthoringError,
@@ -61,13 +66,19 @@ export function createDpmAsyncAuthoringService(
     async lookup(input) {
       await requireAnyRole(authorization, input.actor)
       const indexQuery = identityIndexQuery(input.query)
+      if (!indexQuery) {
+        const revision = await repository.getLatestPublishedRevision(input.definitionId)
+        return revision
+          ? lookupDpmAuthoringRevision(revision, input.query).sort(compareDpmAuthoringLookupMatches)
+          : []
+      }
       const rows = await repository.lookupIdentity(indexQuery)
       const matches: DpmAuthoringLookupMatch[] = []
       for (const row of rows) {
         const revision = await repository.getPublishedRevision(row.definitionId, row.revisionId)
         if (!revision) continue
         const field = revision.definitions.fields.find(candidate => candidate.objectId === row.objectId)
-        if (!field || !matchesLookupQuery(field, revision, input.query)) continue
+        if (!field || !matchesDpmAuthoringLookup(field, revision.definitions.apiBindings, input.query)) continue
         matches.push({
           definitionId: revision.definitionId,
           revisionId: revision.revisionId,
@@ -75,7 +86,7 @@ export function createDpmAsyncAuthoringService(
           bindings: revision.definitions.apiBindings.filter(binding => binding.dataField.objectId === field.objectId),
         })
       }
-      return matches.sort(compareLookupMatches)
+      return matches.sort(compareDpmAuthoringLookupMatches)
     },
     async createDraft(input) {
       await requireRole(authorization, input.actor, 'editor')
@@ -240,13 +251,14 @@ export function createDpmAsyncAuthoringService(
 function identityIndexQuery(query: DpmAuthoringLookup): {
   identityKind: 'object' | 'api' | 'db'
   identityKey: string
-} {
+} | undefined {
   if ('objectId' in query) {
     return { identityKind: 'object', identityKey: createDpmDataFieldObjectIdentity(query.objectId) }
   }
   if ('api' in query) {
     return { identityKind: 'api', identityKey: createDpmApiObjectCanonicalIdentity(query.api) }
   }
+  if ('field' in query) return undefined
   return {
     identityKind: 'db',
     identityKey: createDpmIdentityDatabaseColumnIdentity({
@@ -258,27 +270,6 @@ function identityIndexQuery(query: DpmAuthoringLookup): {
       },
     }),
   }
-}
-
-function matchesLookupQuery(
-  field: DpmAuthoringPublishedRevision['definitions']['fields'][number],
-  revision: DpmAuthoringPublishedRevision,
-  query: DpmAuthoringLookup,
-): boolean {
-  if ('objectId' in query || 'db' in query) return true
-  return revision.definitions.apiBindings.some(binding =>
-    binding.dataField.objectId === field.objectId &&
-    binding.api.artifactId === query.api.artifactId &&
-    binding.api.pointer === query.api.pointer &&
-    binding.api.versionHash === query.api.versionHash &&
-    (query.api.operationId === undefined || binding.api.operationId === query.api.operationId)
-  )
-}
-
-function compareLookupMatches(left: DpmAuthoringLookupMatch, right: DpmAuthoringLookupMatch): number {
-  const byDefinition = left.definitionId.localeCompare(right.definitionId)
-  const byRevision = left.revisionId.localeCompare(right.revisionId)
-  return byDefinition || byRevision || left.field.objectId.localeCompare(right.field.objectId)
 }
 
 async function previewDraftFor(

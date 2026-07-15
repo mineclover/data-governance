@@ -6,6 +6,10 @@ import type {
   DpmIdentityDataDefinitionsInput,
 } from '../model/data-identity-types.js'
 import { createDpmAuthoringSemanticDiff } from './diff.js'
+import {
+  compareDpmAuthoringLookupMatches,
+  lookupDpmAuthoringRevision,
+} from './query.js'
 import type {
   DpmAuthoringActor,
   DpmAuthoringAuthorizationPolicy,
@@ -13,8 +17,6 @@ import type {
   DpmAuthoringAuditEvent,
   DpmAuthoringDraft,
   DpmAuthoringIdGenerator,
-  DpmAuthoringLookup,
-  DpmAuthoringLookupMatch,
   DpmAuthoringPublishedRevision,
   DpmAuthoringRepository,
   DpmAuthoringService,
@@ -62,12 +64,8 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
         ? [repository.getLatestPublishedRevision(input.definitionId)].filter(isRevision)
         : []
       return revisions
-        .flatMap(revision => lookupRevision(revision, input.query))
-        .sort((left, right) => {
-          const byDefinition = left.definitionId.localeCompare(right.definitionId)
-          const byObject = left.field.objectId.localeCompare(right.field.objectId)
-          return byDefinition || byObject || left.revisionId.localeCompare(right.revisionId)
-        })
+        .flatMap(revision => lookupDpmAuthoringRevision(revision, input.query))
+        .sort(compareDpmAuthoringLookupMatches)
     },
     createDraft(input) {
       requireRole(authorization, input.actor, 'editor')
@@ -221,50 +219,6 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
     }
     repository.appendAuditEvent(event)
   }
-}
-
-function lookupRevision(
-  revision: DpmAuthoringPublishedRevision,
-  query: DpmAuthoringLookup,
-): DpmAuthoringLookupMatch[] {
-  const bindingsByObjectId = new Map<string, DpmAuthoringPublishedRevision['definitions']['apiBindings']>()
-  for (const binding of revision.definitions.apiBindings) {
-    const bindings = bindingsByObjectId.get(binding.dataField.objectId) ?? []
-    bindingsByObjectId.set(binding.dataField.objectId, [...bindings, binding])
-  }
-  return revision.definitions.fields
-    .filter(field => matchesQuery(field, revision.definitions.apiBindings, query))
-    .map(field => ({
-      definitionId: revision.definitionId,
-      revisionId: revision.revisionId,
-      field,
-      bindings: bindingsByObjectId.get(field.objectId) ?? [],
-    }))
-}
-
-function matchesQuery(
-  field: DpmAuthoringPublishedRevision['definitions']['fields'][number],
-  bindings: DpmAuthoringPublishedRevision['definitions']['apiBindings'],
-  query: DpmAuthoringLookup,
-): boolean {
-  if ('objectId' in query) return field.objectId === query.objectId
-  if ('db' in query) {
-    const storage = field.storageRef
-    return Boolean(
-      storage &&
-        storage.table === query.db.table &&
-        storage.column === query.db.column &&
-        storage.catalog.snapshotId === query.db.snapshotId &&
-        storage.catalog.versionHash === query.db.versionHash,
-    )
-  }
-  return bindings.some(binding => {
-    const api = binding.api
-    return api.artifactId === query.api.artifactId &&
-      api.pointer === query.api.pointer &&
-      api.versionHash === query.api.versionHash &&
-      (query.api.operationId === undefined || api.operationId === query.api.operationId)
-  })
 }
 
 function previewDraftFor(

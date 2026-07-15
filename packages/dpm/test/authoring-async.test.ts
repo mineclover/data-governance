@@ -48,6 +48,31 @@ describe('DPM async authoring service boundary', () => {
       field: { objectId: 'customer-number' },
     }])
 
+    expect(await service.lookup({
+      actor: editor,
+      definitionId: initial.definitionId,
+      query: {
+        field: {
+          locator: {
+            datasetId: 'commerce',
+            namespace: 'customer',
+            entity: 'customer',
+            field: 'customerNo',
+          },
+          type: 'string',
+          lifecycle: 'active',
+        },
+      },
+    })).toMatchObject([{
+      revisionId: 'revision-1',
+      field: { objectId: 'customer-number' },
+    }])
+    expect(await service.lookup({
+      actor: editor,
+      definitionId: initial.definitionId,
+      query: { field: { type: 'boolean' } },
+    })).toHaveLength(0)
+
     const draft = await service.createDraft({
       actor: editor,
       definitionId: initial.definitionId,

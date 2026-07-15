@@ -105,6 +105,7 @@ import {
   createDpmInMemoryAuthoringRepository,
   type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
+  type DpmAuthoringFieldLookup,
 } from '@oa-sdk/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
@@ -148,6 +149,7 @@ type DpmSubpathTypeSmoke = {
   registryRepository?: DpmRegistryWritableRepository
   publishing?: DpmPublishingContext
   authoring?: DpmAuthoringActor
+  authoringLookup?: DpmAuthoringFieldLookup
   dataDefinitions?: DpmIdentityDataDefinitions
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
@@ -167,6 +169,11 @@ const targetRefResolution: DpmProfileRelationshipTargetRefResolution = {
 }
 const typeSmoke: DpmSubpathTypeSmoke = {}
 const authoringActor: DpmAuthoringActor = { id: 'smoke', roles: ['editor'] }
+const authoringLookup: DpmAuthoringFieldLookup = {
+  entity: { datasetId: 'commerce_ai', namespace: 'customer' },
+  type: 'string',
+  lifecycle: 'active',
+}
 const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
 const asyncAuthoring = createDpmAsyncAuthoringService({
   repository: {} as DpmAsyncAuthoringRepository,
@@ -229,6 +236,7 @@ void [
   targetRefResolution,
   typeSmoke,
   authoringActor,
+  authoringLookup,
   authoring,
   asyncAuthoring,
 ]
