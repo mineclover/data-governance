@@ -67,7 +67,9 @@ revision, even if multiple API bindings match; matched identity keys are returne
 2. A generation is visible only after all of its rows are written atomically and its source
    `revisionId` and `freshnessIdentity` are recorded.
 3. A rebuild is idempotent for `(definitionId, revisionId, freshnessIdentity)` and must be safe to
-   retry after interruption. Partial generations are not queryable.
+   retry after interruption. The private reference uses a staged rebuild session: rows are held
+   outside the visible generation until the complete row set is committed, and an interrupted or
+   failed session leaves the generation unavailable. Partial generations are not queryable.
 4. The projection exposes an explicit state of `building`, `ready`, `stale`, or `failed`, together
    with the source revision and freshness identity. A stale or failed generation is not silently
    served as a successful empty result.
@@ -133,8 +135,8 @@ Runtime activation remains deferred until all of the following are explicitly ac
 4. The source-to-index freshness and rebuild protocol is implemented with an idempotent retry
    path and no partial visibility.
 5. A private fixture proves two definitions with colliding display names, exact API/DB identity
-   lookup, unauthorized-scope isolation, stale-index rejection, deterministic pagination, and
-   duplicate collapse.
+   lookup, unauthorized-scope isolation, stale-index rejection, deterministic pagination,
+   duplicate collapse, and interrupted-rebuild retry with atomic ready publication.
 6. The owner records acceptance of this contract before a new runtime API or persistent index is
    activated.
 
@@ -144,7 +146,7 @@ metadata, registry publication, license finalization, `v*` tag, or adapter cutov
 
 ## Evidence and revisit trigger
 
-The private reference projection/query and conformance fixture live in
+The private reference projection/query, staged rebuild session, and conformance fixture live in
 `packages/dpm/src/authoring/read-model-contract.ts` and
 `packages/dpm/test/authoring-read-model-contract.test.ts`. They are intentionally excluded from
 the public authoring export until the activation gates are accepted. The contract drift check is

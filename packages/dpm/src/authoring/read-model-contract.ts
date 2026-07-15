@@ -94,12 +94,22 @@ export type DpmCrossDefinitionReadModelReference = {
     freshnessIdentity: string
     state?: DpmCrossDefinitionReadModelGenerationState
   }): void
+  beginRebuild(input: {
+    revision: DpmAuthoringPublishedRevision
+    freshnessIdentity: string
+  }): DpmCrossDefinitionReadModelRebuildSession
   setGenerationState(input: {
     definitionId: string
     revisionId: string
     state: DpmCrossDefinitionReadModelGenerationState
   }): void
   search(input: DpmCrossDefinitionReadModelSearchInput): DpmCrossDefinitionReadModelSearchResult
+}
+
+export type DpmCrossDefinitionReadModelRebuildSession = {
+  append(input: { objectId: string }): void
+  complete(): void
+  fail(): void
 }
 
 export type DpmCrossDefinitionReadModelReferenceOptions = {
@@ -183,20 +193,58 @@ export function createDpmCrossDefinitionReadModelReference(
 
   return {
     upsert(input) {
-      const rows = projectDpmCrossDefinitionReadModelRows(input.revision, input.freshnessIdentity)
-      const byRevision = generations.get(input.revision.definitionId) ?? new Map<string, InternalGeneration>()
-      byRevision.set(input.revision.revisionId, {
-        definitionId: input.revision.definitionId,
-        revisionId: input.revision.revisionId,
-        createdAt: input.revision.createdAt,
+      commitGeneration(generations, {
+        revision: input.revision,
         freshnessIdentity: input.freshnessIdentity,
         state: input.state ?? 'building',
-        rows: Object.freeze(rows.map(row => ({
-          field: input.revision.definitions.fields.find(field => field.objectId === row.objectId)!,
-          row,
-        }))),
+        rows: createInternalRows(input.revision, input.freshnessIdentity),
       })
-      generations.set(input.revision.definitionId, byRevision)
+    },
+    beginRebuild(input) {
+      const rows = createInternalRows(input.revision, input.freshnessIdentity)
+      const rowsByObjectId = new Map(rows.map(row => [row.row.objectId, row]))
+      const stagedRows = new Map<string, InternalRow>()
+      let closed = false
+
+      commitGeneration(generations, {
+        revision: input.revision,
+        freshnessIdentity: input.freshnessIdentity,
+        state: 'building',
+        rows: [],
+      })
+
+      return {
+        append({ objectId }) {
+          ensureOpen(closed)
+          const row = rowsByObjectId.get(objectId)
+          if (!row) throw new Error(`read-model row not found: ${objectId}`)
+          if (stagedRows.has(objectId)) throw new Error(`read-model row already appended: ${objectId}`)
+          stagedRows.set(objectId, row)
+        },
+        complete() {
+          ensureOpen(closed)
+          if (stagedRows.size !== rows.length) {
+            throw new Error(`read-model rebuild is incomplete: ${stagedRows.size}/${rows.length} rows`)
+          }
+          commitGeneration(generations, {
+            revision: input.revision,
+            freshnessIdentity: input.freshnessIdentity,
+            state: 'ready',
+            rows: [...stagedRows.values()],
+          })
+          closed = true
+        },
+        fail() {
+          ensureOpen(closed)
+          commitGeneration(generations, {
+            revision: input.revision,
+            freshnessIdentity: input.freshnessIdentity,
+            state: 'failed',
+            rows: [],
+          })
+          closed = true
+        },
+      }
     },
     setGenerationState(input) {
       const generation = generations.get(input.definitionId)?.get(input.revisionId)
@@ -267,6 +315,38 @@ export function createDpmCrossDefinitionReadModelReference(
       }
     },
   }
+}
+
+function createInternalRows(
+  revision: DpmAuthoringPublishedRevision,
+  freshnessIdentity: string,
+): readonly InternalRow[] {
+  const rows = projectDpmCrossDefinitionReadModelRows(revision, freshnessIdentity)
+  return Object.freeze(rows.map(row => ({
+    field: revision.definitions.fields.find(field => field.objectId === row.objectId)!,
+    row,
+  })))
+}
+
+function commitGeneration(
+  generations: Map<string, Map<string, InternalGeneration>>,
+  input: {
+    revision: DpmAuthoringPublishedRevision
+    freshnessIdentity: string
+    state: DpmCrossDefinitionReadModelGenerationState
+    rows: readonly InternalRow[]
+  },
+): void {
+  const byRevision = generations.get(input.revision.definitionId) ?? new Map<string, InternalGeneration>()
+  byRevision.set(input.revision.revisionId, {
+    definitionId: input.revision.definitionId,
+    revisionId: input.revision.revisionId,
+    createdAt: input.revision.createdAt,
+    freshnessIdentity: input.freshnessIdentity,
+    state: input.state,
+    rows: Object.freeze([...input.rows]),
+  })
+  generations.set(input.revision.definitionId, byRevision)
 }
 
 function matchesQuery(
@@ -352,6 +432,10 @@ function compareIdentities(
 
 function requireNonEmpty(value: string, label: string): void {
   if (!value) throw new Error(`${label} must be non-empty`)
+}
+
+function ensureOpen(closed: boolean): void {
+  if (closed) throw new Error('read-model rebuild session is closed')
 }
 
 function freezeDeep<T>(value: T): T {

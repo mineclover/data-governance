@@ -13,7 +13,8 @@ import {
 describe('DPM deferred cross-definition read-model contract', () => {
   it('projects canonical identities without copying raw definition content', () => {
     const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
-    const [row] = projectDpmCrossDefinitionReadModelRows(revision, 'sha256:orders-freshness')
+    const row = projectDpmCrossDefinitionReadModelRows(revision, 'sha256:orders-freshness')
+      .find(candidate => candidate.objectId === 'customer-number')
 
     expect(row).toMatchObject({
       definitionId: 'orders-definition',
@@ -98,6 +99,46 @@ describe('DPM deferred cross-definition read-model contract', () => {
     expect(JSON.stringify(fieldResults)).not.toContain('private description')
   })
 
+  it('keeps interrupted rebuilds unavailable and publishes a complete retry atomically', () => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const rows = projectDpmCrossDefinitionReadModelRows(revision, 'sha256:orders-freshness')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: ({ requestedDefinitionIds }) => ({
+        allowed: requestedDefinitionIds?.every(definitionId => definitionId === 'orders-definition') ?? false,
+        definitionIds: requestedDefinitionIds ?? [],
+      }),
+    })
+
+    const interrupted = reference.beginRebuild({
+      revision,
+      freshnessIdentity: 'sha256:orders-freshness',
+    })
+    interrupted.append({ objectId: 'customer-email' })
+    expect(reference.search({
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+    interrupted.fail()
+    expect(reference.search({
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+
+    const retry = reference.beginRebuild({
+      revision,
+      freshnessIdentity: 'sha256:orders-freshness',
+    })
+    for (const row of rows) retry.append({ objectId: row.objectId })
+    retry.complete()
+
+    const result = reference.search({
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+    })
+    expect(result.status).toBe('ready')
+    expect(result.hits.map(hit => hit.objectId)).toEqual(['customer-number'])
+  })
+
   it('fails closed for unauthorized scopes, stale generations, and unbounded queries', () => {
     const reference = createDpmCrossDefinitionReadModelReference({
       authorization: ({ requestedDefinitionIds }) => ({
@@ -156,6 +197,21 @@ function createRevision(
         storageRef: {
           table: 'public.customers',
           column: 'customer_no',
+          catalog: {
+            snapshotId: catalogSnapshotId,
+            versionHash: `sha256:${catalogSnapshotId}`,
+          },
+        },
+      }, {
+        objectId: 'customer-email',
+        revisionId: 'customer-email-rev-1',
+        entity: { datasetId: 'commerce', namespace: definitionId.replace('-definition', ''), name: 'customer' },
+        name: 'email',
+        type: 'string',
+        origin: 'persisted',
+        storageRef: {
+          table: 'public.customers',
+          column: 'email',
           catalog: {
             snapshotId: catalogSnapshotId,
             versionHash: `sha256:${catalogSnapshotId}`,

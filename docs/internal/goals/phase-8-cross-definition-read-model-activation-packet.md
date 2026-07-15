@@ -65,7 +65,8 @@ activation value:
 
 - Use two definitions with colliding display names but distinct definition scopes.
 - Build a generation for each latest published revision with object/API/DB identity rows.
-- Interrupt and retry a rebuild; prove partial generations never become visible.
+- Interrupt and retry a rebuild through the staged private reference; prove partial generations
+  never become visible and only a complete row set publishes `ready` atomically.
 - Mark a generation stale and failed; prove strict queries return `read-model-unavailable`.
 - Prove duplicate identity matches collapse to one logical-field hit and pagination is stable.
 
@@ -105,7 +106,8 @@ Activation is not complete until the owner links all of the following:
 - selected source ref, Owner CI, and private T1 preflight;
 - schema/version and migration output, if a migration was separately approved;
 - backup/restore rehearsal and generation rebuild/interrupt evidence;
-- two-definition collision, exact API/DB, duplicate-collapse, pagination, and stale-state fixture;
+- two-definition collision, exact API/DB, duplicate-collapse, pagination, stale-state, and
+  interrupted-rebuild retry fixture;
 - authorization isolation and deny-by-default evidence;
 - shadow parity report, pilot metrics, observation-window result, and operator sign-off;
 - fallback/rollback execution record.

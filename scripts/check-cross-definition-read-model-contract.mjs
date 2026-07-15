@@ -19,6 +19,8 @@ const requiredMarkers = [
   '`identityKind` is one of `object`, `api`, or `db`',
   '`freshnessIdentity`',
   '`read-model-unavailable`',
+  'staged rebuild session',
+  'atomic ready publication',
   'default policy is deny',
   '`pageSize` defaults to `25` and has a hard maximum of `100`',
   'No PostgreSQL migration',
