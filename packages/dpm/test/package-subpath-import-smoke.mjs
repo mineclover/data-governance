@@ -57,6 +57,7 @@ const checks = [
   ['authoring', typeof authoringModule.createDpmAuthoringService === 'function'
     && typeof authoringModule.createDpmInMemoryAuthoringRepository === 'function'
     && typeof authoringModule.createDpmAsyncAuthoringService === 'function'
+    && typeof authoringModule.createDpmConfiguredAsyncAuthoringService === 'function'
     && typeof authoringModule.resolveDpmAuthoringBackend === 'function'
     && typeof authoringModule.selectDpmAuthoringBackendAdapter === 'function'
     && authoringModule.DPM_AUTHORING_BACKEND_ENV === 'DPM_AUTHORING_BACKEND'

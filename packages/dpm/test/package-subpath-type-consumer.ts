@@ -104,6 +104,7 @@ import {
   DPM_AUTHORING_BACKEND_VALUES,
   DPM_DEFAULT_AUTHORING_BACKEND,
   createDpmAsyncAuthoringService,
+  createDpmConfiguredAsyncAuthoringService,
   createDpmAuthoringQuickFixes,
   createDpmAuthoringService,
   createDpmInMemoryAuthoringRepository,
@@ -203,6 +204,13 @@ const authoringQuickFixes = createDpmAuthoringQuickFixes(authoringDiff)
 const asyncAuthoring = createDpmAsyncAuthoringService({
   repository: {} as DpmAsyncAuthoringRepository,
 })
+const configuredAsyncAuthoring = createDpmConfiguredAsyncAuthoringService({
+  backend: { env: {} },
+  repositories: {
+    memory: {} as DpmAsyncAuthoringRepository,
+    postgres: {} as DpmAsyncAuthoringRepository,
+  },
+})
 const dataDefinitions = createDpmIdentityDataDefinitions({
   version: '1.1',
   fields: [{
@@ -273,4 +281,5 @@ void [
   authoringBackend,
   authoringBackendAdapter,
   asyncAuthoring,
+  configuredAsyncAuthoring,
 ]

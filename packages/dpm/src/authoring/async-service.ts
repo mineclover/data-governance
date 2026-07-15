@@ -13,6 +13,11 @@ import {
 } from './query.js'
 import { normalizeDefinitions, copySource } from './service.js'
 import {
+  selectDpmAuthoringBackendAdapter,
+  type DpmAuthoringBackendAdapters,
+  type DpmAuthoringBackendResolutionInput,
+} from './backend.js'
+import {
   DpmAuthoringError,
   type DpmAsyncAuthoringRepository,
   type DpmAsyncAuthoringAuthorizationPolicy,
@@ -27,6 +32,22 @@ import {
   type DpmAuthoringLookupMatch,
   type DpmAuthoringPublishedRevision,
 } from './types.js'
+
+export type DpmConfiguredAsyncAuthoringServiceOptions =
+  Omit<DpmAsyncAuthoringServiceOptions, 'repository'> & {
+    backend?: DpmAuthoringBackendResolutionInput
+    repositories: DpmAuthoringBackendAdapters<DpmAsyncAuthoringRepository>
+  }
+
+export function createDpmConfiguredAsyncAuthoringService(
+  options: DpmConfiguredAsyncAuthoringServiceOptions,
+): DpmAsyncAuthoringService {
+  const { backend, repositories, ...serviceOptions } = options
+  return createDpmAsyncAuthoringService({
+    ...serviceOptions,
+    repository: selectDpmAuthoringBackendAdapter(backend ?? {}, repositories),
+  })
+}
 
 export function createDpmAsyncAuthoringService(
   options: DpmAsyncAuthoringServiceOptions,
