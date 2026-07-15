@@ -149,5 +149,7 @@ The private reference projection/query and conformance fixture live in
 `packages/dpm/test/authoring-read-model-contract.test.ts`. They are intentionally excluded from
 the public authoring export until the activation gates are accepted. The contract drift check is
 `pnpm check:read-model-contract`. The contract is revisited when the owner selects an operational
-owner and accepts the persistence/authorization entry conditions in an explicit review record.
+owner and accepts the persistence/authorization entry conditions in an explicit review record;
+the recommendation-only activation sequence is in the
+[read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md).
 Passing private tests or T1 preflight alone does not activate it.

@@ -18,6 +18,7 @@
     "check:roadmap": "node scripts/check-roadmap-state.mjs",
     "check:operational-change": "node scripts/check-operational-change-decision.mjs",
     "check:read-model-contract": "node scripts/check-cross-definition-read-model-contract.mjs",
+    "check:read-model-activation": "node scripts/check-read-model-activation-packet.mjs",
     "check:t1-readiness": "node scripts/check-t1-readiness.mjs",
     "check:boundary": "! rg -n '\\.\\./\\.\\./(parser|core|packages)/src' packages/dpm/src packages/dpm/test packages/dpm/examples packages/dpm/package.json"
   }

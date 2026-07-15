@@ -27,6 +27,9 @@ multiplies conflict, audit, and rollback concerns across definitions.
 - Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
   and its private reference/conformance fixture as review artifacts; do not activate a search
   service or persistent index yet.
+- Maintain the [read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
+  with disabled rollout values until an operational owner and authorization/persistence approvals
+  are recorded.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).

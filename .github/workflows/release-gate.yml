@@ -64,6 +64,9 @@ jobs:
       - name: Check cross-definition read-model contract
         run: pnpm check:read-model-contract
 
+      - name: Check read-model activation packet
+        run: pnpm check:read-model-activation
+
       - name: Run tests
         run: pnpm test
 

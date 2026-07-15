@@ -43,6 +43,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Phase 8 authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md)
 - [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
+- [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
 - [T1 candidate decision packet](./t1-candidate-decision-packet.md)
 - [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 - [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)

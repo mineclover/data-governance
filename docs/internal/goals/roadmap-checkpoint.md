@@ -79,6 +79,9 @@ Issue is not required for ordinary roadmap updates.
   freshness/rebuild state, deny-by-default authorization, bounded pagination, and fail-closed
   outcomes; its reference projection/query and conformance fixture pass privately while runtime
   activation remains deferred.
+- The read-model activation sequence is now captured as a recommendation-only packet with disabled,
+  shadow, read-only pilot, fallback, owner-value, and abort rules; it does not authorize migration
+  or deployment.
 
 ## Next
 
@@ -136,6 +139,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | The latest private Owner CI and T1 preflight now include the cross-definition contract guard, while owner-acceptance documents still referenced older runs. | adopt evidence refresh | Synchronize owner-acceptance and Issue #2 evidence to Owner CI `29414794498` and T1 preflight `29415008020`; leave all six approval rows unchecked. | `29414794498`, `29415008020`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-15 | The read-model activation gates need executable evidence for colliding definitions, duplicate identity collapse, pagination, authorization isolation, and stale-index failure. | adopt reference conformance / defer public seam | Add a private projection/query reference and tests without exporting a runtime API or connecting to a database. | `packages/dpm/test/authoring-read-model-contract.test.ts`, `pnpm check:read-model-contract` |
 | 2026-07-15 | The private conformance fixture passed the full Owner CI and T1 preflight for the current candidate. | adopt evidence refresh | Pin readiness and owner-acceptance documents to Owner CI `29416050323` and T1 preflight `29416215842`; keep the public seam and six T1 approval rows unchanged. | `29416050323`, `29416215842`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
+| 2026-07-15 | The read-model contract needs an explicit operational sequence before any owner can review activation. | adopt recommendation-only packet / defer execution | Record disabled → shadow → read-only pilot rollout, required owner values, strict freshness/authorization gates, fallback, and abort rules; keep migration and deployment unauthorized. | [Read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md), `pnpm check:read-model-activation` |
 
 ## Formal approvals
 
