@@ -30,6 +30,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 
 - [DPM Master Roadmap](./dpm-master-roadmap.md)
 - [Roadmap checkpoint](./roadmap-checkpoint.md)
+- [Full phase execution forecast](./full-phase-execution-forecast.md)
 - [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md)
 - [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 - [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)

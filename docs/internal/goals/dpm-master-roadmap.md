@@ -103,31 +103,37 @@ Blocking phases: 5–10.
 
 ### G-02 — Identity contract
 
-The structural slice has separate `field:`, `db:`, `api:`, and `binding:` identities. Remaining
-work is to distinguish a rename-safe logical object id, content/revision id, human locator, binding
-edge id, and Goal 67 canonical data-value encoding. The field reference needs dataset/namespace-safe
-scope, and physical references need catalog snapshot/freshness context. API `operationId` must remain
-a navigation hint and must not participate in canonical API object identity.
+Goal 68.1 implements the separate `field:`, `db:`, `api:`, and `binding:` identities, rename-safe
+logical object/revision/locator/binding records, dataset/namespace-safe references, catalog
+snapshot/freshness context, API pointer identity, and Goal 67 canonical data-value encoding.
+`operationId` remains a navigation hint and does not participate in canonical API object identity.
 
-Blocking phases: 5–9.
+The current contract gap is closed and accepted for the private owner. Future wire revisions or
+additional lifecycle semantics are owner-authorized extensions, not unfinished Phase 5 work.
+
+Blocking phase: none for the accepted contract; future extensions are owner-gated.
 
 ### G-03 — Cross-object semantic validation
 
-JSON Schema and model normalizers currently validate shape and local references. They do not yet
-prove that a field belongs to a declared DPM entity, a DB coordinate exists in the selected catalog,
-or an API pointer/version hash matches an OpenAPI artifact and provenance sidecar.
+Goal 68.2 implements entity membership, catalog table/column membership, API pointer and operation
+consistency, artifact version/provenance verification, binding cardinality, storage-origin
+consistency, and deterministic diagnostics.
 
-Blocking phases: 6–9.
+The current semantic binding contract is closed and accepted for the private owner. Future search,
+authoring, and read-model consumers may extend these diagnostics after Phase 8 activation.
+
+Blocking phase: none for the accepted contract; future consumers are Phase 8 owner-gated.
 
 ### G-04 — Neutral artifact and freshness
 
-The binding needs a neutral artifact contract that can be consumed by codegen/trace/review tooling
-without making Core depend on DPM policy internals. Its freshness tuple must include the DPM data
-definition version, catalog snapshot hash, and API artifact/provenance version. Goal 68.3 now
-provides this as an immutable `DpmNeutralDataBindingArtifact`; extraction and final wire ownership
-remain in Phase 9.
+Goal 68.3 provides the immutable `DpmNeutralDataBindingArtifact`, freshness tuple, compiled plan
+identity, trace/review links, and read-model source without making Core depend on DPM policy
+internals. The neutral artifact contract is implemented and accepted for private ownership.
 
-Blocking phase: 9.
+Remaining work is consumption by the owner-authorized Phase 8 control plane and final external wire
+ownership in Phase 9; neither is a missing Phase 7 implementation.
+
+Blocking phases: 8–9 for future consumers and external release only.
 
 ### G-05 — Spec lifecycle and change classification
 

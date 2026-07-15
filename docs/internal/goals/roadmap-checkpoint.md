@@ -14,6 +14,8 @@ Issue is not required for ordinary roadmap updates.
 - Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
 - Prepare the [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md) without
   activating its implementation.
+- Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
+  gate-based planning instead of calendar promises.
 
 ## Completed
 
@@ -50,6 +52,7 @@ Issue is not required for ordinary roadmap updates.
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Issue-based roadmap checks are cumbersome for routine feedback. | adopt | Use this checkpoint and commit history for routine progress; keep Issue #2 for formal T1 approval only. | `c10ea98`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-15 | The roadmap's next capability is Phase 8, but it is marked future owner-authorized and not active. | adopt proposal / defer implementation | Maintain a reviewable representative-slice proposal until activation, persistence, security, public-seam, and audit decisions are authorized. | [Phase 8 proposal](./phase-8-control-plane-proposal.md) |
+| 2026-07-15 | Exact calendar prediction is not reliable while Phase 8, T1, and runtime ownership gates are unresolved. | adopt forecast | Use phase status, work-unit ranges, confidence, and gate conditions in the full forecast. | [Full phase forecast](./full-phase-execution-forecast.md) |
 
 ## Formal approvals
 
