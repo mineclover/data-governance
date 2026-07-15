@@ -16,6 +16,8 @@ Issue is not required for ordinary roadmap updates.
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
   through consumer evidence before considering cross-definition search or broader authoring workflows.
+- Implement the private [Phase 8 authoring import/export decision](./phase-8-authoring-import-export-decision.md)
+  as pure canonical helpers; keep explain, bulk edit, and broad search deferred.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -75,6 +77,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Authorization must remain portable across future identity providers. | adopt policy port / defer provider integration | Allow owner-injected role mapping with deny-by-default behavior; defer OIDC/RBAC deployment integration. | `0351114`, [Phase 8 decision record](./phase-8-decision-record.md) |
 | 2026-07-15 | T1 package, registry, license, SemVer, and compatibility decisions can be prepared before public approval. | adopt recommendation / defer release action | Prepare `@mineclover/dpm`, npm, Apache-2.0, `v1.0.0`, and one-release adapter-window recommendations; keep all metadata, tag, publication, and cutover actions behind Issue #2. | [T1 candidate decision packet](./t1-candidate-decision-packet.md) |
 | 2026-07-15 | Phase 8 needs a useful read-model increment without opening cross-product indexing or public-release scope. | adopt scoped extension / defer broad search | Add definition-scoped entity/locator/name/type/origin/lifecycle filters and preserve API/DB reverse binding context; defer unsupported metadata and durable indexing. | [Scoped lookup decision](./phase-8-scoped-lookup-decision.md) |
+| 2026-07-15 | Import/export is useful for authoring review but does not need repository, DB, or public-release changes. | adopt pure canonical helpers / defer broader authoring | Add deterministic `data_definitions` `1.1` import/export with derived-identity stripping and round-trip validation; defer explain, bulk edit, and broad search. | [Authoring import/export decision](./phase-8-authoring-import-export-decision.md) |
 
 ## Formal approvals
 
