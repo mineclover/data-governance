@@ -20,9 +20,10 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- Latest private owner candidate: commit `b1b4d08d22afedef65de1441d906963030ec5278` (`docs: sync latest private readiness evidence`).
-- Latest owner CI: [workflow 29400110786](https://github.com/mineclover/data-governance/actions/runs/29400110786), passed for the exact candidate commit.
-- Latest private T1 preflight: [workflow 29399814217](https://github.com/mineclover/data-governance/actions/runs/29399814217), passed for the previous exact candidate `418b72dc61f31192a7f8a8f2c1dc97e4e0841b8c`; rerun it for `b1b4d08d22afedef65de1441d906963030ec5278` before approval.
+- T1 release candidate: commit `c39c240b611bf536702d2e6755f4ff615cc7d777` (`docs: select v0.1.0 for initial public release`).
+- Owner CI: [workflow 29400702153](https://github.com/mineclover/data-governance/actions/runs/29400702153), passed for the exact release candidate.
+- Latest private T1 preflight: [workflow 29400837470](https://github.com/mineclover/data-governance/actions/runs/29400837470), passed for the exact 40-character release candidate SHA.
+- The candidate is immutable for approval purposes; later evidence-only documentation commits do not change the release candidate SHA.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).
