@@ -43,6 +43,9 @@ Issue is not required for ordinary roadmap updates.
   prepared; no production cutover or migration authorized.
 - The recommendation-only operational change decision is checked by `pnpm check:operational-change`
   so required owner gates and no-execution invariants are verified without an Issue.
+- The recommendation-only T1 candidate state is checked by `pnpm check:t1-readiness`, preserving
+  the private package identity/version, absent public license metadata, absent `v*` tags, and the
+  no-public-action boundaries in the candidate packet.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
   load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
@@ -74,6 +77,7 @@ Issue is not required for ordinary roadmap updates.
 - Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
   target, role, backup, flag, observation, and rollback values before any owner-approved run.
 - Run `pnpm check:operational-change` whenever the operational decision or migration packet changes.
+- Run `pnpm check:t1-readiness` whenever the T1 readiness or candidate decision packet changes.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
   unsupported metadata filters, automatic mutation, bulk edit, cross-definition search, and broader
   authoring infrastructure.
@@ -113,6 +117,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Backend wiring needs evidence from the packed external consumer boundary, not only in-repository unit tests. | adopt consumer smoke | Run the configured async authoring service from `@oa-sdk/dpm/authoring` with an injected adapter and assert that no unselected adapter receives the write; keep real PostgreSQL cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 | 2026-07-15 | The existing authoring helpers must remain consumable outside the monorepo before broader Phase 8 work is considered. | adopt consumer smoke | Verify canonical import/export, identity-only explain, and review-only quick-fix suggestions from the packed `@oa-sdk/dpm/authoring` subpath; keep automatic mutation deferred. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 | 2026-07-15 | Runtime authoring evidence is insufficient if packed declaration consumers cannot typecheck the same public seam. | adopt declaration smoke | Typecheck backend, async-service, semantic-diff, explain, and quick-fix types from the packed authoring subpath; keep implementation and cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
+| 2026-07-15 | T1 recommendation documents can drift from the private package boundary during routine maintenance. | adopt readiness contract check | Verify the recommendation-only packet, private package identity/version, absent license/publication metadata, absent `v*` tags, and explicit no-action boundaries in CI. | `pnpm check:t1-readiness` |
 
 ## Formal approvals
 

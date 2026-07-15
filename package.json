@@ -17,6 +17,7 @@
     "check:docs": "node scripts/check-doc-links.mjs",
     "check:roadmap": "node scripts/check-roadmap-state.mjs",
     "check:operational-change": "node scripts/check-operational-change-decision.mjs",
+    "check:t1-readiness": "node scripts/check-t1-readiness.mjs",
     "check:boundary": "! rg -n '\\.\\./\\.\\./(parser|core|packages)/src' packages/dpm/src packages/dpm/test packages/dpm/examples packages/dpm/package.json"
   }
 }

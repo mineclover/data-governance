@@ -50,6 +50,9 @@ jobs:
       - name: Check operational change decision
         run: pnpm check:operational-change
 
+      - name: Check T1 readiness
+        run: pnpm check:t1-readiness
+
       - name: Run tests
         run: pnpm test
 
