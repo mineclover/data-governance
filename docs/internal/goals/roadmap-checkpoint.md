@@ -22,6 +22,8 @@ Issue is not required for ordinary roadmap updates.
   as a read-only identity summary; keep bulk edit and broad search deferred.
 - Maintain the completed private [Phase 8 authoring quick-fix helper](./phase-8-authoring-quick-fix-decision.md)
   as review-only semantic-diff suggestions; keep automatic mutation, bulk edit, and broad search deferred.
+- Follow the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
+  before activating cross-definition search, automatic mutation, or bulk authoring.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -91,6 +93,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Import/export is useful for authoring review but does not need repository, DB, or public-release changes. | adopt pure canonical helpers / defer broader authoring | Add deterministic `data_definitions` `1.1` import/export with derived-identity stripping and round-trip validation; defer explain, bulk edit, and broad search. | [Authoring import/export decision](./phase-8-authoring-import-export-decision.md) |
 | 2026-07-15 | A contract-only explanation view improves review without exposing data values or adding persistence. | adopt pure explain helper / defer broader authoring | Add deterministic, deeply frozen logical/API/DB identity readback; defer quick fixes, bulk edit, and broad search. | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
 | 2026-07-15 | Semantic diff classification is useful to review consumers, but automatic mutation would exceed the private slice. | adopt pure quick-fix suggestions / defer mutation | Add deterministic approval-required breaking-change review plus alias-preserved rename/deprecation suggestions; keep automatic mutation, bulk edit, and broad search deferred. | `bbd335e`, [Authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md) |
+| 2026-07-15 | The remaining Phase 8 extensions have different persistence, authorization, conflict, and rollback prerequisites. | adopt ordered deferral | Prioritize a future cross-definition read model, then automatic mutation, then bulk edit; keep all three deferred until their entry contracts and operational owners are approved. | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
 
 ## Formal approvals
 

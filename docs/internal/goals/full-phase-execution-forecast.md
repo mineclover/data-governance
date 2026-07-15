@@ -70,9 +70,10 @@ definition-scoped [lookup extension](./phase-8-scoped-lookup-decision.md):
 7. validate-preview, semantic diff, breaking classification, approval, publish, audit readback, and rollback;
 8. clean consumer fixture, public seam, documentation, and evidence.
 
-The next follow-ons are automatic mutation, cross-definition search/read models, explicit metadata dimensions,
-and bulk edit. Durable persistence, external authorization, and those broader workflows remain separate
-decisions. No Phase 8 code should be added to the historical
+The next follow-ons are ordered by the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md):
+cross-definition search/read models first, automatic mutation second, and bulk edit last. Durable
+persistence, external authorization, and those broader workflows remain separate decisions. No Phase 8
+code should be added to the historical
 `oa-sdk` mirror.
 
 ### Phase 9 — T1 and one-release compatibility transition
