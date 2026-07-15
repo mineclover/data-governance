@@ -26,6 +26,9 @@ or the `@oa-sdk/dpm` adapter cutover.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+- The current owner comment on Issue #2 labels the packet as preparation rather than approval and
+  leaves the license decision unresolved; checked preparation items do not satisfy the final
+  release gate.
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
 - Repository visibility: private.
 - Public registry, license, and adapter cutover: pending the T1 approval issue.
