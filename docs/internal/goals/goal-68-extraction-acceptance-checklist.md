@@ -22,7 +22,7 @@ public registry publication or removal of the existing import surface.
 | Packed declaration consumer | The same smoke runs `tsc --noEmit` against `external-consumer-type-fixture.ts` and the packed public `@oa-sdk/dpm/data` declarations. |
 | Packed rollback consumer | `external-consumer-rollback-fixture.mjs` proves stale rollout rejection, changed-artifact plan identity, and restoration of the preserved plan identity through the packed package. |
 | Public package boundary | `packages/dpm/package.json` declares the root and category subpaths; package-name imports do not use monorepo source or deep chunk paths. |
-| Owner CI | [Workflow `29380012623`](https://github.com/mineclover/data-governance/actions/runs/29380012623) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for owner commit `41311c8`. |
+| Owner CI | [Workflow `29381266646`](https://github.com/mineclover/data-governance/actions/runs/29381266646) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for owner commit `03c4436`. |
 | Contract rules | [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md) defines v1.0/v1.1, artifact markers, migration order, and rollback behavior. |
 
 ## Accepted owner gates
@@ -59,7 +59,7 @@ public registry publication or removal of the existing import surface.
 | Accepted artifact kind/version | `dpm.data-binding-artifact.v1` / `1.0` |
 | Compatibility window | Through the first accepted owner release plus one subsequent compatibility release; deprecation notice in the final compatibility release |
 | Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical/compatibility mirror |
-| Rollback fixture / review link | [Owner CI `29380012623`](https://github.com/mineclover/data-governance/actions/runs/29380012623), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
+| Rollback fixture / review link | [Owner CI `29381266646`](https://github.com/mineclover/data-governance/actions/runs/29381266646), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
 
 ## Public-release decision gate
 

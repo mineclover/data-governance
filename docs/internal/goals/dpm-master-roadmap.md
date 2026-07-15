@@ -88,9 +88,10 @@ Current `@oa-sdk/dpm` is private and maintenance-only. The canonical private own
 owner `mineclover` is the release authority for the private contract plane.
 
 The 2026-07-15 owner decision created the private repository and completed the private extraction
-handoff. The accepted decision record is [here](./owner-decision-record.md), and the owner workflow
-[29380012623](https://github.com/mineclover/data-governance/actions/runs/29380012623) passed for
-commit `41311c8`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
+handoff. The accepted decision record is [here](./owner-decision-record.md), and the owner CI plus
+T1 release-gate verification workflow
+[29381266646](https://github.com/mineclover/data-governance/actions/runs/29381266646) passed for
+commit `03c4436`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 The remaining release gate is intentionally narrow: the recommended public target is
@@ -162,18 +163,17 @@ Blocking phase: 10 only.
 
 ## Delivery order
 
-### Phase 0 — Ownership and compatibility decision (Goal 68.0)
+### Phase 0 — Ownership and compatibility decision (Goal 68.0) ✅
 
-Resolve G-01 and freeze the `data_definitions` compatibility policy, owner, package compatibility
-policy, and extraction direction. The 2026-07-14 decision records a temporary monorepo owner and
-implementation site: `1.0` remains the frozen structural adapter contract, while `1.1` is an
-experimental identity contract. New persisted schemas, gateway workflows, cross-repository
-resolvers, search services, and edit workflows remain blocked.
+Goal 68.0 is resolved. The 2026-07-15 owner decision makes this private repository canonical for
+the extraction contract and freezes `data_definitions` `1.0` as the structural compatibility
+contract; `1.1` remains deferred experimental. The former `oa-sdk` package remains the
+source/compatibility implementation until the first accepted owner artifact release (`T1`) and
+then becomes a forwarding adapter for one subsequent compatibility release.
 
-The decision selects the implementation site:
-
-- if an external DPM environment is canonical, Phases 5–9 run there and this package remains an adapter;
-- if scope reactivation is approved, Phases 5–9 may run temporarily in this monorepo with named release/CI ownership.
+New persisted schemas, gateway workflows, cross-repository resolvers, search services, and edit
+workflows remain blocked unless separately authorized by the owner. Public registry publication and
+breaking removal remain separate release gates.
 
 ### Phase 5 — Identity and wire contract (Goal 68.1)
 
