@@ -20,9 +20,9 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- Latest private owner candidate: commit `418b72dc61f31192a7f8a8f2c1dc97e4e0841b8c` (`docs: record local postgres rehearsal`).
-- Latest owner CI: [workflow 29399405142](https://github.com/mineclover/data-governance/actions/runs/29399405142), passed for the exact candidate commit.
-- Latest private T1 preflight: [workflow 29399814217](https://github.com/mineclover/data-governance/actions/runs/29399814217), passed for the exact 40-character candidate SHA.
+- Latest private owner candidate: commit `b1b4d08d22afedef65de1441d906963030ec5278` (`docs: sync latest private readiness evidence`).
+- Latest owner CI: [workflow 29400110786](https://github.com/mineclover/data-governance/actions/runs/29400110786), passed for the exact candidate commit.
+- Latest private T1 preflight: [workflow 29399814217](https://github.com/mineclover/data-governance/actions/runs/29399814217), passed for the previous exact candidate `418b72dc61f31192a7f8a8f2c1dc97e4e0841b8c`; rerun it for `b1b4d08d22afedef65de1441d906963030ec5278` before approval.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).

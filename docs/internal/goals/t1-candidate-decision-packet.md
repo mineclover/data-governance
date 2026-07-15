@@ -13,7 +13,7 @@ SemVer tag, publish to a registry, or authorize the `@oa-sdk/dpm` adapter transi
 | --- | --- | --- | --- |
 | Public package identity | `@mineclover/dpm` | Align the artifact with the private owner repository and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Candidate only |
 | Registry | npm public registry | It is the lowest-friction distribution target for a TypeScript package and supports the package's existing Node/pnpm consumer workflow. | Candidate only |
-| First release reference | `v1.0.0` | The relationship, identity, neutral artifact, authoring, and compatibility contracts are already privately accepted; the tag should communicate that the public contract is intentional rather than experimental. | Candidate only |
+| First release reference | `v0.1.0` | Use an explicitly limited first public release while external consumers validate the relationship, identity, neutral artifact, authoring, and compatibility contracts. Promote to `v1.0.0` only through a later stability decision. | Selected recommendation; owner approval pending |
 | License | Apache-2.0 | Recommended permissive baseline with an explicit patent grant for a reusable library. Legal/owner confirmation remains required. | Not finalized |
 | Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Candidate only |
 | Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@mineclover/dpm` canonical. | Candidate only |
@@ -37,7 +37,7 @@ branch names and moving references are not sufficient release evidence.
 
 After approval, the sequence should be:
 
-1. Publish `@mineclover/dpm@1.0.0` from the approved tag.
+1. Publish `@mineclover/dpm@0.1.0` from the approved tag.
 2. Keep `@oa-sdk/dpm` as a forwarding adapter for one compatibility release, with a deprecation
    notice pointing to the canonical package and migration notes.
 3. Verify clean-install, subpath-import, type-consumer, and representative authoring workflows for
@@ -52,7 +52,7 @@ return to the private candidate. No partial registry or tag action is authorized
 
 - Changing `packages/dpm/package.json` from the private `@oa-sdk/dpm` identity.
 - Adding `LICENSE` or declaring the license in package metadata.
-- Creating `v1.0.0` or any other `v*` tag.
+- Creating `v0.1.0` or any other `v*` tag.
 - Publishing to npm, GitHub Packages, or another registry.
 - Replacing, redirecting, or removing the `@oa-sdk/dpm` adapter.
 - Applying the PostgreSQL migration or deploying the authoring storage contract.
@@ -66,7 +66,7 @@ only after reviewing:
 - exact candidate commit SHA and successful private preflight;
 - package identity and registry target;
 - license and redistribution policy;
-- `v1.0.0` or an explicitly substituted release reference;
+- `v0.1.0` or an explicitly substituted release reference;
 - one-release compatibility, deprecation, and rollback evidence;
 - release-gate output for the exact approved tag.
 
