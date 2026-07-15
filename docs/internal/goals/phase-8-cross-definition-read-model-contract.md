@@ -140,7 +140,10 @@ Runtime activation remains deferred until all of the following are explicitly ac
 6. A private shadow parity harness compares the definition-scoped fallback with bounded read-model
    results for canonical identity, freshness identity, result ordering, API binding context, and
    strict error mapping without enabling a consumer route.
-7. The owner records acceptance of this contract before a new runtime API or persistent index is
+7. A private scoped authorization helper proves caller-scope intersection, scope-widening denial,
+   empty-scope denial, no-scope identity isolation, and default-deny behavior without an external
+   identity provider.
+8. The owner records acceptance of this contract before a new runtime API or persistent index is
    activated.
 
 Until these gates are met, this document is a recommendation and review artifact only. No
@@ -149,9 +152,10 @@ metadata, registry publication, license finalization, `v*` tag, or adapter cutov
 
 ## Evidence and revisit trigger
 
-The private reference projection/query, staged rebuild session, shadow parity harness, and
-conformance fixture live in `packages/dpm/src/authoring/read-model-contract.ts`,
-`packages/dpm/src/authoring/read-model-shadow.ts`, and
+The private reference projection/query, staged rebuild session, shadow parity harness, scoped
+authorization helper, and conformance fixture live in `packages/dpm/src/authoring/read-model-contract.ts`,
+`packages/dpm/src/authoring/read-model-shadow.ts`,
+`packages/dpm/src/authoring/read-model-authorization.ts`, and
 `packages/dpm/test/authoring-read-model-contract.test.ts`. They are intentionally excluded from
 the public authoring export until the activation gates are accepted. The harness is evidence only;
 it does not enable a consumer route or replace the definition-scoped fallback. The contract drift

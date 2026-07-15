@@ -5,10 +5,12 @@ import {
   createDpmIdentityDataDefinitions,
   type DpmAuthoringPublishedRevision,
 } from '../src/index.js'
+import { createDpmIdentityDatabaseColumnIdentity } from '../src/model/data-identity-normalize.js'
 import {
   createDpmCrossDefinitionReadModelReference,
   projectDpmCrossDefinitionReadModelRows,
 } from '../src/authoring/read-model-contract.js'
+import { createDpmCrossDefinitionReadModelScopedAuthorization } from '../src/authoring/read-model-authorization.js'
 import { compareDpmCrossDefinitionReadModelShadow } from '../src/authoring/read-model-shadow.js'
 
 describe('DPM deferred cross-definition read-model contract', () => {
@@ -217,6 +219,57 @@ describe('DPM deferred cross-definition read-model contract', () => {
     expect(report.expectedStatus).toBe('read-model-unavailable')
     expect(report.observedStatus).toBe('read-model-unavailable')
     expect(report.issues).toEqual([])
+  })
+
+  it('keeps authorization scope isolated and denies empty or widened scopes', () => {
+    const orders = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const billing = createRevision('billing-definition', 'revision-1', 'billing-catalog-1', '2026-07-15T00:00:02.000Z')
+    const billingDbIdentity = createDpmIdentityDatabaseColumnIdentity({
+      table: 'public.customers',
+      column: 'customer_no',
+      catalog: {
+        snapshotId: 'billing-catalog-1',
+        versionHash: 'sha256:billing-catalog-1',
+      },
+    })
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    reference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    reference.upsert({ revision: billing, freshnessIdentity: 'sha256:billing-freshness', state: 'ready' })
+
+    expect(reference.search({
+      definitionIds: ['billing-definition'],
+      query: { identity: { identityKind: 'db', identityKey: billingDbIdentity } },
+    })).toEqual({ status: 'forbidden' })
+    expect(reference.search({
+      definitionIds: ['orders-definition', 'billing-definition'],
+      query: { identity: { identityKind: 'db', identityKey: billingDbIdentity } },
+    })).toEqual({ status: 'forbidden' })
+
+    const outOfScopeWithoutRequestedScope = reference.search({
+      query: { identity: { identityKind: 'db', identityKey: billingDbIdentity } },
+    })
+    expect(outOfScopeWithoutRequestedScope).toEqual({ status: 'ready', hits: [] })
+    expect(JSON.stringify(outOfScopeWithoutRequestedScope)).not.toContain('billing-freshness')
+    expect(JSON.stringify(outOfScopeWithoutRequestedScope)).not.toContain(billingDbIdentity)
+    expect('total' in outOfScopeWithoutRequestedScope).toBe(false)
+
+    const emptyScopeReference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization([]),
+    })
+    emptyScopeReference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    expect(emptyScopeReference.search({
+      definitionIds: [],
+      query: { identity: { identityKind: 'db', identityKey: billingDbIdentity } },
+    })).toEqual({ status: 'forbidden' })
+
+    const defaultDenyReference = createDpmCrossDefinitionReadModelReference()
+    defaultDenyReference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    expect(defaultDenyReference.search({
+      definitionIds: ['orders-definition'],
+      query: { identity: { identityKind: 'db', identityKey: billingDbIdentity } },
+    })).toEqual({ status: 'forbidden' })
   })
 
   it('fails closed for unauthorized scopes, stale generations, and unbounded queries', () => {

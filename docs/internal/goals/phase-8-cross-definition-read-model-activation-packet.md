@@ -73,6 +73,8 @@ activation value:
 ### 3. Validate authorization isolation
 
 - Resolve an explicit caller scope before evaluating the query.
+- Use the private scoped authorization helper to intersect requested definitions with the caller
+  scope and deny empty or widened scopes.
 - Prove an out-of-scope identity returns `forbidden` without existence, count, cursor, or freshness
   leakage.
 - Prove an empty or invalid scope fails closed and cannot be widened by an identity key.
@@ -110,7 +112,7 @@ Activation is not complete until the owner links all of the following:
 - backup/restore rehearsal and generation rebuild/interrupt evidence;
 - two-definition collision, exact API/DB, duplicate-collapse, pagination, stale-state, and
   interrupted-rebuild retry fixture;
-- authorization isolation and deny-by-default evidence;
+- authorization isolation and deny-by-default evidence from the private scoped policy fixture;
 - private shadow parity report, pilot metrics, observation-window result, and operator sign-off;
 - fallback/rollback execution record.
 

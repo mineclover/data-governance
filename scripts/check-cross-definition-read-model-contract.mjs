@@ -10,6 +10,7 @@ const contract = fs.readFileSync(
 const authoringIndex = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/index.ts'), 'utf8')
 const publicAuthoring = fs.readFileSync(path.join(root, 'packages/dpm/src/public/authoring.ts'), 'utf8')
 const shadowHarness = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/read-model-shadow.ts'), 'utf8')
+const authorizationHarness = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/read-model-authorization.ts'), 'utf8')
 const normalizedContract = contract.replace(/\s+/g, ' ')
 
 const requiredMarkers = [
@@ -25,6 +26,8 @@ const requiredMarkers = [
   'shadow parity harness',
   'freshness identity, result ordering, API binding context',
   'strict error mapping',
+  'caller-scope intersection, scope-widening denial',
+  'default-deny behavior',
   'default policy is deny',
   '`pageSize` defaults to `25` and has a hard maximum of `100`',
   'No PostgreSQL migration',
@@ -43,14 +46,21 @@ if (contract.includes('**Status: active')) {
 }
 
 if (authoringIndex.includes('read-model-contract') || publicAuthoring.includes('read-model-contract') ||
-  authoringIndex.includes('read-model-shadow') || publicAuthoring.includes('read-model-shadow')) {
-  console.error('Cross-definition read-model reference and shadow harness must not be exported from the public authoring seam')
+  authoringIndex.includes('read-model-shadow') || publicAuthoring.includes('read-model-shadow') ||
+  authoringIndex.includes('read-model-authorization') || publicAuthoring.includes('read-model-authorization')) {
+  console.error('Cross-definition read-model reference and private harnesses must not be exported from the public authoring seam')
   process.exit(1)
 }
 
 if (!shadowHarness.includes('compareDpmCrossDefinitionReadModelShadow') ||
   !shadowHarness.includes('compareFailure') || !shadowHarness.includes('expectedFailure')) {
   console.error('Cross-definition read-model shadow harness must compare bounded fallback parity and strict failures')
+  process.exit(1)
+}
+
+if (!authorizationHarness.includes('createDpmCrossDefinitionReadModelScopedAuthorization') ||
+  !authorizationHarness.includes('definitionIds: []')) {
+  console.error('Cross-definition authorization harness must enforce scope intersection and deny-by-default')
   process.exit(1)
 }
 
