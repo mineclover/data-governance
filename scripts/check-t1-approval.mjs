@@ -7,6 +7,7 @@ const requiredApprovalRows = [
   '`v0.1.0` release reference approved',
   'Compatibility, deprecation, rollback, and adapter policy approved',
   'Explicit approval recorded by the repository owner or delegated release authority',
+  'I approve creating the exact release reference above and proceeding through the T1 release gate',
 ]
 
 const missing = requiredApprovalRows

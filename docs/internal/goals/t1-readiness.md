@@ -31,7 +31,8 @@ or the `@oa-sdk/dpm` adapter cutover.
   leaves the license decision unresolved; checked preparation items do not satisfy the final
   release gate.
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
-- The release gate now checks all required Issue #2 approval rows before verifying any `v*` tag;
+- The release gate now checks all six required Issue #2 approval rows, including the final release
+  authorization, before verifying any `v*` tag;
   the private readiness guard also verifies that this approval check remains wired.
 - Repository visibility: private.
 - Public registry, license, and adapter cutover: pending the T1 approval issue.
@@ -40,6 +41,6 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 - It does not publish to npm, GitHub Packages, or another registry.
 - It does not create a SemVer tag or GitHub Release.
-- Its release gate requires all five explicit Issue #2 approval rows before accepting a `v*` tag.
+- Its release gate requires all six explicit Issue #2 approval rows before accepting a `v*` tag.
 - It does not change the canonical package name or add a public license file.
 - It does not remove or replace the existing `@oa-sdk/dpm` compatibility surface.
