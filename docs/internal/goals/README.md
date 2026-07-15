@@ -29,6 +29,8 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 ## Canonical document set
 
 - [DPM Master Roadmap](./dpm-master-roadmap.md)
+- [Roadmap checkpoint](./roadmap-checkpoint.md)
+- [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md)
 - [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 - [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)
 - [Goal 68.4 acceptance checklist](./goal-68-extraction-acceptance-checklist.md)
@@ -53,6 +55,7 @@ corepack pnpm build
 corepack pnpm typecheck
 corepack pnpm check:boundary
 corepack pnpm check:docs
+corepack pnpm check:roadmap
 corepack pnpm test
 corepack pnpm smoke:dpm
 ```

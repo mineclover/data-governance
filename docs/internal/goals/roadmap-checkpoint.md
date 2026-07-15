@@ -12,6 +12,8 @@ Issue is not required for ordinary roadmap updates.
 - Maintain the accepted DPM contract and private owner boundary.
 - Use the private T1 preflight workflow for candidate verification.
 - Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
+- Prepare the [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md) without
+  activating its implementation.
 
 ## Completed
 
@@ -23,6 +25,8 @@ Issue is not required for ordinary roadmap updates.
 
 - Review the recommended T1 decision packet in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   only when an owner decision is needed.
+- Review the [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md) and record
+  activation decisions before starting implementation.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -45,6 +49,7 @@ Issue is not required for ordinary roadmap updates.
 | Date | Feedback | Decision | Follow-up | Evidence |
 | --- | --- | --- | --- | --- |
 | 2026-07-15 | Issue-based roadmap checks are cumbersome for routine feedback. | adopt | Use this checkpoint and commit history for routine progress; keep Issue #2 for formal T1 approval only. | `c10ea98`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
+| 2026-07-15 | The roadmap's next capability is Phase 8, but it is marked future owner-authorized and not active. | adopt proposal / defer implementation | Maintain a reviewable representative-slice proposal until activation, persistence, security, public-seam, and audit decisions are authorized. | [Phase 8 proposal](./phase-8-control-plane-proposal.md) |
 
 ## Formal approvals
 
