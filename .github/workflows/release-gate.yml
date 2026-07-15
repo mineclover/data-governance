@@ -52,6 +52,9 @@ jobs:
       - name: Check owner documentation links
         run: pnpm check:docs
 
+      - name: Check roadmap checkpoint
+        run: pnpm check:roadmap
+
       - name: Run tests
         run: pnpm test
 
