@@ -89,8 +89,8 @@ owner `mineclover` is the release authority for the private contract plane.
 
 The 2026-07-15 owner decision created the private repository and completed the private extraction
 handoff. The accepted decision record is [here](./owner-decision-record.md), and the owner workflow
-[29353981154](https://github.com/mineclover/data-governance/actions/runs/29353981154) passed for
-commit `c1fb9a9`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
+[29380012623](https://github.com/mineclover/data-governance/actions/runs/29380012623) passed for
+commit `41311c8`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 The remaining release gate is intentionally narrow: the recommended public target is
