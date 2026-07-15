@@ -41,6 +41,8 @@ Issue is not required for ordinary roadmap updates.
   implemented without adding a database driver or applying SQL.
 - Async authoring service façade and [operational migration packet](./phase-8-operational-migration-packet.md)
   prepared; no production cutover or migration authorized.
+- The recommendation-only operational change decision is checked by `pnpm check:operational-change`
+  so required owner gates and no-execution invariants are verified without an Issue.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
   load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
@@ -63,6 +65,7 @@ Issue is not required for ordinary roadmap updates.
   schema application, deployment, and public-release decisions deferred.
 - Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
   target, role, backup, flag, observation, and rollback values before any owner-approved run.
+- Run `pnpm check:operational-change` whenever the operational decision or migration packet changes.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
   unsupported metadata filters, automatic mutation, bulk edit, cross-definition search, and broader
   authoring infrastructure.
@@ -98,6 +101,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | A contract-only explanation view improves review without exposing data values or adding persistence. | adopt pure explain helper / defer broader authoring | Add deterministic, deeply frozen logical/API/DB identity readback; defer quick fixes, bulk edit, and broad search. | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
 | 2026-07-15 | Semantic diff classification is useful to review consumers, but automatic mutation would exceed the private slice. | adopt pure quick-fix suggestions / defer mutation | Add deterministic approval-required breaking-change review plus alias-preserved rename/deprecation suggestions; keep automatic mutation, bulk edit, and broad search deferred. | `bbd335e`, [Authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md) |
 | 2026-07-15 | The remaining Phase 8 extensions have different persistence, authorization, conflict, and rollback prerequisites. | adopt ordered deferral | Prioritize a future cross-definition read model, then automatic mutation, then bulk edit; keep all three deferred until their entry contracts and operational owners are approved. | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
+| 2026-07-15 | Owner-specific operational values must not be mistaken for approval or execution readiness. | adopt automated contract check | Validate the recommendation-only status, required owner fields, backend contract, and no-execution invariants in CI; keep actual values and approval owner-gated. | `pnpm check:operational-change` |
 
 ## Formal approvals
 

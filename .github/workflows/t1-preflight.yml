@@ -57,6 +57,9 @@ jobs:
       - name: Check roadmap checkpoint
         run: pnpm check:roadmap
 
+      - name: Check operational change decision
+        run: pnpm check:operational-change
+
       - name: Run tests
         run: pnpm test
 
