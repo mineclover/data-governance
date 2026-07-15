@@ -24,8 +24,10 @@ artifact, not an execution record.
 3. Backup restore is tested against a disposable database before any application traffic is moved.
 4. The application has a feature flag that can route reads/writes back to the previous repository
    without deleting the new tables.
-5. A migration rehearsal uses a fixture containing at least one logical object, API binding, DB
-   coordinate, draft conflict, publish event, and rollback event.
+5. A migration rehearsal uses the deterministic
+   [`authoring-operational-migration.test.ts`](../../../packages/dpm/test/authoring-operational-migration.test.ts)
+   fixture containing at least one logical object, API binding, DB coordinate, draft conflict,
+   publish event, and rollback event.
 6. The owner confirms whether the target database is empty. The in-memory reference repository is
    ephemeral; it must not be treated as durable production data or silently backfilled.
 
@@ -96,3 +98,6 @@ The run is complete only when the owner has links to:
 
 Until those artifacts and approvals exist, the prepared PostgreSQL contract remains reviewable code
 only. The current repository has not applied this packet.
+
+The private contract rehearsal evidence is green in the owner CI, but it records fake-client
+behavior only; it is not evidence of a target database migration or deployment.
