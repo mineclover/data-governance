@@ -35,6 +35,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Phase 8 private activation decision record](./phase-8-decision-record.md)
 - [Phase 8 persistence and identity index proposal](./phase-8-persistence-proposal.md)
 - [Phase 8 operational migration packet](./phase-8-operational-migration-packet.md)
+- [Phase 8 local PostgreSQL rehearsal report](./phase-8-local-postgres-rehearsal.md)
 - [Phase 8 scoped lookup extension decision](./phase-8-scoped-lookup-decision.md)
 - [Phase 8 authoring import/export decision](./phase-8-authoring-import-export-decision.md)
 - [Phase 8 authoring explain decision](./phase-8-authoring-explain-decision.md)

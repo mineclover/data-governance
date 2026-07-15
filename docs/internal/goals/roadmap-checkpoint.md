@@ -41,6 +41,8 @@ Issue is not required for ordinary roadmap updates.
   implemented without adding a database driver or applying SQL.
 - Async authoring service façade and [operational migration packet](./phase-8-operational-migration-packet.md)
   prepared; no production cutover or migration authorized.
+- Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
+  load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
   deferred until an operational owner is selected.
 - Scoped Phase 8 lookup extension implemented for entity/locator/name/type/origin/lifecycle filters,

@@ -101,3 +101,7 @@ only. The current repository has not applied this packet.
 
 The private contract rehearsal evidence is green in the owner CI, but it records fake-client
 behavior only; it is not evidence of a target database migration or deployment.
+
+The subsequent [local PostgreSQL rehearsal report](./phase-8-local-postgres-rehearsal.md) adds
+disposable schema application and backup/restore evidence. It remains explicitly non-production
+and does not satisfy the owner-approved operational change requirement.
