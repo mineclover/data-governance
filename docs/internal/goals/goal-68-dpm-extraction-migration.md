@@ -1,10 +1,10 @@
 # Goal 68 Extraction Migration and Rollback Contract
 
-**Status: private owner repository, CI, document gate, and issue/review location verified 2026-07-15; formal external owner acceptance pending**
+**Status: private owner acceptance recorded 2026-07-15; public registry release and breaking removal remain disabled**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 
-The owner handoff gates and empty sign-off record are tracked in the
+The owner handoff gates and sign-off record are tracked in the
 [Goal 68.4 External Extraction Acceptance Checklist](./goal-68-extraction-acceptance-checklist.md).
 
 This document is the temporary migration contract for moving the DPM contract plane from the
@@ -17,7 +17,9 @@ silently changing logical data identity.
 
 - The source implementation remains `mineclover/oa-sdk/packages/dpm` during the acceptance window.
   The private external owner candidate contains the initial extraction at commit `7f1fb3f`;
-  this package becomes a compatibility adapter only after the owner accepts this contract.
+  this package becomes a compatibility adapter at the first accepted external owner artifact
+  release (`T1`), after which the existing import surface remains supported for one subsequent
+  compatibility release.
 - `@oa-sdk/dpm` remains private and non-published. The local extraction rehearsal packages the
   built artifact and resolves a production dependency tree, but it does not claim registry
   publication readiness.
@@ -54,13 +56,15 @@ must not reuse a previous plan as if it were fresh.
 ## Package migration sequence
 
 1. The external owner accepts this document, the neutral artifact kind/version, and the
-   compatibility window.
+   compatibility window. The accepted window is the first owner release plus one subsequent
+   compatibility release.
 2. The external package publishes the declared public subpaths and runs the clean consumer smoke
    against its own package artifact and dependency tree.
 3. Consumers switch imports only to declared package names/subpaths; no source or deep chunk import
    is introduced.
-4. The monorepo package remains as an adapter for the agreed compatibility window and forwards or
-   re-emits the accepted artifact without changing identity fields.
+4. At the first accepted owner artifact release, the monorepo package becomes an adapter for one
+   subsequent compatibility release and forwards or re-emits the accepted artifact without
+   changing identity fields.
 5. After the window, the owner may deprecate an old import surface only with a release note,
    migration example, and a passing rollback fixture.
 
@@ -90,9 +94,9 @@ If external extraction or a consumer migration fails:
 - Owner handoff checklist: `docs/internal/goals/goal-68-extraction-acceptance-checklist.md`.
 - Public package/type smoke: `packages/dpm/test/package-subpath-import-smoke.mjs` and
   `packages/dpm/test/package-subpath-type-consumer.ts`.
-- Interim owner decision record: `docs/internal/goals/owner-decision-record.md`. GitHub Issues and
-  the structured owner acceptance form are enabled as the current issue/review workflow. Owner CI
-  workflow [29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517)
-  passed for commit `60c6c36` with Node.js 25 and pnpm 10.30.3.
-- Formal owner acceptance, registry publication, compatibility-window decision, and canonical
-  adapter transition remain intentionally pending; they are not implied by the rehearsal.
+- Owner decision record: `docs/internal/goals/owner-decision-record.md`. The private owner
+  acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
+  Owner CI workflow [29353981154](https://github.com/mineclover/data-governance/actions/runs/29353981154)
+  passed for commit `c1fb9a9` with Node.js 25 and pnpm 10.30.3.
+- Registry publication and breaking adapter removal remain intentionally disabled; they are
+  separate release decisions and are not implied by the private acceptance.

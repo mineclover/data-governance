@@ -45,16 +45,16 @@ production pseudonymization       = outside current oa-sdk boundary
 
 | Phase | Goal history | Capability | Current status | Gap after phase |
 |---|---|---|---|---|
-| 0. Governance | ADR-010, release policy, package architecture, Goal 68.0 | DPM package ownership, implementation site and safety boundary | Private `mineclover/data-governance` owner candidate and interim decision recorded | formal release authority and extraction exit sign-off |
+| 0. Governance | ADR-010, release policy, package architecture, Goal 68.0 | DPM package ownership, implementation site and safety boundary | Private `mineclover/data-governance` owner and private acceptance recorded | public release metadata and breaking removal |
 | 1. Relationship contract | Goals 4–6, 64, 67 | manifest, entity, relationship, column policy, validator, compiler, typed identity | Implemented | logical field identity is not yet cross-bound to API/catalog |
 | 2. Evidence and proposal | Goals 7–19, 24–26, 31, 33, 37, 38, 51–56 | catalog/profile evidence, discovery proposals, thresholds, provenance, endpoint resolution | Implemented | evidence does not itself become data binding or relationship approval |
 | 3. Approval and durability | Goals 23, 27–30, 32, 34–50, 58, 59, 61, 63 | gateway workflow, registry approval, storage, audit and reports | Implemented within declared boundary | no production token/vault/data-plane execution |
-| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; private external extraction and CI verified | release metadata and owner acceptance |
-| 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented in monorepo and mirrored to private owner candidate | formal external wire ownership and compatibility window |
-| 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented in monorepo and mirrored to private owner candidate | formal external wire ownership and compatibility window |
-| 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented in monorepo and mirrored to private owner candidate | formal external wire ownership and compatibility window |
+| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; private external extraction and CI verified | public release metadata |
+| 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
+| 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
+| 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 8. Search, edit and authoring control plane | Future owner-authorized product slice | cross-identity search, draft/revision/publish, diff, rollback and authoring helpers | Future; not an active goal | depends on Phase 7 and product/release ownership |
-| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private external rehearsal and owner CI passed; formal acceptance pending | release policy, compatibility window, and canonical migration sign-off |
+| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private owner acceptance recorded; adapter transition scheduled after first accepted owner artifact release | public release metadata and breaking removal |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
 ## Dependency order
@@ -84,22 +84,18 @@ and local extraction is not evidence of production runtime readiness.
 ### G-01 — Ownership and authority
 
 Current `@oa-sdk/dpm` is private, maintenance-only, and marked as a data-governance extraction
-candidate. The private owner candidate is now `https://github.com/mineclover/data-governance`;
-artifact acceptance and the release authority are still being established.
+candidate. The private owner is now `https://github.com/mineclover/data-governance`; the repository
+owner `mineclover` is the release authority for the private contract plane.
 
-The 2026-07-15 owner decision created the private repository and started the extraction handoff.
-The interim decision record is [here](./owner-decision-record.md), and the owner workflow for the
-acceptance-form implementation
-[29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed for
-commit `60c6c36`. GitHub Issues and the structured Goal 68.4 acceptance form are enabled as the
-current issue/review workflow. The public package policy, compatibility window, and formal owner
-sign-off remain open gates.
+The 2026-07-15 owner decision created the private repository and completed the private extraction
+handoff. The accepted decision record is [here](./owner-decision-record.md), and the owner workflow
+[29353981154](https://github.com/mineclover/data-governance/actions/runs/29353981154) passed for
+commit `c1fb9a9`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
+window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
-Required decision:
-
-- formally accept `mineclover/data-governance` as canonical, name the release authority and
-  compatibility window, and make this package a compatibility adapter; or
-- scope-reactivation explicitly authorizes temporary feature work here.
+The remaining release gate is intentionally narrow: public package metadata/registry publication
+and breaking removal of the old import surface require a separate approval. No scope reactivation
+is authorized by this decision.
 
 Blocking phases: 5–10.
 
@@ -229,11 +225,11 @@ This phase is a future owner-authorized capability, not an active goal before Ph
 
 ### Phase 9 — Extraction rehearsal (Goal 68.4, owner-gated)
 
-Local rehearsal complete; external owner and migration acceptance pending:
+Private owner rehearsal and migration acceptance complete:
 
 - clean external consumer build and package smoke;
 - import/package migration contract;
-- repository/license/release metadata when authorized;
+- private repository governance and owner release authority;
 - adapter fallback and rollback window.
 
 The local packed artifact and clean runtime/declaration/rollback consumer evidence live in
@@ -242,7 +238,7 @@ The local packed artifact and clean runtime/declaration/rollback consumer eviden
 `packages/dpm/test/external-consumer-type-fixture.ts` and
 `packages/dpm/test/external-consumer-rollback-fixture.mjs`; migration and rollback rules live in
 [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md), and
-the owner-gated handoff is recorded in the [Goal 68.4 External Extraction Acceptance Checklist](./goal-68-extraction-acceptance-checklist.md).
+the accepted owner handoff is recorded in the [Goal 68.4 External Extraction Acceptance Checklist](./goal-68-extraction-acceptance-checklist.md) and [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 ### Phase 10 — Separate external runtime program
 

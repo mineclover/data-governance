@@ -1,80 +1,69 @@
 # Goal 68.4 — External Extraction Acceptance Checklist
 
-**Status: private owner repository, CI, and issue/review location verified; formal external owner acceptance pending**
+**Status: private owner acceptance recorded 2026-07-15; public registry release remains disabled**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 >
 > Contract: [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md)
+>
+> Decision: [DPM Private Owner Decision Record](./owner-decision-record.md)
+>
+> Review: [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1)
 
-This is an owner handoff artifact, not an external ownership decision. It records the evidence
-already available in `oa-sdk` and the decisions an external `data-governance` owner must make
-before the monorepo package can become a compatibility adapter or the public artifact can be
-published.
+This is the owner handoff and acceptance record for the private extracted DPM contract plane. It
+accepts private extraction maintenance and the compatibility transition policy. It does not approve
+public registry publication or removal of the existing import surface.
 
-## Local evidence already complete
+## Evidence
 
 | Evidence | Current proof |
 |---|---|
 | Packed runtime consumer | `packages/dpm/test/package-extraction-smoke.mjs` runs `external-consumer-fixture.mjs` against the packed artifact and a clean production dependency tree. |
 | Packed declaration consumer | The same smoke runs `tsc --noEmit` against `external-consumer-type-fixture.ts` and the packed public `@oa-sdk/dpm/data` declarations. |
-| Packed rollback consumer | `external-consumer-rollback-fixture.mjs` proves stale rollout rejection, changed-artifact plan identity, and restoration of the preserved plan identity through the packed public package. |
+| Packed rollback consumer | `external-consumer-rollback-fixture.mjs` proves stale rollout rejection, changed-artifact plan identity, and restoration of the preserved plan identity through the packed package. |
 | Public package boundary | `packages/dpm/package.json` declares the root and category subpaths; package-name imports do not use monorepo source or deep chunk paths. |
-| Root surface gate | `check:dpm-surface` includes `smoke:extraction` alongside subpath, workflow, and pack-boundary checks. |
-| Compatibility and rollback rules | [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md) defines v1.0/v1.1, artifact markers, migration order, and rollback behavior. |
+| Owner CI | [Workflow `29353981154`](https://github.com/mineclover/data-governance/actions/runs/29353981154) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for owner commit `c1fb9a9`. |
+| Contract rules | [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md) defines v1.0/v1.1, artifact markers, migration order, and rollback behavior. |
 
-The local evidence proves extraction readiness for review. It does not prove registry publication,
-external repository ownership, or acceptance of the experimental v1.1 wire shape.
+## Accepted owner gates
 
-## Current repository audit
+- [x] Canonical repository, owning namespace, release authority, and issue/review location are
+      named: private `mineclover/data-governance`, `mineclover` repository owner, and [Issue #1](https://github.com/mineclover/data-governance/issues/1).
+- [x] The neutral artifact marker `kind: dpm.data-binding-artifact.v1` and `version: 1.0` are
+      accepted; unknown markers or versions are rejected.
+- [x] `data_definitions` `1.0` is accepted as the frozen structural contract. `1.1` is explicitly
+      deferred as experimental and has no compatibility promise.
+- [x] The private package/publication policy is accepted: `@oa-sdk/dpm` remains private and is not
+      published to a public registry. Public package name/scope, license, and public release
+      metadata are intentionally deferred.
+- [x] The owner artifact is staged in the private repository and runtime, declaration, workflow,
+      rollback, pack, and clean-dependency consumer smokes pass under owner CI.
+- [x] The compatibility window is defined: existing imports remain supported through the first
+      accepted external owner artifact release and one subsequent compatibility release. The
+      monorepo becomes a forwarding adapter at the first accepted owner release, and the final
+      compatibility release carries a deprecation notice.
+- [x] This owner document set is canonical for the extraction contract; the `oa-sdk` documents are
+      the historical/compatibility mirror until adapter transition.
+- [x] The rollback fixture is accepted: changed freshness creates a new plan identity and rollback
+      restores the preserved artifact/adapter identity.
 
-The private owner repository is now `https://github.com/mineclover/data-governance`. The
-repository was created on 2026-07-15, and owner workflow
-[29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed for
-commit `60c6c36`. GitHub Issues are enabled at
-`https://github.com/mineclover/data-governance/issues` as the current issue/review location.
-The structured review form is available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
-Formal owner acceptance, release authority, public package metadata,
-compatibility window, and canonical sign-off remain pending.
-
-## External owner acceptance gates
-
-The owner should check each item in the target `data-governance` environment and attach the
-corresponding decision or release evidence.
-
-- [ ] Name the canonical repository, owning team, release authority, and issue/review location.
-- [ ] Accept the neutral artifact marker `kind: dpm.data-binding-artifact.v1` and `version: 1.0`,
-      or record a new marker and migration adapter before publication.
-- [ ] Accept `data_definitions` `1.0` as the frozen structural contract and explicitly accept,
-      revise, or defer the experimental `1.1` identity contract.
-- [ ] Select the public package name, registry scope, license, repository metadata, and release
-      policy; these remain intentionally unset while `@oa-sdk/dpm` is private.
-- [ ] Rebuild and publish or stage the owner artifact, then run runtime and declaration consumer
-      smokes against that artifact and its own production dependency tree.
-- [ ] Define the compatibility window for existing `@oa-sdk/dpm` imports and the point at which
-      the monorepo package becomes an adapter or is deprecated.
-- [ ] Move or canonically link this roadmap, Goal 68, and the migration contract in the owner
-      environment without changing accepted identity, freshness, or provenance semantics.
-- [ ] Run the rollback fixture: restore the previous adapter/artifact, recompile from preserved
-      inputs, and prove changed freshness produces a new plan identity.
-
-## Required sign-off record
-
-Complete this section in the owner environment; an empty record is intentional in this repository.
+## Sign-off record
 
 | Decision | Recorded value |
 |---|---|
-| Canonical repository | `https://github.com/mineclover/data-governance` (private; created 2026-07-15) |
-| Owner / release authority | `mineclover`; formal release authority confirmation pending |
-| Issue / review location | [GitHub Issues](https://github.com/mineclover/data-governance/issues) is enabled; final review/sign-off workflow pending |
-| Public package and registry | pending |
-| Accepted `data_definitions` versions | pending |
-| Accepted artifact kind/version | pending |
-| Compatibility window and deprecation release | pending |
-| Canonical-document location | [Owner decision record](./owner-decision-record.md); formal canonical link pending |
-| Rollback fixture / review link | External rehearsal passed in `7f1fb3f`; formal review/sign-off pending |
+| Canonical repository | `https://github.com/mineclover/data-governance` (private, `main`) |
+| Owner / release authority | `mineclover` repository owner; delegated maintainer may prepare but not unilaterally approve contract/version changes |
+| Issue / review location | [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1) and pull-request review |
+| Package and registry | Private `@oa-sdk/dpm`; no public registry; public package scope, license, and metadata deferred |
+| Accepted `data_definitions` versions | `1.0` frozen; `1.1` deferred experimental |
+| Accepted artifact kind/version | `dpm.data-binding-artifact.v1` / `1.0` |
+| Compatibility window | Through the first accepted owner release plus one subsequent compatibility release; deprecation notice in the final compatibility release |
+| Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical/compatibility mirror |
+| Rollback fixture / review link | [Owner CI `29353981154`](https://github.com/mineclover/data-governance/actions/runs/29353981154), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
 
 ## Transition rule
 
-Until all owner gates are checked and the sign-off record is committed in the external
-environment, keep `@oa-sdk/dpm` private, keep Goal 68 active, and do not add publication metadata
-or claim that local extraction is production release readiness.
+The private owner acceptance is complete for Goal 68.4/DPM-90. The external owner is canonical for
+the extraction contract, while `@oa-sdk/dpm` remains the source/compatibility implementation until
+the first accepted owner artifact release. Public registry publication, public metadata, and
+breaking removal remain separately gated and are not authorized by this record.

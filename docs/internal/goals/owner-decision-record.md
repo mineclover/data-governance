@@ -1,53 +1,75 @@
 # DPM Private Owner Decision Record
 
-**Status: interim private-maintenance decision recorded 2026-07-15; formal release and cutover acceptance remain open**
+**Status: private owner acceptance recorded 2026-07-15; public registry release remains disabled**
 
-This record captures the current owner decision for the extracted DPM contract plane. It is
-deliberately an interim private-maintenance decision, not a public package release approval or a
-completed compatibility-adapter cutover.
+This record is the accepted owner decision for the extracted DPM contract plane. It authorizes
+private extraction maintenance and the planned compatibility transition. It does not authorize a
+public registry release or removal of the existing import surface.
 
-## Decision
+## Decisions
 
-- **Repository:** [`mineclover/data-governance`](https://github.com/mineclover/data-governance)
+- **Canonical repository:** [`mineclover/data-governance`](https://github.com/mineclover/data-governance)
 - **Visibility:** private
 - **Default branch:** `main`
-- **Owner namespace:** `mineclover`
+- **Owning namespace:** `mineclover`
+- **Formal release authority:** the `mineclover` repository owner. An explicitly delegated
+  maintainer may prepare a release, but owner approval is required for contract/version changes,
+  compatibility promises, and adapter cutover.
+- **Issue/review location:** [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1)
+  and the repository pull-request review workflow.
 - **Extraction baseline:** commit `7f1fb3fe1597053d8eec769492b517523569953a`
 - **Required verification:** `.github/workflows/ci.yml` runs on pushes to `main` and pull requests
-  with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, test, and consumer smoke gates.
-- **Package policy:** `@oa-sdk/dpm` remains private and is not published to a public registry.
-- **Artifact rehearsal policy:** `dpm.data-binding-artifact.v1` / `1.0` is accepted for private
-  extraction rehearsal only.
-- **Manifest policy:** `data_definitions` `1.0` remains the frozen structural compatibility
-  contract; `1.1` remains experimental and has no public compatibility promise.
-- **Source transition:** `oa-sdk/packages/dpm` remains the source/compatibility implementation
-  until a formal compatibility window and adapter cutover decision are recorded.
+  with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, documentation, test, and consumer
+  smoke gates.
+- **Package/publication policy:** `@oa-sdk/dpm` remains private and is not published to a public
+  registry. Public package name/scope, license, and public release metadata are intentionally
+  deferred until a separate public-release approval.
+- **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
+  private owner contract. Unknown markers or versions must be rejected rather than guessed.
+- **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
+  `1.1` is deferred experimental and has no compatibility promise.
+- **Canonical documents:** this owner repository is canonical for the extraction contract,
+  migration/rollback rules, and owner decisions. The `oa-sdk` documents remain the historical and
+  compatibility mirror until the adapter transition is complete.
+
+## Compatibility window
+
+The transition is keyed to owner artifact releases rather than a calendar date:
+
+1. Until the first accepted external owner artifact release (`T1`),
+   `oa-sdk/packages/dpm` remains the source and compatibility implementation.
+2. At `T1`, the external owner artifact becomes canonical and the monorepo package becomes a
+   forwarding compatibility adapter.
+3. Existing `@oa-sdk/dpm` imports remain supported through one subsequent compatibility release
+   after `T1`. That final compatibility release must carry a deprecation notice.
+4. Removing the old import surface requires a separately approved breaking release and a passing
+   rollback fixture.
+
+The adapter must forward or re-emit accepted artifacts without changing object identity, freshness,
+or provenance fields. No new canonical DPM behavior is added to the monorepo during this window.
+
+## Rollback acceptance
+
+The packed rollback rehearsal from the extraction baseline proves stale rollout rejection, a new
+plan identity for changed freshness, and restoration from preserved inputs. The accepted rollback
+rule is to restore the previous adapter/artifact and recompile from preserved manifest, catalog,
+API, and registry inputs; a changed freshness hash must never reuse the previous plan identity.
+
+Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
 
 ## Evidence
 
 - External repository creation and initial push: `7f1fb3f`.
-- External owner CI workflow push: `8ab1c66`.
-- Repository governance check: GitHub Issues are enabled at
-  `https://github.com/mineclover/data-governance/issues` as the current issue/review
-  location; formal release authority is still unconfirmed.
-- Structured Goal 68.4 owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
-  The review workflow is available; no formal acceptance issue or approval has been recorded.
-- Canonical owner-document set and reproducible link gate: `ffa9f5c`, `591aefb`, `0c14ad9`,
-  `beabf42`, and `60c6c36`; owner CI run
-  [29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517)
-  passed the build, typecheck, boundary, documentation, test, and DPM consumer-smoke checks.
-- External build, typecheck, boundary, 120 test files/269 tests, package subpath, declaration,
-  packed runtime, workflow, rollback, and pack checks passed before the owner CI was added.
-- The repository remains private on GitHub and tracks `origin/main`.
+- External owner CI and document gates: [`29353981154`](https://github.com/mineclover/data-governance/actions/runs/29353981154).
+- Structured owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
+- Canonical owner document set: [`docs/internal/goals/README.md`](./README.md).
+- Migration and rollback contract: [`goal-68-dpm-extraction-migration.md`](./goal-68-dpm-extraction-migration.md).
 
-## Open formal sign-off
+## Explicitly deferred
 
-The following decisions remain intentionally open and must be recorded before a public release or
-monorepo adapter cutover:
+- Public registry publication, public package metadata, and license selection.
+- Search, draft/edit/publish, authoring convenience, and other control-plane features.
+- Production tokenization, vault execution, row rewriting, and data-plane deployment.
 
-1. Name the formal release authority. The current issue/review location is GitHub Issues at
-   `https://github.com/mineclover/data-governance/issues`.
-2. Define the compatibility window and deprecation release for existing `@oa-sdk/dpm` imports.
-3. Select license, package metadata, registry scope, and any future publication policy.
-4. Canonically link the roadmap, Goal 68, migration contract, and this decision record.
-5. Attach a review/sign-off reference for the rollback fixture and accepted artifact contract.
+These items require separate product, security, and release-owner decisions and are not implied by
+this private owner acceptance.

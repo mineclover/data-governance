@@ -12,8 +12,9 @@ candidate canonical owner for the extracted contract plane.
 - The repository and package remain private; no public registry publication is approved.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
-- The monorepo package remains the source/compatibility implementation until a compatibility
-  window and adapter cutover are formally recorded.
+- The monorepo package remains the source/compatibility implementation until the first accepted
+  external owner artifact release. It then becomes a forwarding adapter for one subsequent
+  compatibility release; public registry publication remains disabled.
 
 ## Work sequence
 
@@ -21,16 +22,15 @@ candidate canonical owner for the extracted contract plane.
    deterministic and independently testable.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
 3. Keep owner CI green on Node.js 25 and pnpm 10.30.3 for `main` and pull requests.
-4. Use the structured Goal 68.4 owner acceptance issue form to record formal release authority,
-   issue/review location, compatibility window, package metadata, and canonical cutover decision.
-5. Only after sign-off, decide whether the monorepo package becomes an adapter or remains a
-   private compatibility mirror.
+4. Keep the accepted private owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
+5. At the first accepted owner artifact release, switch the monorepo package to a forwarding
+   compatibility adapter and carry the deprecation notice through the next compatibility release.
 
 ## Canonical documents
 
 The document set is indexed in
 [docs/internal/goals/README.md](./goals/README.md), with the governing status in
-[Goal 68](./goals/goal-68-dpm-logical-data-definition-boundary.md) and the interim decisions in
+[Goal 68](./goals/goal-68-dpm-logical-data-definition-boundary.md) and the accepted decisions in
 [owner-decision-record.md](./goals/owner-decision-record.md).
 
 ## Verification
@@ -50,10 +50,8 @@ corepack pnpm smoke:dpm
 The same gates run in
 [.github/workflows/ci.yml](../../.github/workflows/ci.yml).
 
-## Open formal decisions
+## Explicitly deferred decisions
 
-- formal release authority and final review/sign-off workflow (GitHub Issues is enabled as the current issue/review location);
-- compatibility window and deprecation release;
-- license, package metadata, registry scope, and future publication policy;
-- rollback fixture review/sign-off reference;
-- final canonical cutover from the monorepo compatibility implementation.
+- public package name, registry scope, license, and public release metadata;
+- breaking removal of the `@oa-sdk/dpm` import surface;
+- search, draft/edit/publish, authoring convenience, and production data-plane runtime.

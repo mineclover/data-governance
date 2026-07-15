@@ -1,6 +1,6 @@
 # Goal 68 — DPM Logical Data Definition and Extraction Boundary
 
-**Status: active — private owner repository, CI, document gate, and issue/review location verified; 68.0·68.1·68.2·68.3 complete; formal 68.4 acceptance pending**
+**Status: active — 68.0·68.1·68.2·68.3·68.4 private owner acceptance complete; public release and breaking removal remain separately gated**
 
 > Predecessor: [Goal 67 — DPM Canonical Key Typed Encoding v2](./goal-67-dpm-canonical-key-typed-v2.md)<br>
 > Architecture boundary: [Package Architecture](../architecture/packages.md)<br>
@@ -26,10 +26,11 @@ and authoring convenience are a follow-on control-plane capability after the neu
 is stable; they are not silently included in the Goal 68 compiler scope.
 
 Private owner candidate: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
-The interim decision is recorded in [owner-decision-record.md](./owner-decision-record.md). GitHub
-Issues and the structured owner acceptance form are enabled at the current issue/review workflow,
-and owner CI passed in [workflow 29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517)
-for commit `60c6c36`.
+The accepted decision is recorded in [owner-decision-record.md](./owner-decision-record.md). The
+formal review is recorded in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1),
+and the structured owner acceptance form remains available at the current issue/review workflow.
+Owner CI passed in [workflow 29353981154](https://github.com/mineclover/data-governance/actions/runs/29353981154)
+for commit `c1fb9a9`.
 
 ## Expressive boundary
 
@@ -132,16 +133,17 @@ Wire compatibility is frozen by version:
 | `data_definitions` `1.0` | Frozen compatibility contract | Existing structural field, storage, and API binding shape. |
 | `data_definitions` `1.1` | Experimental in this monorepo | Namespace-safe logical identity, catalog context, lifecycle, origin, and cardinality rules. |
 
-This decision completes 68.0 for temporary in-repository execution. The private owner candidate
-and owner CI establish the external rehearsal location and repeatable verification, but formal
-canonical-owner, release-authority, and compatibility-window acceptance remain open.
+This decision completes 68.0 and the private 68.4 owner handoff. The private owner candidate is
+canonical for the extraction contract, the `mineclover` repository owner is the release authority,
+and the compatibility window is the first accepted owner artifact release plus one subsequent
+compatibility release. Public registry publication and breaking removal remain separate gates.
 
 ## 68.4 private owner repository transition record
 
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction at `7f1fb3f`, the owner CI workflow at `8ab1c66`, and the
 acceptance-form implementation at `60c6c36`. Workflow
-[29353177517](https://github.com/mineclover/data-governance/actions/runs/29353177517) passed build,
+[29353981154](https://github.com/mineclover/data-governance/actions/runs/29353981154) passed build,
 typecheck, boundary, owner documentation, tests, and all DPM consumer smokes with Node.js 25 and
 pnpm 10.30.3.
 
@@ -158,8 +160,8 @@ pnpm 10.30.3.
 | Wire-version stability | Aligned for temporary execution | `data_definitions` `1.0` is frozen as compatibility; `1.1` is experimental until extraction. |
 | Semantic enforcement | Aligned for v1.1 | `validateDpmDataBindings()` participates in validate and compile gates; compiled plan identity includes neutral binding freshness. |
 | Core dependency direction | Aligned | New surface stays under DPM; Core packages do not depend on maintenance-only DPM. |
-| Extraction readiness | Aligned for private rehearsal | Private extraction, owner decision record, and CI-backed runtime/declaration/rollback/workflow/pack checks pass; registry metadata and formal owner acceptance remain pending. |
-| Governance policy | Aligned for transition review | The private owner candidate and interim private-maintenance policy are recorded; formal canonical-owner, release-authority, and compatibility-window acceptance remain the Goal 68.4 exit condition. |
+| Extraction readiness | Accepted for private ownership | Private extraction, owner decision record, and CI-backed runtime/declaration/rollback/workflow/pack checks pass; public registry metadata is intentionally deferred. |
+| Governance policy | Accepted for private transition | The private owner candidate is canonical, `mineclover` is the release authority, and the compatibility window is recorded in the owner decision record and Issue #1. |
 
 ## Roadmap
 
@@ -258,14 +260,16 @@ Deliverables:
 The local packed-artifact runtime, declaration, and rollback rehearsal plus the temporary migration/rollback contract are recorded in
 [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md). The
 owner handoff gates are listed in the [Goal 68.4 External Extraction Acceptance Checklist](./goal-68-extraction-acceptance-checklist.md).
-The private external rehearsal and CI are complete, while formal owner sign-off, registry publication
-metadata, compatibility window, and canonical-document transition remain pending.
+The private external rehearsal, owner CI, and formal private owner sign-off are complete. The owner
+repository is canonical for the extraction contract. Public registry metadata and breaking adapter
+removal remain separately gated.
 
 Exit criteria:
 
 - external consumer smoke passes without monorepo path assumptions;
-- old `@oa-sdk/dpm` imports have a documented compatibility window;
-- the monorepo package can be reduced to an adapter without changing API/Core ownership.
+- old `@oa-sdk/dpm` imports have a documented compatibility window through the first accepted owner
+  release plus one subsequent compatibility release;
+- the monorepo package can be reduced to a forwarding adapter without changing API/Core ownership.
 
 ## Owner-authorized follow-on control plane
 

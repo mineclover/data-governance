@@ -7,7 +7,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 
 ## Current
 
-- Goal 68 is active in the private owner repository `mineclover/data-governance`. DPM-86 through DPM-89 are complete, and DPM-90 external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, and the structured GitHub Issues review workflow passed/are enabled as recorded by owner commit `60c6c36` and workflow `29353177517`; formal release authority, publication metadata, compatibility-window definition, and canonical-document sign-off remain pending.
+- Goal 68 is active in the private owner repository `mineclover/data-governance`. DPM-86 through DPM-90 are complete, including external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, and the structured GitHub Issues review workflow. The private owner acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1) and owner commit `c1fb9a9`/workflow `29353981154`; public registry publication and breaking removal remain separately gated.
 
 ## Recently Completed
 
@@ -425,7 +425,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 - [x] DPM-87 - Namespace-safe identity contract
 - [x] DPM-88 - Semantic API/catalog binding validation
 - [x] DPM-89 - Compiler and provenance artifact integration
-- [ ] DPM-90 - External extraction rehearsal (private repository, owner decision record, and CI-backed runtime/declaration/rollback/workflow/pack rehearsal complete; pending formal owner acceptance, release policy, and canonical migration)
+- [x] DPM-90 - External extraction rehearsal and private owner acceptance (private repository, canonical owner decision, CI-backed runtime/declaration/rollback/workflow/pack rehearsal, compatibility window, canonical document ownership, and rollback sign-off recorded; public release remains disabled)
 
 ## Done Criteria
 
