@@ -74,6 +74,8 @@ guide, deprecation notice, and passing rollback fixture.
 - `.github/CODEOWNERS` requests `@mineclover` review for every repository change.
 - `.github/workflows/release-gate.yml` verifies every `v*` tag is an ancestor of `main` and reruns
   the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
+- `docs/internal/goals/t1-readiness.md`, `.github/workflows/t1-preflight.yml`, and the
+  `t1-release-approval.yml` issue form provide a private candidate/preflight path before T1.
 - The release gate does not publish a package. Public publication still requires the separate owner
   approval described above.
 - GitHub branch protection is not available under the current private-repository plan, so CODEOWNERS

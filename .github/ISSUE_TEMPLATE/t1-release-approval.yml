@@ -1,0 +1,96 @@
+name: DPM T1 release approval
+description: Record the owner approval required before the first public DPM artifact release.
+title: "[DPM] T1 release approval"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this issue only when a private T1 candidate has passed preflight and the owner is
+        ready to decide whether to authorize the first public artifact release.
+
+        Opening this issue does not publish a package, create a release tag, or authorize adapter
+        cutover. Those actions require the completed approval below.
+
+        Reference: https://github.com/mineclover/data-governance/blob/main/docs/internal/goals/t1-readiness.md
+
+  - type: input
+    id: candidate-commit
+    attributes:
+      label: Candidate commit
+      description: Exact private owner commit proposed for T1.
+      placeholder: "40-character commit SHA"
+    validations:
+      required: true
+
+  - type: input
+    id: preflight-run
+    attributes:
+      label: T1 preflight run
+      description: Link the successful private T1 preflight or owner CI run for the exact commit.
+      placeholder: "https://github.com/mineclover/data-governance/actions/runs/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: package-policy
+    attributes:
+      label: Package and registry policy
+      description: Record the exact package identity, registry scope, and publication target.
+      placeholder: |
+        Package: @mineclover/dpm
+        Registry: npmjs.com / GitHub Packages / other
+        Existing @oa-sdk/dpm compatibility policy: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: license-policy
+    attributes:
+      label: License and redistribution policy
+      description: Record the license and redistribution decision for this public artifact.
+      placeholder: "License: ...; redistribution constraints: ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: compatibility-policy
+    attributes:
+      label: Compatibility and adapter policy
+      description: Define the one-release compatibility window, deprecation notice, and adapter cutover conditions.
+      placeholder: "Compatibility release, deprecation notice, rollback, and cutover plan"
+    validations:
+      required: true
+
+  - type: input
+    id: release-reference
+    attributes:
+      label: Release reference
+      description: State the exact SemVer tag or GitHub Release reference to create after approval.
+      placeholder: "v1.0.0 or GitHub Release URL"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: approval-gates
+    attributes:
+      label: Approval gates
+      description: Check only after reviewing the linked evidence.
+      options:
+        - label: The candidate commit is on main and the private preflight/owner CI passed.
+          required: true
+        - label: Package identity, registry scope, and publication target are approved.
+          required: true
+        - label: License and redistribution policy are approved.
+          required: true
+        - label: Compatibility, deprecation, rollback, and adapter cutover policy are approved.
+          required: true
+        - label: I am the mineclover repository owner or an explicitly delegated release authority.
+          required: true
+
+  - type: checkboxes
+    id: final-approval
+    attributes:
+      label: Final decision
+      options:
+        - label: I approve creating the exact release reference above and proceeding through the T1 release gate.
+          required: true

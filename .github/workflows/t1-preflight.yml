@@ -1,0 +1,66 @@
+name: DPM T1 preflight
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/t1-preflight.yml"
+      - "docs/internal/goals/**"
+      - "packages/dpm/**"
+      - "packages/openapi-projection-contract/**"
+      - "scripts/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Private candidate branch or commit to verify"
+        required: true
+        default: "main"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-candidate:
+    name: Verify private T1 candidate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out private candidate
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.30.3
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Typecheck packages
+        run: pnpm typecheck
+
+      - name: Check extraction boundary
+        run: pnpm check:boundary
+
+      - name: Check owner documentation links
+        run: pnpm check:docs
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Run DPM consumer smoke
+        run: pnpm smoke:dpm
