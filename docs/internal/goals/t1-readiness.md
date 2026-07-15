@@ -33,7 +33,8 @@ or the `@oa-sdk/dpm` adapter cutover.
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
 - The release gate now checks all six required Issue #2 approval rows, including the final release
   authorization, before verifying any `v*` tag;
-  the private readiness guard also verifies that this approval check remains wired.
+  the private readiness guard also verifies that this approval check and the deferred
+  cross-definition read-model contract check remain wired.
 - Repository visibility: private.
 - Public registry, license, and adapter cutover: pending the T1 approval issue.
 

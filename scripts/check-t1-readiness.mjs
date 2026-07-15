@@ -17,6 +17,8 @@ requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permissi
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
 requireText(normalize(releaseGate), 'gh issue view 2', 'release-gate Issue #2 lookup')
 requireText(normalize(releaseGate), 'scripts/check-t1-approval.mjs', 'release-gate approval checker')
+requireText(normalize(releaseGate), 'Check cross-definition read-model contract', 'release-gate read-model contract step')
+requireText(normalize(releaseGate), 'pnpm check:read-model-contract', 'release-gate read-model contract checker')
 for (const [value, label] of [
   ['@mineclover/dpm', 'recommended public package identity'],
   ['npm public registry', 'recommended registry'],

@@ -57,6 +57,8 @@ The same gates run in
 - breaking removal of the `@oa-sdk/dpm` import surface;
 - broad search, automatic mutation/bulk authoring beyond the activated Phase 8 representative slice,
   and production data-plane runtime.
+- runtime activation of the cross-definition read model, durable index migration, and external
+  authorization; the entry contract is prepared separately in the Phase 8 contract record.
 
 ## Recommended public-release policy
 

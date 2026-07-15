@@ -60,6 +60,9 @@ jobs:
       - name: Check operational change decision
         run: pnpm check:operational-change
 
+      - name: Check cross-definition read-model contract
+        run: pnpm check:read-model-contract
+
       - name: Check T1 readiness
         run: pnpm check:t1-readiness
 

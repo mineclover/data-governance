@@ -149,7 +149,8 @@ The private representative slice provides definition-scoped lookup by logical ob
 pointer, DB coordinate, and deterministic field filters for locator, name, type, origin, and
 lifecycle. A cross-definition neutral read model is still absent: sensitivity/owner metadata,
 bounded multi-definition queries, index freshness/rebuild state, authorization scope, reverse
-lookup, and where-used behavior remain undefined until the follow-on entry contract is accepted.
+lookup, and where-used behavior remain outside runtime scope until the follow-on entry contract's
+activation gates are accepted.
 
 Blocking phase: 8.
 
@@ -238,7 +239,8 @@ Automatic mutation, cross-definition/product search, sensitivity/owner metadata,
 relationship/policy/trace where-used, and bulk edit remain separate follow-on decisions.
 
 Durable production persistence, external authorization, broad indexing, and unrestricted authoring
-remain deferred. No Phase 8 implementation is added to the historical `oa-sdk` mirror.
+remain deferred. The [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
+is prepared, but no Phase 8 implementation is added to the historical `oa-sdk` mirror.
 
 ### Phase 9 — Extraction rehearsal (Goal 68.4, owner-gated)
 

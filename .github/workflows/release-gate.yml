@@ -61,6 +61,9 @@ jobs:
       - name: Check roadmap checkpoint
         run: pnpm check:roadmap
 
+      - name: Check cross-definition read-model contract
+        run: pnpm check:read-model-contract
+
       - name: Run tests
         run: pnpm test
 

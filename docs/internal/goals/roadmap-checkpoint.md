@@ -24,6 +24,9 @@ Issue is not required for ordinary roadmap updates.
   as review-only semantic-diff suggestions; keep automatic mutation, bulk edit, and broad search deferred.
 - Follow the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
   before activating cross-definition search, automatic mutation, or bulk authoring.
+- Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
+  as the prepared entry contract; keep runtime activation, durable indexing, and external
+  authorization deferred until the listed owner gates are accepted.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -72,6 +75,9 @@ Issue is not required for ordinary roadmap updates.
 - Semantic-diff quick-fix helper implemented with approval-required breaking-change review,
   alias-preserved rename/deprecation suggestions, deep immutability, and no raw change payloads.
 - Routine roadmap feedback moved to this checkpoint and commit history.
+- The first Phase 8 follow-on now has a private contract for canonical keys, projection ownership,
+  freshness/rebuild state, deny-by-default authorization, bounded pagination, and fail-closed
+  outcomes; runtime activation remains deferred.
 
 ## Next
 
@@ -84,8 +90,8 @@ Issue is not required for ordinary roadmap updates.
 - Run `pnpm check:operational-change` whenever the operational decision or migration packet changes.
 - Run `pnpm check:t1-readiness` whenever the T1 readiness or candidate decision packet changes.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
-  unsupported metadata filters, automatic mutation, bulk edit, cross-definition search, and broader
-  authoring infrastructure.
+  unsupported metadata filters, automatic mutation, bulk edit, and cross-definition runtime search;
+  keep the prepared read-model contract and its drift check green.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -125,6 +131,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | T1 recommendation documents can drift from the private package boundary during routine maintenance. | adopt readiness contract check | Verify the recommendation-only packet, private package identity/version, absent license/publication metadata, absent `v*` tags, and explicit no-action boundaries in CI. | `pnpm check:t1-readiness` |
 | 2026-07-15 | Goal 68 acceptance records retained an older Owner CI link after later private verification succeeded. | adopt evidence refresh | Synchronize current owner-acceptance references to the latest successful Owner CI while keeping T1 readiness pinned to the exact code-candidate and preflight runs. | `29412035473`, `29411791058`, `29411796346` |
 | 2026-07-15 | A release tag could reach the verification workflow without the formal Issue #2 approval state being machine-checked. | adopt approval guard | Require all six checked Issue #2 approval rows, including final release authorization, in the T1 release gate and verify the guard remains wired during private readiness checks. | `scripts/check-t1-approval.mjs`, `pnpm check:t1-readiness` |
+| 2026-07-15 | Cross-definition search is the first follow-on, but activation needs stable identity, freshness, authorization, and bounded-result rules before code or storage is added. | adopt contract / defer runtime | Prepare the read-model entry contract and CI drift check; keep search service, durable index, migration, and external authorization owner-gated. | [Cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md), `pnpm check:read-model-contract` |
 
 ## Formal approvals
 

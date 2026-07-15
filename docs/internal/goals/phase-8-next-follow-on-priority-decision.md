@@ -1,6 +1,6 @@
 # Phase 8 Next Follow-On Priority Decision
 
-**Status: private priority decision adopted 2026-07-15; no public-release effect**
+**Status: private priority decision and contract preparation adopted 2026-07-15; runtime activation deferred**
 
 This record defines the recommended order for capabilities that remain outside the accepted
 definition-scoped Phase 8 representative slice. It does not activate implementation, database
@@ -10,7 +10,7 @@ migration, external authorization, or any public-release action.
 
 | Priority | Capability | Decision now | Required entry conditions |
 | --- | --- | --- | --- |
-| 1 | Cross-definition search/read model | Defer activation; prepare only a contract when an owner and durable indexing target are approved. | Stable cross-definition identity keys, metadata ownership, index freshness/rebuild rules, authorization scope, and bounded result semantics. |
+| 1 | Cross-definition search/read model | Prepare the entry contract; defer runtime activation until the operational owner and durable indexing target are approved. | Stable cross-definition identity keys, metadata ownership, index freshness/rebuild rules, authorization scope, and bounded result semantics. |
 | 2 | Automatic mutation from review suggestions | Defer activation; keep current quick-fix output review-only. | Explicit apply contract, role-gated authorization, optimistic concurrency, audit events, dry-run, and rollback behavior. |
 | 3 | Bulk authoring/edit | Defer until mutation and the read model are accepted. | Batch conflict policy, partial-failure semantics, per-item audit, idempotency, bounded batch size, and rollback/recovery evidence. |
 
@@ -24,6 +24,8 @@ multiplies conflict, audit, and rollback concerns across definitions.
 - Keep the private Phase 8 representative slice limited to scoped lookup, canonical import/export,
   identity-only explain, immutable authoring revisions, semantic diff, and review-only quick fixes.
 - Continue consumer evidence, documentation, and private T1 preflight maintenance.
+- Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
+  as a review artifact; do not activate a search service or persistent index yet.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).
@@ -32,6 +34,7 @@ multiplies conflict, audit, and rollback concerns across definitions.
 
 ## Revisit trigger
 
-Reopen this priority only when the owner selects the next capability, its operational owner, and
-the corresponding persistence/authorization contract. A passing private test or preflight alone
-does not activate any of these deferred capabilities.
+Reopen this priority for runtime activation only when the owner selects the next capability, its
+operational owner, and the corresponding persistence/authorization contract. The cross-definition
+entry contract is now prepared, but a passing private test or preflight alone does not activate
+any deferred capability.
