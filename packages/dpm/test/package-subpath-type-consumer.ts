@@ -101,6 +101,7 @@ import {
 } from '@oa-sdk/dpm/publishing'
 import {
   createDpmAsyncAuthoringService,
+  createDpmAuthoringQuickFixes,
   createDpmAuthoringService,
   createDpmInMemoryAuthoringRepository,
   exportDpmAuthoringDefinitions,
@@ -109,6 +110,7 @@ import {
   type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
+  type DpmAuthoringSemanticDiff,
 } from '@oa-sdk/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
@@ -153,6 +155,7 @@ type DpmSubpathTypeSmoke = {
   publishing?: DpmPublishingContext
   authoring?: DpmAuthoringActor
   authoringLookup?: DpmAuthoringFieldLookup
+  authoringQuickFixes?: ReturnType<typeof createDpmAuthoringQuickFixes>
   dataDefinitions?: DpmIdentityDataDefinitions
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
@@ -178,6 +181,14 @@ const authoringLookup: DpmAuthoringFieldLookup = {
   lifecycle: 'active',
 }
 const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
+const authoringDiff: DpmAuthoringSemanticDiff = {
+  definitionId: 'smoke-definition',
+  baseRevisionId: 'revision-1',
+  draftId: 'draft-1',
+  breaking: false,
+  changes: [],
+}
+const authoringQuickFixes = createDpmAuthoringQuickFixes(authoringDiff)
 const asyncAuthoring = createDpmAsyncAuthoringService({
   repository: {} as DpmAsyncAuthoringRepository,
 })
@@ -240,6 +251,7 @@ void [
   typeSmoke,
   authoringActor,
   authoringLookup,
+  authoringQuickFixes,
   exportDpmAuthoringDefinitions,
   explainDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
