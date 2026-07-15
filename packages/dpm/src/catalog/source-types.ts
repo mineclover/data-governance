@@ -1,6 +1,6 @@
 import type {
   OpenApiProjectionProfile,
-} from '@oa-sdk/openapi-projection-contract'
+} from '../contract/openapi-projection.js'
 
 export type CatalogSnapshotSource =
   | {

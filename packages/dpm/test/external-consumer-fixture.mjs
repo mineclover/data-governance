@@ -2,13 +2,13 @@ import {
   DPM_NEUTRAL_DATA_BINDING_ARTIFACT_KIND,
   DPM_NEUTRAL_DATA_BINDING_ARTIFACT_VERSIONS,
   createDpmIdentityDataDefinitions,
-} from '@oa-sdk/dpm/data'
+} from '@mineclover/dpm/data'
 import {
   DPM_PACKAGE_NAME,
-} from '@oa-sdk/dpm/package'
+} from '@mineclover/dpm/package'
 import {
   createDpmNeutralDataBindingArtifact,
-} from '@oa-sdk/dpm/relationship'
+} from '@mineclover/dpm/relationship'
 
 const definitions = createDpmIdentityDataDefinitions({
   version: '1.1',
@@ -26,7 +26,7 @@ const definitions = createDpmIdentityDataDefinitions({
   }],
 })
 
-if (DPM_PACKAGE_NAME !== '@oa-sdk/dpm') throw new Error('package name contract changed')
+if (DPM_PACKAGE_NAME !== '@mineclover/dpm') throw new Error('package name contract changed')
 if (DPM_NEUTRAL_DATA_BINDING_ARTIFACT_KIND !== 'dpm.data-binding-artifact.v1') {
   throw new Error('neutral artifact kind contract changed')
 }
@@ -43,7 +43,7 @@ if (typeof createDpmNeutralDataBindingArtifact !== 'function') {
 console.log(JSON.stringify({
   status: 'ok',
   packageName: DPM_PACKAGE_NAME,
-  imports: ['@oa-sdk/dpm/data', '@oa-sdk/dpm/relationship'],
+  imports: ['@mineclover/dpm/data', '@mineclover/dpm/relationship'],
   artifactKind: DPM_NEUTRAL_DATA_BINDING_ARTIFACT_KIND,
   artifactVersions: DPM_NEUTRAL_DATA_BINDING_ARTIFACT_VERSIONS,
   fieldObjectId: definitions.fields[0].objectId,

@@ -2,7 +2,7 @@ import type {
   OpenApiProjectionProfile,
   SchemaRefEdge,
   SchemaTypeTarget,
-} from '@oa-sdk/openapi-projection-contract'
+} from '../contract/openapi-projection.js'
 
 export type CatalogProjectionEvidence = {
   profile: OpenApiProjectionProfile

@@ -1,4 +1,3 @@
-import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
@@ -11,8 +10,8 @@ const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
 const normalizedPacket = normalize(packet)
 
-requireText(normalizedReadiness, '**Status: private preflight path available; T1 public release is not approved**', 'readiness status')
-requireText(normalizedPacket, '**Status: recommendation prepared; owner approval required before any public-release action**', 'candidate packet status')
+requireText(normalizedReadiness, '**Status: T1 approval recorded; release execution in progress**', 'readiness status')
+requireText(normalizedPacket, '**Status: owner-approved; public release execution authorized**', 'candidate packet status')
 requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
 requireText(normalize(releaseGate), 'gh issue view 2', 'release-gate Issue #2 lookup')
@@ -31,34 +30,24 @@ for (const [value, label] of [
   requireText(normalizedPacket, value, label)
 }
 
-for (const [value, label] of [
-  ['does not authorize public registry publication', 'readiness non-authorization boundary'],
-  ['does not finalize package metadata', 'packet non-authorization boundary'],
-  ['declaring the license in package metadata', 'license deferral'],
-  ['Creating `v0.1.0`', 'tag deferral'],
-  ['Publishing to npm, GitHub Packages, or another registry.', 'registry deferral'],
-  ['Replacing, redirecting, or removing the', 'adapter deferral'],
-  ['Applying the PostgreSQL migration or deploying the authoring storage contract.', 'database deferral'],
-]) {
-  requireText(normalizedPacket.includes(value) ? normalizedPacket : normalizedReadiness, value, label)
-}
+requireText(normalizedPacket, 'Publish `@mineclover/dpm@0.1.0` from the approved tag.', 'approved publication sequence')
+requireText(normalizedPacket, 'Keep `@oa-sdk/dpm` as a forwarding adapter', 'approved compatibility sequence')
+requireText(normalizedReadiness, 'Create the exact `v0.1.0` tag on `main`', 'tag execution sequence')
 
 if (rootPackage.private !== true) throw new Error('root package must remain private before T1 approval')
 if (rootPackage.version !== '0.1.0') throw new Error(`root package version must remain 0.1.0 before T1 approval; received ${rootPackage.version}`)
-if (dpmPackage.private !== true) throw new Error('DPM package must remain private before T1 approval')
-if (dpmPackage.name !== '@oa-sdk/dpm') throw new Error(`DPM package identity changed before T1 approval: ${dpmPackage.name}`)
+if (dpmPackage.private === true) throw new Error('DPM package must be publishable after T1 approval')
+if (dpmPackage.name !== '@mineclover/dpm') throw new Error(`DPM package identity does not match approved public target: ${dpmPackage.name}`)
 if (dpmPackage.version !== '0.1.0') throw new Error(`DPM package version must remain 0.1.0 before T1 approval; received ${dpmPackage.version}`)
-if ('license' in dpmPackage || 'publishConfig' in dpmPackage) {
-  throw new Error('public license or publish metadata appeared before T1 approval')
+if (dpmPackage.license !== 'Apache-2.0') throw new Error(`DPM package license must be Apache-2.0; received ${dpmPackage.license ?? '<missing>'}`)
+if (dpmPackage.publishConfig?.access !== 'public') throw new Error('DPM package must declare public npm access')
+if (!dpmPackage.files?.includes('LICENSE')) throw new Error('DPM package files must include LICENSE')
+
+for (const licenseFile of ['LICENSE', 'packages/dpm/LICENSE']) {
+  if (!existsSync(`${root}/${licenseFile}`)) throw new Error(`approved license file is missing: ${licenseFile}`)
 }
 
-const licenseFiles = ['LICENSE', 'LICENSE.md', 'LICENSE.txt'].filter(file => existsSync(`${root}/${file}`))
-if (licenseFiles.length > 0) throw new Error(`public license file appeared before T1 approval: ${licenseFiles.join(', ')}`)
-
-const tags = execFileSync('git', ['tag', '--list', 'v*'], { cwd: root, encoding: 'utf8' }).trim()
-if (tags) throw new Error(`release tag appeared before T1 approval: ${tags}`)
-
-console.log('T1 readiness OK: private candidate and recommendation-only release gate are intact')
+console.log('T1 readiness OK: owner-approved public candidate and release gate are intact')
 
 function read(relativePath) {
   return readFileSync(`${root}/${relativePath}`, 'utf8')

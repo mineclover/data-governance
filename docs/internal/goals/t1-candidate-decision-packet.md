@@ -1,23 +1,23 @@
 # DPM T1 Candidate Decision Packet
 
-**Status: recommendation prepared; owner approval required before any public-release action**
-**Updated: 2026-07-15**
+**Status: owner-approved; public release execution authorized**
+**Updated: 2026-07-16**
 
 This packet assembles the recommended decisions for the first public DPM artifact. It is a
-preparation record only. It does not finalize package metadata, add a license file, create a
-SemVer tag, publish to a registry, or authorize the `@oa-sdk/dpm` adapter transition.
+The owner-approved values below authorize the public package artifact, exact release reference,
+and one-release compatibility transition. The repository itself remains private.
 
 ## Recommended decisions
 
 | Decision | Recommendation | Why | Approval state |
 | --- | --- | --- | --- |
-| Public package identity | `@mineclover/dpm` | Align the artifact with the private owner repository and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Candidate only |
-| Registry | npm public registry | It is the lowest-friction distribution target for a TypeScript package and supports the package's existing Node/pnpm consumer workflow. | Candidate only |
-| First release reference | `v0.1.0` | Use an explicitly limited first public release while external consumers validate the relationship, identity, neutral artifact, authoring, and compatibility contracts. Promote to `v1.0.0` only through a later stability decision. | Selected recommendation; owner approval pending |
-| License | Apache-2.0 | Recommended permissive baseline with an explicit patent grant for a reusable library. Legal/owner confirmation remains required. | Not finalized |
-| Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Candidate only |
-| Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@mineclover/dpm` canonical. | Candidate only |
-| Adapter cutover | Announce deprecation in the compatibility release; remove the adapter only through a separately approved breaking release. | Makes rollback and consumer migration observable and reversible. | Candidate only |
+| Public package identity | `@mineclover/dpm` | Align the artifact with the private owner repository and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Approved |
+| Registry | npm public registry | It is the lowest-friction distribution target for a TypeScript package and supports the package's existing Node/pnpm consumer workflow. | Approved |
+| First release reference | `v0.1.0` | Use an explicitly limited first public release while external consumers validate the relationship, identity, neutral artifact, authoring, and compatibility contracts. Promote to `v1.0.0` only through a later stability decision. | Approved |
+| License | Apache-2.0 | Permissive baseline with an explicit patent grant for a reusable library. | Approved |
+| Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Approved |
+| Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@mineclover/dpm` canonical. | Approved |
+| Adapter cutover | Announce deprecation in the compatibility release; remove the adapter only through a separately approved breaking release. | Makes rollback and consumer migration observable and reversible. | Approved |
 
 ## Candidate baseline
 
@@ -26,7 +26,7 @@ The current private readiness baseline is the owner-repository `main` ref record
 following are true:
 
 1. The selected private branch or pull request passes T1 preflight and owner CI.
-2. The owner approves the package, registry, license, compatibility, rollback, and release
+2. The owner has approved the package, registry, license, compatibility, rollback, and release
    reference decisions in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
 3. The exact approved release reference is created through the release gate.
 
@@ -51,11 +51,7 @@ return to the private candidate. No partial registry or tag action is authorized
 
 ## Actions intentionally deferred
 
-- Changing `packages/dpm/package.json` from the private `@oa-sdk/dpm` identity.
-- Adding `LICENSE` or declaring the license in package metadata.
-- Creating `v0.1.0` or any other `v*` tag.
-- Publishing to npm, GitHub Packages, or another registry.
-- Replacing, redirecting, or removing the `@oa-sdk/dpm` adapter.
+- Replacing, redirecting, or removing the `@oa-sdk/dpm` adapter beyond the approved one-release window.
 - Applying the PostgreSQL migration or deploying the authoring storage contract.
 
 ## Approval checklist for Issue #2
@@ -71,5 +67,5 @@ only after reviewing:
 - one-release compatibility, deprecation, and rollback evidence;
 - release-gate output for the exact approved tag.
 
-Until that checklist is completed, the repository remains private and the public-release actions
-remain deferred.
+The checklist is complete in Issue #2. The repository remains private, and the exact tag, registry
+publication, and adapter transition must still follow the sequence and verification gates above.

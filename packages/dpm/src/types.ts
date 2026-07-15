@@ -2,7 +2,7 @@ export type DpmBaseline = 'relationship-first'
 export type DpmVersion = '1.0'
 
 export type DpmPackageMetadata = {
-  packageName: '@oa-sdk/dpm'
+  packageName: '@mineclover/dpm'
   baseline: DpmBaseline
   dpmVersion: DpmVersion
 }

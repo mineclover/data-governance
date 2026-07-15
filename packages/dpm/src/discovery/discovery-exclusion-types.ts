@@ -1,4 +1,4 @@
-import type { SchemaSourceCoordinate } from '@oa-sdk/openapi-projection-contract'
+import type { SchemaSourceCoordinate } from '../contract/openapi-projection.js'
 import type { DiscoveryExcludedCandidateReason } from './discovery-taxonomy.js'
 
 export type ExcludedRelationshipCandidate = {

@@ -1,7 +1,7 @@
 import {
   createDpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
-} from '@oa-sdk/dpm/data'
+} from '@mineclover/dpm/data'
 import {
   createDpmAuthoringQuickFixes,
   resolveDpmAuthoringBackend,
@@ -11,7 +11,7 @@ import {
   type DpmAuthoringExplanation,
   type DpmAuthoringSemanticDiff,
   type DpmConfiguredAsyncAuthoringServiceOptions,
-} from '@oa-sdk/dpm/authoring'
+} from '@mineclover/dpm/authoring'
 
 const definitions = createDpmIdentityDataDefinitions({
   version: '1.1',

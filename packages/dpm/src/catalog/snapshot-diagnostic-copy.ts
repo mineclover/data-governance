@@ -1,4 +1,4 @@
-import type { SchemaDiagnostic } from '@oa-sdk/openapi-projection-contract'
+import type { SchemaDiagnostic } from '../contract/openapi-projection.js'
 
 import { copySourceCoordinate } from './snapshot-source-copy.js'
 import type { CatalogDiagnostic } from './diagnostic-types.js'

@@ -10,9 +10,6 @@ importers:
 
   packages/dpm:
     dependencies:
-      '@oa-sdk/openapi-projection-contract':
-        specifier: workspace:*
-        version: link:../openapi-projection-contract
       ajv:
         specifier: ^8.17.0
         version: 8.20.0

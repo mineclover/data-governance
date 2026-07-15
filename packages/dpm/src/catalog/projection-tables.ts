@@ -1,7 +1,7 @@
 import type {
   OpenApiProjectionResult,
   SchemaSourceCoordinate,
-} from '@oa-sdk/openapi-projection-contract'
+} from '../contract/openapi-projection.js'
 
 import type {
   CatalogTable,

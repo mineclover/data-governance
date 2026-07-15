@@ -1,16 +1,16 @@
 import {
   DPM_PACKAGE_NAME,
   type DpmVersion,
-} from '@oa-sdk/dpm/package'
+} from '@mineclover/dpm/package'
 import {
   computeCatalogFreshnessHash,
   type CatalogSnapshot,
-} from '@oa-sdk/dpm/catalog'
+} from '@mineclover/dpm/catalog'
 import {
   createDpmIdentityDataDefinitions,
   type DpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
-} from '@oa-sdk/dpm/data'
+} from '@mineclover/dpm/data'
 import {
   createDpmRelationshipCandidateInputFromResolvedProfileHint,
   createDpmRelationshipCandidateInputFromProfileHint,
@@ -33,7 +33,7 @@ import {
   type DpmKafkaTopicProfileInput,
   type DpmKafkaTopicProfileCaptureMode,
   type DpmKafkaTopicProfileInputValidationResult,
-} from '@oa-sdk/dpm/profile'
+} from '@mineclover/dpm/profile'
 import {
   DPM_CANONICAL_KEY_ENCODING_VERSIONS,
   DPM_DEFAULT_CANONICAL_KEY_ENCODING_VERSION,
@@ -46,7 +46,7 @@ import {
   type DpmCanonicalKeyEncodingVersion,
   type DpmCanonicalKeyEncodingPlan,
   type RegistryRelationshipStatus,
-} from '@oa-sdk/dpm/relationship'
+} from '@mineclover/dpm/relationship'
 import {
   DPM_GATEWAY_RUNTIME_OPERATION_IDS,
   approveDpmProfileRelationshipHintRuntime,
@@ -61,7 +61,7 @@ import {
   type DpmGatewayProfileRelationshipHintApprovalSuccessResult,
   type DpmGatewayRegistryRelationshipWriteReceipt,
   type DpmGatewayRuntime,
-} from '@oa-sdk/dpm/gateway'
+} from '@mineclover/dpm/gateway'
 import {
   DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT_ERROR_CODE,
   appendDpmPostgresRegistryRelationshipAuditEvent,
@@ -94,11 +94,11 @@ import {
   type DpmProfileBaselineSummary,
   type DpmRegistryApprovedRelationshipConflictDetails,
   type DpmRegistryApprovedRelationshipConflictErrorCode,
-} from '@oa-sdk/dpm/storage'
+} from '@mineclover/dpm/storage'
 import {
   DPM_PUBLISHING_CONTEXT_KIND,
   type DpmPublishingContext,
-} from '@oa-sdk/dpm/publishing'
+} from '@mineclover/dpm/publishing'
 import {
   DPM_AUTHORING_BACKEND_ENV,
   DPM_AUTHORING_BACKEND_VALUES,
@@ -118,7 +118,7 @@ import {
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
   type DpmAuthoringSemanticDiff,
-} from '@oa-sdk/dpm/authoring'
+} from '@mineclover/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
   catalog?: CatalogSnapshot
@@ -167,7 +167,7 @@ type DpmSubpathTypeSmoke = {
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
 
-const packageName: '@oa-sdk/dpm' = DPM_PACKAGE_NAME
+const packageName: '@mineclover/dpm' = DPM_PACKAGE_NAME
 const manifestVersion: DpmVersion = '1.0'
 const gatewayRuntime: DpmGatewayRuntime = createDpmGatewayRuntime()
 const registryStatus: RegistryRelationshipStatus = REGISTRY_RELATIONSHIP_STATUSES[0]

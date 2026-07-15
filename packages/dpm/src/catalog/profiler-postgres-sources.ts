@@ -1,4 +1,4 @@
-import type { SchemaSourceCoordinate } from '@oa-sdk/openapi-projection-contract'
+import type { SchemaSourceCoordinate } from '../contract/openapi-projection.js'
 
 import type { PostgresCatalogProfileRow } from './profiler-postgres-row-types.js'
 import {

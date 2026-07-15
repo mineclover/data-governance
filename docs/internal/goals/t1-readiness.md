@@ -1,10 +1,10 @@
 # DPM T1 Release Readiness
 
-**Status: private preflight path available; T1 public release is not approved**
+**Status: T1 approval recorded; release execution in progress**
 
-This document defines the safe preparation path before the first accepted external owner artifact
-release (`T1`). It does not authorize public registry publication, license finalization, a `v*` tag,
-or the `@oa-sdk/dpm` adapter cutover.
+This document records the approved execution path for the first external owner artifact release
+(`T1`). The repository remains private, while the approved public package artifact and one-release
+compatibility transition are executed through the gates below.
 
 ## Private preparation path
 
@@ -14,34 +14,31 @@ or the `@oa-sdk/dpm` adapter cutover.
 3. Confirm the workflow run, package identity, registry, license, compatibility window,
    rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
    and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
-4. Obtain explicit approval from the `mineclover` repository owner or a delegated release authority.
-5. Only after approval, create the exact `v*` tag on `main`; [the T1 release gate](../../../.github/workflows/release-gate.yml)
+4. Owner approval is recorded in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+5. Create the exact `v0.1.0` tag on `main`; [the T1 release gate](../../../.github/workflows/release-gate.yml)
    reruns the full verification suite.
 
 ## Current evidence
 
 - T1 release candidate source: private `main`, represented by the linked owner CI and preflight runs.
-- Owner CI: [workflow 29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791), passed for the selected private candidate.
+- Owner CI: [workflow 29431640691](https://github.com/mineclover/data-governance/actions/runs/29431640691), passed for the selected approved candidate.
 - Latest private T1 preflight: [workflow 29429853413](https://github.com/mineclover/data-governance/actions/runs/29429853413), passed for the selected private candidate.
 - The workflow run records the tested revision automatically; approval documents reference the run links and source ref rather than manually copied commit identifiers.
-- Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
-  they remain proposals until Issue #2 is explicitly approved.
-- Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).
-- The current owner comment on Issue #2 labels the packet as preparation rather than approval and
-  leaves the license decision unresolved; checked preparation items do not satisfy the final
-  release gate.
+- Approved decisions are recorded in the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
+  and [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+- The release gate consumes all six checked Issue #2 approval rows before accepting the exact tag.
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
 - The release gate now checks all six required Issue #2 approval rows, including the final release
   authorization, before verifying any `v*` tag;
   the private readiness guard also verifies that this approval check and the deferred
   cross-definition read-model contract check remain wired.
 - Repository visibility: private.
-- Public registry, license, and adapter cutover: pending the T1 approval issue.
+- Public registry publication and license metadata are approved; adapter cutover follows the
+  successful `@mineclover/dpm@0.1.0` publication and compatibility smoke.
 
 ## Non-goals of preflight
 
-- It does not publish to npm, GitHub Packages, or another registry.
-- It does not create a SemVer tag or GitHub Release.
+- The preflight does not publish to npm or create a release; the release gate verifies the approved tag.
 - Its release gate requires all six explicit Issue #2 approval rows before accepting a `v*` tag.
-- It does not change the canonical package name or add a public license file.
-- It does not remove or replace the existing `@oa-sdk/dpm` compatibility surface.
+- It does not remove the existing `@oa-sdk/dpm` compatibility surface; that adapter remains through one
+  subsequent compatibility release.

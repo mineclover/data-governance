@@ -1,6 +1,6 @@
 import type {
   OpenApiProjectionResult,
-} from '@oa-sdk/openapi-projection-contract'
+} from '../contract/openapi-projection.js'
 
 import { toCatalogDiagnostic } from './projection-diagnostics.js'
 import { collectProjectionSchemas } from './projection-schemas.js'

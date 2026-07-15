@@ -18,7 +18,7 @@ pnpm demo:dpm
 Or from this package:
 
 ```bash
-pnpm --filter @oa-sdk/dpm run demo
+pnpm --filter @mineclover/dpm run demo
 ```
 
 The demo proves:

@@ -55,7 +55,7 @@ try {
     'deploy',
     '--legacy',
     '--filter',
-    '@oa-sdk/dpm',
+    '@mineclover/dpm',
     '--prod',
     consumerDir,
   ], {
@@ -80,7 +80,7 @@ try {
   copyFileSync(registryFixturePath, join(consumerDir, 'fixtures', 'commerce-registry.yaml'))
 
   const manifest = JSON.parse(readFileSync(join(consumerDir, 'package.json'), 'utf8'))
-  if (manifest.name !== '@oa-sdk/dpm') throw new Error('packed package name does not match @oa-sdk/dpm')
+  if (manifest.name !== '@mineclover/dpm') throw new Error('packed package name does not match @mineclover/dpm')
   if (!manifest.exports?.['./data'] || !manifest.exports?.['./relationship'] || !manifest.exports?.['./authoring']) {
     throw new Error('packed package is missing the public data/relationship/authoring subpaths')
   }

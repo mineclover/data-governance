@@ -1,8 +1,11 @@
 {
-  "name": "@oa-sdk/dpm",
+  "name": "@mineclover/dpm",
   "version": "0.1.0",
   "description": "Relationship-first Data Pseudonymization Manifest toolkit",
-  "private": true,
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "oa-dpm": "./dist/cli/index.js"
@@ -50,7 +53,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "rm -rf dist && tsup src/index.ts src/cli/index.ts src/public/package.ts src/public/catalog.ts src/public/data.ts src/public/profile.ts src/public/relationship.ts src/public/gateway.ts src/public/storage.ts src/public/publishing.ts src/public/authoring.ts --format esm --dts",
@@ -66,7 +71,6 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@oa-sdk/openapi-projection-contract": "workspace:*",
     "ajv": "^8.17.0",
     "yaml": "^2.8.3"
   },

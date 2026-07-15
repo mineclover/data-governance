@@ -6,16 +6,16 @@ import {
   DPM_KAFKA_TOPIC_PROFILE_CONNECTOR_ID,
   DPM_KAFKA_TOPIC_PROFILE_CONNECTOR_VERSION,
   profileKafkaTopic,
-} from '@oa-sdk/dpm/profile'
+} from '@mineclover/dpm/profile'
 import {
   createDpmGatewayRuntime,
-} from '@oa-sdk/dpm/gateway'
+} from '@mineclover/dpm/gateway'
 import {
   DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT_ERROR_CODE,
   DpmRegistryApprovedRelationshipConflictError,
   createDpmRegistryRepository,
   isDpmRegistryApprovedRelationshipConflictError,
-} from '@oa-sdk/dpm/storage'
+} from '@mineclover/dpm/storage'
 
 const testDir = dirname(fileURLToPath(import.meta.url))
 const fixturePath = join(testDir, '../examples/profile-kafka/kafka-orders-created.json')
@@ -203,9 +203,9 @@ console.log(JSON.stringify({
   status: 'ok',
   workflow: 'dpm.package-consumer.profile-to-registry',
   imports: [
-    '@oa-sdk/dpm/profile',
-    '@oa-sdk/dpm/gateway',
-    '@oa-sdk/dpm/storage',
+    '@mineclover/dpm/profile',
+    '@mineclover/dpm/gateway',
+    '@mineclover/dpm/storage',
   ],
   profileId: profileArtifact.profileId,
   relationshipName: approvalResponse.body.result.relationshipName,

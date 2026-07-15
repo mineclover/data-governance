@@ -17,6 +17,7 @@ const files = new Set(packResult[0].files.map(file => file.path))
 const expectedFiles = new Set([
   'package.json',
   'README.md',
+  'LICENSE',
 ])
 
 for (const exported of Object.values(manifest.exports)) {
@@ -32,6 +33,7 @@ const missingFiles = [...expectedFiles].filter(file => !files.has(file))
 const invalidFiles = [...files].filter(file =>
   file !== 'package.json'
   && file !== 'README.md'
+  && file !== 'LICENSE'
   && !file.startsWith('dist/')
 )
 

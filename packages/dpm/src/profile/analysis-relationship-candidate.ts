@@ -1,4 +1,4 @@
-import type { SchemaSourceCoordinate } from '@oa-sdk/openapi-projection-contract'
+import type { SchemaSourceCoordinate } from '../contract/openapi-projection.js'
 
 import type { RelationshipDiscoveryEndpoint } from '../discovery/discovery-endpoint-types.js'
 import type { RelationshipCandidateInput } from '../discovery/discovery-relationship-candidate-types.js'

@@ -1,4 +1,4 @@
-import type { OpenApiProjectionResult } from '@oa-sdk/openapi-projection-contract'
+import type { OpenApiProjectionResult } from '../../src/contract/openapi-projection.js'
 
 import { readCatalogFixture } from './catalog-fixture-io.js'
 

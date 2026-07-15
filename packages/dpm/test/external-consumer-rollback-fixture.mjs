@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
-import { createPostgresCatalogSnapshot } from '@oa-sdk/dpm/catalog'
+import { createPostgresCatalogSnapshot } from '@mineclover/dpm/catalog'
 import {
   compileDpmPlan,
   computeDpmApiArtifactVersionHash,
   parseRegistrySnapshotYaml,
-} from '@oa-sdk/dpm/relationship'
+} from '@mineclover/dpm/relationship'
 
 const manifest = JSON.parse(readFileSync('./fixtures/customer-orders.json', 'utf8'))
 const catalog = createPostgresCatalogSnapshot(JSON.parse(

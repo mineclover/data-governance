@@ -6,8 +6,8 @@ import {
   explainDpmAuthoringDefinitions,
   exportDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
-} from '@oa-sdk/dpm/authoring'
-import { createDpmIdentityDataDefinitions } from '@oa-sdk/dpm/data'
+} from '@mineclover/dpm/authoring'
+import { createDpmIdentityDataDefinitions } from '@mineclover/dpm/data'
 
 const definitions = createDefinitions()
 const exported = exportDpmAuthoringDefinitions(definitions)

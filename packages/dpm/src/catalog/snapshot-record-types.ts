@@ -1,6 +1,6 @@
 import type {
   SchemaSourceCoordinate,
-} from '@oa-sdk/openapi-projection-contract'
+} from '../contract/openapi-projection.js'
 import type { CatalogDiagnostic } from './diagnostic-types.js'
 import type { CatalogFreshness } from './snapshot-freshness-types.js'
 import type {
