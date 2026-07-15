@@ -6,6 +6,9 @@ This packet defines the operational conditions for moving the Phase 8 authoring 
 in-memory reference repository to the prepared PostgreSQL contract. It is a runbook and approval
 artifact, not an execution record.
 
+The recommended operating values and owner fields are separated in the
+[Phase 8 operational change decision](./phase-8-operational-change-decision.md).
+
 ## Scope
 
 - Schema blocks: `DPM_AUTHORING_STORAGE_SCHEMA_SQL_BLOCKS` from
@@ -17,8 +20,8 @@ artifact, not an execution record.
 
 ## Preconditions before an owner-approved run
 
-1. An owner-approved operational change identifies the selected repository source ref and successful
-   CI run that contain the schema and async service contract.
+1. An owner-approved operational change records the selected source ref, successful CI run, and
+   completed values from the [operational change decision](./phase-8-operational-change-decision.md).
 2. A target PostgreSQL environment, schema owner, connection pool, least-privilege application role,
    backup policy, retention policy, and on-call owner are recorded.
 3. Backup restore is tested against a disposable database before any application traffic is moved.

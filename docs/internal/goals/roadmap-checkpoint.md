@@ -61,6 +61,8 @@ Issue is not required for ordinary roadmap updates.
   only when an owner decision is needed; the prepared values are in the [T1 candidate decision packet](./t1-candidate-decision-packet.md).
 - Review the async service integration boundary and operational migration packet; keep production
   schema application, deployment, and public-release decisions deferred.
+- Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
+  target, role, backup, flag, observation, and rollback values before any owner-approved run.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
   unsupported metadata filters, automatic mutation, bulk edit, cross-definition search, and broader
   authoring infrastructure.
