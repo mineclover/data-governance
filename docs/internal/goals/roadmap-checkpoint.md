@@ -13,7 +13,7 @@ Issue is not required for ordinary roadmap updates.
 - Use the private T1 preflight workflow for candidate verification.
 - Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
-  private-owner work units and consumer evidence.
+  private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -25,14 +25,18 @@ Issue is not required for ordinary roadmap updates.
   recorded for the private representative slice.
 - Phase 8 authoring seam implemented with identity lookup, draft concurrency, semantic diff,
   role-gated approval/publish/rollback, immutable audit readback, and package smoke coverage.
+- PostgreSQL durable target and canonical object/API/DB identity index direction recorded; no
+  migration or deployment executed.
+- Async PostgreSQL storage contract, schema blocks, identity-index writer, and fake-client evidence
+  implemented without adding a database driver or applying SQL.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
 
 - Review the recommended T1 decision packet in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   only when an owner decision is needed.
-- Review the first Phase 8 implementation and add any focused consumer/evidence follow-up without
-  changing the deferred persistence, public-release, or adapter boundaries.
+- Review the async service integration boundary and operational migration packet; keep production
+  schema application, deployment, and public-release decisions deferred.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -57,6 +61,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Issue-based roadmap checks are cumbersome for routine feedback. | adopt | Use this checkpoint and commit history for routine progress; keep Issue #2 for formal T1 approval only. | `c10ea98`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-15 | The roadmap's next capability is Phase 8, and its implementation decisions should be settled before coding. | adopt | Activate one private representative slice with an in-memory repository port, explicit roles, immutable audit, and no T1/public-release effects. | [Phase 8 decision record](./phase-8-decision-record.md) |
 | 2026-07-15 | Exact calendar prediction is not reliable while Phase 8, T1, and runtime ownership gates are unresolved. | adopt forecast | Use phase status, work-unit ranges, confidence, and gate conditions in the full forecast. | [Full phase forecast](./full-phase-execution-forecast.md) |
+| 2026-07-15 | PostgreSQL is the recommended durable target, but applying a migration now would exceed the approved private slice. | adopt contract / defer migration | Add schema/query contract and canonical identity-index tests; keep deployment and migration behind a separate operational approval. | [Persistence proposal](./phase-8-persistence-proposal.md) |
 
 ## Formal approvals
 

@@ -45,7 +45,9 @@ metadata and is excluded from canonical API identity.
 The private Phase 8 representative slice uses `@oa-sdk/dpm/authoring`. It requires an explicit
 actor role for editing, review, publishing, and rollback; its first repository implementation is
 in-memory behind a repository port. Published revisions and audit events are immutable at the
-package boundary. Durable persistence, broad indexing, and public release metadata remain deferred.
+package boundary. PostgreSQL is the prepared durable target contract, but schema migration and
+deployment remain deferred. The identity index covers canonical object, API, and DB keys; it is not
+a generic cross-product search service.
 
 ### Kafka profile review
 

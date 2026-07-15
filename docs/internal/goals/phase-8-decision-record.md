@@ -12,7 +12,7 @@ public package metadata, registry publication, `v*` tagging, license selection, 
 | Decision | Adopted rule | Reason |
 | --- | --- | --- |
 | Activation | Activate Phase 8 for one binding-definition authoring slice in the private owner repository. | Enables progress while preserving the T1 and runtime boundaries. |
-| Persistence boundary | Define a repository port and ship an in-memory reference adapter first. Durable database schema, migrations, and deployment are deferred. | Proves revision semantics without prematurely selecting production storage. |
+| Persistence boundary | Keep the repository port and in-memory reference adapter as the executable baseline; select PostgreSQL as the durable target contract, with schema/migration/deployment deferred. | Proves revision semantics now while giving production storage a concrete, reviewable direction. |
 | Revision/concurrency | Published revisions are immutable. Drafts carry an explicit `baseRevisionId`; stale bases are rejected deterministically. | Prevents lost updates and makes rollback/readback reproducible. |
 | Authorization | Require an actor and role check for `editor`, `reviewer`, `publisher`, and `rollback` actions. The default policy is deny. | Keeps security decisions explicit and prevents an unowned implicit permission model. |
 | Public seam | Expose the slice through the declared `@oa-sdk/dpm/authoring` subpath and root export only; tests use package-level surfaces. | Preserves clean-consumer compatibility and avoids deep imports. |
@@ -45,6 +45,7 @@ normalizers. It does not introduce a new wire version or claim production durabi
 ## Deferred decisions
 
 - durable persistence and production concurrency authority;
+- PostgreSQL schema migration, transaction middleware, backup/retention, and deployment ownership;
 - integration with an external identity/access-control provider;
 - cross-product indexing, bulk edit, unrestricted authoring, and generic search infrastructure;
 - public package metadata, license, registry publication, `v*` tag, and adapter cutover;
