@@ -100,6 +100,9 @@ import {
   type DpmPublishingContext,
 } from '@oa-sdk/dpm/publishing'
 import {
+  DPM_AUTHORING_BACKEND_ENV,
+  DPM_AUTHORING_BACKEND_VALUES,
+  DPM_DEFAULT_AUTHORING_BACKEND,
   createDpmAsyncAuthoringService,
   createDpmAuthoringQuickFixes,
   createDpmAuthoringService,
@@ -107,6 +110,8 @@ import {
   exportDpmAuthoringDefinitions,
   explainDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
+  resolveDpmAuthoringBackend,
+  type DpmAuthoringBackend,
   type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
@@ -181,6 +186,7 @@ const authoringLookup: DpmAuthoringFieldLookup = {
   lifecycle: 'active',
 }
 const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
+const authoringBackend: DpmAuthoringBackend = resolveDpmAuthoringBackend({ env: {} }).backend
 const authoringDiff: DpmAuthoringSemanticDiff = {
   definitionId: 'smoke-definition',
   baseRevisionId: 'revision-1',
@@ -256,5 +262,9 @@ void [
   explainDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
   authoring,
+  DPM_AUTHORING_BACKEND_ENV,
+  DPM_AUTHORING_BACKEND_VALUES,
+  DPM_DEFAULT_AUTHORING_BACKEND,
+  authoringBackend,
   asyncAuthoring,
 ]
