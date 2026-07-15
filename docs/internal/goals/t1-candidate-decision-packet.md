@@ -32,7 +32,7 @@ following are true:
 
 The candidate should be selected by private branch or pull request plus the successful workflow
 run links. GitHub Actions records the resolved revision for each run, so approval does not require
-manual 40-character SHA entry or copy/paste synchronization across documents.
+manual revision entry or copy/paste synchronization across documents.
 
 ## Compatibility and rollback contract
 
