@@ -136,28 +136,32 @@ Blocking phases: 8–9 for future consumers and external release only.
 
 ### G-05 — Spec lifecycle and change classification
 
-The structural slice has no immutable published revision, draft base revision, semantic diff,
-breaking-change classification, rename/deprecation lifecycle, or rollback contract. These are
-control-plane capabilities and must not be hidden inside the compiler contract.
+The private Phase 8 representative slice now provides immutable published revisions, draft
+base-revision concurrency, semantic diff, breaking-change classification, rename/deprecation
+review, and rollback. The remaining gap is broader lifecycle metadata and any automatic mutation;
+those are separate control-plane extensions and must not be hidden inside the compiler contract.
 
-Blocking phase: 8.
+Blocking phase: 8 follow-ons only.
 
 ### G-06 — Cross-identity search and read model
 
-Existing list/export APIs prove focused workflows, but there is no neutral read model that can find
-the same binding by logical object id, current locator, API pointer, DB coordinate, semantic type,
-sensitivity, or lifecycle state. Reverse lookup and where-used behavior are also undefined.
+The private representative slice provides definition-scoped lookup by logical object id, API
+pointer, DB coordinate, and deterministic field filters for locator, name, type, origin, and
+lifecycle. A cross-definition neutral read model is still absent: sensitivity/owner metadata,
+bounded multi-definition queries, index freshness/rebuild state, authorization scope, reverse
+lookup, and where-used behavior remain undefined until the follow-on entry contract is accepted.
 
 Blocking phase: 8.
 
 ### G-07 — Edit and authoring convenience
 
-Relationship review/approval does not provide a data-definition authoring workflow. Draft validation,
-optimistic concurrency, publish approval, audit/rollback, import/export, explain, and
-machine-readable quick-fix suggestions require one representative owner-authorized product flow;
-automatic mutation and bulk edit remain outside that slice.
+The private representative slice provides data-definition draft validation, optimistic concurrency,
+publish approval, immutable audit/rollback, canonical import/export, identity-only explain, and
+machine-readable review-only quick-fix suggestions. Automatic mutation, cross-definition targeting,
+and bulk edit remain outside that slice until their authorization, conflict, audit, and rollback
+contracts are accepted.
 
-Blocking phase: 8.
+Blocking phase: 8 follow-ons only.
 
 ### G-08 — Runtime boundary
 
