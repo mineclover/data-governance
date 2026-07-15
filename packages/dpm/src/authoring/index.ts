@@ -1,6 +1,7 @@
 export * from './types.js'
 export * from './repository.js'
 export * from './diff.js'
+export * from './io.js'
 export * from './service.js'
 export * from './postgres.js'
 export * from './async-service.js'

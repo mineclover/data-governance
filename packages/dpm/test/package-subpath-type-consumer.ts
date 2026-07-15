@@ -103,6 +103,8 @@ import {
   createDpmAsyncAuthoringService,
   createDpmAuthoringService,
   createDpmInMemoryAuthoringRepository,
+  exportDpmAuthoringDefinitions,
+  importDpmAuthoringDefinitions,
   type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
@@ -237,6 +239,8 @@ void [
   typeSmoke,
   authoringActor,
   authoringLookup,
+  exportDpmAuthoringDefinitions,
+  importDpmAuthoringDefinitions,
   authoring,
   asyncAuthoring,
 ]
