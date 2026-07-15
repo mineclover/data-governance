@@ -31,6 +31,8 @@ Issue is not required for ordinary roadmap updates.
   implemented without adding a database driver or applying SQL.
 - Async authoring service façade and [operational migration packet](./phase-8-operational-migration-packet.md)
   prepared; no production cutover or migration authorized.
+- Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
+  deferred until an operational owner is selected.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
@@ -64,6 +66,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | The roadmap's next capability is Phase 8, and its implementation decisions should be settled before coding. | adopt | Activate one private representative slice with an in-memory repository port, explicit roles, immutable audit, and no T1/public-release effects. | [Phase 8 decision record](./phase-8-decision-record.md) |
 | 2026-07-15 | Exact calendar prediction is not reliable while Phase 8, T1, and runtime ownership gates are unresolved. | adopt forecast | Use phase status, work-unit ranges, confidence, and gate conditions in the full forecast. | [Full phase forecast](./full-phase-execution-forecast.md) |
 | 2026-07-15 | PostgreSQL is the recommended durable target, but applying a migration now would exceed the approved private slice. | adopt contract / defer migration | Add schema/query contract and canonical identity-index tests; keep deployment and migration behind a separate operational approval. | [Persistence proposal](./phase-8-persistence-proposal.md) |
+| 2026-07-15 | Authorization must remain portable across future identity providers. | adopt policy port / defer provider integration | Allow owner-injected role mapping with deny-by-default behavior; defer OIDC/RBAC deployment integration. | `0351114`, [Phase 8 decision record](./phase-8-decision-record.md) |
 
 ## Formal approvals
 
