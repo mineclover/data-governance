@@ -21,17 +21,18 @@ SemVer tag, publish to a registry, or authorize the `@oa-sdk/dpm` adapter transi
 
 ## Candidate baseline
 
-The current private readiness baseline is the owner-repository `main` commit recorded in
+The current private readiness baseline is the owner-repository `main` ref recorded in
 [T1 readiness](./t1-readiness.md). It is not itself a T1 release candidate until all of the
 following are true:
 
-1. The exact commit passes private T1 preflight and owner CI.
+1. The selected private branch or pull request passes T1 preflight and owner CI.
 2. The owner approves the package, registry, license, compatibility, rollback, and release
    reference decisions in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
 3. The exact approved release reference is created through the release gate.
 
-The candidate should be selected by exact 40-character commit SHA after the final preflight run;
-branch names and moving references are not sufficient release evidence.
+The candidate should be selected by private branch or pull request plus the successful workflow
+run links. GitHub Actions records the resolved revision for each run, so approval does not require
+manual 40-character SHA entry or copy/paste synchronization across documents.
 
 ## Compatibility and rollback contract
 
@@ -63,7 +64,7 @@ The owner or delegated release authority should copy the exact final values into
 [T1 release approval form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml), then approve
 only after reviewing:
 
-- exact candidate commit SHA and successful private preflight;
+- candidate source ref and successful private preflight/owner CI run links;
 - package identity and registry target;
 - license and redistribution policy;
 - `v0.1.0` or an explicitly substituted release reference;

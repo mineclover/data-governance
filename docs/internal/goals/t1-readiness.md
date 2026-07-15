@@ -8,10 +8,10 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Private preparation path
 
-1. Prepare a candidate commit in the private owner repository or a private pull request.
+1. Prepare a candidate on private `main` or in a private pull request.
 2. Run [DPM T1 preflight](../../../.github/workflows/t1-preflight.yml), either from the pull request
-   or through manual dispatch with the candidate branch/commit.
-3. Confirm the exact candidate commit, package identity, registry, license, compatibility window,
+   or through manual dispatch on the selected branch ref.
+3. Confirm the workflow run, package identity, registry, license, compatibility window,
    rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
    and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
 4. Obtain explicit approval from the `mineclover` repository owner or a delegated release authority.
@@ -20,10 +20,10 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- T1 release candidate: commit `c39c240b611bf536702d2e6755f4ff615cc7d777` (`docs: select v0.1.0 for initial public release`).
-- Owner CI: [workflow 29400702153](https://github.com/mineclover/data-governance/actions/runs/29400702153), passed for the exact release candidate.
-- Latest private T1 preflight: [workflow 29400837470](https://github.com/mineclover/data-governance/actions/runs/29400837470), passed for the exact 40-character release candidate SHA.
-- The candidate is immutable for approval purposes; later evidence-only documentation commits do not change the release candidate SHA.
+- T1 release candidate source: private `main`, represented by the linked owner CI and preflight runs.
+- Owner CI: [workflow 29400702153](https://github.com/mineclover/data-governance/actions/runs/29400702153), passed for the selected private candidate.
+- Latest private T1 preflight: [workflow 29400837470](https://github.com/mineclover/data-governance/actions/runs/29400837470), passed for the selected private candidate.
+- The workflow run records the tested revision automatically; approval documents reference the run links and source ref rather than manually copied commit identifiers.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).

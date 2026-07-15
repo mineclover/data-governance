@@ -14,11 +14,11 @@ body:
         Reference: https://github.com/mineclover/data-governance/blob/main/docs/internal/goals/t1-readiness.md
 
   - type: input
-    id: candidate-commit
+    id: candidate-source
     attributes:
-      label: Candidate commit
-      description: Exact private owner commit proposed for T1.
-      placeholder: "40-character commit SHA"
+      label: Candidate source
+      description: Private branch or pull request used for the candidate. The workflow run records the resolved revision automatically.
+      placeholder: "main or private pull request URL"
     validations:
       required: true
 
@@ -26,7 +26,7 @@ body:
     id: preflight-run
     attributes:
       label: T1 preflight run
-      description: Link the successful private T1 preflight or owner CI run for the exact commit.
+      description: Link the successful private T1 preflight or owner CI run for the candidate source.
       placeholder: "https://github.com/mineclover/data-governance/actions/runs/..."
     validations:
       required: true
@@ -76,7 +76,7 @@ body:
       label: Approval gates
       description: Check only after reviewing the linked evidence.
       options:
-        - label: The candidate commit is on main and the private preflight/owner CI passed.
+        - label: The candidate source is private and the linked preflight/owner CI passed.
           required: true
         - label: Package identity, registry scope, and publication target are approved.
           required: true
