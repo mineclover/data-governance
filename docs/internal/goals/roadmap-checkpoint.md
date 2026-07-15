@@ -12,8 +12,8 @@ Issue is not required for ordinary roadmap updates.
 - Maintain the accepted DPM contract and private owner boundary.
 - Use the private T1 preflight workflow for candidate verification.
 - Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
-- Implement the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) in focused
-  private-owner work units.
+- Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
+  private-owner work units and consumer evidence.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -23,14 +23,16 @@ Issue is not required for ordinary roadmap updates.
 - Owner CI, documentation, boundary, test, consumer-smoke, and T1 preflight gates pass.
 - Phase 8 activation, persistence, authorization, public-seam, audit, and compatibility decisions
   recorded for the private representative slice.
+- Phase 8 authoring seam implemented with identity lookup, draft concurrency, semantic diff,
+  role-gated approval/publish/rollback, immutable audit readback, and package smoke coverage.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
 
 - Review the recommended T1 decision packet in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   only when an owner decision is needed.
-- Implement and verify the first Phase 8 work unit: lookup/read model plus immutable revision
-  repository boundary.
+- Review the first Phase 8 implementation and add any focused consumer/evidence follow-up without
+  changing the deferred persistence, public-release, or adapter boundaries.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 

@@ -16,6 +16,7 @@ Prefer package subpaths for new consumers. The root `@oa-sdk/dpm` entrypoint rem
 | `@oa-sdk/dpm/gateway` | OpenAPI contract document and in-process runtime helpers | `src/public/gateway.ts` |
 | `@oa-sdk/dpm/storage` | job, report, registry, and profile baseline repositories/adapters | `src/public/storage.ts` |
 | `@oa-sdk/dpm/publishing` | AI schema context and physical foreign-key recommendation projections | `src/public/publishing.ts` |
+| `@oa-sdk/dpm/authoring` | Private Phase 8 lookup, draft/revision, semantic diff, approval, publish, audit, and rollback slice | `src/public/authoring.ts` |
 
 `package.json` publishes the same subpaths and `src/index.ts` re-exports the category barrels for compatibility.
 
@@ -40,6 +41,11 @@ experimental `1.1` model helpers (`createDpmIdentityDataDefinitions()` and relat
 renderers) require dataset/namespace scope, explicit object and revision ids, origin/lifecycle
 metadata, catalog freshness context, and versioned API pointers. `operationId` remains navigation
 metadata and is excluded from canonical API identity.
+
+The private Phase 8 representative slice uses `@oa-sdk/dpm/authoring`. It requires an explicit
+actor role for editing, review, publishing, and rollback; its first repository implementation is
+in-memory behind a repository port. Published revisions and audit events are immutable at the
+package boundary. Durable persistence, broad indexing, and public release metadata remain deferred.
 
 ### Kafka profile review
 

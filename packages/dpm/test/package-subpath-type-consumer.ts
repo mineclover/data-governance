@@ -99,6 +99,11 @@ import {
   DPM_PUBLISHING_CONTEXT_KIND,
   type DpmPublishingContext,
 } from '@oa-sdk/dpm/publishing'
+import {
+  createDpmAuthoringService,
+  createDpmInMemoryAuthoringRepository,
+  type DpmAuthoringActor,
+} from '@oa-sdk/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
   catalog?: CatalogSnapshot
@@ -140,6 +145,7 @@ type DpmSubpathTypeSmoke = {
   canonicalKeyEncodingPlan?: DpmCanonicalKeyEncodingPlan
   registryRepository?: DpmRegistryWritableRepository
   publishing?: DpmPublishingContext
+  authoring?: DpmAuthoringActor
   dataDefinitions?: DpmIdentityDataDefinitions
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
@@ -158,6 +164,8 @@ const targetRefResolution: DpmProfileRelationshipTargetRefResolution = {
   catalogAuthority: 'commerce',
 }
 const typeSmoke: DpmSubpathTypeSmoke = {}
+const authoringActor: DpmAuthoringActor = { id: 'smoke', roles: ['editor'] }
+const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
 const dataDefinitions = createDpmIdentityDataDefinitions({
   version: '1.1',
   fields: [{
@@ -215,4 +223,6 @@ void [
   listDpmPostgresRegistryRelationshipAuditEvents,
   targetRefResolution,
   typeSmoke,
+  authoringActor,
+  authoring,
 ]

@@ -19,6 +19,7 @@ const dpmPublicSubpathExportCases = [
   ['gateway', './dist/public/gateway.js', './dist/public/gateway.d.ts'],
   ['storage', './dist/public/storage.js', './dist/public/storage.d.ts'],
   ['publishing', './dist/public/publishing.js', './dist/public/publishing.d.ts'],
+  ['authoring', './dist/public/authoring.js', './dist/public/authoring.d.ts'],
 ] as const
 
 describe('DPM package subpath exports', () => {

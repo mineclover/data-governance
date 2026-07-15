@@ -7,6 +7,7 @@ const [
   gatewayModule,
   storageModule,
   publishingModule,
+  authoringModule,
 ] = await Promise.all([
   import('@oa-sdk/dpm/package'),
   import('@oa-sdk/dpm/catalog'),
@@ -16,6 +17,7 @@ const [
   import('@oa-sdk/dpm/gateway'),
   import('@oa-sdk/dpm/storage'),
   import('@oa-sdk/dpm/publishing'),
+  import('@oa-sdk/dpm/authoring'),
 ])
 
 const checks = [
@@ -52,6 +54,9 @@ const checks = [
     && storageModule.DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT_ERROR_CODE === 'DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT'
     && Array.isArray(storageModule.DPM_REGISTRY_RELATIONSHIP_AUDIT_EVENT_TYPES)],
   ['publishing', typeof publishingModule.createDpmPublishingContext === 'function'],
+  ['authoring', typeof authoringModule.createDpmAuthoringService === 'function'
+    && typeof authoringModule.createDpmInMemoryAuthoringRepository === 'function'
+    && typeof authoringModule.DpmAuthoringError === 'function'],
 ]
 
 const failures = checks
