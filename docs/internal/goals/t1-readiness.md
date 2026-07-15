@@ -20,9 +20,9 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- Latest private owner candidate: commit `055263fe3436cefa07adbb28a5579751559e80d0` (`docs: prioritize deferred phase 8 follow-ons`).
-- Latest owner CI: [workflow 29397047679](https://github.com/mineclover/data-governance/actions/runs/29397047679), passed for the exact candidate commit.
-- Latest private T1 preflight: [workflow 29397269952](https://github.com/mineclover/data-governance/actions/runs/29397269952), passed for the exact 40-character candidate SHA.
+- Latest private owner candidate: commit `8110ce5912c1971808d1840cd07c546ebe09200e` (`docs: link authoring migration rehearsal evidence`).
+- Latest owner CI: [workflow 29398261709](https://github.com/mineclover/data-governance/actions/runs/29398261709), passed for the exact candidate commit.
+- Latest private T1 preflight: [workflow 29398294576](https://github.com/mineclover/data-governance/actions/runs/29398294576), passed for the exact 40-character candidate SHA.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).

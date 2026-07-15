@@ -136,8 +136,8 @@ compatibility release. Public registry publication and breaking removal remain s
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction at `7f1fb3f`, the historic owner CI workflow at `8ab1c66`, and the
 acceptance-form implementation at `60c6c36`. The latest owner CI
-[29397047679](https://github.com/mineclover/data-governance/actions/runs/29397047679) passed build,
-typecheck, boundary, owner documentation, tests, and all DPM consumer smokes for commit `055263f`
+[29398261709](https://github.com/mineclover/data-governance/actions/runs/29398261709) passed build,
+typecheck, boundary, owner documentation, tests, and all DPM consumer smokes for commit `8110ce5`
 with Node.js 25 and pnpm 10.30.3.
 
 ## Review verdict of the current implementation
