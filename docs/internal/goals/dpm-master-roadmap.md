@@ -88,10 +88,9 @@ Current `@oa-sdk/dpm` is private and maintenance-only. The canonical private own
 owner `mineclover` is the release authority for the private contract plane.
 
 The 2026-07-15 owner decision created the private repository and completed the private extraction
-handoff. The accepted decision record is [here](./owner-decision-record.md), and the owner CI plus
-T1 release-gate verification workflow
-[29390192831](https://github.com/mineclover/data-governance/actions/runs/29390192831) passed for
-commit `0351114`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
+handoff. The accepted decision record is [here](./owner-decision-record.md), and the latest owner
+verification workflow [29391356852](https://github.com/mineclover/data-governance/actions/runs/29391356852)
+passed for commit `87147d9`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 The remaining release gate is intentionally narrow: the recommended public target is

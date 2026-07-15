@@ -96,7 +96,7 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 ## Evidence
 
 - External repository creation and initial push: `7f1fb3f`.
-- Latest external owner CI and document gates: [`29390192831`](https://github.com/mineclover/data-governance/actions/runs/29390192831) for commit `0351114`.
+- Latest external owner CI and document gates: [`29391356852`](https://github.com/mineclover/data-governance/actions/runs/29391356852) for commit `87147d9`.
 - Structured owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
 - Canonical owner document set: [`docs/internal/goals/README.md`](./README.md).
 - Migration and rollback contract: [`goal-68-dpm-extraction-migration.md`](./goal-68-dpm-extraction-migration.md).

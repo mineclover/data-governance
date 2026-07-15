@@ -103,7 +103,7 @@ If external extraction or a consumer migration fails:
   `packages/dpm/test/package-subpath-type-consumer.ts`.
 - Owner decision record: `docs/internal/goals/owner-decision-record.md`. The private owner
   acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
-  Latest owner CI workflow [29390192831](https://github.com/mineclover/data-governance/actions/runs/29390192831)
-  passed for commit `0351114` with Node.js 25 and pnpm 10.30.3.
+  Latest owner CI workflow [29391356852](https://github.com/mineclover/data-governance/actions/runs/29391356852)
+  passed for commit `87147d9` with Node.js 25 and pnpm 10.30.3.
 - Registry publication and breaking adapter removal remain intentionally disabled; they are
   separate release decisions and are not implied by the private acceptance.
