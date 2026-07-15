@@ -137,7 +137,10 @@ Runtime activation remains deferred until all of the following are explicitly ac
 5. A private fixture proves two definitions with colliding display names, exact API/DB identity
    lookup, unauthorized-scope isolation, stale-index rejection, deterministic pagination,
    duplicate collapse, and interrupted-rebuild retry with atomic ready publication.
-6. The owner records acceptance of this contract before a new runtime API or persistent index is
+6. A private shadow parity harness compares the definition-scoped fallback with bounded read-model
+   results for canonical identity, freshness identity, result ordering, API binding context, and
+   strict error mapping without enabling a consumer route.
+7. The owner records acceptance of this contract before a new runtime API or persistent index is
    activated.
 
 Until these gates are met, this document is a recommendation and review artifact only. No
@@ -146,12 +149,14 @@ metadata, registry publication, license finalization, `v*` tag, or adapter cutov
 
 ## Evidence and revisit trigger
 
-The private reference projection/query, staged rebuild session, and conformance fixture live in
-`packages/dpm/src/authoring/read-model-contract.ts` and
+The private reference projection/query, staged rebuild session, shadow parity harness, and
+conformance fixture live in `packages/dpm/src/authoring/read-model-contract.ts`,
+`packages/dpm/src/authoring/read-model-shadow.ts`, and
 `packages/dpm/test/authoring-read-model-contract.test.ts`. They are intentionally excluded from
-the public authoring export until the activation gates are accepted. The contract drift check is
-`pnpm check:read-model-contract`. The contract is revisited when the owner selects an operational
-owner and accepts the persistence/authorization entry conditions in an explicit review record;
+the public authoring export until the activation gates are accepted. The harness is evidence only;
+it does not enable a consumer route or replace the definition-scoped fallback. The contract drift
+check is `pnpm check:read-model-contract`. The contract is revisited when the owner selects an
+operational owner and accepts the persistence/authorization entry conditions in an explicit review record;
 the recommendation-only activation sequence is in the
 [read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md).
 Passing private tests or T1 preflight alone does not activate it.

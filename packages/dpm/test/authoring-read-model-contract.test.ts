@@ -9,6 +9,7 @@ import {
   createDpmCrossDefinitionReadModelReference,
   projectDpmCrossDefinitionReadModelRows,
 } from '../src/authoring/read-model-contract.js'
+import { compareDpmCrossDefinitionReadModelShadow } from '../src/authoring/read-model-shadow.js'
 
 describe('DPM deferred cross-definition read-model contract', () => {
   it('projects canonical identities without copying raw definition content', () => {
@@ -137,6 +138,85 @@ describe('DPM deferred cross-definition read-model contract', () => {
     })
     expect(result.status).toBe('ready')
     expect(result.hits.map(hit => hit.objectId)).toEqual(['customer-number'])
+  })
+
+  it('reports shadow parity for fallback identity, freshness, ordering, and API context', () => {
+    const allowed = new Set(['billing-definition', 'orders-definition'])
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: ({ requestedDefinitionIds }) => {
+        const definitionIds = requestedDefinitionIds ?? [...allowed]
+        return {
+          allowed: definitionIds.every(definitionId => allowed.has(definitionId)),
+          definitionIds,
+        }
+      },
+    })
+    const orders = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const billing = createRevision('billing-definition', 'revision-1', 'billing-catalog-1', '2026-07-15T00:00:02.000Z')
+    reference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    reference.upsert({ revision: billing, freshnessIdentity: 'sha256:billing-freshness', state: 'ready' })
+
+    const definitionIds = ['billing-definition', 'orders-definition'] as const
+    const actual = reference.search({
+      definitionIds,
+      query: { field: { name: 'customerNo' } },
+      pageSize: 100,
+    })
+    const report = compareDpmCrossDefinitionReadModelShadow({
+      revisions: [orders, billing],
+      definitionIds,
+      query: { field: { name: 'customerNo' } },
+      freshnessIdentityByDefinitionId: {
+        'billing-definition': 'sha256:billing-freshness',
+        'orders-definition': 'sha256:orders-freshness',
+      },
+      actual,
+      pageSize: 100,
+    })
+
+    expect(report).toEqual({
+      status: 'match',
+      expectedStatus: 'ready',
+      observedStatus: 'ready',
+      expectedHitKeys: [
+        'billing-definition/revision-1/customer-number',
+        'orders-definition/revision-1/customer-number',
+      ],
+      observedHitKeys: [
+        'billing-definition/revision-1/customer-number',
+        'orders-definition/revision-1/customer-number',
+      ],
+      issues: [],
+    })
+  })
+
+  it('reports strict error mapping during shadow verification', () => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: ({ requestedDefinitionIds }) => ({
+        allowed: requestedDefinitionIds?.every(definitionId => definitionId === 'orders-definition') ?? false,
+        definitionIds: requestedDefinitionIds ?? [],
+      }),
+    })
+    reference.upsert({ revision, freshnessIdentity: 'sha256:orders-freshness', state: 'stale' })
+    const actual = reference.search({
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+    })
+
+    const report = compareDpmCrossDefinitionReadModelShadow({
+      revisions: [revision],
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+      freshnessIdentityByDefinitionId: { 'orders-definition': 'sha256:orders-freshness' },
+      actual,
+      expectedFailure: { status: 'read-model-unavailable' },
+    })
+
+    expect(report.status).toBe('match')
+    expect(report.expectedStatus).toBe('read-model-unavailable')
+    expect(report.observedStatus).toBe('read-model-unavailable')
+    expect(report.issues).toEqual([])
   })
 
   it('fails closed for unauthorized scopes, stale generations, and unbounded queries', () => {

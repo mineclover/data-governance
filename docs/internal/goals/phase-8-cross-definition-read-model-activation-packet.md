@@ -81,6 +81,8 @@ activation value:
 
 - Keep the read model disabled for consumers and compare bounded read-model results with the
   existing definition-scoped lookup.
+- Use the private shadow parity harness to compare canonical identities, freshness identity, result
+  ordering, API binding context, cursor bounds, and strict error mapping.
 - Record canonical identity parity, freshness identity, result ordering, error mapping, and
   latency without changing authoring state.
 - Abort on any mismatch, stale result, unauthorized observation, or unbounded query.
@@ -109,7 +111,7 @@ Activation is not complete until the owner links all of the following:
 - two-definition collision, exact API/DB, duplicate-collapse, pagination, stale-state, and
   interrupted-rebuild retry fixture;
 - authorization isolation and deny-by-default evidence;
-- shadow parity report, pilot metrics, observation-window result, and operator sign-off;
+- private shadow parity report, pilot metrics, observation-window result, and operator sign-off;
 - fallback/rollback execution record.
 
 ## Abort conditions

@@ -9,6 +9,7 @@ const contract = fs.readFileSync(
 )
 const authoringIndex = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/index.ts'), 'utf8')
 const publicAuthoring = fs.readFileSync(path.join(root, 'packages/dpm/src/public/authoring.ts'), 'utf8')
+const shadowHarness = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/read-model-shadow.ts'), 'utf8')
 const normalizedContract = contract.replace(/\s+/g, ' ')
 
 const requiredMarkers = [
@@ -21,6 +22,9 @@ const requiredMarkers = [
   '`read-model-unavailable`',
   'staged rebuild session',
   'atomic ready publication',
+  'shadow parity harness',
+  'freshness identity, result ordering, API binding context',
+  'strict error mapping',
   'default policy is deny',
   '`pageSize` defaults to `25` and has a hard maximum of `100`',
   'No PostgreSQL migration',
@@ -38,8 +42,15 @@ if (contract.includes('**Status: active')) {
   process.exit(1)
 }
 
-if (authoringIndex.includes('read-model-contract') || publicAuthoring.includes('read-model-contract')) {
-  console.error('Cross-definition read-model reference must not be exported from the public authoring seam')
+if (authoringIndex.includes('read-model-contract') || publicAuthoring.includes('read-model-contract') ||
+  authoringIndex.includes('read-model-shadow') || publicAuthoring.includes('read-model-shadow')) {
+  console.error('Cross-definition read-model reference and shadow harness must not be exported from the public authoring seam')
+  process.exit(1)
+}
+
+if (!shadowHarness.includes('compareDpmCrossDefinitionReadModelShadow') ||
+  !shadowHarness.includes('compareFailure') || !shadowHarness.includes('expectedFailure')) {
+  console.error('Cross-definition read-model shadow harness must compare bounded fallback parity and strict failures')
   process.exit(1)
 }
 
