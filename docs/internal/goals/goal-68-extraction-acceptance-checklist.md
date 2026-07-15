@@ -22,7 +22,7 @@ public registry publication or removal of the existing import surface.
 | Packed declaration consumer | The same smoke runs `tsc --noEmit` against `external-consumer-type-fixture.ts` and the packed public `@oa-sdk/dpm/data` declarations. |
 | Packed rollback consumer | `external-consumer-rollback-fixture.mjs` proves stale rollout rejection, changed-artifact plan identity, and restoration of the preserved plan identity through the packed package. |
 | Public package boundary | `packages/dpm/package.json` declares the root and category subpaths; package-name imports do not use monorepo source or deep chunk paths. |
-| Owner CI | [Workflow `29391356852`](https://github.com/mineclover/data-governance/actions/runs/29391356852) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for owner commit `87147d9`. |
+| Owner CI | [Workflow `29401911642`](https://github.com/mineclover/data-governance/actions/runs/29401911642) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for the selected private source ref. |
 | Contract rules | [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md) defines v1.0/v1.1, artifact markers, migration order, and rollback behavior. |
 
 ## Accepted owner gates
@@ -66,8 +66,8 @@ public registry publication or removal of the existing import surface.
 The recommended public-release target is `@mineclover/dpm`, while `@oa-sdk/dpm` remains the
 compatibility adapter. This target is not published or considered selected until a separate owner
 approval records the registry, license, and release policy. `T1` is the first SemVer tag or GitHub
-Release on `main` whose exact commit has a successful owner CI run and explicit `mineclover` owner
-approval. A normal commit or private rehearsal is not `T1`.
+Release on `main` whose release-gate workflow passes and has explicit `mineclover` owner approval.
+A normal branch run or private rehearsal is not `T1`.
 
 ## Transition rule
 

@@ -17,8 +17,8 @@ artifact, not an execution record.
 
 ## Preconditions before an owner-approved run
 
-1. An owner-approved operational change identifies the exact repository commit and successful CI
-   run that contain the schema and async service contract.
+1. An owner-approved operational change identifies the selected repository source ref and successful
+   CI run that contain the schema and async service contract.
 2. A target PostgreSQL environment, schema owner, connection pool, least-privilege application role,
    backup policy, retention policy, and on-call owner are recorded.
 3. Backup restore is tested against a disposable database before any application traffic is moved.
@@ -35,7 +35,7 @@ artifact, not an execution record.
 
 ### 1. Freeze and record
 
-- Record the application commit, schema version `1.0`, database identity, and operator.
+- Record the application source ref, schema version `1.0`, database identity, and operator.
 - Disable authoring writes or route them to the reference repository during the schema change.
 - Capture the last accepted published revision and audit event count if a pilot database already
   exists.
@@ -89,7 +89,7 @@ artifact, not an execution record.
 
 The run is complete only when the owner has links to:
 
-- exact commit and successful owner CI;
+- selected source ref and successful owner CI;
 - migration tool output and schema version;
 - backup/restore rehearsal;
 - fixture input and object/API/DB index comparison;

@@ -31,7 +31,7 @@ progress feedback.
 | 6 | Cross-object semantic binding | Complete and accepted privately | Future owner-authorized diagnostics/read-model consumers | 0–2 extension units | High |
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
 | 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, and semantic-diff quick-fix suggestions implemented privately | Automatic mutation, bulk edit, and broader search/authoring decisions | 0–2 extension units | Medium |
-| 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, exact release, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
+| 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, release reference, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
 | 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
 
 ## Phase detail and exit criteria
@@ -44,8 +44,8 @@ follow-up is maintenance plus the T1 decision packet:
 
 - confirm package identity and public registry target;
 - select and approve license/redistribution policy;
-- confirm the exact first release reference;
-- run owner CI for that exact commit and obtain explicit owner approval.
+- confirm the first release reference;
+- run owner CI for the selected private source ref and obtain explicit owner approval.
 
 Until those decisions are complete, Phase 4 remains private and no T1 tag or public metadata is
 created.

@@ -17,7 +17,7 @@ public registry release or removal of the existing import surface.
   compatibility promises, and adapter cutover.
 - **Issue/review location:** [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1)
   and the repository pull-request review workflow.
-- **Extraction baseline:** commit `7f1fb3fe1597053d8eec769492b517523569953a`
+- **Extraction baseline:** initial extraction recorded in the canonical repository history
 - **Required verification:** `.github/workflows/ci.yml` runs on pushes to `main` and pull requests
   with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
@@ -62,7 +62,7 @@ may proceed only after a separate owner-approved issue or pull request records a
 - registry scope and publication target;
 - license and redistribution policy;
 - a SemVer release tag or GitHub Release on `main`;
-- a successful owner CI run for the exact release commit;
+- a successful owner CI run for the selected private source ref;
 - explicit approval from the `mineclover` repository owner.
 
 That approved tag/release is the definition of the first accepted owner artifact release (`T1`). A
@@ -95,8 +95,8 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 
 ## Evidence
 
-- External repository creation and initial push: `7f1fb3f`.
-- Latest external owner CI and document gates: [`29391356852`](https://github.com/mineclover/data-governance/actions/runs/29391356852) for commit `87147d9`.
+- External repository creation and initial push: recorded in the canonical repository history.
+- Latest external owner CI and document gates: [`29401911642`](https://github.com/mineclover/data-governance/actions/runs/29401911642) for the selected private source ref.
 - Structured owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
 - Canonical owner document set: [`docs/internal/goals/README.md`](./README.md).
 - Migration and rollback contract: [`goal-68-dpm-extraction-migration.md`](./goal-68-dpm-extraction-migration.md).

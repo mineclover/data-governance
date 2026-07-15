@@ -89,14 +89,14 @@ owner `mineclover` is the release authority for the private contract plane.
 
 The 2026-07-15 owner decision created the private repository and completed the private extraction
 handoff. The accepted decision record is [here](./owner-decision-record.md), and the latest owner
-verification workflow [29391356852](https://github.com/mineclover/data-governance/actions/runs/29391356852)
-passed for commit `87147d9`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
+verification workflow [29401911642](https://github.com/mineclover/data-governance/actions/runs/29401911642)
+passed for the selected private source ref. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 The remaining release gate is intentionally narrow: the recommended public target is
 `@mineclover/dpm`, but public package metadata/registry publication and breaking removal of the old
-import surface require a separate owner-approved SemVer tag or GitHub Release with successful CI for
-the exact release commit. No scope reactivation is authorized by this decision.
+import surface require a separate owner-approved SemVer tag or GitHub Release with a successful
+release-gate workflow for the selected source ref. No scope reactivation is authorized by this decision.
 
 Blocking phases: 5–10.
 

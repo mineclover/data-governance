@@ -16,7 +16,8 @@ silently changing logical data identity.
 ## Current boundary
 
 - The source implementation remains `mineclover/oa-sdk/packages/dpm` during the compatibility
-  window. The private external owner contains the initial extraction at commit `7f1fb3f`;
+  window. The private external owner contains the initial extraction recorded in its repository
+  history;
   this package becomes a compatibility adapter at the first accepted external owner artifact
   release (`T1`), after which the existing import surface remains supported for one subsequent
   compatibility release.
@@ -31,10 +32,10 @@ silently changing logical data identity.
 
 ## T1 release gate
 
-`T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose exact release commit
-has a successful owner CI run. A private commit, branch build, or extraction rehearsal does not
-constitute `T1`. The recommended future public package target is `@mineclover/dpm`; it remains
-unpublished until registry, license, and publication policy receive separate approval.
+`T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose release-gate workflow
+passes. A private branch build or extraction rehearsal does not constitute `T1`. The recommended
+future public package target is `@mineclover/dpm`; it remains unpublished until registry, license,
+and publication policy receive separate approval.
 
 ## Version migration rules
 
@@ -103,7 +104,7 @@ If external extraction or a consumer migration fails:
   `packages/dpm/test/package-subpath-type-consumer.ts`.
 - Owner decision record: `docs/internal/goals/owner-decision-record.md`. The private owner
   acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
-  Latest owner CI workflow [29391356852](https://github.com/mineclover/data-governance/actions/runs/29391356852)
-  passed for commit `87147d9` with Node.js 25 and pnpm 10.30.3.
+  Latest owner CI workflow [29401911642](https://github.com/mineclover/data-governance/actions/runs/29401911642)
+  passed with Node.js 25 and pnpm 10.30.3.
 - Registry publication and breaking adapter removal remain intentionally disabled; they are
   separate release decisions and are not implied by the private acceptance.
