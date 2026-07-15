@@ -1,6 +1,6 @@
 # DPM Master Roadmap — Capability and Gap Alignment
 
-**Status: planning baseline 2026-07-15; private owner CI verification passed**
+**Status: private owner acceptance recorded 2026-07-15; public release and breaking removal remain separately gated**
 
 > Relationship-first baseline: [Goal 4](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/goals/goal-4-dpm-relationship-first-roadmap.md)<br>
 > Control-plane runtime/storage baseline: [Goal 5](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/goals/goal-5-dpm-runtime-storage-integration.md)<br>
@@ -25,7 +25,7 @@ capability는 Goal 68의 contract boundary와 구분하며, owner 결정 전에 
 ```text
 relationship-first DPM core       = implemented and tested
 logical data/API/DB shape         = v1.1 identity, semantic binding, and neutral artifact implemented
-ownership and implementation site = private external owner candidate; monorepo remains compatibility/source
+ownership and implementation site = private external owner is canonical; monorepo remains compatibility/source until T1
 cross-object semantic binding     = implemented and tested for v1.1
 search/edit/authoring control     = scope-gated follow-on capability
 production pseudonymization       = outside current oa-sdk boundary
@@ -83,8 +83,8 @@ and local extraction is not evidence of production runtime readiness.
 
 ### G-01 — Ownership and authority
 
-Current `@oa-sdk/dpm` is private, maintenance-only, and marked as a data-governance extraction
-candidate. The private owner is now `https://github.com/mineclover/data-governance`; the repository
+Current `@oa-sdk/dpm` is private and maintenance-only. The canonical private owner is now
+`https://github.com/mineclover/data-governance`; the repository
 owner `mineclover` is the release authority for the private contract plane.
 
 The 2026-07-15 owner decision created the private repository and completed the private extraction

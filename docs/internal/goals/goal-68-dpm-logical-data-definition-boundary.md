@@ -25,7 +25,7 @@ Goal 68 owns this contract plane only. Cross-identity search, draft/edit/publish
 and authoring convenience are a follow-on control-plane capability after the neutral artifact
 is stable; they are not silently included in the Goal 68 compiler scope.
 
-Private owner candidate: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
+Private owner: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
 The accepted decision is recorded in [owner-decision-record.md](./owner-decision-record.md). The
 formal review is recorded in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1),
 and the structured owner acceptance form remains available at the current issue/review workflow.
@@ -89,42 +89,35 @@ flowchart LR
 
 ## Governance gate
 
-`@oa-sdk/dpm` is currently a private, maintenance-only workspace and a candidate for
-`data-governance` extraction. Therefore this is a compatibility/migration boundary goal,
-not an approved new Core Platform feature. Before semantic expansion, record one of:
+`@oa-sdk/dpm` remains a private, maintenance-only workspace and is now the compatibility/source
+implementation for the canonical private `data-governance` owner. This is a compatibility/migration
+boundary goal, not an approved new Core Platform feature. The private owner decision records the
+release authority, artifact contract, compatibility window, canonical document location, and
+rollback rule.
 
-1. the external DPM environment/repository as the canonical owner, with this package as
-   a compatibility adapter; or
-2. a scope-reactivation decision that temporarily authorizes DPM feature work in this
-   monorepo and defines its release/maintenance owner.
+During the compatibility window, only schema compatibility, migration preparation, regression
+hardening, and adapter work are in scope. New persisted schemas, cross-repository resolvers,
+gateway workflows, search services, and edit/publish workflows remain owner-authorized follow-on
+capabilities rather than active monorepo goals.
 
-Until that decision is recorded, only schema compatibility, extraction preparation, and
-regression hardening are in scope. This includes schema/model parity, deterministic local checks
-for already-declared rules, compatibility adapters, and package/extraction smoke. New persisted
-schemas, cross-repository resolvers, gateway workflows, search services, and edit/publish workflows
-are feature expansion and remain blocked.
-
-The decision also selects where subsequent work runs:
-
-- if the external DPM environment is canonical, Goal 68.1–68.4 run there and this package remains
-  a compatibility adapter; or
-- if scope reactivation is approved, Goal 68.1–68.4 may run temporarily in this monorepo with
-  explicit release/CI ownership and an exit condition.
+Goal 68.1–68.4 are canonical in the external owner environment. The monorepo package remains the
+source/compatibility implementation until the first accepted owner artifact release (`T1`), then
+becomes a forwarding adapter for one subsequent compatibility release.
 
 ## 68.0 decision record
 
-The current roadmap execution request records the scope-reactivation branch:
+The accepted 2026-07-15 owner decision records:
 
-- temporary canonical implementation site: `mineclover/oa-sdk/packages/dpm`;
-- temporary owner: `mineclover/oa-sdk` maintainers, including release/CI responsibility for
-  the maintenance track;
-- package policy: private, non-published, and still outside Core Platform feature scope;
-- allowed work: Goal 68 contract, compatibility, deterministic validation, provenance, and
-  extraction preparation;
-- explicit non-goals: production data-plane runtime and the future search/edit/authoring
-  control plane;
-- exit condition: an external `data-governance` owner/repository accepts the neutral artifact,
-  migration contract, and compatibility window so this package can become an adapter.
+- canonical implementation site: private `mineclover/data-governance`;
+- formal release authority: `mineclover` repository owner, with delegated maintainers preparing
+  but not unilaterally approving contract/version changes;
+- package policy: private, non-published, and outside Core Platform feature scope;
+- accepted artifact: `dpm.data-binding-artifact.v1` / `1.0`;
+- accepted manifest policy: `data_definitions` `1.0` frozen and `1.1` experimental/deferred;
+- compatibility window: first accepted owner artifact release plus one subsequent compatibility
+  release, with deprecation notice in the final compatibility release;
+- explicit non-goals: public registry publication, breaking removal, production data-plane runtime,
+  and the future search/edit/authoring control plane.
 
 Wire compatibility is frozen by version:
 
@@ -133,7 +126,7 @@ Wire compatibility is frozen by version:
 | `data_definitions` `1.0` | Frozen compatibility contract | Existing structural field, storage, and API binding shape. |
 | `data_definitions` `1.1` | Experimental in this monorepo | Namespace-safe logical identity, catalog context, lifecycle, origin, and cardinality rules. |
 
-This decision completes 68.0 and the private 68.4 owner handoff. The private owner candidate is
+This decision completes 68.0 and the private 68.4 owner handoff. The private owner is
 canonical for the extraction contract, the `mineclover` repository owner is the release authority,
 and the compatibility window is the first accepted owner artifact release plus one subsequent
 compatibility release. Public registry publication and breaking removal remain separate gates.
@@ -161,7 +154,7 @@ pnpm 10.30.3.
 | Semantic enforcement | Aligned for v1.1 | `validateDpmDataBindings()` participates in validate and compile gates; compiled plan identity includes neutral binding freshness. |
 | Core dependency direction | Aligned | New surface stays under DPM; Core packages do not depend on maintenance-only DPM. |
 | Extraction readiness | Accepted for private ownership | Private extraction, owner decision record, and CI-backed runtime/declaration/rollback/workflow/pack checks pass; public registry metadata is intentionally deferred. |
-| Governance policy | Accepted for private transition | The private owner candidate is canonical, `mineclover` is the release authority, and the compatibility window is recorded in the owner decision record and Issue #1. |
+| Governance policy | Accepted for private transition | The private owner is canonical, `mineclover` is the release authority, and the compatibility window is recorded in the owner decision record and Issue #1. |
 
 ## Roadmap
 
@@ -169,7 +162,7 @@ pnpm 10.30.3.
 
 Deliverables:
 
-- record the external DPM repository/environment or scope-reactivation decision;
+- record the external DPM repository and private owner decision;
 - freeze the `data_definitions` wire version and compatibility policy;
 - decide whether the current `1.0` marker is frozen or explicitly experimental before external use;
 - define whether `@oa-sdk/dpm` remains a private mirror, becomes an adapter, or is
@@ -178,7 +171,7 @@ Deliverables:
 
 Exit criteria:
 
-- one temporary canonical owner and implementation site are named;
+- one canonical owner and implementation site are named;
 - no Core package imports DPM policy types;
 - the migration path for `@oa-sdk/dpm/data` imports is documented.
 
