@@ -25,7 +25,8 @@ multiplies conflict, audit, and rollback concerns across definitions.
   identity-only explain, immutable authoring revisions, semantic diff, and review-only quick fixes.
 - Continue consumer evidence, documentation, and private T1 preflight maintenance.
 - Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
-  as a review artifact; do not activate a search service or persistent index yet.
+  and its private reference/conformance fixture as review artifacts; do not activate a search
+  service or persistent index yet.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).

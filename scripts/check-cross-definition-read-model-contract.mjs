@@ -7,6 +7,8 @@ const contract = fs.readFileSync(
   path.join(root, 'docs/internal/goals/phase-8-cross-definition-read-model-contract.md'),
   'utf8',
 )
+const authoringIndex = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/index.ts'), 'utf8')
+const publicAuthoring = fs.readFileSync(path.join(root, 'packages/dpm/src/public/authoring.ts'), 'utf8')
 const normalizedContract = contract.replace(/\s+/g, ' ')
 
 const requiredMarkers = [
@@ -31,6 +33,11 @@ if (missing.length > 0) {
 
 if (contract.includes('**Status: active')) {
   console.error('Cross-definition read-model contract must remain non-active before owner gates')
+  process.exit(1)
+}
+
+if (authoringIndex.includes('read-model-contract') || publicAuthoring.includes('read-model-contract')) {
+  console.error('Cross-definition read-model reference must not be exported from the public authoring seam')
   process.exit(1)
 }
 

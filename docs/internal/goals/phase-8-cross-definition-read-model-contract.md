@@ -144,6 +144,10 @@ metadata, registry publication, license finalization, `v*` tag, or adapter cutov
 
 ## Evidence and revisit trigger
 
-The contract drift check is `pnpm check:read-model-contract`. The contract is revisited when the
-owner selects an operational owner and accepts the persistence/authorization entry conditions in
-an explicit review record. Passing private tests or T1 preflight alone does not activate it.
+The private reference projection/query and conformance fixture live in
+`packages/dpm/src/authoring/read-model-contract.ts` and
+`packages/dpm/test/authoring-read-model-contract.test.ts`. They are intentionally excluded from
+the public authoring export until the activation gates are accepted. The contract drift check is
+`pnpm check:read-model-contract`. The contract is revisited when the owner selects an operational
+owner and accepts the persistence/authorization entry conditions in an explicit review record.
+Passing private tests or T1 preflight alone does not activate it.

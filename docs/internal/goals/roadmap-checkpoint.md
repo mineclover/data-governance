@@ -77,7 +77,8 @@ Issue is not required for ordinary roadmap updates.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 - The first Phase 8 follow-on now has a private contract for canonical keys, projection ownership,
   freshness/rebuild state, deny-by-default authorization, bounded pagination, and fail-closed
-  outcomes; runtime activation remains deferred.
+  outcomes; its reference projection/query and conformance fixture pass privately while runtime
+  activation remains deferred.
 
 ## Next
 
@@ -133,6 +134,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | A release tag could reach the verification workflow without the formal Issue #2 approval state being machine-checked. | adopt approval guard | Require all six checked Issue #2 approval rows, including final release authorization, in the T1 release gate and verify the guard remains wired during private readiness checks. | `scripts/check-t1-approval.mjs`, `pnpm check:t1-readiness` |
 | 2026-07-15 | Cross-definition search is the first follow-on, but activation needs stable identity, freshness, authorization, and bounded-result rules before code or storage is added. | adopt contract / defer runtime | Prepare the read-model entry contract and CI drift check; keep search service, durable index, migration, and external authorization owner-gated. | [Cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md), `pnpm check:read-model-contract` |
 | 2026-07-15 | The latest private Owner CI and T1 preflight now include the cross-definition contract guard, while owner-acceptance documents still referenced older runs. | adopt evidence refresh | Synchronize owner-acceptance and Issue #2 evidence to Owner CI `29414794498` and T1 preflight `29415008020`; leave all six approval rows unchecked. | `29414794498`, `29415008020`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
+| 2026-07-15 | The read-model activation gates need executable evidence for colliding definitions, duplicate identity collapse, pagination, authorization isolation, and stale-index failure. | adopt reference conformance / defer public seam | Add a private projection/query reference and tests without exporting a runtime API or connecting to a database. | `packages/dpm/test/authoring-read-model-contract.test.ts`, `pnpm check:read-model-contract` |
 
 ## Formal approvals
 

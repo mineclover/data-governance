@@ -30,7 +30,7 @@ progress feedback.
 | 5 | Logical identity and wire contract | Complete and accepted privately | Future owner-authorized wire revisions only | 0–2 extension units | High |
 | 6 | Cross-object semantic binding | Complete and accepted privately | Future owner-authorized diagnostics/read-model consumers | 0–2 extension units | High |
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
-| 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, semantic-diff quick-fix suggestions, and the cross-definition read-model entry contract prepared privately | Runtime read-model activation, automatic mutation, bulk edit, and broader authoring decisions | 0–2 extension units | Medium |
+| 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, semantic-diff quick-fix suggestions, cross-definition entry contract, and private conformance fixture prepared | Runtime read-model activation, automatic mutation, bulk edit, and broader authoring decisions | 0–2 extension units | Medium |
 | 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, release reference, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
 | 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
 
