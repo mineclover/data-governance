@@ -29,7 +29,7 @@ Private owner: [`mineclover/data-governance`](https://github.com/mineclover/data
 The accepted decision is recorded in [owner-decision-record.md](./owner-decision-record.md). The
 formal review is recorded in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1),
 and the structured owner acceptance form remains available at the current issue/review workflow.
-Latest owner CI passed in [workflow 29418892057](https://github.com/mineclover/data-governance/actions/runs/29418892057)
+Latest owner CI passed in [workflow 29425668619](https://github.com/mineclover/data-governance/actions/runs/29425668619)
 for the selected private source ref with Node.js 25 and pnpm 10.30.3.
 
 ## Expressive boundary
@@ -136,7 +136,7 @@ compatibility release. Public registry publication and breaking removal remain s
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction, historic owner workflow, and acceptance-form implementation in
 its repository history. The latest owner CI
-[29418892057](https://github.com/mineclover/data-governance/actions/runs/29418892057) passed build,
+[29425668619](https://github.com/mineclover/data-governance/actions/runs/29425668619) passed build,
 typecheck, boundary, owner documentation, tests, and all DPM consumer smokes for the selected
 private source ref with Node.js 25 and pnpm 10.30.3.
 
