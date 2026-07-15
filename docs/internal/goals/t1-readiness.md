@@ -12,7 +12,8 @@ or the `@oa-sdk/dpm` adapter cutover.
 2. Run [DPM T1 preflight](../../../.github/workflows/t1-preflight.yml), either from the pull request
    or through manual dispatch with the candidate branch/commit.
 3. Confirm the exact candidate commit, package identity, registry, license, compatibility window,
-   rollback plan, and release reference in the [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
+   rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
+   and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
 4. Obtain explicit approval from the `mineclover` repository owner or a delegated release authority.
 5. Only after approval, create the exact `v*` tag on `main`; [the T1 release gate](../../../.github/workflows/release-gate.yml)
    reruns the full verification suite.
@@ -22,6 +23,8 @@ or the `@oa-sdk/dpm` adapter cutover.
 - Latest private owner candidate: commit `0351114`.
 - Latest owner CI: [workflow 29390192831](https://github.com/mineclover/data-governance/actions/runs/29390192831), passed for the exact candidate commit.
 - T1 preflight remains available for a separately selected release candidate; it has not been run as a public-release approval for the current commit.
+- Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
+  they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
 - Repository visibility: private.

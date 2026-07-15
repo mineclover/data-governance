@@ -38,7 +38,7 @@ Issue is not required for ordinary roadmap updates.
 ## Next
 
 - Review the recommended T1 decision packet in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
-  only when an owner decision is needed.
+  only when an owner decision is needed; the prepared values are in the [T1 candidate decision packet](./t1-candidate-decision-packet.md).
 - Review the async service integration boundary and operational migration packet; keep production
   schema application, deployment, and public-release decisions deferred.
 - Continue contract maintenance and evidence refreshes through normal commits.
@@ -67,6 +67,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Exact calendar prediction is not reliable while Phase 8, T1, and runtime ownership gates are unresolved. | adopt forecast | Use phase status, work-unit ranges, confidence, and gate conditions in the full forecast. | [Full phase forecast](./full-phase-execution-forecast.md) |
 | 2026-07-15 | PostgreSQL is the recommended durable target, but applying a migration now would exceed the approved private slice. | adopt contract / defer migration | Add schema/query contract and canonical identity-index tests; keep deployment and migration behind a separate operational approval. | [Persistence proposal](./phase-8-persistence-proposal.md) |
 | 2026-07-15 | Authorization must remain portable across future identity providers. | adopt policy port / defer provider integration | Allow owner-injected role mapping with deny-by-default behavior; defer OIDC/RBAC deployment integration. | `0351114`, [Phase 8 decision record](./phase-8-decision-record.md) |
+| 2026-07-15 | T1 package, registry, license, SemVer, and compatibility decisions can be prepared before public approval. | adopt recommendation / defer release action | Prepare `@mineclover/dpm`, npm, Apache-2.0, `v1.0.0`, and one-release adapter-window recommendations; keep all metadata, tag, publication, and cutover actions behind Issue #2. | [T1 candidate decision packet](./t1-candidate-decision-packet.md) |
 
 ## Formal approvals
 
