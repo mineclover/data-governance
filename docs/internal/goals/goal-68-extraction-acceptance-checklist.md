@@ -22,7 +22,7 @@ public registry publication or removal of the existing import surface.
 | Packed declaration consumer | The same smoke runs `tsc --noEmit` against `external-consumer-type-fixture.ts` and the packed public `@oa-sdk/dpm/data` declarations. |
 | Packed rollback consumer | `external-consumer-rollback-fixture.mjs` proves stale rollout rejection, changed-artifact plan identity, and restoration of the preserved plan identity through the packed package. |
 | Public package boundary | `packages/dpm/package.json` declares the root and category subpaths; package-name imports do not use monorepo source or deep chunk paths. |
-| Owner CI | [Workflow `29401911642`](https://github.com/mineclover/data-governance/actions/runs/29401911642) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for the selected private source ref. |
+| Owner CI | [Workflow `29412035473`](https://github.com/mineclover/data-governance/actions/runs/29412035473) passed build, typecheck, boundary, documentation, tests, and DPM consumer smoke for the selected private source ref. |
 | Contract rules | [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md) defines v1.0/v1.1, artifact markers, migration order, and rollback behavior. |
 
 ## Accepted owner gates
