@@ -1,7 +1,7 @@
 # DPM Roadmap Checkpoint
 
 **Status: active private-owner maintenance; T1 public release deferred**
-**Updated: 2026-07-15**
+**Updated: 2026-07-16**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
 This checkpoint is the lightweight operational loop for routine progress and feedback; a GitHub
@@ -146,6 +146,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | The private shadow parity candidate passed the full Owner CI and T1 preflight without enabling a consumer route. | adopt evidence refresh | Point current readiness and owner-acceptance references to Owner CI `29418892057` and T1 preflight `29424725868`; leave Issue #2 approval rows unchecked. | `29418892057`, `29424725868`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-15 | Authorization isolation is an activation gate, and an injected identity provider is not yet approved. | adopt private scope conformance / defer provider integration | Add a scope-intersection helper and tests for out-of-scope identity isolation, empty/widened scope denial, and default deny; keep OIDC/RBAC integration deferred. | `packages/dpm/src/authoring/read-model-authorization.ts`, `packages/dpm/test/authoring-read-model-contract.test.ts`, `pnpm check:read-model-contract` |
 | 2026-07-15 | The private authorization isolation candidate passed the full Owner CI and T1 preflight without external identity-provider integration. | adopt evidence refresh | Point current readiness and owner-acceptance references to Owner CI `29425668619` and T1 preflight `29425918651`; leave Issue #2 approval rows unchecked. | `29425668619`, `29425918651`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
+| 2026-07-16 | The acceptance checklist retained one obsolete Owner CI link after SHA-based manual evidence tracking was removed. | adopt evidence hygiene | Replace the stale rollback-evidence link with the current successful Owner CI and verify documentation/roadmap/T1 guards; keep all release and activation gates unchanged. | `goal-68-extraction-acceptance-checklist.md`, `pnpm check:docs`, `pnpm check:roadmap`, `pnpm check:t1-readiness` |
 
 ## Formal approvals
 

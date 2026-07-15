@@ -59,7 +59,7 @@ public registry publication or removal of the existing import surface.
 | Accepted artifact kind/version | `dpm.data-binding-artifact.v1` / `1.0` |
 | Compatibility window | Through the first accepted owner release plus one subsequent compatibility release; deprecation notice in the final compatibility release |
 | Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical/compatibility mirror |
-| Rollback fixture / review link | [Owner CI `29391356852`](https://github.com/mineclover/data-governance/actions/runs/29391356852), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
+| Rollback fixture / review link | [Owner CI `29425668619`](https://github.com/mineclover/data-governance/actions/runs/29425668619), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
 
 ## Public-release decision gate
 
