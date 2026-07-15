@@ -53,6 +53,8 @@ Issue is not required for ordinary roadmap updates.
 - The same packed consumer smoke covers canonical `1.1` import/export round-trip, identity-only
   explain output, and approval-required review-only quick-fix suggestions for breaking, rename, and
   deprecation changes.
+- Its declaration consumer also typechecks the public authoring backend, async-service, semantic-diff,
+  explanation, and quick-fix types from the packed `@oa-sdk/dpm/authoring` subpath.
 - Scoped Phase 8 lookup extension implemented for entity/locator/name/type/origin/lifecycle filters,
   with sync/async consumer coverage and canonical API/DB reverse binding context.
 - Canonical `data_definitions` `1.1` import/export helpers implemented with derived-identity stripping,
@@ -110,6 +112,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Owner-specific operational values must not be mistaken for approval or execution readiness. | adopt automated contract check | Validate the recommendation-only status, required owner fields, backend contract, and no-execution invariants in CI; keep actual values and approval owner-gated. | `pnpm check:operational-change` |
 | 2026-07-15 | Backend wiring needs evidence from the packed external consumer boundary, not only in-repository unit tests. | adopt consumer smoke | Run the configured async authoring service from `@oa-sdk/dpm/authoring` with an injected adapter and assert that no unselected adapter receives the write; keep real PostgreSQL cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 | 2026-07-15 | The existing authoring helpers must remain consumable outside the monorepo before broader Phase 8 work is considered. | adopt consumer smoke | Verify canonical import/export, identity-only explain, and review-only quick-fix suggestions from the packed `@oa-sdk/dpm/authoring` subpath; keep automatic mutation deferred. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
+| 2026-07-15 | Runtime authoring evidence is insufficient if packed declaration consumers cannot typecheck the same public seam. | adopt declaration smoke | Typecheck backend, async-service, semantic-diff, explain, and quick-fix types from the packed authoring subpath; keep implementation and cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 
 ## Formal approvals
 
