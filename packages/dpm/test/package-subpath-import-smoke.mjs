@@ -58,6 +58,7 @@ const checks = [
     && typeof authoringModule.createDpmInMemoryAuthoringRepository === 'function'
     && typeof authoringModule.createDpmAsyncAuthoringService === 'function'
     && typeof authoringModule.resolveDpmAuthoringBackend === 'function'
+    && typeof authoringModule.selectDpmAuthoringBackendAdapter === 'function'
     && authoringModule.DPM_AUTHORING_BACKEND_ENV === 'DPM_AUTHORING_BACKEND'
     && authoringModule.DPM_AUTHORING_BACKEND_VALUES.join(',') === 'memory,postgres'
     && authoringModule.DPM_DEFAULT_AUTHORING_BACKEND === 'memory'

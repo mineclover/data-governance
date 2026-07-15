@@ -15,8 +15,9 @@ The recommended operating values and owner fields are separated in the
   `packages/dpm/src/authoring/postgres.ts`.
 - Tables: published revisions, drafts, append-only audit events, and canonical identity index.
 - Service path: the async authoring service behind a deployment-owned routing layer. The package
-  exposes `resolveDpmAuthoringBackend()` for validating `DPM_AUTHORING_BACKEND=memory|postgres`,
-  but it does not create a PostgreSQL client or switch storage by itself.
+  exposes `resolveDpmAuthoringBackend()` and `selectDpmAuthoringBackendAdapter()` for validating
+  `DPM_AUTHORING_BACKEND=memory|postgres` and selecting an already-created adapter, but it does
+  not create a PostgreSQL client or switch storage by itself.
 - Excluded: public package release, registry publication, license, adapter cutover, tokenization,
   vault access, row rewriting, and production data-plane execution.
 

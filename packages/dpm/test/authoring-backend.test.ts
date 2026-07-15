@@ -5,6 +5,7 @@ import {
   DPM_DEFAULT_AUTHORING_BACKEND,
   isDpmAuthoringBackend,
   resolveDpmAuthoringBackend,
+  selectDpmAuthoringBackendAdapter,
 } from '../src/index.js'
 
 describe('DPM authoring backend configuration contract', () => {
@@ -33,5 +34,17 @@ describe('DPM authoring backend configuration contract', () => {
     expect(() => resolveDpmAuthoringBackend({ backend: '' })).toThrow('memory, postgres')
     expect(isDpmAuthoringBackend('memory')).toBe(true)
     expect(isDpmAuthoringBackend('sqlite')).toBe(false)
+  })
+
+  it('selects only from owner-injected adapters', () => {
+    const memory = { name: 'memory' }
+    const postgres = { name: 'postgres' }
+    const adapters = { memory, postgres } as const
+
+    expect(selectDpmAuthoringBackendAdapter({ env: {} }, adapters)).toBe(memory)
+    expect(selectDpmAuthoringBackendAdapter({
+      env: { [DPM_AUTHORING_BACKEND_ENV]: 'postgres' },
+    }, adapters)).toBe(postgres)
+    expect(selectDpmAuthoringBackendAdapter({ backend: 'memory' }, adapters)).toBe(memory)
   })
 })

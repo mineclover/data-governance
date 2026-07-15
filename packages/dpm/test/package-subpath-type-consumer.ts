@@ -111,6 +111,7 @@ import {
   explainDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
   resolveDpmAuthoringBackend,
+  selectDpmAuthoringBackendAdapter,
   type DpmAuthoringBackend,
   type DpmAsyncAuthoringRepository,
   type DpmAuthoringActor,
@@ -187,6 +188,10 @@ const authoringLookup: DpmAuthoringFieldLookup = {
 }
 const authoring = createDpmAuthoringService({ repository: createDpmInMemoryAuthoringRepository() })
 const authoringBackend: DpmAuthoringBackend = resolveDpmAuthoringBackend({ env: {} }).backend
+const authoringBackendAdapter = selectDpmAuthoringBackendAdapter({ env: {} }, {
+  memory: 'memory-adapter',
+  postgres: 'postgres-adapter',
+})
 const authoringDiff: DpmAuthoringSemanticDiff = {
   definitionId: 'smoke-definition',
   baseRevisionId: 'revision-1',
@@ -266,5 +271,6 @@ void [
   DPM_AUTHORING_BACKEND_VALUES,
   DPM_DEFAULT_AUTHORING_BACKEND,
   authoringBackend,
+  authoringBackendAdapter,
   asyncAuthoring,
 ]

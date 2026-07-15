@@ -18,6 +18,10 @@ export type DpmAuthoringBackendResolutionInput = {
   env?: Readonly<Record<string, string | undefined>>
 }
 
+export type DpmAuthoringBackendAdapters<T> = {
+  readonly [backend in DpmAuthoringBackend]: T
+}
+
 export const DPM_DEFAULT_AUTHORING_BACKEND = 'memory' as const
 
 export function isDpmAuthoringBackend(value: unknown): value is DpmAuthoringBackend {
@@ -57,4 +61,12 @@ export function resolveDpmAuthoringBackend(
     backend: normalized,
     source: hasExplicitBackend ? 'explicit' : 'environment',
   }
+}
+
+/** Selects an already-created adapter; it never creates a client or changes external state. */
+export function selectDpmAuthoringBackendAdapter<T>(
+  input: DpmAuthoringBackendResolutionInput,
+  adapters: DpmAuthoringBackendAdapters<T>,
+): T {
+  return adapters[resolveDpmAuthoringBackend(input).backend]
 }
