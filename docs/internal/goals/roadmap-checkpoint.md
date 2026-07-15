@@ -18,7 +18,7 @@ Issue is not required for ordinary roadmap updates.
   through consumer evidence before considering cross-definition search or broader authoring workflows.
 - Maintain the completed private [Phase 8 authoring import/export helpers](./phase-8-authoring-import-export-decision.md)
   through round-trip consumer evidence; keep bulk edit and broad search deferred.
-- Implement the private [Phase 8 authoring explain decision](./phase-8-authoring-explain-decision.md)
+- Maintain the completed private [Phase 8 authoring explain helper](./phase-8-authoring-explain-decision.md)
   as a read-only identity summary; keep quick fixes, bulk edit, and broad search deferred.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
@@ -43,6 +43,8 @@ Issue is not required for ordinary roadmap updates.
   with sync/async consumer coverage and canonical API/DB reverse binding context.
 - Canonical `data_definitions` `1.1` import/export helpers implemented with derived-identity stripping,
   deterministic ordering, invalid-input handling, and round-trip tests.
+- Identity-only authoring explain helper implemented with deterministic logical/API/DB readback,
+  deep immutability, and no sample-value or secret output.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
@@ -52,7 +54,7 @@ Issue is not required for ordinary roadmap updates.
 - Review the async service integration boundary and operational migration packet; keep production
   schema application, deployment, and public-release decisions deferred.
 - Keep scoped lookup and canonical import/export consumer evidence green; defer unsupported metadata
-  filters, explain, bulk edit, cross-definition search, and broader authoring infrastructure.
+  filters, quick fixes, bulk edit, cross-definition search, and broader authoring infrastructure.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 

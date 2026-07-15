@@ -53,7 +53,7 @@ production pseudonymization       = outside current oa-sdk boundary
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
-| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export, draft/revision/publish, diff, and rollback | Active private slice implemented; broad search/authoring capabilities remain deferred | [Authoring import/export decision](./phase-8-authoring-import-export-decision.md) |
+| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, draft/revision/publish, diff, and rollback | Active private slice implemented; broad search/authoring capabilities remain deferred | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
 | 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private owner acceptance recorded; adapter transition scheduled after first accepted owner artifact release | public release metadata and breaking removal |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
@@ -224,12 +224,13 @@ definition-scoped representative flow in the private owner repository:
 - deterministic field filters for entity, full locator, field name, semantic type, origin, and lifecycle;
 - API/DB reverse identity context with the matched logical field and all of its API bindings;
 - deterministic canonical import/export for the `data_definitions` `1.1` input shape;
+- identity-only explain output for logical/API/DB review without sample values or secrets;
 - immutable published revisions plus draft/base-revision optimistic concurrency;
 - validate preview, semantic diff, breaking-change classification, publish approval, audit readback,
   and rollback.
 
 Cross-definition/product search, sensitivity/owner metadata, relationship/policy/trace where-used,
-explain, bulk edit, and machine-readable quick fixes remain separate follow-on decisions.
+machine-readable quick fixes, and bulk edit remain separate follow-on decisions.
 
 Durable production persistence, external authorization, broad indexing, and unrestricted authoring
 remain deferred. No Phase 8 implementation is added to the historical `oa-sdk` mirror.
@@ -270,8 +271,8 @@ The owner-authorized DPM roadmap is complete when:
 - published revisions are immutable and concurrent edits reject a stale base revision;
 - lifecycle values, semantic diff, breaking-change review, audit, and rollback are explicit in the
   accepted private slice;
-- the current representative authoring flow covers definition-scoped import/edit/validate/publish/search/readback
-  without deep imports; explain and bulk authoring remain follow-on capabilities;
+- the current representative authoring flow covers definition-scoped import/explain/edit/validate/publish/search/readback
+  without deep imports; quick fixes and bulk authoring remain follow-on capabilities;
 - external consumers can use the package without monorepo path assumptions;
 - the runtime/data-plane boundary has an explicit external owner or remains explicitly deferred.
 
