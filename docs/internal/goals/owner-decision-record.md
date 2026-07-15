@@ -32,6 +32,9 @@ public registry release or removal of the existing import surface.
 - **Canonical documents:** this owner repository is canonical for the extraction contract,
   migration/rollback rules, and owner decisions. The `oa-sdk` documents remain the historical and
   compatibility mirror until the adapter transition is complete.
+- **Phase 8 scope:** the private representative authoring slice is activated under the separate
+  [Phase 8 activation decision record](./phase-8-decision-record.md). This does not change T1 or
+  public-release authority.
 
 ## Compatibility window
 
@@ -101,7 +104,8 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 ## Explicitly deferred
 
 - Public registry publication, public package metadata, and license selection.
-- Search, draft/edit/publish, authoring convenience, and other control-plane features.
+- Broad search, draft/edit/publish, authoring convenience, and other control-plane features beyond
+  the activated representative slice.
 - Production tokenization, vault execution, row rewriting, and data-plane deployment.
 
 These items require separate product, security, and release-owner decisions and are not implied by

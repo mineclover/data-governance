@@ -1,6 +1,6 @@
 # DPM Full Phase Execution Forecast
 
-**Status: planning forecast; no Phase 8 activation or public release authorization**
+**Status: private Phase 8 representative slice active; no public release authorization**
 **Updated: 2026-07-15**
 
 This document forecasts the complete DPM roadmap from Phase 0 through Phase 10. It is an execution
@@ -30,7 +30,7 @@ progress feedback.
 | 5 | Logical identity and wire contract | Complete and accepted privately | Future owner-authorized wire revisions only | 0–2 extension units | High |
 | 6 | Cross-object semantic binding | Complete and accepted privately | Future owner-authorized diagnostics/read-model consumers | 0–2 extension units | High |
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
-| 8 | Search, edit, authoring control plane | Proposal ready; not active | Owner activation, then representative slice | 6–10 units after activation | Medium |
+| 8 | Search, edit, authoring control plane | Representative slice activated privately | Lookup, immutable revisions, diff, approval, publish, audit, rollback | 6–10 work units | Medium |
 | 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, exact release, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
 | 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
 
@@ -58,8 +58,8 @@ extension only; they are not a reason to reopen the completed contract goals.
 
 ### Phase 8 — recommended representative slice
 
-After explicit activation, implement the [Phase 8 control-plane proposal](./phase-8-control-plane-proposal.md)
-in this order:
+Implement the activated [Phase 8 control-plane slice](./phase-8-decision-record.md), following the
+proposal order:
 
 1. identity lookup/read model;
 2. immutable published revision and draft/base-revision concurrency;
@@ -67,9 +67,9 @@ in this order:
 4. approval, publish, audit readback, and rollback;
 5. clean consumer fixture, public seam, documentation, and evidence.
 
-The estimate is 6–10 work units because persistence, authorization, audit semantics, and the public
-consumer seam are still decisions. No Phase 8 code should be added to the maintenance-only monorepo
-package.
+The estimate is 6–10 work units. The first work unit uses the decided repository port and in-memory
+reference adapter; durable persistence and external authorization remain separate decisions. No
+Phase 8 code should be added to the historical `oa-sdk` mirror.
 
 ### Phase 9 — T1 and one-release compatibility transition
 
@@ -96,11 +96,10 @@ exists.
 | Scenario | What proceeds | Expected work | Gate |
 | --- | --- | --- | --- |
 | Private maintenance | Checkpoint feedback, compatibility fixes, evidence refreshes | 0–1 unit per focused change | No extra approval |
-| Phase 8 activation | Representative control-plane slice | 6–10 units | Explicit owner/product/security activation |
+| Phase 8 activation | Representative control-plane slice | 6–10 units | [Private activation decision record](./phase-8-decision-record.md) |
 | T1 transition | Public artifact plus one compatibility release | 3–5 units | Issue #2 approval, license/registry decision, exact tag |
 | Runtime program | Data-plane production system | Unknown/10+ units | Separate runtime owner and security/deployment contract |
 
-Phase 8 and Phase 9 can proceed as parallel owner-gated branches after Phase 7; neither should be
-silently activated by a routine maintenance commit. The current recommended next action is to keep
-the Phase 8 proposal reviewable and use the checkpoint/commit loop until an owner activates one of
-the gated branches.
+Phase 8 and Phase 9 remain separate branches after Phase 7. Phase 8 is now active only within the
+private slice decision above; Phase 9 remains blocked on T1 approval. Continue using the
+checkpoint/commit loop for each work unit.

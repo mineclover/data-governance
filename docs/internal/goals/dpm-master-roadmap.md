@@ -53,7 +53,7 @@ production pseudonymization       = outside current oa-sdk boundary
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
-| 8. Search, edit and authoring control plane | Future owner-authorized product slice | cross-identity search, draft/revision/publish, diff, rollback and authoring helpers | Future; not an active goal | depends on Phase 7 and product/release ownership |
+| 8. Search, edit and authoring control plane | Private representative product slice | cross-identity lookup, draft/revision/publish, diff, rollback and authoring helpers | Active private slice; broad capabilities remain deferred | [Phase 8 decision record](./phase-8-decision-record.md) |
 | 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private owner acceptance recorded; adapter transition scheduled after first accepted owner artifact release | public release metadata and breaking removal |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
@@ -215,10 +215,10 @@ Completed Goal 68.3:
 - connect API/data/DB identities to behavior trace and review records;
 - prove the chain with an OpenAPI → DPM → catalog fixture.
 
-### Phase 8 — Search, edit and authoring control plane
+### Phase 8 — Search, edit and authoring control plane (private representative slice active)
 
-After Phase 7 and only under the selected owner, implement one product-slice-sized representative
-flow rather than endpoint-sized micro-goals:
+The 2026-07-15 [Phase 8 private activation decision](./phase-8-decision-record.md) authorizes one
+product-slice-sized representative flow in the private owner repository:
 
 - exact lookup and deterministic filtered search by logical id/locator, API pointer, DB coordinate,
   semantic type, sensitivity, owner, and lifecycle state;
@@ -228,7 +228,8 @@ flow rather than endpoint-sized micro-goals:
   publish approval, audit readback, and rollback;
 - CLI/library import, export, explain, bulk edit, and machine-readable diagnostic quick fixes.
 
-This phase is a future owner-authorized capability, not an active goal before Phase 0 completes.
+Durable production persistence, external authorization, broad indexing, and unrestricted authoring
+remain deferred. No Phase 8 implementation is added to the historical `oa-sdk` mirror.
 
 ### Phase 9 — Extraction rehearsal (Goal 68.4, owner-gated)
 
