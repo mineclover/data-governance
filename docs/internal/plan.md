@@ -55,8 +55,8 @@ The same gates run in
 - public package name, registry scope, license, and public release metadata; the recommended future
   package target is `@mineclover/dpm`, while `@oa-sdk/dpm` remains the compatibility adapter;
 - breaking removal of the `@oa-sdk/dpm` import surface;
-- broad search, draft/edit/publish, authoring convenience beyond the activated Phase 8 representative
-  slice, and production data-plane runtime.
+- broad search, automatic mutation/bulk authoring beyond the activated Phase 8 representative slice,
+  and production data-plane runtime.
 
 ## Recommended public-release policy
 

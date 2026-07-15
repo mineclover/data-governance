@@ -1,6 +1,6 @@
 # Phase 8 Authoring Quick-Fix Decision
 
-**Status: private follow-on activated 2026-07-15; no public-release effect**
+**Status: private follow-on implemented 2026-07-15; no public-release effect**
 
 This record supplements the [Phase 8 private activation decision](./phase-8-decision-record.md),
 the [scoped lookup decision](./phase-8-scoped-lookup-decision.md), the

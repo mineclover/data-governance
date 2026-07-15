@@ -29,7 +29,7 @@ identity explanation helper for review and debugging.
 
 ## Deferred follow-ons
 
-- machine-readable quick fixes and bulk edit;
+- automatic mutation or bulk application of review suggestions and bulk edit;
 - cross-definition search and durable broad indexing;
 - sensitivity/owner metadata and relationship/policy/trace extensions;
 - PostgreSQL migration/deployment and external authorization integration;

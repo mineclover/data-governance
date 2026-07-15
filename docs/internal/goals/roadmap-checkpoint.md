@@ -19,7 +19,9 @@ Issue is not required for ordinary roadmap updates.
 - Maintain the completed private [Phase 8 authoring import/export helpers](./phase-8-authoring-import-export-decision.md)
   through round-trip consumer evidence; keep bulk edit and broad search deferred.
 - Maintain the completed private [Phase 8 authoring explain helper](./phase-8-authoring-explain-decision.md)
-  as a read-only identity summary; keep quick fixes, bulk edit, and broad search deferred.
+  as a read-only identity summary; keep bulk edit and broad search deferred.
+- Maintain the completed private [Phase 8 authoring quick-fix helper](./phase-8-authoring-quick-fix-decision.md)
+  as review-only semantic-diff suggestions; keep automatic mutation, bulk edit, and broad search deferred.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -45,6 +47,8 @@ Issue is not required for ordinary roadmap updates.
   deterministic ordering, invalid-input handling, and round-trip tests.
 - Identity-only authoring explain helper implemented with deterministic logical/API/DB readback,
   deep immutability, and no sample-value or secret output.
+- Semantic-diff quick-fix helper implemented with approval-required breaking-change review,
+  alias-preserved rename/deprecation suggestions, deep immutability, and no raw change payloads.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
@@ -53,8 +57,9 @@ Issue is not required for ordinary roadmap updates.
   only when an owner decision is needed; the prepared values are in the [T1 candidate decision packet](./t1-candidate-decision-packet.md).
 - Review the async service integration boundary and operational migration packet; keep production
   schema application, deployment, and public-release decisions deferred.
-- Keep scoped lookup and canonical import/export consumer evidence green; defer unsupported metadata
-  filters, quick fixes, bulk edit, cross-definition search, and broader authoring infrastructure.
+- Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
+  unsupported metadata filters, automatic mutation, bulk edit, cross-definition search, and broader
+  authoring infrastructure.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -85,6 +90,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Phase 8 needs a useful read-model increment without opening cross-product indexing or public-release scope. | adopt scoped extension / defer broad search | Add definition-scoped entity/locator/name/type/origin/lifecycle filters and preserve API/DB reverse binding context; defer unsupported metadata and durable indexing. | [Scoped lookup decision](./phase-8-scoped-lookup-decision.md) |
 | 2026-07-15 | Import/export is useful for authoring review but does not need repository, DB, or public-release changes. | adopt pure canonical helpers / defer broader authoring | Add deterministic `data_definitions` `1.1` import/export with derived-identity stripping and round-trip validation; defer explain, bulk edit, and broad search. | [Authoring import/export decision](./phase-8-authoring-import-export-decision.md) |
 | 2026-07-15 | A contract-only explanation view improves review without exposing data values or adding persistence. | adopt pure explain helper / defer broader authoring | Add deterministic, deeply frozen logical/API/DB identity readback; defer quick fixes, bulk edit, and broad search. | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
+| 2026-07-15 | Semantic diff classification is useful to review consumers, but automatic mutation would exceed the private slice. | adopt pure quick-fix suggestions / defer mutation | Add deterministic approval-required breaking-change review plus alias-preserved rename/deprecation suggestions; keep automatic mutation, bulk edit, and broad search deferred. | `bbd335e`, [Authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md) |
 
 ## Formal approvals
 

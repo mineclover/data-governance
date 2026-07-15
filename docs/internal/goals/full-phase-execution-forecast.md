@@ -30,7 +30,7 @@ progress feedback.
 | 5 | Logical identity and wire contract | Complete and accepted privately | Future owner-authorized wire revisions only | 0–2 extension units | High |
 | 6 | Cross-object semantic binding | Complete and accepted privately | Future owner-authorized diagnostics/read-model consumers | 0–2 extension units | High |
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
-| 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, and identity-only explain implemented privately | Quick fixes, bulk edit, and broader search/authoring decisions | 0–3 extension units | Medium |
+| 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, and semantic-diff quick-fix suggestions implemented privately | Automatic mutation, bulk edit, and broader search/authoring decisions | 0–2 extension units | Medium |
 | 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, exact release, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
 | 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
 
@@ -65,13 +65,14 @@ definition-scoped [lookup extension](./phase-8-scoped-lookup-decision.md):
 2. entity/locator/name/type/origin/lifecycle field filters;
 3. deterministic canonical `data_definitions` `1.1` import/export;
 4. identity-only logical/API/DB explain output;
-5. immutable published revision and draft/base-revision concurrency;
-6. validate-preview, semantic diff, breaking classification, approval, publish, audit readback, and rollback;
-7. clean consumer fixture, public seam, documentation, and evidence.
+5. semantic-diff quick-fix suggestions for breaking review, alias-preserved rename, and deprecation;
+6. immutable published revision and draft/base-revision concurrency;
+7. validate-preview, semantic diff, breaking classification, approval, publish, audit readback, and rollback;
+8. clean consumer fixture, public seam, documentation, and evidence.
 
-The next follow-ons are cross-definition search/read models, explicit metadata dimensions, machine-readable
-quick fixes, and bulk edit. Durable persistence, external authorization, and those broader workflows remain
-separate decisions. No Phase 8 code should be added to the historical
+The next follow-ons are automatic mutation, cross-definition search/read models, explicit metadata dimensions,
+and bulk edit. Durable persistence, external authorization, and those broader workflows remain separate
+decisions. No Phase 8 code should be added to the historical
 `oa-sdk` mirror.
 
 ### Phase 9 — T1 and one-release compatibility transition

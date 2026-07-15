@@ -39,7 +39,7 @@ production pseudonymization       = outside current oa-sdk boundary
 | Unique-key management | column coordinate uniqueness, versioned canonical-key encoding, and separate object/revision/locator/binding identities | final external wire ownership and migration compatibility |
 | Search | profile summary and registry/audit readback | cross-identity lookup, filtered search, reverse lookup and where-used |
 | Edit | proposal review and relationship approval | data-definition draft, validate preview, publish, deprecate and rollback |
-| Convenience | public subpaths, package smoke and representative consumer flows | import/export, explain, bulk edit and machine-readable quick fixes |
+| Convenience | public subpaths, package smoke, import/export, explain, and machine-readable quick-fix suggestions | automatic mutation, bulk edit and broader authoring workflows |
 
 ## Capability map
 
@@ -53,7 +53,7 @@ production pseudonymization       = outside current oa-sdk boundary
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
-| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, draft/revision/publish, diff, and rollback | Active private slice implemented; broad search/authoring capabilities remain deferred | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
+| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Active private slice implemented; automatic mutation, broad search, and bulk authoring remain deferred | [Authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md) |
 | 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private owner acceptance recorded; adapter transition scheduled after first accepted owner artifact release | public release metadata and breaking removal |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
@@ -153,8 +153,9 @@ Blocking phase: 8.
 ### G-07 — Edit and authoring convenience
 
 Relationship review/approval does not provide a data-definition authoring workflow. Draft validation,
-optimistic concurrency, publish approval, audit/rollback, import/export, explain, bulk edit, and
-machine-readable quick fixes require one representative owner-authorized product flow.
+optimistic concurrency, publish approval, audit/rollback, import/export, explain, and
+machine-readable quick-fix suggestions require one representative owner-authorized product flow;
+automatic mutation and bulk edit remain outside that slice.
 
 Blocking phase: 8.
 
@@ -272,7 +273,7 @@ The owner-authorized DPM roadmap is complete when:
 - lifecycle values, semantic diff, breaking-change review, audit, and rollback are explicit in the
   accepted private slice;
 - the current representative authoring flow covers definition-scoped import/explain/edit/validate/publish/search/readback
-  without deep imports; quick fixes and bulk authoring remain follow-on capabilities;
+  plus semantic-diff quick-fix review suggestions without deep imports; automatic mutation and bulk authoring remain follow-on capabilities;
 - external consumers can use the package without monorepo path assumptions;
 - the runtime/data-plane boundary has an explicit external owner or remains explicitly deferred.
 
