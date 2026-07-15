@@ -10,6 +10,7 @@ import { normalizeDefinitions, copySource } from './service.js'
 import {
   DpmAuthoringError,
   type DpmAsyncAuthoringRepository,
+  type DpmAsyncAuthoringAuthorizationPolicy,
   type DpmAsyncAuthoringService,
   type DpmAsyncAuthoringServiceOptions,
   type DpmAuthoringActor,
@@ -28,10 +29,11 @@ export function createDpmAsyncAuthoringService(
   const clock = options.clock ?? (() => new Date().toISOString())
   const idGenerator = options.idGenerator ?? defaultIdGenerator
   const repository = options.repository
+  const authorization = options.authorization ?? defaultAuthorization
 
   return {
     async seedPublishedRevision(input) {
-      requireRole(input.actor, 'publisher')
+      await requireRole(authorization, input.actor, 'publisher')
       const revision: DpmAuthoringPublishedRevision = {
         definitionId: requireNonEmpty(input.definitionId, 'definitionId'),
         revisionId: requireNonEmpty(input.revisionId, 'revisionId'),
@@ -51,13 +53,13 @@ export function createDpmAsyncAuthoringService(
       )
     },
     async getPublishedRevision(input) {
-      requireAnyRole(input.actor)
+      await requireAnyRole(authorization, input.actor)
       return input.revisionId
         ? repository.getPublishedRevision(input.definitionId, input.revisionId)
         : repository.getLatestPublishedRevision(input.definitionId)
     },
     async lookup(input) {
-      requireAnyRole(input.actor)
+      await requireAnyRole(authorization, input.actor)
       const indexQuery = identityIndexQuery(input.query)
       const rows = await repository.lookupIdentity(indexQuery)
       const matches: DpmAuthoringLookupMatch[] = []
@@ -76,7 +78,7 @@ export function createDpmAsyncAuthoringService(
       return matches.sort(compareLookupMatches)
     },
     async createDraft(input) {
-      requireRole(input.actor, 'editor')
+      await requireRole(authorization, input.actor, 'editor')
       const base = await requireLatestRevision(repository, input.definitionId)
       if (base.revisionId !== input.baseRevisionId) {
         throw new DpmAuthoringError(
@@ -104,7 +106,7 @@ export function createDpmAsyncAuthoringService(
       return requireDraft(await repository.getDraft(draft.definitionId, draft.draftId), draft.draftId)
     },
     async previewDraft(input) {
-      requireAnyRole(input.actor)
+      await requireAnyRole(authorization, input.actor)
       const draft = requireDraft(await repository.getDraft(input.definitionId, input.draftId), input.draftId)
       const base = requireRevision(
         await repository.getPublishedRevision(input.definitionId, draft.baseRevisionId),
@@ -113,7 +115,7 @@ export function createDpmAsyncAuthoringService(
       return createDpmAuthoringSemanticDiff(base, draft)
     },
     async submitDraft(input) {
-      requireRole(input.actor, 'reviewer')
+      await requireRole(authorization, input.actor, 'reviewer')
       const draft = requireDraft(await repository.getDraft(input.definitionId, input.draftId), input.draftId)
       if (draft.status !== 'draft') {
         throw new DpmAuthoringError('conflict', `draft ${draft.draftId} is already submitted`)
@@ -134,7 +136,7 @@ export function createDpmAsyncAuthoringService(
       return requireDraft(await repository.getDraft(submitted.definitionId, submitted.draftId), submitted.draftId)
     },
     async publishDraft(input) {
-      requireRole(input.actor, 'publisher')
+      await requireRole(authorization, input.actor, 'publisher')
       const draft = requireDraft(await repository.getDraft(input.definitionId, input.draftId), input.draftId)
       if (draft.status !== 'pending-approval') {
         throw new DpmAuthoringError('conflict', `draft ${draft.draftId} is not pending approval`)
@@ -170,7 +172,7 @@ export function createDpmAsyncAuthoringService(
       )
     },
     async rollback(input) {
-      requireRole(input.actor, 'rollback')
+      await requireRole(authorization, input.actor, 'rollback')
       const current = await requireLatestRevision(repository, input.definitionId)
       const target = requireRevision(
         await repository.getPublishedRevision(input.definitionId, input.targetRevisionId),
@@ -202,7 +204,7 @@ export function createDpmAsyncAuthoringService(
       )
     },
     async listAuditEvents(input) {
-      requireAnyRole(input.actor)
+      await requireAnyRole(authorization, input.actor)
       return repository.listAuditEvents(input.definitionId)
     },
   }
@@ -298,14 +300,22 @@ async function requireLatestRevision(
   return requireRevision(await repository.getLatestPublishedRevision(definitionId), definitionId)
 }
 
-function requireRole(actor: DpmAuthoringActor, role: 'editor' | 'reviewer' | 'publisher' | 'rollback'): void {
-  if (!actor.roles.includes(role)) {
+async function requireRole(
+  policy: DpmAsyncAuthoringAuthorizationPolicy,
+  actor: DpmAuthoringActor,
+  role: 'editor' | 'reviewer' | 'publisher' | 'rollback',
+): Promise<void> {
+  if (!await policy.isAllowed(actor, role)) {
     throw new DpmAuthoringError('forbidden', `actor ${actor.id} requires role ${role}`)
   }
 }
 
-function requireAnyRole(actor: DpmAuthoringActor): void {
-  if (actor.roles.length === 0) {
+async function requireAnyRole(
+  policy: DpmAsyncAuthoringAuthorizationPolicy,
+  actor: DpmAuthoringActor,
+): Promise<void> {
+  const allowed = await Promise.all(actor.roles.map(role => policy.isAllowed(actor, role)))
+  if (!allowed.some(Boolean)) {
     throw new DpmAuthoringError('forbidden', `actor ${actor.id} has no authoring role`)
   }
 }
@@ -329,3 +339,7 @@ function requireNonEmpty(value: string, label: string): string {
 }
 
 const defaultIdGenerator: DpmAuthoringIdGenerator = (kind, definitionId) => `${kind}:${definitionId}:${randomUUID()}`
+
+const defaultAuthorization: DpmAsyncAuthoringAuthorizationPolicy = {
+  isAllowed: (actor, role) => actor.roles.includes(role),
+}

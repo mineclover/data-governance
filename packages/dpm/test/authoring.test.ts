@@ -184,6 +184,22 @@ describe('DPM private Phase 8 authoring slice', () => {
       expect((error as DpmAuthoringError).code).toBe('forbidden')
     }
   })
+
+  it('allows an owner-provided authorization policy to map external roles', () => {
+    const service = createDpmAuthoringService({
+      repository: createDpmInMemoryAuthoringRepository(),
+      authorization: {
+        isAllowed: (actor, role) => actor.id === 'mapped-owner' && role === 'publisher',
+      },
+    })
+
+    expect(() => service.seedPublishedRevision({
+      actor: { id: 'mapped-owner', roles: ['editor'] },
+      definitionId: 'customer-definition',
+      revisionId: 'revision-1',
+      definitions: createDefinitions('string'),
+    })).not.toThrow()
+  })
 })
 
 function createTestService() {

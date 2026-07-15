@@ -8,6 +8,7 @@ import type {
 import { createDpmAuthoringSemanticDiff } from './diff.js'
 import type {
   DpmAuthoringActor,
+  DpmAuthoringAuthorizationPolicy,
   DpmAuthoringAuditAction,
   DpmAuthoringAuditEvent,
   DpmAuthoringDraft,
@@ -27,10 +28,11 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
   const clock = options.clock ?? (() => new Date().toISOString())
   const idGenerator = options.idGenerator ?? defaultIdGenerator
   const repository = options.repository
+  const authorization = options.authorization ?? defaultAuthorization
 
   return {
     seedPublishedRevision(input) {
-      requireRole(input.actor, 'publisher')
+      requireRole(authorization, input.actor, 'publisher')
       const definitions = normalizeDefinitions(input.definitions)
       const revision: DpmAuthoringPublishedRevision = {
         definitionId: requireNonEmpty(input.definitionId, 'definitionId'),
@@ -48,14 +50,14 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return requireRevision(repository.getPublishedRevision(revision.definitionId, revision.revisionId), revision.revisionId)
     },
     getPublishedRevision(input) {
-      requireAnyRole(input.actor)
+      requireAnyRole(authorization, input.actor)
       const revision = input.revisionId
         ? repository.getPublishedRevision(input.definitionId, input.revisionId)
         : repository.getLatestPublishedRevision(input.definitionId)
       return revision
     },
     lookup(input) {
-      requireAnyRole(input.actor)
+      requireAnyRole(authorization, input.actor)
       const revisions = input.definitionId
         ? [repository.getLatestPublishedRevision(input.definitionId)].filter(isRevision)
         : []
@@ -68,7 +70,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
         })
     },
     createDraft(input) {
-      requireRole(input.actor, 'editor')
+      requireRole(authorization, input.actor, 'editor')
       const base = requireLatestRevision(repository, input.definitionId)
       if (base.revisionId !== input.baseRevisionId) {
         throw new DpmAuthoringError(
@@ -96,7 +98,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return requireDraft(repository.getDraft(draft.definitionId, draft.draftId), draft.draftId)
     },
     previewDraft(input) {
-      requireAnyRole(input.actor)
+      requireAnyRole(authorization, input.actor)
       const draft = requireDraft(repository.getDraft(input.definitionId, input.draftId), input.draftId)
       const base = requireRevision(
         repository.getPublishedRevision(input.definitionId, draft.baseRevisionId),
@@ -105,7 +107,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return createDpmAuthoringSemanticDiff(base, draft)
     },
     submitDraft(input) {
-      requireRole(input.actor, 'reviewer')
+      requireRole(authorization, input.actor, 'reviewer')
       const draft = requireDraft(repository.getDraft(input.definitionId, input.draftId), input.draftId)
       if (draft.status !== 'draft') {
         throw new DpmAuthoringError('conflict', `draft ${draft.draftId} is already submitted`)
@@ -126,7 +128,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return requireDraft(repository.getDraft(submitted.definitionId, submitted.draftId), submitted.draftId)
     },
     publishDraft(input) {
-      requireRole(input.actor, 'publisher')
+      requireRole(authorization, input.actor, 'publisher')
       const draft = requireDraft(repository.getDraft(input.definitionId, input.draftId), input.draftId)
       if (draft.status !== 'pending-approval') {
         throw new DpmAuthoringError('conflict', `draft ${draft.draftId} is not pending approval`)
@@ -159,7 +161,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return requireRevision(repository.getPublishedRevision(revision.definitionId, revision.revisionId), revision.revisionId)
     },
     rollback(input) {
-      requireRole(input.actor, 'rollback')
+      requireRole(authorization, input.actor, 'rollback')
       const current = requireLatestRevision(repository, input.definitionId)
       const target = requireRevision(
         repository.getPublishedRevision(input.definitionId, input.targetRevisionId),
@@ -188,7 +190,7 @@ export function createDpmAuthoringService(options: DpmAuthoringServiceOptions): 
       return requireRevision(repository.getPublishedRevision(revision.definitionId, revision.revisionId), revision.revisionId)
     },
     listAuditEvents(input) {
-      requireAnyRole(input.actor)
+      requireAnyRole(authorization, input.actor)
       return repository.listAuditEvents(input.definitionId)
     },
   }
@@ -325,14 +327,14 @@ export function copySource(source: DpmAuthoringSource): DpmAuthoringSource {
   }
 }
 
-function requireRole(actor: DpmAuthoringActor, role: DpmAuthoringRole): void {
-  if (!actor.roles.includes(role)) {
+function requireRole(policy: DpmAuthoringAuthorizationPolicy, actor: DpmAuthoringActor, role: DpmAuthoringRole): void {
+  if (!policy.isAllowed(actor, role)) {
     throw new DpmAuthoringError('forbidden', `actor ${actor.id} requires role ${role}`)
   }
 }
 
-function requireAnyRole(actor: DpmAuthoringActor): void {
-  if (actor.roles.length === 0) {
+function requireAnyRole(policy: DpmAuthoringAuthorizationPolicy, actor: DpmAuthoringActor): void {
+  if (!actor.roles.some(role => policy.isAllowed(actor, role))) {
     throw new DpmAuthoringError('forbidden', `actor ${actor.id} has no authoring role`)
   }
 }
@@ -364,3 +366,7 @@ function isRevision(value: DpmAuthoringPublishedRevision | undefined): value is 
 }
 
 const defaultIdGenerator: DpmAuthoringIdGenerator = (kind, definitionId) => `${kind}:${definitionId}:${randomUUID()}`
+
+const defaultAuthorization: DpmAuthoringAuthorizationPolicy = {
+  isAllowed: (actor, role) => actor.roles.includes(role),
+}

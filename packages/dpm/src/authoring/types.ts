@@ -13,6 +13,14 @@ export type DpmAuthoringActor = {
   roles: readonly DpmAuthoringRole[]
 }
 
+export type DpmAuthoringAuthorizationPolicy = {
+  isAllowed(actor: DpmAuthoringActor, role: DpmAuthoringRole): boolean
+}
+
+export type DpmAsyncAuthoringAuthorizationPolicy = {
+  isAllowed(actor: DpmAuthoringActor, role: DpmAuthoringRole): boolean | Promise<boolean>
+}
+
 export type DpmAuthoringSource = {
   artifactIdentity: string
   freshnessIdentity: string
@@ -211,12 +219,14 @@ export type DpmAuthoringServiceOptions = {
   repository: DpmAuthoringRepository
   clock?: () => string
   idGenerator?: DpmAuthoringIdGenerator
+  authorization?: DpmAuthoringAuthorizationPolicy
 }
 
 export type DpmAsyncAuthoringServiceOptions = {
   repository: DpmAsyncAuthoringRepository
   clock?: () => string
   idGenerator?: DpmAuthoringIdGenerator
+  authorization?: DpmAsyncAuthoringAuthorizationPolicy
 }
 
 export type DpmAuthoringErrorCode = 'forbidden' | 'not-found' | 'conflict' | 'invalid'
