@@ -1,0 +1,59 @@
+name: DPM T1 release gate
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-release:
+    name: Verify T1 candidate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Fetch main for ancestry check
+        run: git fetch origin main --no-tags
+
+      - name: Verify tag commit is on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.30.3
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 25.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Typecheck packages
+        run: pnpm typecheck
+
+      - name: Check extraction boundary
+        run: pnpm check:boundary
+
+      - name: Check owner documentation links
+        run: pnpm check:docs
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Run DPM consumer smoke
+        run: pnpm smoke:dpm

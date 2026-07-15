@@ -69,6 +69,16 @@ then, no public package metadata or public registry publication is added.
 Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
 guide, deprecation notice, and passing rollback fixture.
 
+## Governance enforcement
+
+- `.github/CODEOWNERS` requests `@mineclover` review for every repository change.
+- `.github/workflows/release-gate.yml` verifies every `v*` tag is an ancestor of `main` and reruns
+  the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
+- The release gate does not publish a package. Public publication still requires the separate owner
+  approval described above.
+- GitHub branch protection is not available under the current private-repository plan, so CODEOWNERS
+  is a review-routing control until required-review enforcement is enabled.
+
 ## Rollback acceptance
 
 The packed rollback rehearsal from the extraction baseline proves stale rollout rejection, a new
