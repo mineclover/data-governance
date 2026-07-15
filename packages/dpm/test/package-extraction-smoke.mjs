@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url'
 const packageDir = fileURLToPath(new URL('..', import.meta.url))
 const fixturePath = fileURLToPath(new URL('./external-consumer-fixture.mjs', import.meta.url))
 const authoringFixturePath = fileURLToPath(new URL('./external-consumer-authoring-fixture.mjs', import.meta.url))
+const authoringReviewFixturePath = fileURLToPath(new URL('./external-consumer-authoring-review-fixture.mjs', import.meta.url))
 const rollbackFixturePath = fileURLToPath(new URL('./external-consumer-rollback-fixture.mjs', import.meta.url))
 const typeFixturePath = fileURLToPath(new URL('./external-consumer-type-fixture.ts', import.meta.url))
 const tscPath = fileURLToPath(new URL('../node_modules/.bin/tsc', import.meta.url))
@@ -70,6 +71,7 @@ try {
   symlinkSync('../../..', packageInstallDir, 'dir')
   copyFileSync(fixturePath, join(consumerDir, 'consumer.mjs'))
   copyFileSync(authoringFixturePath, join(consumerDir, 'consumer-authoring.mjs'))
+  copyFileSync(authoringReviewFixturePath, join(consumerDir, 'consumer-authoring-review.mjs'))
   copyFileSync(rollbackFixturePath, join(consumerDir, 'consumer-rollback.mjs'))
   copyFileSync(typeFixturePath, join(consumerDir, 'consumer-type-fixture.ts'))
   mkdirSync(join(consumerDir, 'fixtures', 'catalog'), { recursive: true })
@@ -95,6 +97,12 @@ try {
   }).trim()
   const authoringResult = JSON.parse(authoringOutput)
   if (authoringResult.status !== 'ok') throw new Error('external authoring consumer fixture did not complete')
+  const authoringReviewOutput = execFileSync(process.execPath, ['consumer-authoring-review.mjs'], {
+    cwd: consumerDir,
+    encoding: 'utf8',
+  }).trim()
+  const authoringReviewResult = JSON.parse(authoringReviewOutput)
+  if (authoringReviewResult.status !== 'ok') throw new Error('external authoring review consumer fixture did not complete')
   execFileSync(tscPath, [
     '--noEmit',
     '--target',
@@ -121,6 +129,7 @@ try {
     archive: archiveName,
     consumer: result,
     configuredAuthoringConsumer: authoringResult,
+    authoringReviewConsumer: authoringReviewResult,
     declarationConsumer: 'ok',
     rollbackConsumer: rollbackResult,
   }, null, 2))

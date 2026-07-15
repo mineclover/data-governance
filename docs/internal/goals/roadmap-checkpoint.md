@@ -50,6 +50,9 @@ Issue is not required for ordinary roadmap updates.
 - Packed external consumer smoke now exercises the configured async authoring service through the
   public `@oa-sdk/dpm/authoring` subpath with an injected backend adapter; it does not create a
   database client or perform a storage cutover.
+- The same packed consumer smoke covers canonical `1.1` import/export round-trip, identity-only
+  explain output, and approval-required review-only quick-fix suggestions for breaking, rename, and
+  deprecation changes.
 - Scoped Phase 8 lookup extension implemented for entity/locator/name/type/origin/lifecycle filters,
   with sync/async consumer coverage and canonical API/DB reverse binding context.
 - Canonical `data_definitions` `1.1` import/export helpers implemented with derived-identity stripping,
@@ -106,6 +109,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | The remaining Phase 8 extensions have different persistence, authorization, conflict, and rollback prerequisites. | adopt ordered deferral | Prioritize a future cross-definition read model, then automatic mutation, then bulk edit; keep all three deferred until their entry contracts and operational owners are approved. | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
 | 2026-07-15 | Owner-specific operational values must not be mistaken for approval or execution readiness. | adopt automated contract check | Validate the recommendation-only status, required owner fields, backend contract, and no-execution invariants in CI; keep actual values and approval owner-gated. | `pnpm check:operational-change` |
 | 2026-07-15 | Backend wiring needs evidence from the packed external consumer boundary, not only in-repository unit tests. | adopt consumer smoke | Run the configured async authoring service from `@oa-sdk/dpm/authoring` with an injected adapter and assert that no unselected adapter receives the write; keep real PostgreSQL cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
+| 2026-07-15 | The existing authoring helpers must remain consumable outside the monorepo before broader Phase 8 work is considered. | adopt consumer smoke | Verify canonical import/export, identity-only explain, and review-only quick-fix suggestions from the packed `@oa-sdk/dpm/authoring` subpath; keep automatic mutation deferred. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 
 ## Formal approvals
 
