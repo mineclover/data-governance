@@ -54,12 +54,20 @@ public registry publication or removal of the existing import surface.
 | Canonical repository | `https://github.com/mineclover/data-governance` (private, `main`) |
 | Owner / release authority | `mineclover` repository owner; delegated maintainer may prepare but not unilaterally approve contract/version changes |
 | Issue / review location | [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1) and pull-request review |
-| Package and registry | Private `@oa-sdk/dpm`; no public registry; public package scope, license, and metadata deferred |
+| Package and registry | Private `@oa-sdk/dpm`; no public registry; future default target `@mineclover/dpm`; public license and metadata deferred |
 | Accepted `data_definitions` versions | `1.0` frozen; `1.1` deferred experimental |
 | Accepted artifact kind/version | `dpm.data-binding-artifact.v1` / `1.0` |
 | Compatibility window | Through the first accepted owner release plus one subsequent compatibility release; deprecation notice in the final compatibility release |
 | Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical/compatibility mirror |
 | Rollback fixture / review link | [Owner CI `29353981154`](https://github.com/mineclover/data-governance/actions/runs/29353981154), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
+
+## Public-release decision gate
+
+The recommended public-release target is `@mineclover/dpm`, while `@oa-sdk/dpm` remains the
+compatibility adapter. This target is not published or considered selected until a separate owner
+approval records the registry, license, and release policy. `T1` is the first SemVer tag or GitHub
+Release on `main` whose exact commit has a successful owner CI run and explicit `mineclover` owner
+approval. A normal commit or private rehearsal is not `T1`.
 
 ## Transition rule
 

@@ -9,14 +9,14 @@ The owner handoff gates and sign-off record are tracked in the
 
 This document is the temporary migration contract for moving the DPM contract plane from the
 maintenance-only monorepo package to the private
-[`mineclover/data-governance`](https://github.com/mineclover/data-governance) owner candidate. It defines what
+[`mineclover/data-governance`](https://github.com/mineclover/data-governance) owner. It defines what
 can be copied or adapted, what must remain byte/version compatible, and how to roll back without
 silently changing logical data identity.
 
 ## Current boundary
 
-- The source implementation remains `mineclover/oa-sdk/packages/dpm` during the acceptance window.
-  The private external owner candidate contains the initial extraction at commit `7f1fb3f`;
+- The source implementation remains `mineclover/oa-sdk/packages/dpm` during the compatibility
+  window. The private external owner contains the initial extraction at commit `7f1fb3f`;
   this package becomes a compatibility adapter at the first accepted external owner artifact
   release (`T1`), after which the existing import surface remains supported for one subsequent
   compatibility release.
@@ -28,6 +28,13 @@ silently changing logical data identity.
 - The stable import set for the data contract is `@oa-sdk/dpm/package`, `@oa-sdk/dpm/data`, and
   `@oa-sdk/dpm/relationship`. Existing profile, catalog, gateway, storage, and publishing
   subpaths remain available to their existing consumers.
+
+## T1 release gate
+
+`T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose exact release commit
+has a successful owner CI run. A private commit, branch build, or extraction rehearsal does not
+constitute `T1`. The recommended future public package target is `@mineclover/dpm`; it remains
+unpublished until registry, license, and publication policy receive separate approval.
 
 ## Version migration rules
 

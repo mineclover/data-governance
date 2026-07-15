@@ -93,9 +93,10 @@ handoff. The accepted decision record is [here](./owner-decision-record.md), and
 commit `c1fb9a9`. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
-The remaining release gate is intentionally narrow: public package metadata/registry publication
-and breaking removal of the old import surface require a separate approval. No scope reactivation
-is authorized by this decision.
+The remaining release gate is intentionally narrow: the recommended public target is
+`@mineclover/dpm`, but public package metadata/registry publication and breaking removal of the old
+import surface require a separate owner-approved SemVer tag or GitHub Release with successful CI for
+the exact release commit. No scope reactivation is authorized by this decision.
 
 Blocking phases: 5–10.
 

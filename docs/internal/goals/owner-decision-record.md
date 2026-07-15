@@ -23,7 +23,8 @@ public registry release or removal of the existing import surface.
   smoke gates.
 - **Package/publication policy:** `@oa-sdk/dpm` remains private and is not published to a public
   registry. Public package name/scope, license, and public release metadata are intentionally
-  deferred until a separate public-release approval.
+  deferred until a separate public-release approval. The recommended future package target is
+  `@mineclover/dpm`; this is a naming decision only and does not authorize publication.
 - **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
   private owner contract. Unknown markers or versions must be rejected rather than guessed.
 - **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
@@ -47,6 +48,26 @@ The transition is keyed to owner artifact releases rather than a calendar date:
 
 The adapter must forward or re-emit accepted artifacts without changing object identity, freshness,
 or provenance fields. No new canonical DPM behavior is added to the monorepo during this window.
+
+## Public release gate
+
+The current recommendation is to keep the repository and package private. A future public release
+may proceed only after a separate owner-approved issue or pull request records all of the following:
+
+- public package identity, with `@mineclover/dpm` as the default target and `@oa-sdk/dpm` retained
+  only as the compatibility adapter;
+- registry scope and publication target;
+- license and redistribution policy;
+- a SemVer release tag or GitHub Release on `main`;
+- a successful owner CI run for the exact release commit;
+- explicit approval from the `mineclover` repository owner.
+
+That approved tag/release is the definition of the first accepted owner artifact release (`T1`). A
+normal commit, a successful branch build, or a private rehearsal does not constitute `T1`. Until
+then, no public package metadata or public registry publication is added.
+
+Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
+guide, deprecation notice, and passing rollback fixture.
 
 ## Rollback acceptance
 

@@ -12,7 +12,8 @@ release at this stage.
 
 The repository remains private under the accepted decision in
 [owner-decision-record.md](./owner-decision-record.md). Public registry publication is not
-authorized.
+authorized. The recommended future public package target is `@mineclover/dpm`; it is not selected
+or published until the separate public-release gate is approved.
 
 The formal acceptance review is recorded in the [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1);
 the structured issue form remains available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.

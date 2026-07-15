@@ -52,6 +52,15 @@ The same gates run in
 
 ## Explicitly deferred decisions
 
-- public package name, registry scope, license, and public release metadata;
+- public package name, registry scope, license, and public release metadata; the recommended future
+  package target is `@mineclover/dpm`, while `@oa-sdk/dpm` remains the compatibility adapter;
 - breaking removal of the `@oa-sdk/dpm` import surface;
 - search, draft/edit/publish, authoring convenience, and production data-plane runtime.
+
+## Recommended public-release policy
+
+Keep the repository and package private until an owner-approved SemVer tag or GitHub Release exists
+on `main` with successful CI for the exact release commit. That release is `T1`. A normal commit,
+branch build, or private rehearsal is not `T1`. Before `T1`, do not add public package metadata,
+license, or registry publication. After `T1`, keep the old import surface through one compatibility
+release, add a deprecation notice, and require a separate approved major release before removal.
