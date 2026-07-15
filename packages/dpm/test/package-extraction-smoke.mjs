@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url'
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url))
 const fixturePath = fileURLToPath(new URL('./external-consumer-fixture.mjs', import.meta.url))
+const authoringFixturePath = fileURLToPath(new URL('./external-consumer-authoring-fixture.mjs', import.meta.url))
 const rollbackFixturePath = fileURLToPath(new URL('./external-consumer-rollback-fixture.mjs', import.meta.url))
 const typeFixturePath = fileURLToPath(new URL('./external-consumer-type-fixture.ts', import.meta.url))
 const tscPath = fileURLToPath(new URL('../node_modules/.bin/tsc', import.meta.url))
@@ -68,6 +69,7 @@ try {
   rmSync(packageInstallDir, { recursive: true, force: true })
   symlinkSync('../../..', packageInstallDir, 'dir')
   copyFileSync(fixturePath, join(consumerDir, 'consumer.mjs'))
+  copyFileSync(authoringFixturePath, join(consumerDir, 'consumer-authoring.mjs'))
   copyFileSync(rollbackFixturePath, join(consumerDir, 'consumer-rollback.mjs'))
   copyFileSync(typeFixturePath, join(consumerDir, 'consumer-type-fixture.ts'))
   mkdirSync(join(consumerDir, 'fixtures', 'catalog'), { recursive: true })
@@ -87,6 +89,12 @@ try {
   }).trim()
   const result = JSON.parse(output)
   if (result.status !== 'ok') throw new Error('external consumer fixture did not complete')
+  const authoringOutput = execFileSync(process.execPath, ['consumer-authoring.mjs'], {
+    cwd: consumerDir,
+    encoding: 'utf8',
+  }).trim()
+  const authoringResult = JSON.parse(authoringOutput)
+  if (authoringResult.status !== 'ok') throw new Error('external authoring consumer fixture did not complete')
   execFileSync(tscPath, [
     '--noEmit',
     '--target',
@@ -112,6 +120,7 @@ try {
     status: 'ok',
     archive: archiveName,
     consumer: result,
+    configuredAuthoringConsumer: authoringResult,
     declarationConsumer: 'ok',
     rollbackConsumer: rollbackResult,
   }, null, 2))
