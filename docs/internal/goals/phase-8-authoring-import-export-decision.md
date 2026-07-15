@@ -1,6 +1,6 @@
 # Phase 8 Authoring Import/Export Decision
 
-**Status: private follow-on activated 2026-07-15; no public-release effect**
+**Status: private follow-on implemented 2026-07-15; no public-release effect**
 
 This record supplements the [Phase 8 private activation decision](./phase-8-decision-record.md)
 and the [scoped lookup decision](./phase-8-scoped-lookup-decision.md). It activates only
@@ -28,7 +28,7 @@ library-level import/export helpers over the accepted `data_definitions` `1.1` c
 
 ## Deferred follow-ons
 
-- explain/read-model presentation and machine-readable quick fixes;
+- automatic mutation or bulk application of review suggestions;
 - bulk edit and unrestricted authoring;
 - cross-definition search and durable broad indexing;
 - PostgreSQL migration/deployment and external authorization integration;

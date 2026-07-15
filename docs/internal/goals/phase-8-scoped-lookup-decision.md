@@ -1,6 +1,6 @@
 # Phase 8 Scoped Lookup Extension Decision
 
-**Status: private follow-on activated 2026-07-15; no public-release effect**
+**Status: private follow-on implemented 2026-07-15; no public-release effect**
 
 This record supplements the [Phase 8 private activation decision](./phase-8-decision-record.md).
 It defines the next small read-model work unit without activating cross-product search, production
@@ -31,6 +31,6 @@ indexing, or unrestricted authoring.
 
 - cross-definition or cross-product search and durable broad indexing;
 - sensitivity/owner metadata and relationship/policy/trace where-used records;
-- import/export, explain, bulk edit, and machine-readable quick-fix workflows;
+- automatic mutation, bulk edit, and unrestricted authoring workflows;
 - PostgreSQL migration/deployment and external authorization integration;
 - public metadata, license, registry publication, `v*` tag, and adapter cutover.

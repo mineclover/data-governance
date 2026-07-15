@@ -136,8 +136,8 @@ compatibility release. Public registry publication and breaking removal remain s
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction at `7f1fb3f`, the historic owner CI workflow at `8ab1c66`, and the
 acceptance-form implementation at `60c6c36`. The latest owner CI
-[29391356852](https://github.com/mineclover/data-governance/actions/runs/29391356852) passed build,
-typecheck, boundary, owner documentation, tests, and all DPM consumer smokes for commit `87147d9`
+[29395930440](https://github.com/mineclover/data-governance/actions/runs/29395930440) passed build,
+typecheck, boundary, owner documentation, tests, and all DPM consumer smokes for commit `f7d1408`
 with Node.js 25 and pnpm 10.30.3.
 
 ## Review verdict of the current implementation
@@ -266,25 +266,33 @@ Exit criteria:
 
 ## Owner-authorized follow-on control plane
 
-After Goal 68.3 produces a stable neutral artifact, the selected owner may activate one
-product-slice-sized control-plane goal covering the user workflow rather than creating one goal per
-endpoint. This is future capability, not an active goal before 68.0 completes.
+After Goal 68.3 produced a stable neutral artifact, the private owner activated one
+product-slice-sized control-plane goal through the [Phase 8 private activation decision](./phase-8-decision-record.md).
+The current implementation is intentionally definition-scoped and remains private.
 
-Required capability:
+Implemented representative slice:
 
 - exact lookup and deterministic filtered search by logical object id/locator, API pointer, DB
-  coordinate, semantic type, sensitivity, owner, and lifecycle state;
-- reverse lookup and where-used across logical, API, DB, relationship, policy, and trace identities;
+  coordinate, semantic type, origin, and lifecycle state;
+- reverse API/DB lookup with the matched logical field and its API bindings;
 - immutable published revisions, editable drafts, and base-revision optimistic concurrency;
-- validate preview, semantic diff, breaking-change classification, rename/deprecate/supersede,
+- validate preview, semantic diff, breaking-change classification, rename/deprecation review,
   publish approval, audit readback, and rollback;
-- CLI/library import, export, explain, bulk edit, and machine-readable diagnostic quick fixes.
+- library import, export, identity-only explain, and review-only machine-readable quick-fix suggestions.
+
+Deferred extensions:
+
+- cross-definition/product search and durable broad indexing;
+- sensitivity/owner metadata and relationship/policy/trace where-used records;
+- automatic mutation and bulk edit;
+- PostgreSQL migration/deployment and external authorization integration.
 
 Representative exit criteria:
 
 - one binding can be found from its logical id, API pointer, or DB coordinate;
 - published revisions cannot be mutated in place and a stale draft base is rejected;
-- breaking changes and rename/deprecation effects are visible before publish;
+- breaking changes and rename/deprecation effects are visible before publish, with deterministic
+  review-only quick-fix suggestions;
 - one public consumer flow proves import/edit/validate/publish/search/audit readback without deep imports.
 
 ## Explicit non-goals

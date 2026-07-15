@@ -230,8 +230,8 @@ definition-scoped representative flow in the private owner repository:
 - validate preview, semantic diff, breaking-change classification, publish approval, audit readback,
   and rollback.
 
-Cross-definition/product search, sensitivity/owner metadata, relationship/policy/trace where-used,
-machine-readable quick fixes, and bulk edit remain separate follow-on decisions.
+Automatic mutation, cross-definition/product search, sensitivity/owner metadata,
+relationship/policy/trace where-used, and bulk edit remain separate follow-on decisions.
 
 Durable production persistence, external authorization, broad indexing, and unrestricted authoring
 remain deferred. No Phase 8 implementation is added to the historical `oa-sdk` mirror.
