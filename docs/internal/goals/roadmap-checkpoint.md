@@ -14,8 +14,8 @@ Issue is not required for ordinary roadmap updates.
 - Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
-- Implement the scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md) before
-  considering cross-definition search or broader authoring workflows.
+- Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
+  through consumer evidence before considering cross-definition search or broader authoring workflows.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -35,6 +35,8 @@ Issue is not required for ordinary roadmap updates.
   prepared; no production cutover or migration authorized.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
   deferred until an operational owner is selected.
+- Scoped Phase 8 lookup extension implemented for entity/locator/name/type/origin/lifecycle filters,
+  with sync/async consumer coverage and canonical API/DB reverse binding context.
 - Routine roadmap feedback moved to this checkpoint and commit history.
 
 ## Next
@@ -43,8 +45,8 @@ Issue is not required for ordinary roadmap updates.
   only when an owner decision is needed; the prepared values are in the [T1 candidate decision packet](./t1-candidate-decision-packet.md).
 - Review the async service integration boundary and operational migration packet; keep production
   schema application, deployment, and public-release decisions deferred.
-- Verify the scoped lookup extension against sync/async consumers; keep unsupported metadata filters
-  and broad search infrastructure deferred.
+- Keep the scoped lookup extension's sync/async consumer evidence green; defer unsupported metadata
+  filters, cross-definition search, and broader authoring infrastructure.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
