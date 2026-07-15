@@ -21,8 +21,8 @@ or the `@oa-sdk/dpm` adapter cutover.
 ## Current evidence
 
 - T1 release candidate source: private `main`, represented by the linked owner CI and preflight runs.
-- Owner CI: [workflow 29410158993](https://github.com/mineclover/data-governance/actions/runs/29410158993), passed for the selected private candidate.
-- Latest private T1 preflight: [workflow 29410341278](https://github.com/mineclover/data-governance/actions/runs/29410341278), passed for the selected private candidate.
+- Owner CI: [workflow 29410895244](https://github.com/mineclover/data-governance/actions/runs/29410895244), passed for the selected private candidate.
+- Latest private T1 preflight: [workflow 29411082048](https://github.com/mineclover/data-governance/actions/runs/29411082048), passed for the selected private candidate.
 - The workflow run records the tested revision automatically; approval documents reference the run links and source ref rather than manually copied commit identifiers.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
