@@ -19,8 +19,9 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- Latest owner commit: `9d33896`.
-- Latest owner CI: [workflow 29381609456](https://github.com/mineclover/data-governance/actions/runs/29381609456), passed.
+- Latest owner commit: `9981dc4`.
+- Latest owner CI: [workflow 29381989604](https://github.com/mineclover/data-governance/actions/runs/29381989604), passed.
+- Latest private T1 preflight: [workflow 29382126333](https://github.com/mineclover/data-governance/actions/runs/29382126333), passed.
 - Release gate: [`release-gate.yml`](../../../.github/workflows/release-gate.yml), active for `v*` tags.
 - Repository visibility: private.
 - Public registry, license, and adapter cutover: pending the T1 approval issue.
