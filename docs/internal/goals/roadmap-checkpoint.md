@@ -46,6 +46,8 @@ Issue is not required for ordinary roadmap updates.
 - The recommendation-only T1 candidate state is checked by `pnpm check:t1-readiness`, preserving
   the private package identity/version, absent public license metadata, absent `v*` tags, and the
   no-public-action boundaries in the candidate packet.
+- The T1 release gate verifies all five explicit Issue #2 approval rows before accepting a `v*` tag;
+  the private readiness check protects that workflow guard from drift.
 - Goal 68 owner-acceptance documents now point to the latest successful Owner CI evidence, while
   the T1 readiness document continues to pin the exact private code candidate and preflight pair.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
@@ -121,6 +123,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Runtime authoring evidence is insufficient if packed declaration consumers cannot typecheck the same public seam. | adopt declaration smoke | Typecheck backend, async-service, semantic-diff, explain, and quick-fix types from the packed authoring subpath; keep implementation and cutover owner-gated. | `pnpm --filter @oa-sdk/dpm smoke:extraction` |
 | 2026-07-15 | T1 recommendation documents can drift from the private package boundary during routine maintenance. | adopt readiness contract check | Verify the recommendation-only packet, private package identity/version, absent license/publication metadata, absent `v*` tags, and explicit no-action boundaries in CI. | `pnpm check:t1-readiness` |
 | 2026-07-15 | Goal 68 acceptance records retained an older Owner CI link after later private verification succeeded. | adopt evidence refresh | Synchronize current owner-acceptance references to the latest successful Owner CI while keeping T1 readiness pinned to the exact code-candidate and preflight runs. | `29412035473`, `29411791058`, `29411796346` |
+| 2026-07-15 | A release tag could reach the verification workflow without the formal Issue #2 approval state being machine-checked. | adopt approval guard | Require all five checked Issue #2 approval rows in the T1 release gate and verify the guard remains wired during private readiness checks. | `scripts/check-t1-approval.mjs`, `pnpm check:t1-readiness` |
 
 ## Formal approvals
 

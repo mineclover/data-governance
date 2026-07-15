@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 const root = fileURLToPath(new URL('..', import.meta.url))
 const readiness = read('docs/internal/goals/t1-readiness.md')
 const packet = read('docs/internal/goals/t1-candidate-decision-packet.md')
+const releaseGate = read('.github/workflows/release-gate.yml')
 const rootPackage = readJson('package.json')
 const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
@@ -12,6 +13,10 @@ const normalizedPacket = normalize(packet)
 
 requireText(normalizedReadiness, '**Status: private preflight path available; T1 public release is not approved**', 'readiness status')
 requireText(normalizedPacket, '**Status: recommendation prepared; owner approval required before any public-release action**', 'candidate packet status')
+requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
+requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
+requireText(normalize(releaseGate), 'gh issue view 2', 'release-gate Issue #2 lookup')
+requireText(normalize(releaseGate), 'scripts/check-t1-approval.mjs', 'release-gate approval checker')
 for (const [value, label] of [
   ['@mineclover/dpm', 'recommended public package identity'],
   ['npm public registry', 'recommended registry'],

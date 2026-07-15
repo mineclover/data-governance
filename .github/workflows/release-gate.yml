@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  issues: read
 
 jobs:
   verify-release:
@@ -36,6 +37,11 @@ jobs:
         with:
           node-version: 25.x
           cache: pnpm
+
+      - name: Verify T1 owner approval
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue view 2 --repo "$GITHUB_REPOSITORY" --json body --jq .body | node scripts/check-t1-approval.mjs
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
