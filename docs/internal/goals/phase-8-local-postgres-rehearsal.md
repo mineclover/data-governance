@@ -11,7 +11,7 @@ deployment, or T1/public-release action.
 
 | Item | Value |
 | --- | --- |
-| Repository candidate | `c0066d9` (`main`) |
+| Repository candidate | `418b72d` (`main`) |
 | PostgreSQL image | `postgres:17-alpine` |
 | Schema contract | `DPM_AUTHORING_STORAGE_SCHEMA_VERSION = 1.0` |
 | SQL application | Five additive schema blocks from `DPM_AUTHORING_STORAGE_SCHEMA_SQL_BLOCKS` |
