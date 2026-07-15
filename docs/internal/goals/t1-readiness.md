@@ -20,9 +20,9 @@ or the `@oa-sdk/dpm` adapter cutover.
 
 ## Current evidence
 
-- Latest private owner candidate: commit `0351114`.
-- Latest owner CI: [workflow 29390192831](https://github.com/mineclover/data-governance/actions/runs/29390192831), passed for the exact candidate commit.
-- T1 preflight remains available for a separately selected release candidate; it has not been run as a public-release approval for the current commit.
+- Latest private owner candidate: commit `d6abcb28603e2356a90b3b86bf0ddbbc62a9c286` (`docs: prepare T1 candidate decision packet`).
+- Latest owner CI: [workflow 29391046179](https://github.com/mineclover/data-governance/actions/runs/29391046179), passed for the exact candidate commit.
+- Latest private T1 preflight: [workflow 29391200842](https://github.com/mineclover/data-governance/actions/runs/29391200842), passed for the exact 40-character candidate SHA.
 - Recommended candidate decisions are assembled in the [T1 candidate decision packet](./t1-candidate-decision-packet.md);
   they remain proposals until Issue #2 is explicitly approved.
 - Pending T1 decision record: [Issue #2](https://github.com/mineclover/data-governance/issues/2).
