@@ -14,7 +14,9 @@ The recommended operating values and owner fields are separated in the
 - Schema blocks: `DPM_AUTHORING_STORAGE_SCHEMA_SQL_BLOCKS` from
   `packages/dpm/src/authoring/postgres.ts`.
 - Tables: published revisions, drafts, append-only audit events, and canonical identity index.
-- Service path: the async authoring service behind a feature flag or deployment configuration.
+- Service path: the async authoring service behind a deployment-owned routing layer. The package
+  exposes `resolveDpmAuthoringBackend()` for validating `DPM_AUTHORING_BACKEND=memory|postgres`,
+  but it does not create a PostgreSQL client or switch storage by itself.
 - Excluded: public package release, registry publication, license, adapter cutover, tokenization,
   vault access, row rewriting, and production data-plane execution.
 
@@ -25,8 +27,9 @@ The recommended operating values and owner fields are separated in the
 2. A target PostgreSQL environment, schema owner, connection pool, least-privilege application role,
    backup policy, retention policy, and on-call owner are recorded.
 3. Backup restore is tested against a disposable database before any application traffic is moved.
-4. The application has a feature flag that can route reads/writes back to the previous repository
-   without deleting the new tables.
+4. The deployment routing layer has a tested switch that can route reads/writes back to the
+   previous repository without deleting the new tables. The package-level resolver is only the
+   value contract; the owner must identify and approve the actual routing layer.
 5. A migration rehearsal uses the deterministic
    [`authoring-operational-migration.test.ts`](../../../packages/dpm/test/authoring-operational-migration.test.ts)
    fixture containing at least one logical object, API binding, DB coordinate, draft conflict,
