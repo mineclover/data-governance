@@ -46,7 +46,7 @@ if (dpmPackage.version !== '0.1.2') throw new Error(`DPM package version must re
 if (dpmPackage.license !== 'Apache-2.0') throw new Error(`DPM package license must be Apache-2.0; received ${dpmPackage.license ?? '<missing>'}`)
 if (dpmPackage.publishConfig?.access !== 'public') throw new Error('DPM package must declare public npm access')
 if (!dpmPackage.files?.includes('LICENSE')) throw new Error('DPM package files must include LICENSE')
-if (dpmPackage.repository?.url !== 'https://github.com/mineclover/data-governance.git') throw new Error('DPM package repository URL must match the canonical GitHub repository')
+if (dpmPackage.repository?.url !== 'git+https://github.com/mineclover/data-governance.git') throw new Error('DPM package repository URL must match the canonical GitHub repository')
 
 for (const licenseFile of ['LICENSE', 'packages/dpm/LICENSE']) {
   if (!existsSync(`${root}/${licenseFile}`)) throw new Error(`approved license file is missing: ${licenseFile}`)
