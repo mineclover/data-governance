@@ -5,7 +5,7 @@ extraction from `mineclover/oa-sdk`.
 
 ## Current scope
 
-- `@mineclover/dpm` owns the logical data definition, explicit API/catalog bindings, neutral artifact,
+- `@context-action/dpm` owns the logical data definition, explicit API/catalog bindings, neutral artifact,
   and migration/rollback contract.
 - `@oa-sdk/openapi-projection-contract` is retained in this workspace as the DPM package's
   dependency contract.

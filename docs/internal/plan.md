@@ -6,15 +6,16 @@ candidate canonical owner for the extracted contract plane.
 
 ## Current boundary
 
-- `@oa-sdk/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
+- `@context-action/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
   provenance, and migration/rollback rules.
 - `@oa-sdk/openapi-projection-contract` is retained as the DPM dependency contract.
-- The repository and package remain private; no public registry publication is approved.
+- The repository remains private; `@context-action/dpm` is approved for public npm publication after
+  the exact `v0.1.1` release gate.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
-- The monorepo package remains the source/compatibility implementation until the first accepted
-  external owner artifact release. It then becomes a forwarding adapter for one subsequent
-  compatibility release; public registry publication remains disabled.
+- The monorepo package remains the source/compatibility implementation until
+  `@context-action/dpm@0.1.1` is published. It then becomes a forwarding adapter for one
+  subsequent compatibility release.
 
 ## Work sequence
 
@@ -52,8 +53,6 @@ The same gates run in
 
 ## Explicitly deferred decisions
 
-- public package name, registry scope, license, and public release metadata; the recommended future
-  package target is `@mineclover/dpm`, while `@oa-sdk/dpm` remains the compatibility adapter;
 - breaking removal of the `@oa-sdk/dpm` import surface;
 - broad search, automatic mutation/bulk authoring beyond the activated Phase 8 representative slice,
   and production data-plane runtime.

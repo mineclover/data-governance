@@ -34,7 +34,7 @@ silently changing logical data identity.
 
 `T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose release-gate workflow
 passes. A private branch build or extraction rehearsal does not constitute `T1`. The recommended
-future public package target is `@mineclover/dpm`; it remains unpublished until registry, license,
+future public package target is `@context-action/dpm`; it remains unpublished until registry, license,
 and publication policy receive separate approval.
 
 ## Version migration rules

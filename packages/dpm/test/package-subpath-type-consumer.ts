@@ -1,16 +1,16 @@
 import {
   DPM_PACKAGE_NAME,
   type DpmVersion,
-} from '@mineclover/dpm/package'
+} from '@context-action/dpm/package'
 import {
   computeCatalogFreshnessHash,
   type CatalogSnapshot,
-} from '@mineclover/dpm/catalog'
+} from '@context-action/dpm/catalog'
 import {
   createDpmIdentityDataDefinitions,
   type DpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
-} from '@mineclover/dpm/data'
+} from '@context-action/dpm/data'
 import {
   createDpmRelationshipCandidateInputFromResolvedProfileHint,
   createDpmRelationshipCandidateInputFromProfileHint,
@@ -33,7 +33,7 @@ import {
   type DpmKafkaTopicProfileInput,
   type DpmKafkaTopicProfileCaptureMode,
   type DpmKafkaTopicProfileInputValidationResult,
-} from '@mineclover/dpm/profile'
+} from '@context-action/dpm/profile'
 import {
   DPM_CANONICAL_KEY_ENCODING_VERSIONS,
   DPM_DEFAULT_CANONICAL_KEY_ENCODING_VERSION,
@@ -46,7 +46,7 @@ import {
   type DpmCanonicalKeyEncodingVersion,
   type DpmCanonicalKeyEncodingPlan,
   type RegistryRelationshipStatus,
-} from '@mineclover/dpm/relationship'
+} from '@context-action/dpm/relationship'
 import {
   DPM_GATEWAY_RUNTIME_OPERATION_IDS,
   approveDpmProfileRelationshipHintRuntime,
@@ -61,7 +61,7 @@ import {
   type DpmGatewayProfileRelationshipHintApprovalSuccessResult,
   type DpmGatewayRegistryRelationshipWriteReceipt,
   type DpmGatewayRuntime,
-} from '@mineclover/dpm/gateway'
+} from '@context-action/dpm/gateway'
 import {
   DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT_ERROR_CODE,
   appendDpmPostgresRegistryRelationshipAuditEvent,
@@ -94,11 +94,11 @@ import {
   type DpmProfileBaselineSummary,
   type DpmRegistryApprovedRelationshipConflictDetails,
   type DpmRegistryApprovedRelationshipConflictErrorCode,
-} from '@mineclover/dpm/storage'
+} from '@context-action/dpm/storage'
 import {
   DPM_PUBLISHING_CONTEXT_KIND,
   type DpmPublishingContext,
-} from '@mineclover/dpm/publishing'
+} from '@context-action/dpm/publishing'
 import {
   DPM_AUTHORING_BACKEND_ENV,
   DPM_AUTHORING_BACKEND_VALUES,
@@ -118,7 +118,7 @@ import {
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
   type DpmAuthoringSemanticDiff,
-} from '@mineclover/dpm/authoring'
+} from '@context-action/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
   catalog?: CatalogSnapshot
@@ -167,7 +167,7 @@ type DpmSubpathTypeSmoke = {
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
 
-const packageName: '@mineclover/dpm' = DPM_PACKAGE_NAME
+const packageName: '@context-action/dpm' = DPM_PACKAGE_NAME
 const manifestVersion: DpmVersion = '1.0'
 const gatewayRuntime: DpmGatewayRuntime = createDpmGatewayRuntime()
 const registryStatus: RegistryRelationshipStatus = REGISTRY_RELATIONSHIP_STATUSES[0]

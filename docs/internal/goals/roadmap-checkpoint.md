@@ -1,6 +1,6 @@
 # DPM Roadmap Checkpoint
 
-**Status: active private-owner maintenance; T1 public release deferred**
+**Status: v0.1.1 public package identity transition; registry publication pending**
 **Updated: 2026-07-16**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
@@ -10,8 +10,8 @@ Issue is not required for ordinary roadmap updates.
 ## Current focus
 
 - Maintain the accepted DPM contract and private owner boundary.
-- Use the private T1 preflight workflow for candidate verification.
-- Keep public publication, license selection, and adapter cutover behind the formal T1 approval.
+- Use the T1 preflight and release-gate workflows for the corrected public package candidate.
+- Publish `@context-action/dpm@0.1.1`, then verify and cut over the one-release compatibility adapter.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
@@ -46,14 +46,13 @@ Issue is not required for ordinary roadmap updates.
   prepared; no production cutover or migration authorized.
 - The recommendation-only operational change decision is checked by `pnpm check:operational-change`
   so required owner gates and no-execution invariants are verified without an Issue.
-- The recommendation-only T1 candidate state is checked by `pnpm check:t1-readiness`, preserving
-  the private package identity/version, absent public license metadata, absent `v*` tags, and the
-  no-public-action boundaries in the candidate packet.
+- The approved T1 candidate state is checked by `pnpm check:t1-readiness`, preserving the private
+  repository boundary, Apache-2.0 metadata, exact package identity/version, and release-gate wiring.
 - The T1 release gate verifies all six explicit Issue #2 approval rows, including final release
   authorization, before accepting a `v*` tag;
   the private readiness check protects that workflow guard from drift.
-- Goal 68 owner-acceptance documents now point to the latest successful Owner CI evidence, while
-  the T1 readiness document continues to pin the exact private code candidate and preflight pair.
+- Goal 68 owner-acceptance documents point to the latest successful Owner CI and T1 preflight for
+  the corrected `@context-action/dpm@0.1.1` candidate.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
   load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
@@ -85,10 +84,10 @@ Issue is not required for ordinary roadmap updates.
 
 ## Next
 
-- Review the recommended T1 decision packet in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
-  only when an owner decision is needed; the prepared values are in the [T1 candidate decision packet](./t1-candidate-decision-packet.md).
+- Review the approved T1 decision packet and current evidence in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
+  before creating the corrected `v0.1.1` tag.
 - Review the async service integration boundary and operational migration packet; keep production
-  schema application, deployment, and public-release decisions deferred.
+  schema application and deployment deferred.
 - Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
   target, role, backup, flag, observation, and rollback values before any owner-approved run.
 - Run `pnpm check:operational-change` whenever the operational decision or migration packet changes.
@@ -101,9 +100,8 @@ Issue is not required for ordinary roadmap updates.
 
 ## Deferred
 
-- Public registry publication and public package metadata.
-- License and redistribution policy selection.
-- `v*` release tag creation and `@oa-sdk/dpm` adapter cutover.
+- npm publication of `@context-action/dpm@0.1.1` until the corrected tag gate passes.
+- `@oa-sdk/dpm` adapter cutover until the canonical package is published and compatibility smoke passes.
 - Breaking removal of the compatibility package.
 
 ## Feedback loop
@@ -122,7 +120,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-15 | Exact calendar prediction is not reliable while Phase 8, T1, and runtime ownership gates are unresolved. | adopt forecast | Use phase status, work-unit ranges, confidence, and gate conditions in the full forecast. | [Full phase forecast](./full-phase-execution-forecast.md) |
 | 2026-07-15 | PostgreSQL is the recommended durable target, but applying a migration now would exceed the approved private slice. | adopt contract / defer migration | Add schema/query contract and canonical identity-index tests; keep deployment and migration behind a separate operational approval. | [Persistence proposal](./phase-8-persistence-proposal.md) |
 | 2026-07-15 | Authorization must remain portable across future identity providers. | adopt policy port / defer provider integration | Allow owner-injected role mapping with deny-by-default behavior; defer OIDC/RBAC deployment integration. | `0351114`, [Phase 8 decision record](./phase-8-decision-record.md) |
-| 2026-07-15 | T1 package, registry, license, SemVer, and compatibility decisions can be prepared before public approval. | adopt recommendation / defer release action | Prepare `@mineclover/dpm`, npm, Apache-2.0, `v0.1.0`, and one-release adapter-window recommendations; keep all metadata, tag, publication, and cutover actions behind Issue #2. | [T1 candidate decision packet](./t1-candidate-decision-packet.md) |
+| 2026-07-15 | T1 package, registry, license, SemVer, and compatibility decisions can be prepared before public approval. | adopt recommendation / defer release action | Prepare `@context-action/dpm`, npm, Apache-2.0, `v0.1.0`, and one-release adapter-window recommendations; keep all metadata, tag, publication, and cutover actions behind Issue #2. | [T1 candidate decision packet](./t1-candidate-decision-packet.md) |
 | 2026-07-15 | Phase 8 needs a useful read-model increment without opening cross-product indexing or public-release scope. | adopt scoped extension / defer broad search | Add definition-scoped entity/locator/name/type/origin/lifecycle filters and preserve API/DB reverse binding context; defer unsupported metadata and durable indexing. | [Scoped lookup decision](./phase-8-scoped-lookup-decision.md) |
 | 2026-07-15 | Import/export is useful for authoring review but does not need repository, DB, or public-release changes. | adopt pure canonical helpers / defer broader authoring | Add deterministic `data_definitions` `1.1` import/export with derived-identity stripping and round-trip validation; defer explain, bulk edit, and broad search. | [Authoring import/export decision](./phase-8-authoring-import-export-decision.md) |
 | 2026-07-15 | A contract-only explanation view improves review without exposing data values or adding persistence. | adopt pure explain helper / defer broader authoring | Add deterministic, deeply frozen logical/API/DB identity readback; defer quick fixes, bulk edit, and broad search. | [Authoring explain decision](./phase-8-authoring-explain-decision.md) |
@@ -150,10 +148,11 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-16 | The historical `oa-sdk` mirror still contained commit-SHA owner evidence after the canonical owner documents moved to ref-based verification. | adopt mirror hygiene | Align the mirror's Goal 68/T1 wording with release-gate and workflow evidence, without changing package, release, database, or adapter state. | `mineclover/oa-sdk@9e4650a`, `pnpm check:docs`, `pnpm check:release-policy`, `pnpm check:api-index` |
 | 2026-07-16 | The latest private candidate passed Owner CI and T1 preflight after the mirror evidence cleanup. | adopt current evidence refresh | Point current readiness and owner-acceptance documents to Owner CI `29427810791` and T1 preflight `29429853413`; keep all six Issue #2 approval rows unchecked and retain every public-release boundary. | `29427810791`, `29429853413`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-16 | The historical `oa-sdk` mirror's current Owner CI links lagged the canonical private owner evidence. | adopt mirror evidence sync | Point the five Goal 68 mirror documents to the canonical Owner CI reference, preserve the historical/compatibility-only boundary, and verify the mirror's docs, release-policy, API-index, and full CI gates. | `mineclover/oa-sdk`, [CI `29430839011`](https://github.com/mineclover/oa-sdk/actions/runs/29430839011), `pnpm check:docs`, `pnpm check:release-policy`, `pnpm check:api-index` |
+| 2026-07-16 | The approved `@mineclover/dpm` identity could not be published by the authenticated npm owner because the `mineclover` scope was unavailable. | adopt scope correction | Use the owner-controlled `@context-action` scope, keep the immutable private `v0.1.0` release, and execute the corrected `@context-action/dpm@0.1.1` release with a fresh gate. | `npm access list packages @context-action`, `npm view @context-action/dpm`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 
 ## Formal approvals
 
-- [T1 release approval — Issue #2](https://github.com/mineclover/data-governance/issues/2) is open and
-  intentionally does not authorize publication.
+- [T1 release approval — Issue #2](https://github.com/mineclover/data-governance/issues/2) records
+  the approved `@context-action/dpm@0.1.1` identity, license, registry, and release sequence.
 - [Phase 8 private activation decision record](./phase-8-decision-record.md) authorizes only the
   representative private slice and does not authorize T1/public-release actions.

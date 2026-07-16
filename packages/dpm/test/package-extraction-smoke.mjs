@@ -55,7 +55,7 @@ try {
     'deploy',
     '--legacy',
     '--filter',
-    '@mineclover/dpm',
+    '@context-action/dpm',
     '--prod',
     consumerDir,
   ], {
@@ -80,7 +80,7 @@ try {
   copyFileSync(registryFixturePath, join(consumerDir, 'fixtures', 'commerce-registry.yaml'))
 
   const manifest = JSON.parse(readFileSync(join(consumerDir, 'package.json'), 'utf8'))
-  if (manifest.name !== '@mineclover/dpm') throw new Error('packed package name does not match @mineclover/dpm')
+  if (manifest.name !== '@context-action/dpm') throw new Error('packed package name does not match @context-action/dpm')
   if (!manifest.exports?.['./data'] || !manifest.exports?.['./relationship'] || !manifest.exports?.['./authoring']) {
     throw new Error('packed package is missing the public data/relationship/authoring subpaths')
   }

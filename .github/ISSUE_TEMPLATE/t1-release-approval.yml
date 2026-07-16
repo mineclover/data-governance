@@ -37,7 +37,7 @@ body:
       label: Package and registry policy
       description: Record the exact package identity, registry scope, and publication target.
       placeholder: |
-        Package: @mineclover/dpm
+        Package: @context-action/dpm
         Registry: npmjs.com / GitHub Packages / other
         Existing @oa-sdk/dpm compatibility policy: ...
     validations:
@@ -66,7 +66,7 @@ body:
     attributes:
       label: Release reference
       description: State the exact SemVer tag or GitHub Release reference to create after approval.
-      placeholder: "v0.1.0 or GitHub Release URL"
+      placeholder: "v0.1.1 or GitHub Release URL"
     validations:
       required: true
 

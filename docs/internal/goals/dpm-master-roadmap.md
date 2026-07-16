@@ -94,7 +94,7 @@ passed for the selected private source ref. GitHub Issues, the structured Goal 6
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
 The remaining release gate is intentionally narrow: the recommended public target is
-`@mineclover/dpm`, but public package metadata/registry publication and breaking removal of the old
+`@context-action/dpm`, but public package metadata/registry publication and breaking removal of the old
 import surface require a separate owner-approved SemVer tag or GitHub Release with a successful
 release-gate workflow for the selected source ref. No scope reactivation is authorized by this decision.
 

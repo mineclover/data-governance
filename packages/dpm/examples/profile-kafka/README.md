@@ -25,7 +25,7 @@ pnpm demo:dpm:profile
 Or from this package:
 
 ```bash
-pnpm --filter @mineclover/dpm run demo:profile
+pnpm --filter @context-action/dpm run demo:profile
 ```
 
 The demo proves:

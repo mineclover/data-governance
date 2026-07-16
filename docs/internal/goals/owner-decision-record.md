@@ -1,10 +1,10 @@
 # DPM Private Owner Decision Record
 
-**Status: private owner acceptance recorded 2026-07-15; public registry release remains disabled**
+**Status: T1 gate passed for superseded private `v0.1.0`; `@context-action/dpm@0.1.1` publication pending**
 
-This record is the accepted owner decision for the extracted DPM contract plane. It authorizes
-private extraction maintenance and the planned compatibility transition. It does not authorize a
-public registry release or removal of the existing import surface.
+This record is the accepted owner decision for the extracted DPM contract plane. It authorizes the
+approved public package release and the planned one-release compatibility transition. It does not
+authorize removal of the existing import surface.
 
 ## Decisions
 
@@ -21,10 +21,9 @@ public registry release or removal of the existing import surface.
 - **Required verification:** `.github/workflows/ci.yml` runs on pushes to `main` and pull requests
   with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
-- **Package/publication policy:** `@oa-sdk/dpm` remains private and is not published to a public
-  registry. Public package name/scope, license, and public release metadata are intentionally
-  deferred until a separate public-release approval. The recommended future package target is
-  `@mineclover/dpm`; this is a naming decision only and does not authorize publication.
+- **Package/publication policy:** publish `@context-action/dpm` to the public npm registry under
+  Apache-2.0. `@oa-sdk/dpm` remains the compatibility adapter for one subsequent release and is
+  not the canonical public identity.
 - **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
   private owner contract. Unknown markers or versions must be rejected rather than guessed.
 - **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
@@ -40,10 +39,10 @@ public registry release or removal of the existing import surface.
 
 The transition is keyed to owner artifact releases rather than a calendar date:
 
-1. Until the first accepted external owner artifact release (`T1`),
-   `oa-sdk/packages/dpm` remains the source and compatibility implementation.
-2. At `T1`, the external owner artifact becomes canonical and the monorepo package becomes a
-   forwarding compatibility adapter.
+1. Until the first accepted public package publication, `oa-sdk/packages/dpm` remains the source
+   and compatibility implementation.
+2. At the approved `@context-action/dpm@0.1.1` publication, the external owner artifact becomes
+   canonical and the monorepo package becomes a forwarding compatibility adapter.
 3. Existing `@oa-sdk/dpm` imports remain supported through one subsequent compatibility release
    after `T1`. That final compatibility release must carry a deprecation notice.
 4. Removing the old import surface requires a separately approved breaking release and a passing
@@ -54,10 +53,9 @@ or provenance fields. No new canonical DPM behavior is added to the monorepo dur
 
 ## Public release gate
 
-The current recommendation is to keep the repository and package private. A future public release
-may proceed only after a separate owner-approved issue or pull request records all of the following:
+The public release may proceed after the owner-approved Issue #2 records all of the following:
 
-- public package identity, with `@mineclover/dpm` as the default target and `@oa-sdk/dpm` retained
+- public package identity, with `@context-action/dpm` as the default target and `@oa-sdk/dpm` retained
   only as the compatibility adapter;
 - registry scope and publication target;
 - license and redistribution policy;
@@ -65,9 +63,9 @@ may proceed only after a separate owner-approved issue or pull request records a
 - a successful owner CI run for the selected private source ref;
 - explicit approval from the `mineclover` repository owner.
 
-That approved tag/release is the definition of the first accepted owner artifact release (`T1`). A
-normal commit, a successful branch build, or a private rehearsal does not constitute `T1`. Until
-then, no public package metadata or public registry publication is added.
+The superseded `v0.1.0` private GitHub Release remains immutable. The new approved `v0.1.1` tag
+and release define the publishable artifact transition; a normal commit or branch build does not
+replace that gate.
 
 Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
 guide, deprecation notice, and passing rollback fixture.
@@ -79,8 +77,8 @@ guide, deprecation notice, and passing rollback fixture.
   the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
 - `docs/internal/goals/t1-readiness.md`, `.github/workflows/t1-preflight.yml`, and the
   `t1-release-approval.yml` issue form provide a private candidate/preflight path before T1.
-- The release gate does not publish a package. Public publication still requires the separate owner
-  approval described above.
+- The release gate does not publish a package. Publication uses the authenticated npm owner after
+  the exact `v0.1.1` gate succeeds.
 - GitHub branch protection is not available under the current private-repository plan, so CODEOWNERS
   is a review-routing control until required-review enforcement is enabled.
 
@@ -103,7 +101,7 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 
 ## Explicitly deferred
 
-- Public registry publication, public package metadata, and license selection.
+- Removal of the compatibility adapter beyond the approved one-release window.
 - Broad search, draft/edit/publish, authoring convenience, and other control-plane features beyond
   the activated representative slice.
 - Production tokenization, vault execution, row rewriting, and data-plane deployment.

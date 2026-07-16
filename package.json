@@ -1,6 +1,6 @@
 {
   "name": "data-governance",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "description": "Private owner repository for the DPM logical data definition and extraction boundary",
@@ -10,10 +10,10 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "build": "corepack pnpm --filter @oa-sdk/openapi-projection-contract build && corepack pnpm --filter @mineclover/dpm build",
-    "test": "corepack pnpm --filter @oa-sdk/openapi-projection-contract test && corepack pnpm --filter @mineclover/dpm test",
-    "typecheck": "corepack pnpm --filter @oa-sdk/openapi-projection-contract typecheck && corepack pnpm --filter @mineclover/dpm typecheck",
-    "smoke:dpm": "corepack pnpm --filter @mineclover/dpm smoke:subpaths && corepack pnpm --filter @mineclover/dpm smoke:extraction && corepack pnpm --filter @mineclover/dpm smoke:consumer-workflow && corepack pnpm --filter @mineclover/dpm smoke:pack",
+    "build": "corepack pnpm --filter @oa-sdk/openapi-projection-contract build && corepack pnpm --filter @context-action/dpm build",
+    "test": "corepack pnpm --filter @oa-sdk/openapi-projection-contract test && corepack pnpm --filter @context-action/dpm test",
+    "typecheck": "corepack pnpm --filter @oa-sdk/openapi-projection-contract typecheck && corepack pnpm --filter @context-action/dpm typecheck",
+    "smoke:dpm": "corepack pnpm --filter @context-action/dpm smoke:subpaths && corepack pnpm --filter @context-action/dpm smoke:extraction && corepack pnpm --filter @context-action/dpm smoke:consumer-workflow && corepack pnpm --filter @context-action/dpm smoke:pack",
     "check:docs": "node scripts/check-doc-links.mjs",
     "check:roadmap": "node scripts/check-roadmap-state.mjs",
     "check:operational-change": "node scripts/check-operational-change-decision.mjs",

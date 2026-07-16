@@ -4,8 +4,8 @@ import {
   DPM_AUTHORING_BACKEND_ENV,
   createDpmConfiguredAsyncAuthoringService,
   createDpmInMemoryAuthoringRepository,
-} from '@mineclover/dpm/authoring'
-import { createDpmIdentityDataDefinitions } from '@mineclover/dpm/data'
+} from '@context-action/dpm/authoring'
+import { createDpmIdentityDataDefinitions } from '@context-action/dpm/data'
 
 const memoryRepository = createDpmInMemoryAuthoringRepository()
 const postgresRepository = createDpmInMemoryAuthoringRepository()

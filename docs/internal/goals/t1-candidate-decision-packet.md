@@ -3,20 +3,20 @@
 **Status: owner-approved; public release execution authorized**
 **Updated: 2026-07-16**
 
-This packet assembles the recommended decisions for the first public DPM artifact. It is a
-The owner-approved values below authorize the public package artifact, exact release reference,
+This packet records the approved decisions for the first publishable DPM artifact. The
+owner-approved values below authorize the public package artifact, exact release reference,
 and one-release compatibility transition. The repository itself remains private.
 
 ## Recommended decisions
 
 | Decision | Recommendation | Why | Approval state |
 | --- | --- | --- | --- |
-| Public package identity | `@mineclover/dpm` | Align the artifact with the private owner repository and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Approved |
+| Public package identity | `@context-action/dpm` | Use the npm scope owned by the authenticated `astralclover` account and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Approved |
 | Registry | npm public registry | It is the lowest-friction distribution target for a TypeScript package and supports the package's existing Node/pnpm consumer workflow. | Approved |
-| First release reference | `v0.1.0` | Use an explicitly limited first public release while external consumers validate the relationship, identity, neutral artifact, authoring, and compatibility contracts. Promote to `v1.0.0` only through a later stability decision. | Approved |
+| First release reference | `v0.1.1` | Publish the corrected scope identity without moving the existing private GitHub `v0.1.0` tag. Promote to `v1.0.0` only through a later stability decision. | Approved |
 | License | Apache-2.0 | Permissive baseline with an explicit patent grant for a reusable library. | Approved |
 | Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Approved |
-| Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@mineclover/dpm` canonical. | Approved |
+| Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@context-action/dpm` canonical. | Approved |
 | Adapter cutover | Announce deprecation in the compatibility release; remove the adapter only through a separately approved breaking release. | Makes rollback and consumer migration observable and reversible. | Approved |
 
 ## Candidate baseline
@@ -38,7 +38,7 @@ manual revision entry or copy/paste synchronization across documents.
 
 After approval, the sequence should be:
 
-1. Publish `@mineclover/dpm@0.1.0` from the approved tag.
+1. Publish `@context-action/dpm@0.1.1` from the approved tag.
 2. Keep `@oa-sdk/dpm` as a forwarding adapter for one compatibility release, with a deprecation
    notice pointing to the canonical package and migration notes.
 3. Verify clean-install, subpath-import, type-consumer, and representative authoring workflows for
@@ -63,7 +63,7 @@ only after reviewing:
 - candidate source ref and successful private preflight/owner CI run links;
 - package identity and registry target;
 - license and redistribution policy;
-- `v0.1.0` or an explicitly substituted release reference;
+- `v0.1.1` or an explicitly substituted release reference;
 - one-release compatibility, deprecation, and rollback evidence;
 - release-gate output for the exact approved tag.
 

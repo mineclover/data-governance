@@ -7,13 +7,12 @@
 
 This repository owns the extracted DPM contract plane: logical data definitions, explicit
 API/catalog bindings, neutral artifacts, compatibility rules, and migration/rollback evidence.
-It does not own production tokenization, vault execution, row rewriting, or a public registry
-release at this stage.
+It does not own production tokenization, vault execution, or row rewriting.
 
 The repository remains private under the accepted decision in
-[owner-decision-record.md](./owner-decision-record.md). Public registry publication is not
-authorized. The recommended future public package target is `@mineclover/dpm`; it is not selected
-or published until the separate public-release gate is approved.
+[owner-decision-record.md](./owner-decision-record.md). The approved public package target is
+`@context-action/dpm`; the repository remains private while the registry release runs through the
+exact `v0.1.1` gate.
 
 The formal acceptance review is recorded in the [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1);
 the structured issue form remains available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
@@ -24,7 +23,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 
 | Goal | Status | Package |
 |---|---|---|
-| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — private owner acceptance recorded; adapter transition scheduled after the first accepted owner artifact release; public release disabled | `@oa-sdk/dpm` |
+| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — `@context-action/dpm@0.1.1` public release in progress; `@oa-sdk/dpm` adapter follows | `@context-action/dpm` |
 
 ## Canonical document set
 

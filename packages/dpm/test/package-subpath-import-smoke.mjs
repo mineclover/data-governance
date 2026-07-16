@@ -9,19 +9,19 @@ const [
   publishingModule,
   authoringModule,
 ] = await Promise.all([
-  import('@mineclover/dpm/package'),
-  import('@mineclover/dpm/catalog'),
-  import('@mineclover/dpm/data'),
-  import('@mineclover/dpm/profile'),
-  import('@mineclover/dpm/relationship'),
-  import('@mineclover/dpm/gateway'),
-  import('@mineclover/dpm/storage'),
-  import('@mineclover/dpm/publishing'),
-  import('@mineclover/dpm/authoring'),
+  import('@context-action/dpm/package'),
+  import('@context-action/dpm/catalog'),
+  import('@context-action/dpm/data'),
+  import('@context-action/dpm/profile'),
+  import('@context-action/dpm/relationship'),
+  import('@context-action/dpm/gateway'),
+  import('@context-action/dpm/storage'),
+  import('@context-action/dpm/publishing'),
+  import('@context-action/dpm/authoring'),
 ])
 
 const checks = [
-  ['package', packageModule.DPM_PACKAGE_NAME === '@mineclover/dpm'],
+  ['package', packageModule.DPM_PACKAGE_NAME === '@context-action/dpm'],
   ['catalog', typeof catalogModule.normalizeCatalogSnapshot === 'function'],
   ['data', typeof dataModule.createDpmDataDefinitions === 'function'
     && typeof dataModule.createDpmApiBinding === 'function'
