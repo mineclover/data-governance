@@ -93,10 +93,11 @@ verification workflow [29427810791](https://github.com/mineclover/data-governanc
 passed for the selected private source ref. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
 window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
-The remaining release gate is intentionally narrow: the recommended public target is
-`@context-action/dpm`, but public package metadata/registry publication and breaking removal of the old
-import surface require a separate owner-approved SemVer tag or GitHub Release with a successful
-release-gate workflow for the selected source ref. No scope reactivation is authorized by this decision.
+The remaining release gate is intentionally narrow: the selected public target is
+`@oa-sdk/dpm@0.1.2`, but public registry publication and breaking removal of the old import surface
+require a separate owner-approved SemVer tag or GitHub Release with a successful release-gate
+workflow for the selected source ref. The repository remains private and npm publication remains
+staged behind Trusted Publishing.
 
 Blocking phases: 5–10.
 
@@ -178,9 +179,9 @@ Blocking phase: 10 only.
 
 Goal 68.0 is resolved. The 2026-07-15 owner decision makes this private repository canonical for
 the extraction contract and freezes `data_definitions` `1.0` as the structural compatibility
-contract; `1.1` remains deferred experimental. The former `oa-sdk` package remains the
-source/compatibility implementation until the first accepted owner artifact release (`T1`) and
-then becomes a forwarding adapter for one subsequent compatibility release.
+contract; `1.1` remains deferred experimental. The former `oa-sdk` package remains a historical
+mirror until the first accepted owner artifact release (`T1`). The canonical owner reuses the same
+`@oa-sdk/dpm` package identity, so no separate adapter package or consumer import migration is required.
 
 New persisted schemas, gateway workflows, cross-repository resolvers, search services, and edit
 workflows remain blocked unless separately authorized by the owner. Public registry publication and

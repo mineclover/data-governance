@@ -1,16 +1,16 @@
 import {
   DPM_PACKAGE_NAME,
   type DpmVersion,
-} from '@context-action/dpm/package'
+} from '@oa-sdk/dpm/package'
 import {
   computeCatalogFreshnessHash,
   type CatalogSnapshot,
-} from '@context-action/dpm/catalog'
+} from '@oa-sdk/dpm/catalog'
 import {
   createDpmIdentityDataDefinitions,
   type DpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
-} from '@context-action/dpm/data'
+} from '@oa-sdk/dpm/data'
 import {
   createDpmRelationshipCandidateInputFromResolvedProfileHint,
   createDpmRelationshipCandidateInputFromProfileHint,
@@ -33,7 +33,7 @@ import {
   type DpmKafkaTopicProfileInput,
   type DpmKafkaTopicProfileCaptureMode,
   type DpmKafkaTopicProfileInputValidationResult,
-} from '@context-action/dpm/profile'
+} from '@oa-sdk/dpm/profile'
 import {
   DPM_CANONICAL_KEY_ENCODING_VERSIONS,
   DPM_DEFAULT_CANONICAL_KEY_ENCODING_VERSION,
@@ -46,7 +46,7 @@ import {
   type DpmCanonicalKeyEncodingVersion,
   type DpmCanonicalKeyEncodingPlan,
   type RegistryRelationshipStatus,
-} from '@context-action/dpm/relationship'
+} from '@oa-sdk/dpm/relationship'
 import {
   DPM_GATEWAY_RUNTIME_OPERATION_IDS,
   approveDpmProfileRelationshipHintRuntime,
@@ -61,7 +61,7 @@ import {
   type DpmGatewayProfileRelationshipHintApprovalSuccessResult,
   type DpmGatewayRegistryRelationshipWriteReceipt,
   type DpmGatewayRuntime,
-} from '@context-action/dpm/gateway'
+} from '@oa-sdk/dpm/gateway'
 import {
   DPM_REGISTRY_APPROVED_RELATIONSHIP_CONFLICT_ERROR_CODE,
   appendDpmPostgresRegistryRelationshipAuditEvent,
@@ -94,11 +94,11 @@ import {
   type DpmProfileBaselineSummary,
   type DpmRegistryApprovedRelationshipConflictDetails,
   type DpmRegistryApprovedRelationshipConflictErrorCode,
-} from '@context-action/dpm/storage'
+} from '@oa-sdk/dpm/storage'
 import {
   DPM_PUBLISHING_CONTEXT_KIND,
   type DpmPublishingContext,
-} from '@context-action/dpm/publishing'
+} from '@oa-sdk/dpm/publishing'
 import {
   DPM_AUTHORING_BACKEND_ENV,
   DPM_AUTHORING_BACKEND_VALUES,
@@ -118,7 +118,7 @@ import {
   type DpmAuthoringActor,
   type DpmAuthoringFieldLookup,
   type DpmAuthoringSemanticDiff,
-} from '@context-action/dpm/authoring'
+} from '@oa-sdk/dpm/authoring'
 
 type DpmSubpathTypeSmoke = {
   catalog?: CatalogSnapshot
@@ -167,7 +167,7 @@ type DpmSubpathTypeSmoke = {
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
 }
 
-const packageName: '@context-action/dpm' = DPM_PACKAGE_NAME
+const packageName: '@oa-sdk/dpm' = DPM_PACKAGE_NAME
 const manifestVersion: DpmVersion = '1.0'
 const gatewayRuntime: DpmGatewayRuntime = createDpmGatewayRuntime()
 const registryStatus: RegistryRelationshipStatus = REGISTRY_RELATIONSHIP_STATUSES[0]

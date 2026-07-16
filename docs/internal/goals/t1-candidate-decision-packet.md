@@ -4,20 +4,20 @@
 **Updated: 2026-07-16**
 
 This packet records the approved decisions for the first publishable DPM artifact. The
-owner-approved values below authorize the public package artifact, exact release reference,
-and one-release compatibility transition. The repository itself remains private.
+owner-approved values below authorize the public package artifact and exact release reference. The
+repository itself remains private, and the historical `oa-sdk` repository is non-publishing.
 
 ## Recommended decisions
 
 | Decision | Recommendation | Why | Approval state |
 | --- | --- | --- | --- |
-| Public package identity | `@context-action/dpm` | Use the npm scope owned by the authenticated `astralclover` account and avoid carrying the historical `@oa-sdk` namespace into the public contract. | Approved |
+| Public package identity | `@oa-sdk/dpm` | Keep the canonical repository and npm namespace aligned while remaining independent from the separate `context-action` repository. | Approved |
 | Registry | npm public registry | It is the lowest-friction distribution target for a TypeScript package and supports the package's existing Node/pnpm consumer workflow. | Approved |
-| First release reference | `v0.1.1` | Publish the corrected scope identity without moving the existing private GitHub `v0.1.0` tag. Promote to `v1.0.0` only through a later stability decision. | Approved |
+| First release reference | `v0.1.2` | Publish the corrected `oa-sdk` scope identity without moving the existing private GitHub `v0.1.0` or `v0.1.1` tags. Promote to `v1.0.0` only through a later stability decision. | Approved |
 | License | Apache-2.0 | Permissive baseline with an explicit patent grant for a reusable library. | Approved |
 | Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Approved |
-| Compatibility window | Keep `@oa-sdk/dpm` as a forwarding compatibility adapter for one subsequent release. | Gives existing consumers a migration window while keeping `@context-action/dpm` canonical. | Approved |
-| Adapter cutover | Announce deprecation in the compatibility release; remove the adapter only through a separately approved breaking release. | Makes rollback and consumer migration observable and reversible. | Approved |
+| Package continuity | Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository; keep the historical `oa-sdk` repository as a non-publishing mirror. | Existing consumers require no import migration and no conflicting adapter package is created. | Approved |
+| Cutover | Publish the canonical owner artifact through Trusted Publishing and freeze the historical mirror's publish path. | Prevents two repositories from competing for the same npm package identity. | Approved |
 
 ## Candidate baseline
 
@@ -38,20 +38,21 @@ manual revision entry or copy/paste synchronization across documents.
 
 After approval, the sequence should be:
 
-1. Publish `@context-action/dpm@0.1.1` from the approved tag.
-2. Keep `@oa-sdk/dpm` as a forwarding adapter for one compatibility release, with a deprecation
-   notice pointing to the canonical package and migration notes.
+1. Stage and publish `@oa-sdk/dpm@0.1.2` from the approved tag through Trusted Publishing.
+2. Keep the historical `oa-sdk` repository as a non-publishing mirror while consumers continue using
+   the unchanged `@oa-sdk/dpm` import identity.
 3. Verify clean-install, subpath-import, type-consumer, and representative authoring workflows for
-   both package surfaces.
-4. Retain the prior adapter path as the rollback target until the compatibility window closes.
-5. Require a separate owner-approved breaking-release decision before removing the adapter.
+   the unchanged package surface.
+4. Retain the prior private artifact and historical mirror as rollback references.
+5. Require a separate owner-approved decision before re-enabling publication from the historical
+   mirror.
 
 If any release-gate, install, consumer, or rollback evidence fails, stop publication/cutover and
 return to the private candidate. No partial registry or tag action is authorized by this packet.
 
 ## Actions intentionally deferred
 
-- Replacing, redirecting, or removing the `@oa-sdk/dpm` adapter beyond the approved one-release window.
+- Re-enabling publication from the historical `oa-sdk` repository without a separate owner decision.
 - Applying the PostgreSQL migration or deploying the authoring storage contract.
 
 ## Approval checklist for Issue #2
@@ -63,9 +64,9 @@ only after reviewing:
 - candidate source ref and successful private preflight/owner CI run links;
 - package identity and registry target;
 - license and redistribution policy;
-- `v0.1.1` or an explicitly substituted release reference;
-- one-release compatibility, deprecation, and rollback evidence;
+- `v0.1.2` or an explicitly substituted release reference;
+- package continuity, non-publishing mirror, and rollback evidence;
 - release-gate output for the exact approved tag.
 
 The checklist is complete in Issue #2. The repository remains private, and the exact tag, registry
-publication, and adapter transition must still follow the sequence and verification gates above.
+publication, and historical-mirror policy must still follow the sequence and verification gates above.

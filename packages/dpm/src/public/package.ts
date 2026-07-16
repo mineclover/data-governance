@@ -8,6 +8,6 @@ export {
   validateDpmManifestSchema,
 } from '../schema/index.js'
 
-export const DPM_PACKAGE_NAME = '@context-action/dpm' as const
+export const DPM_PACKAGE_NAME = '@oa-sdk/dpm' as const
 export const DPM_BASELINE = 'relationship-first' as const
 export const DPM_VERSION = '1.0' as const

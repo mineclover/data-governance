@@ -25,7 +25,7 @@ pnpm demo:dpm:profile
 Or from this package:
 
 ```bash
-pnpm --filter @context-action/dpm run demo:profile
+pnpm --filter @oa-sdk/dpm run demo:profile
 ```
 
 The demo proves:

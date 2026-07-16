@@ -4,8 +4,8 @@ import {
   DPM_AUTHORING_BACKEND_ENV,
   createDpmConfiguredAsyncAuthoringService,
   createDpmInMemoryAuthoringRepository,
-} from '@context-action/dpm/authoring'
-import { createDpmIdentityDataDefinitions } from '@context-action/dpm/data'
+} from '@oa-sdk/dpm/authoring'
+import { createDpmIdentityDataDefinitions } from '@oa-sdk/dpm/data'
 
 const memoryRepository = createDpmInMemoryAuthoringRepository()
 const postgresRepository = createDpmInMemoryAuthoringRepository()

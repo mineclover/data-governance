@@ -1,7 +1,7 @@
 import {
   createDpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
-} from '@context-action/dpm/data'
+} from '@oa-sdk/dpm/data'
 import {
   createDpmAuthoringQuickFixes,
   resolveDpmAuthoringBackend,
@@ -11,7 +11,7 @@ import {
   type DpmAuthoringExplanation,
   type DpmAuthoringSemanticDiff,
   type DpmConfiguredAsyncAuthoringServiceOptions,
-} from '@context-action/dpm/authoring'
+} from '@oa-sdk/dpm/authoring'
 
 const definitions = createDpmIdentityDataDefinitions({
   version: '1.1',

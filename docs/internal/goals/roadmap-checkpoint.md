@@ -1,6 +1,6 @@
 # DPM Roadmap Checkpoint
 
-**Status: v0.1.1 public package identity transition; registry publication pending**
+**Status: v0.1.2 @oa-sdk package identity transition; OIDC publication pending**
 **Updated: 2026-07-16**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
@@ -11,7 +11,8 @@ Issue is not required for ordinary roadmap updates.
 
 - Maintain the accepted DPM contract and private owner boundary.
 - Use the T1 preflight and release-gate workflows for the corrected public package candidate.
-- Publish `@context-action/dpm@0.1.1`, then verify and cut over the one-release compatibility adapter.
+- Stage and publish `@oa-sdk/dpm@0.1.2` through Trusted Publishing; existing consumer imports remain
+  unchanged and the historical `oa-sdk` repository becomes non-publishing.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
@@ -52,7 +53,7 @@ Issue is not required for ordinary roadmap updates.
   authorization, before accepting a `v*` tag;
   the private readiness check protects that workflow guard from drift.
 - Goal 68 owner-acceptance documents point to the latest successful Owner CI and T1 preflight for
-  the corrected `@context-action/dpm@0.1.1` candidate.
+  the corrected `@oa-sdk/dpm@0.1.2` candidate.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
   load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
@@ -85,7 +86,7 @@ Issue is not required for ordinary roadmap updates.
 ## Next
 
 - Review the approved T1 decision packet and current evidence in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
-  before creating the corrected `v0.1.1` tag.
+  before creating the corrected `v0.1.2` tag.
 - Review the async service integration boundary and operational migration packet; keep production
   schema application and deployment deferred.
 - Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
@@ -100,9 +101,8 @@ Issue is not required for ordinary roadmap updates.
 
 ## Deferred
 
-- npm publication of `@context-action/dpm@0.1.1` until the corrected tag gate passes.
-- `@oa-sdk/dpm` adapter cutover until the canonical package is published and compatibility smoke passes.
-- Breaking removal of the compatibility package.
+- npm publication of `@oa-sdk/dpm@0.1.2` until the corrected tag gate and Trusted Publisher checks pass.
+- Re-enabling publication from the historical `oa-sdk` repository without a separate owner decision.
 
 ## Feedback loop
 
@@ -149,10 +149,11 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-16 | The latest private candidate passed Owner CI and T1 preflight after the mirror evidence cleanup. | adopt current evidence refresh | Point current readiness and owner-acceptance documents to Owner CI `29427810791` and T1 preflight `29429853413`; keep all six Issue #2 approval rows unchecked and retain every public-release boundary. | `29427810791`, `29429853413`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-16 | The historical `oa-sdk` mirror's current Owner CI links lagged the canonical private owner evidence. | adopt mirror evidence sync | Point the five Goal 68 mirror documents to the canonical Owner CI reference, preserve the historical/compatibility-only boundary, and verify the mirror's docs, release-policy, API-index, and full CI gates. | `mineclover/oa-sdk`, [CI `29430839011`](https://github.com/mineclover/oa-sdk/actions/runs/29430839011), `pnpm check:docs`, `pnpm check:release-policy`, `pnpm check:api-index` |
 | 2026-07-16 | The approved `@mineclover/dpm` identity could not be published by the authenticated npm owner because the `mineclover` scope was unavailable. | adopt scope correction | Use the owner-controlled `@context-action` scope, keep the immutable private `v0.1.0` release, and execute the corrected `@context-action/dpm@0.1.1` release with a fresh gate. | `npm access list packages @context-action`, `npm view @context-action/dpm`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
+| 2026-07-16 | The selected `@context-action` scope belongs to a separate repository, while the canonical owner already has the `oa-sdk` namespace and existing consumers use `@oa-sdk/dpm`. | adopt scope continuity | Reuse `@oa-sdk/dpm` as the canonical package at `v0.1.2`, add GitHub Actions Trusted Publishing with staged npm approval, and keep the historical `oa-sdk` repository non-publishing. | `.github/workflows/publish.yml`, [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/), [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 
 ## Formal approvals
 
 - [T1 release approval — Issue #2](https://github.com/mineclover/data-governance/issues/2) records
-  the approved `@context-action/dpm@0.1.1` identity, license, registry, and release sequence.
+  the approved `@oa-sdk/dpm@0.1.2` identity, license, registry, and OIDC release sequence.
 - [Phase 8 private activation decision record](./phase-8-decision-record.md) authorizes only the
   representative private slice and does not authorize T1/public-release actions.

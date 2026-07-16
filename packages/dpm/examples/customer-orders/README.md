@@ -18,7 +18,7 @@ pnpm demo:dpm
 Or from this package:
 
 ```bash
-pnpm --filter @context-action/dpm run demo
+pnpm --filter @oa-sdk/dpm run demo
 ```
 
 The demo proves:

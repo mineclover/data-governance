@@ -1,8 +1,13 @@
 {
-  "name": "@context-action/dpm",
-  "version": "0.1.1",
+  "name": "@oa-sdk/dpm",
+  "version": "0.1.2",
   "description": "Relationship-first Data Pseudonymization Manifest toolkit",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mineclover/data-governance.git",
+    "directory": "packages/dpm"
+  },
   "publishConfig": {
     "access": "public"
   },

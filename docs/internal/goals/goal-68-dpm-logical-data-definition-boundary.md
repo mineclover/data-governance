@@ -89,20 +89,20 @@ flowchart LR
 
 ## Governance gate
 
-`@oa-sdk/dpm` remains a private, maintenance-only workspace and is now the compatibility/source
-implementation for the canonical private `data-governance` owner. This is a compatibility/migration
-boundary goal, not an approved new Core Platform feature. The private owner decision records the
-release authority, artifact contract, compatibility window, canonical document location, and
-rollback rule.
+`@oa-sdk/dpm` remains a maintenance-only workspace in the historical `oa-sdk` repository while
+the private `data-governance` owner prepares the canonical package. This is a compatibility/migration
+boundary goal, not an approved new Core Platform feature. Because both repositories use the same
+package identity, existing consumer imports remain unchanged and the historical repository must not
+publish a conflicting artifact.
 
-During the compatibility window, only schema compatibility, migration preparation, regression
-hardening, and adapter work are in scope. New persisted schemas, cross-repository resolvers,
+During the preparation window, only schema compatibility, migration preparation, regression
+hardening, and publication-boundary work are in scope. New persisted schemas, cross-repository resolvers,
 gateway workflows, search services, and edit/publish workflows remain owner-authorized follow-on
 capabilities rather than active monorepo goals.
 
-Goal 68.1–68.4 are canonical in the external owner environment. The monorepo package remains the
-source/compatibility implementation until the first accepted owner artifact release (`T1`), then
-becomes a forwarding adapter for one subsequent compatibility release.
+Goal 68.1–68.4 are canonical in the external owner environment. The external owner publishes the
+existing `@oa-sdk/dpm` identity at `T1`; the historical monorepo package remains a mirror and does
+not publish a competing artifact.
 
 ## 68.0 decision record
 
@@ -114,9 +114,9 @@ The accepted 2026-07-15 owner decision records:
 - package policy: private, non-published, and outside Core Platform feature scope;
 - accepted artifact: `dpm.data-binding-artifact.v1` / `1.0`;
 - accepted manifest policy: `data_definitions` `1.0` frozen and `1.1` experimental/deferred;
-- compatibility window: first accepted owner artifact release plus one subsequent compatibility
-  release, with deprecation notice in the final compatibility release;
-- explicit non-goals: public registry publication, breaking removal, production data-plane runtime,
+- package continuity: existing `@oa-sdk/dpm` imports remain unchanged and no alternate adapter is
+  published;
+- explicit non-goals: production data-plane runtime,
   and the future search/edit/authoring control plane.
 
 Wire compatibility is frozen by version:
@@ -165,8 +165,7 @@ Deliverables:
 - record the external DPM repository and private owner decision;
 - freeze the `data_definitions` wire version and compatibility policy;
 - decide whether the current `1.0` marker is frozen or explicitly experimental before external use;
-- define whether `@oa-sdk/dpm` remains a private mirror, becomes an adapter, or is
-  extracted;
+- define whether `@oa-sdk/dpm` remains a private mirror or becomes the canonical published package;
 - add repository/license/publish metadata only when extraction is approved.
 
 Exit criteria:
@@ -260,9 +259,8 @@ removal remain separately gated.
 Exit criteria:
 
 - external consumer smoke passes without monorepo path assumptions;
-- old `@oa-sdk/dpm` imports have a documented compatibility window through the first accepted owner
-  release plus one subsequent compatibility release;
-- the monorepo package can be reduced to a forwarding adapter without changing API/Core ownership.
+- old `@oa-sdk/dpm` imports remain valid because the canonical owner reuses the same package name;
+- the historical monorepo package does not publish a competing artifact or change API/Core ownership.
 
 ## Owner-authorized follow-on control plane
 

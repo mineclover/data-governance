@@ -15,15 +15,14 @@ silently changing logical data identity.
 
 ## Current boundary
 
-- The source implementation remains `mineclover/oa-sdk/packages/dpm` during the compatibility
-  window. The private external owner contains the initial extraction recorded in its repository
-  history;
-  this package becomes a compatibility adapter at the first accepted external owner artifact
-  release (`T1`), after which the existing import surface remains supported for one subsequent
-  compatibility release.
-- `@oa-sdk/dpm` remains private and non-published. The local extraction rehearsal packages the
-  built artifact and resolves a production dependency tree, but it does not claim registry
-  publication readiness.
+- The source implementation remains `mineclover/oa-sdk/packages/dpm` as a historical mirror during
+  preparation. The private external owner contains the initial extraction recorded in its
+  repository history and becomes the canonical publisher at `T1`. Both surfaces use the same
+  `@oa-sdk/dpm` package identity, so existing consumer imports remain unchanged; the mirror must
+  not publish a conflicting artifact.
+- `@oa-sdk/dpm` is the selected public package identity, but it remains unpublished until the
+  owner-approved `v0.1.2` release gate and Trusted Publishing setup complete. The local extraction
+  rehearsal packages the built artifact and resolves a production dependency tree.
 - Consumers must use the package root or declared public subpaths. `src/**`, `dist/chunk-*`, and
   other implementation paths are not compatibility surfaces.
 - The stable import set for the data contract is `@oa-sdk/dpm/package`, `@oa-sdk/dpm/data`, and
@@ -33,9 +32,9 @@ silently changing logical data identity.
 ## T1 release gate
 
 `T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose release-gate workflow
-passes. A private branch build or extraction rehearsal does not constitute `T1`. The recommended
-future public package target is `@context-action/dpm`; it remains unpublished until registry, license,
-and publication policy receive separate approval.
+passes. A private branch build or extraction rehearsal does not constitute `T1`. The selected public
+package target is `@oa-sdk/dpm@0.1.2`; it remains unpublished until the registry, license,
+publication policy, and OIDC workflow receive the required release approval.
 
 ## Version migration rules
 
@@ -63,18 +62,16 @@ must not reuse a previous plan as if it were fresh.
 
 ## Package migration sequence
 
-1. The external owner accepts this document, the neutral artifact kind/version, and the
-   compatibility window. The accepted window is the first owner release plus one subsequent
-   compatibility release.
+1. The external owner accepts this document, the neutral artifact kind/version, and package
+   continuity under `@oa-sdk/dpm`.
 2. The external package publishes the declared public subpaths and runs the clean consumer smoke
    against its own package artifact and dependency tree.
 3. Consumers switch imports only to declared package names/subpaths; no source or deep chunk import
    is introduced.
-4. At the first accepted owner artifact release, the monorepo package becomes an adapter for one
-   subsequent compatibility release and forwards or re-emits the accepted artifact without
-   changing identity fields.
-5. After the window, the owner may deprecate an old import surface only with a release note,
-   migration example, and a passing rollback fixture.
+4. At the first accepted owner artifact release, the historical monorepo package becomes a
+   non-publishing mirror; consumers retain the existing package identity without an import change.
+5. Re-enabling publication from the historical mirror requires a separate owner decision and a
+   passing rollback fixture.
 
 ## Rollback procedure
 
@@ -106,5 +103,5 @@ If external extraction or a consumer migration fails:
   acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
   Latest owner CI workflow [29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791)
   passed with Node.js 25 and pnpm 10.30.3.
-- Registry publication and breaking adapter removal remain intentionally disabled; they are
-  separate release decisions and are not implied by the private acceptance.
+- Registry publication remains intentionally disabled until the separate `v0.1.2` release decision
+  and Trusted Publisher configuration; it is not implied by the private acceptance.

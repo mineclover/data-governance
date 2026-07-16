@@ -24,7 +24,7 @@ pnpm demo:dpm:storage
 Or from this package:
 
 ```bash
-pnpm --filter @context-action/dpm run demo:storage
+pnpm --filter @oa-sdk/dpm run demo:storage
 ```
 
 The demo is CI-reproducible and does not require a live database. It uses checked-in

@@ -21,8 +21,8 @@ for (const heading of requiredHeadings) {
   }
 }
 
-if (!/\*\*Status: v0\.1\.1 public package identity transition; registry publication pending\*\*/.test(source)) {
-  throw new Error("Roadmap checkpoint status must track the approved v0.1.1 identity transition");
+if (!/\*\*Status: v0\.1\.2 @oa-sdk package identity transition; OIDC publication pending\*\*/.test(source)) {
+  throw new Error("Roadmap checkpoint status must track the approved v0.1.2 @oa-sdk identity transition");
 }
 
 if (!/\*\*Updated: \d{4}-\d{2}-\d{2}\*\*/.test(source)) {

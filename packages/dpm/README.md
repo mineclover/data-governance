@@ -1,22 +1,22 @@
-# @context-action/dpm
+# @oa-sdk/dpm
 
 Relationship-first Data Pseudonymization Manifest toolkit for turning database and profile evidence into reviewable, executable pseudonymization contracts.
 
 ## Consumer Surface
 
-Prefer package subpaths for new consumers. The root `@context-action/dpm` entrypoint remains a compatibility aggregate, but focused imports keep product code tied to the smallest stable surface.
+Prefer package subpaths for new consumers. The root `@oa-sdk/dpm` entrypoint remains a compatibility aggregate, but focused imports keep product code tied to the smallest stable surface.
 
 | Import | Use for | Source owner |
 |---|---|---|
-| `@context-action/dpm/package` | package metadata and manifest schema validation | `src/public/package.ts` |
-| `@context-action/dpm/catalog` | catalog snapshots, PostgreSQL catalog profiling, OpenAPI projection adapters | `src/public/catalog.ts` |
-| `@context-action/dpm/data` | logical data fields and explicit API/database object bindings | `src/public/data.ts` |
-| `@context-action/dpm/profile` | profile artifacts, Kafka topic profiling, connector validation, profile analysis | `src/public/profile.ts` |
-| `@context-action/dpm/relationship` | relationship discovery, registry snapshots, model helpers, validation/compile/dry-run | `src/public/relationship.ts` |
-| `@context-action/dpm/gateway` | OpenAPI contract document and in-process runtime helpers | `src/public/gateway.ts` |
-| `@context-action/dpm/storage` | job, report, registry, and profile baseline repositories/adapters | `src/public/storage.ts` |
-| `@context-action/dpm/publishing` | AI schema context and physical foreign-key recommendation projections | `src/public/publishing.ts` |
-| `@context-action/dpm/authoring` | Private Phase 8 lookup, draft/revision, semantic diff, approval, publish, audit, and rollback slice | `src/public/authoring.ts` |
+| `@oa-sdk/dpm/package` | package metadata and manifest schema validation | `src/public/package.ts` |
+| `@oa-sdk/dpm/catalog` | catalog snapshots, PostgreSQL catalog profiling, OpenAPI projection adapters | `src/public/catalog.ts` |
+| `@oa-sdk/dpm/data` | logical data fields and explicit API/database object bindings | `src/public/data.ts` |
+| `@oa-sdk/dpm/profile` | profile artifacts, Kafka topic profiling, connector validation, profile analysis | `src/public/profile.ts` |
+| `@oa-sdk/dpm/relationship` | relationship discovery, registry snapshots, model helpers, validation/compile/dry-run | `src/public/relationship.ts` |
+| `@oa-sdk/dpm/gateway` | OpenAPI contract document and in-process runtime helpers | `src/public/gateway.ts` |
+| `@oa-sdk/dpm/storage` | job, report, registry, and profile baseline repositories/adapters | `src/public/storage.ts` |
+| `@oa-sdk/dpm/publishing` | AI schema context and physical foreign-key recommendation projections | `src/public/publishing.ts` |
+| `@oa-sdk/dpm/authoring` | Private Phase 8 lookup, draft/revision, semantic diff, approval, publish, audit, and rollback slice | `src/public/authoring.ts` |
 
 `package.json` publishes the same subpaths and `src/index.ts` re-exports the category barrels for compatibility.
 
@@ -24,11 +24,11 @@ Prefer package subpaths for new consumers. The root `@context-action/dpm` entryp
 
 ### Manifest execution
 
-Use `@context-action/dpm/catalog` to build or load catalog evidence, then use `@context-action/dpm/relationship` to validate, compile, and dry-run a manifest against an approved registry snapshot.
+Use `@oa-sdk/dpm/catalog` to build or load catalog evidence, then use `@oa-sdk/dpm/relationship` to validate, compile, and dry-run a manifest against an approved registry snapshot.
 
 The manifest schema version is exposed through `DPM_VERSION`. It is the DPM contract baseline, not the npm package version in `package.json`.
 
-Use `@context-action/dpm/data` for the logical data definition layer. A DPM field identity is
+Use `@oa-sdk/dpm/data` for the logical data definition layer. A DPM field identity is
 separate from its optional database `storageRef` and from an API artifact pointer; API
 bindings make that relationship explicit without making an OpenAPI operation or database
 column the data definition itself. The compiler emits the immutable
@@ -42,7 +42,7 @@ renderers) require dataset/namespace scope, explicit object and revision ids, or
 metadata, catalog freshness context, and versioned API pointers. `operationId` remains navigation
 metadata and is excluded from canonical API identity.
 
-The private Phase 8 representative slice uses `@context-action/dpm/authoring`. It requires an explicit
+The private Phase 8 representative slice uses `@oa-sdk/dpm/authoring`. It requires an explicit
 actor role for editing, review, publishing, and rollback; its first repository implementation is
 in-memory behind a repository port. Published revisions and audit events are immutable at the
 package boundary. PostgreSQL is the prepared durable target contract, but schema migration and
@@ -53,13 +53,13 @@ approval.
 
 ### Kafka profile review
 
-Use `@context-action/dpm/profile` to convert a captured Kafka topic bundle into a profile connector result. The Kafka connector validates malformed input before graph creation, returns failed connector results as diagnostics, and keeps failed envelopes compatible with the generic connector validator.
+Use `@oa-sdk/dpm/profile` to convert a captured Kafka topic bundle into a profile connector result. The Kafka connector validates malformed input before graph creation, returns failed connector results as diagnostics, and keeps failed envelopes compatible with the generic connector validator.
 
-Profile analysis produces review proposals. It does not auto-approve relationships. Use `@context-action/dpm/gateway` for the product workflow that bridges a reviewer-selected profile hint into candidate import, approval, registry write receipt, and registry snapshot export.
+Profile analysis produces review proposals. It does not auto-approve relationships. Use `@oa-sdk/dpm/gateway` for the product workflow that bridges a reviewer-selected profile hint into candidate import, approval, registry write receipt, and registry snapshot export.
 
 ### Persistence and publishing
 
-Use `@context-action/dpm/storage` when product code needs registry rows, approval audit events, job/report rows, or profile baseline history. Use `@context-action/dpm/publishing` to project compiled relationship metadata into AI-readable context without exposing source database credentials, token vault material, raw payload samples, or reverse token lookup APIs.
+Use `@oa-sdk/dpm/storage` when product code needs registry rows, approval audit events, job/report rows, or profile baseline history. Use `@oa-sdk/dpm/publishing` to project compiled relationship metadata into AI-readable context without exposing source database credentials, token vault material, raw payload samples, or reverse token lookup APIs.
 
 ## Operating Strategy
 
@@ -83,18 +83,18 @@ The internal decision rule is tracked in [Goal 63](../../docs/internal/goals/goa
 Package surface regressions are covered by:
 
 ```bash
-pnpm --filter @context-action/dpm run smoke:subpaths
-pnpm --filter @context-action/dpm run smoke:extraction
-pnpm --filter @context-action/dpm run smoke:consumer-workflow
-pnpm --filter @context-action/dpm run smoke:pack
+pnpm --filter @oa-sdk/dpm run smoke:subpaths
+pnpm --filter @oa-sdk/dpm run smoke:extraction
+pnpm --filter @oa-sdk/dpm run smoke:consumer-workflow
+pnpm --filter @oa-sdk/dpm run smoke:pack
 ```
 
 `smoke:extraction` packages the built artifact with a clean production dependency tree and runs
 runtime, declaration, and rollback consumers through the public package boundary. It is a local
 extraction rehearsal; it does not claim registry publication or external owner acceptance.
 
-`smoke:consumer-workflow` imports the built `@context-action/dpm/profile`, `@context-action/dpm/gateway`, and
-`@context-action/dpm/storage` subpaths and runs a captured Kafka profile-to-registry approval flow plus
+`smoke:consumer-workflow` imports the built `@oa-sdk/dpm/profile`, `@oa-sdk/dpm/gateway`, and
+`@oa-sdk/dpm/storage` subpaths and runs a captured Kafka profile-to-registry approval flow plus
 approval audit timeline readback and the deterministic `PROF204` blocking path for an approved
 relationship conflict.
 

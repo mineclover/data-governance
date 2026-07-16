@@ -9,19 +9,19 @@ const [
   publishingModule,
   authoringModule,
 ] = await Promise.all([
-  import('@context-action/dpm/package'),
-  import('@context-action/dpm/catalog'),
-  import('@context-action/dpm/data'),
-  import('@context-action/dpm/profile'),
-  import('@context-action/dpm/relationship'),
-  import('@context-action/dpm/gateway'),
-  import('@context-action/dpm/storage'),
-  import('@context-action/dpm/publishing'),
-  import('@context-action/dpm/authoring'),
+  import('@oa-sdk/dpm/package'),
+  import('@oa-sdk/dpm/catalog'),
+  import('@oa-sdk/dpm/data'),
+  import('@oa-sdk/dpm/profile'),
+  import('@oa-sdk/dpm/relationship'),
+  import('@oa-sdk/dpm/gateway'),
+  import('@oa-sdk/dpm/storage'),
+  import('@oa-sdk/dpm/publishing'),
+  import('@oa-sdk/dpm/authoring'),
 ])
 
 const checks = [
-  ['package', packageModule.DPM_PACKAGE_NAME === '@context-action/dpm'],
+  ['package', packageModule.DPM_PACKAGE_NAME === '@oa-sdk/dpm'],
   ['catalog', typeof catalogModule.normalizeCatalogSnapshot === 'function'],
   ['data', typeof dataModule.createDpmDataDefinitions === 'function'
     && typeof dataModule.createDpmApiBinding === 'function'

@@ -5,7 +5,7 @@ extraction from `mineclover/oa-sdk`.
 
 ## Current scope
 
-- `@context-action/dpm` owns the logical data definition, explicit API/catalog bindings, neutral artifact,
+- `@oa-sdk/dpm` owns the logical data definition, explicit API/catalog bindings, neutral artifact,
   and migration/rollback contract.
 - `@oa-sdk/openapi-projection-contract` is retained in this workspace as the DPM package's
   dependency contract.
@@ -30,8 +30,9 @@ completed.
 The migrated Goal 68 documents are under `docs/internal/goals/`.
 
 The interim owner decision is recorded in
-`docs/internal/goals/owner-decision-record.md`. Public publication and monorepo adapter cutover
-remain disabled until the formal sign-off items in that record are completed.
+`docs/internal/goals/owner-decision-record.md`. Public publication remains disabled until the
+formal sign-off items and Trusted Publishing configuration in that record are completed; existing
+`@oa-sdk/dpm` consumer imports remain unchanged.
 
 ## Owner handoff state
 

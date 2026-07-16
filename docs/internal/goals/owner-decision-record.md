@@ -1,10 +1,10 @@
 # DPM Private Owner Decision Record
 
-**Status: T1 gate passed for superseded private `v0.1.0`; `@context-action/dpm@0.1.1` publication pending**
+**Status: `@oa-sdk/dpm@0.1.2` OIDC publication candidate; npm publication pending**
 
 This record is the accepted owner decision for the extracted DPM contract plane. It authorizes the
-approved public package release and the planned one-release compatibility transition. It does not
-authorize removal of the existing import surface.
+approved public package release while preserving the existing import surface. It does not authorize
+re-enabling publication from the historical mirror.
 
 ## Decisions
 
@@ -21,16 +21,15 @@ authorize removal of the existing import surface.
 - **Required verification:** `.github/workflows/ci.yml` runs on pushes to `main` and pull requests
   with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
-- **Package/publication policy:** publish `@context-action/dpm` to the public npm registry under
-  Apache-2.0. `@oa-sdk/dpm` remains the compatibility adapter for one subsequent release and is
-  not the canonical public identity.
+- **Package/publication policy:** publish `@oa-sdk/dpm` to the public npm registry under Apache-2.0
+  through GitHub Actions Trusted Publishing. The repository remains private, and the previous
+  `@context-action/dpm@0.1.1` candidate is superseded.
 - **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
   private owner contract. Unknown markers or versions must be rejected rather than guessed.
 - **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
   `1.1` is deferred experimental and has no compatibility promise.
 - **Canonical documents:** this owner repository is canonical for the extraction contract,
-  migration/rollback rules, and owner decisions. The `oa-sdk` documents remain the historical and
-  compatibility mirror until the adapter transition is complete.
+  migration/rollback rules, and owner decisions. The `oa-sdk` documents remain the historical mirror.
 - **Phase 8 scope:** the private representative authoring slice is activated under the separate
   [Phase 8 activation decision record](./phase-8-decision-record.md). This does not change T1 or
   public-release authority.
@@ -41,31 +40,28 @@ The transition is keyed to owner artifact releases rather than a calendar date:
 
 1. Until the first accepted public package publication, `oa-sdk/packages/dpm` remains the source
    and compatibility implementation.
-2. At the approved `@context-action/dpm@0.1.1` publication, the external owner artifact becomes
-   canonical and the monorepo package becomes a forwarding compatibility adapter.
-3. Existing `@oa-sdk/dpm` imports remain supported through one subsequent compatibility release
-   after `T1`. That final compatibility release must carry a deprecation notice.
-4. Removing the old import surface requires a separately approved breaking release and a passing
-   rollback fixture.
+2. At the approved `@oa-sdk/dpm@0.1.2` publication, the external owner artifact becomes canonical
+   and the historical `oa-sdk` repository becomes a non-publishing mirror.
+3. Existing `@oa-sdk/dpm` imports remain unchanged; no alternate adapter package is published.
+4. Re-enabling publication from the historical mirror requires a separately approved owner decision.
 
-The adapter must forward or re-emit accepted artifacts without changing object identity, freshness,
-or provenance fields. No new canonical DPM behavior is added to the monorepo during this window.
+The historical mirror must not publish a competing artifact or add new canonical DPM behavior.
+The canonical package must preserve object identity, freshness, and provenance fields.
 
 ## Public release gate
 
 The public release may proceed after the owner-approved Issue #2 records all of the following:
 
-- public package identity, with `@context-action/dpm` as the default target and `@oa-sdk/dpm` retained
-  only as the compatibility adapter;
+- public package identity, with `@oa-sdk/dpm` as the selected target;
 - registry scope and publication target;
 - license and redistribution policy;
 - a SemVer release tag or GitHub Release on `main`;
 - a successful owner CI run for the selected private source ref;
 - explicit approval from the `mineclover` repository owner.
 
-The superseded `v0.1.0` private GitHub Release remains immutable. The new approved `v0.1.1` tag
-and release define the publishable artifact transition; a normal commit or branch build does not
-replace that gate.
+The superseded `v0.1.0` and `v0.1.1` private GitHub Releases remain immutable. The new approved
+`v0.1.2` tag and release will define the publishable artifact transition; a normal commit or branch
+build does not replace that gate.
 
 Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
 guide, deprecation notice, and passing rollback fixture.
@@ -77,8 +73,8 @@ guide, deprecation notice, and passing rollback fixture.
   the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
 - `docs/internal/goals/t1-readiness.md`, `.github/workflows/t1-preflight.yml`, and the
   `t1-release-approval.yml` issue form provide a private candidate/preflight path before T1.
-- The release gate does not publish a package. Publication uses the authenticated npm owner after
-  the exact `v0.1.1` gate succeeds.
+- The release gate does not publish a package. Publication uses the configured npm Trusted Publisher
+  after the exact `v0.1.2` gate succeeds.
 - GitHub branch protection is not available under the current private-repository plan, so CODEOWNERS
   is a review-routing control until required-review enforcement is enabled.
 
@@ -101,7 +97,7 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 
 ## Explicitly deferred
 
-- Removal of the compatibility adapter beyond the approved one-release window.
+- Re-enabling publication from the historical `oa-sdk` mirror without a separate owner decision.
 - Broad search, draft/edit/publish, authoring convenience, and other control-plane features beyond
   the activated representative slice.
 - Production tokenization, vault execution, row rewriting, and data-plane deployment.

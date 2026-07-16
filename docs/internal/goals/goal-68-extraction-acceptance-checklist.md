@@ -33,19 +33,18 @@ public registry publication or removal of the existing import surface.
       accepted; unknown markers or versions are rejected.
 - [x] `data_definitions` `1.0` is accepted as the frozen structural contract. `1.1` is explicitly
       deferred as experimental and has no compatibility promise.
-- [x] The private package/publication policy is accepted: `@oa-sdk/dpm` remains private and is not
-      published to a public registry. Public package name/scope, license, and public release
-      metadata are intentionally deferred.
+- [x] The package/publication policy is accepted: `@oa-sdk/dpm` is the selected public package
+      identity, while the repository remains private and npm publication stays owner-gated through
+      the `v0.1.2` release gate and Trusted Publishing workflow.
 - [x] The owner artifact is staged in the private repository and runtime, declaration, workflow,
       rollback, pack, and clean-dependency consumer smokes pass under owner CI.
-- [x] The compatibility window is defined: existing imports remain supported through the first
-      accepted external owner artifact release and one subsequent compatibility release. The
-      monorepo becomes a forwarding adapter at the first accepted owner release, and the final
-      compatibility release carries a deprecation notice.
+- [x] Package continuity is defined: the canonical owner publishes the existing `@oa-sdk/dpm`
+      package identity, so consumer imports remain unchanged. The `oa-sdk` repository is a
+      historical mirror and must not publish a conflicting artifact.
 - [x] This owner document set is canonical for the extraction contract; the `oa-sdk` documents are
-      the historical/compatibility mirror until adapter transition.
+      the historical non-publishing mirror.
 - [x] The rollback fixture is accepted: changed freshness creates a new plan identity and rollback
-      restores the preserved artifact/adapter identity.
+      restores the preserved artifact and historical mirror reference.
 
 ## Sign-off record
 
@@ -54,24 +53,24 @@ public registry publication or removal of the existing import surface.
 | Canonical repository | `https://github.com/mineclover/data-governance` (private, `main`) |
 | Owner / release authority | `mineclover` repository owner; delegated maintainer may prepare but not unilaterally approve contract/version changes |
 | Issue / review location | [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1) and pull-request review |
-| Package and registry | Private `@oa-sdk/dpm`; no public registry; future default target `@context-action/dpm`; public license and metadata deferred |
+| Package and registry | `@oa-sdk/dpm` on the npm public registry after the owner-approved `v0.1.2` gate; repository remains private |
 | Accepted `data_definitions` versions | `1.0` frozen; `1.1` deferred experimental |
 | Accepted artifact kind/version | `dpm.data-binding-artifact.v1` / `1.0` |
-| Compatibility window | Through the first accepted owner release plus one subsequent compatibility release; deprecation notice in the final compatibility release |
-| Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical/compatibility mirror |
+| Compatibility window | Existing `@oa-sdk/dpm` imports remain unchanged; no alternate adapter package is published |
+| Canonical-document location | Owner repository `docs/internal/goals/`; `oa-sdk` remains the historical mirror |
 | Rollback fixture / review link | [Owner CI `29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791), [Issue #1](https://github.com/mineclover/data-governance/issues/1) |
 
 ## Public-release decision gate
 
-The recommended public-release target is `@context-action/dpm`, while `@oa-sdk/dpm` remains the
-compatibility adapter. This target is not published or considered selected until a separate owner
-approval records the registry, license, and release policy. `T1` is the first SemVer tag or GitHub
-Release on `main` whose release-gate workflow passes and has explicit `mineclover` owner approval.
+The selected public-release target is `@oa-sdk/dpm`. It is not published until the owner approval,
+OIDC Trusted Publisher configuration, and exact `v0.1.2` release gate are complete. `T1` is the first
+SemVer tag or GitHub Release on `main` whose release-gate workflow passes and has explicit `mineclover`
+owner approval.
 A normal branch run or private rehearsal is not `T1`.
 
 ## Transition rule
 
 The private owner acceptance is complete for Goal 68.4/DPM-90. The external owner is canonical for
-the extraction contract, while `@oa-sdk/dpm` remains the source/compatibility implementation until
-the first accepted owner artifact release. Public registry publication, public metadata, and
-breaking removal remain separately gated and are not authorized by this record.
+the extraction contract, while the package remains under the selected `@oa-sdk` scope until the
+first accepted owner artifact release. Public registry publication and breaking removal remain
+separately gated and are not authorized by this record.

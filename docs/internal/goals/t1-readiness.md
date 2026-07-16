@@ -1,10 +1,10 @@
 # DPM T1 Release Readiness
 
-**Status: v0.1.1 package-identity transition; release execution in progress**
+**Status: v0.1.2 @oa-sdk package-identity transition; OIDC release preparation in progress**
 
 This document records the approved execution path for the first publishable external owner
 artifact. The repository remains private. The earlier private GitHub `v0.1.0` release is retained
-as history; `v0.1.1` is the corrected public package identity and registry release.
+as history; `v0.1.2` is the corrected `@oa-sdk` public package identity and registry release candidate.
 
 ## Private preparation path
 
@@ -15,8 +15,8 @@ as history; `v0.1.1` is the corrected public package identity and registry relea
    rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
    and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
 4. Owner approval is recorded in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
-5. Create the exact `v0.1.1` tag on `main`; [the T1 release gate](../../../.github/workflows/release-gate.yml)
-   reruns the full verification suite.
+5. Configure npm Trusted Publishing for `publish.yml`, then create the exact `v0.1.2` tag on `main`;
+   [the T1 release gate](../../../.github/workflows/release-gate.yml) reruns the full verification suite.
 
 ## Current evidence
 
@@ -34,12 +34,13 @@ as history; `v0.1.1` is the corrected public package identity and registry relea
   the private readiness guard also verifies that this approval check and the deferred
   cross-definition read-model contract check remain wired.
 - Repository visibility: private.
-- Public registry publication and Apache-2.0 license metadata are approved; publish
-  `@context-action/dpm@0.1.1`, then cut over the compatibility adapter after compatibility smoke.
+- Public registry publication and Apache-2.0 license metadata are approved; stage and publish
+  `@oa-sdk/dpm@0.1.2` through Trusted Publishing, then retain the historical `oa-sdk` repository as
+  a non-publishing mirror.
 
 ## Non-goals of preflight
 
 - The preflight does not publish to npm or create a release; the release gate verifies the approved tag.
 - Its release gate requires all six explicit Issue #2 approval rows before accepting a `v*` tag.
-- It does not remove the existing `@oa-sdk/dpm` compatibility surface; that adapter remains through one
-  subsequent compatibility release.
+- It does not change the existing `@oa-sdk/dpm` consumer import surface; the historical repository
+  remains non-publishing after canonical cutover.

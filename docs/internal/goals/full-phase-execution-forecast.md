@@ -76,15 +76,15 @@ cross-definition entry contract is prepared, but durable persistence, external a
 runtime activation remain separate gates. No Phase 8 code should be added to the historical
 `oa-sdk` mirror.
 
-### Phase 9 — T1 and one-release compatibility transition
+### Phase 9 — T1 and package continuity
 
 Phase 9 private rehearsal is complete. After approval, the remaining work is expected to be:
 
 1. record package/registry/license/release policy;
 2. prepare the exact public artifact and run owner CI;
 3. create the approved `v*` tag through the release gate;
-4. publish the approved artifact and keep `@oa-sdk/dpm` as the one-release compatibility adapter;
-5. add deprecation and rollback evidence for the compatibility release.
+4. publish the approved `@oa-sdk/dpm` artifact through Trusted Publishing;
+5. retain the historical `oa-sdk` repository as a non-publishing mirror and verify package continuity.
 
 The implementation estimate is 3–5 work units, but approval and registry/legal lead time are outside
 the estimate and may dominate the calendar.

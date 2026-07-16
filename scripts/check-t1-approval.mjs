@@ -4,8 +4,8 @@ const body = readFileSync(0, 'utf8')
 const requiredApprovalRows = [
   'Package identity, registry scope, and publication target approved',
   'License and redistribution policy approved',
-  '`v0.1.1` release reference approved',
-  'Compatibility, deprecation, rollback, and adapter policy approved',
+  '`v0.1.2` release reference approved',
+  'Package continuity, rollback, and non-publishing mirror policy approved',
   'Explicit approval recorded by the repository owner or delegated release authority',
   'I approve creating the exact release reference above and proceeding through the T1 release gate',
 ]

@@ -6,15 +6,15 @@ candidate canonical owner for the extracted contract plane.
 
 ## Current boundary
 
-- `@context-action/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
+- `@oa-sdk/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
   provenance, and migration/rollback rules.
 - `@oa-sdk/openapi-projection-contract` is retained as the DPM dependency contract.
-- The repository remains private; `@context-action/dpm` is approved for public npm publication after
-  the exact `v0.1.1` release gate.
+- The repository remains private; `@oa-sdk/dpm` is approved for public npm publication after the
+  exact `v0.1.2` release gate and Trusted Publishing configuration.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
 - The monorepo package remains the source/compatibility implementation until
-  `@context-action/dpm@0.1.1` is published. It then becomes a forwarding adapter for one
+  `@oa-sdk/dpm@0.1.2` is published. It then becomes a forwarding adapter for one
   subsequent compatibility release.
 
 ## Work sequence

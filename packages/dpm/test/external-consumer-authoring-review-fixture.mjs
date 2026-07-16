@@ -6,8 +6,8 @@ import {
   explainDpmAuthoringDefinitions,
   exportDpmAuthoringDefinitions,
   importDpmAuthoringDefinitions,
-} from '@context-action/dpm/authoring'
-import { createDpmIdentityDataDefinitions } from '@context-action/dpm/data'
+} from '@oa-sdk/dpm/authoring'
+import { createDpmIdentityDataDefinitions } from '@oa-sdk/dpm/data'
 
 const definitions = createDefinitions()
 const exported = exportDpmAuthoringDefinitions(definitions)
