@@ -2,6 +2,11 @@
 
 Relationship-first Data Pseudonymization Manifest toolkit for turning database and profile evidence into reviewable, executable pseudonymization contracts.
 
+**DPM is not the logical ERD.** The TypeSpec logical ERD owns entity, key, and
+relationship meaning first. DPM consumes an explicit subset only when a
+pseudonymization policy needs field/API/catalog bindings or relationship-aware execution.
+An ERD relationship never becomes a DPM relationship merely because it exists.
+
 ## Consumer Surface
 
 Prefer package subpaths for new consumers. The root `@oa-sdk/dpm` entrypoint remains a compatibility aggregate, but focused imports keep product code tied to the smallest stable surface.
@@ -28,7 +33,10 @@ Use `@oa-sdk/dpm/catalog` to build or load catalog evidence, then use `@oa-sdk/d
 
 The manifest schema version is exposed through `DPM_VERSION`. It is the DPM contract baseline, not the npm package version in `package.json`.
 
-Use `@oa-sdk/dpm/data` for the logical data definition layer. A DPM field identity is
+Use `@oa-sdk/dpm/data` for the logical data definition layer. Its private TypeSpec logical-ERD
+bridge accepts only explicit DPM field coverage and can compare supplied storage bindings with a
+read-only catalog snapshot; it never infers DPM identity from a TypeSpec name or writes a DPM
+revision. A DPM field identity is
 separate from its optional database `storageRef` and from an API artifact pointer; API
 bindings make that relationship explicit without making an OpenAPI operation or database
 column the data definition itself. The compiler emits the immutable

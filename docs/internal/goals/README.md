@@ -40,6 +40,8 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Phase 8 authoring import/export decision](./phase-8-authoring-import-export-decision.md)
 - [Phase 8 authoring explain decision](./phase-8-authoring-explain-decision.md)
 - [Phase 8 authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md)
+- [TypeSpec logical ERD bridge contract](./typespec-logical-erd-bridge-contract.md)
+- [TypeSpec logical ERD bridge owner acceptance checklist](./typespec-logical-erd-bridge-acceptance-checklist.md)
 - [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)

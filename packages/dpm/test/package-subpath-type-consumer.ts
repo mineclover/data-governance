@@ -8,8 +8,13 @@ import {
 } from '@oa-sdk/dpm/catalog'
 import {
   createDpmIdentityDataDefinitions,
+  createDpmTypespecLogicalErdBridgeProjection,
+  inspectDpmTypespecLogicalErdCatalogEvidence,
   type DpmIdentityDataDefinitions,
   type DpmNeutralDataBindingArtifact,
+  type DpmTypespecLogicalErdBridgeInput,
+  type DpmTypespecLogicalErdBridgeProjection,
+  type TypespecLogicalErdArtifact,
 } from '@oa-sdk/dpm/data'
 import {
   createDpmRelationshipCandidateInputFromResolvedProfileHint,
@@ -165,6 +170,9 @@ type DpmSubpathTypeSmoke = {
   authoringQuickFixes?: ReturnType<typeof createDpmAuthoringQuickFixes>
   dataDefinitions?: DpmIdentityDataDefinitions
   neutralDataBindingArtifact?: DpmNeutralDataBindingArtifact
+  typespecLogicalErdArtifact?: TypespecLogicalErdArtifact
+  typespecLogicalErdBridgeInput?: DpmTypespecLogicalErdBridgeInput
+  typespecLogicalErdBridgeProjection?: DpmTypespecLogicalErdBridgeProjection
 }
 
 const packageName: '@oa-sdk/dpm' = DPM_PACKAGE_NAME
@@ -246,6 +254,8 @@ void [
   DPM_PROFILE_BASELINE_SELECTION_STRATEGIES,
   DPM_PUBLISHING_CONTEXT_KIND,
   dataDefinitions,
+  createDpmTypespecLogicalErdBridgeProjection,
+  inspectDpmTypespecLogicalErdCatalogEvidence,
   computeCatalogFreshnessHash,
   createDpmRelationshipCandidateInputFromResolvedProfileHint,
   createDpmRelationshipCandidateInputFromProfileHint,

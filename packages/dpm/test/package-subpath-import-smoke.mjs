@@ -27,7 +27,9 @@ const checks = [
     && typeof dataModule.createDpmApiBinding === 'function'
     && typeof dataModule.createDpmDataFieldIdentity === 'function'
     && typeof dataModule.createDpmIdentityDataDefinitions === 'function'
-    && typeof dataModule.createDpmApiObjectCanonicalIdentity === 'function'],
+    && typeof dataModule.createDpmApiObjectCanonicalIdentity === 'function'
+    && typeof dataModule.createDpmTypespecLogicalErdBridgeProjection === 'function'
+    && typeof dataModule.inspectDpmTypespecLogicalErdCatalogEvidence === 'function'],
   ['profile', typeof profileModule.normalizeDpmProfileArtifact === 'function'
     && typeof profileModule.profileKafkaTopic === 'function'
     && typeof profileModule.validateDpmKafkaTopicProfileInput === 'function'

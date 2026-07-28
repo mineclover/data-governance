@@ -6,7 +6,7 @@
   "description": "Private owner repository for the DPM logical data definition and extraction boundary",
   "packageManager": "pnpm@10.30.3",
   "engines": {
-    "node": ">=25.0.0",
+    "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
   },
   "scripts": {
