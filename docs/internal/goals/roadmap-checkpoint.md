@@ -1,6 +1,6 @@
 # DPM Roadmap Checkpoint
 
-**Status: v0.1.2 @oa-sdk package identity transition; OIDC publication pending**
+**Status: v0.1.2 @oa-sdk package identity transition; NPM_TOKEN publication verification in progress**
 **Updated: 2026-07-16**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
@@ -11,7 +11,7 @@ Issue is not required for ordinary roadmap updates.
 
 - Maintain the accepted DPM contract and private owner boundary.
 - Use the T1 preflight and release-gate workflows for the corrected public package candidate.
-- Stage and publish `@oa-sdk/dpm@0.1.2` through Trusted Publishing; existing consumer imports remain
+- Publish `@oa-sdk/dpm@0.1.2` through GitHub Actions using `NPM_TOKEN`; existing consumer imports remain
   unchanged and the historical `oa-sdk` repository becomes non-publishing.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).

@@ -11,7 +11,7 @@ const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
 const normalizedPacket = normalize(packet)
 
-requireText(normalizedReadiness, '**Status: v0.1.2 @oa-sdk package-identity transition; OIDC release preparation in progress**', 'readiness status')
+requireText(normalizedReadiness, '**Status: v0.1.2 @oa-sdk package-identity transition; NPM_TOKEN publication verification in progress**', 'readiness status')
 requireText(normalizedPacket, '**Status: owner-approved; public release execution authorized**', 'candidate packet status')
 requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
@@ -21,9 +21,8 @@ requireText(normalize(releaseGate), 'Check cross-definition read-model contract'
 requireText(normalize(releaseGate), 'pnpm check:read-model-contract', 'release-gate read-model contract checker')
 requireText(normalize(releaseGate), 'Check read-model activation packet', 'release-gate activation packet step')
 requireText(normalize(releaseGate), 'pnpm check:read-model-activation', 'release-gate activation packet checker')
-requireText(normalize(publishWorkflow), 'id-token: write', 'npm Trusted Publishing OIDC permission')
-requireText(normalize(publishWorkflow), 'npm stage publish', 'staged npm publication command')
-if (/NPM_TOKEN|NODE_AUTH_TOKEN/.test(publishWorkflow)) throw new Error('publish workflow must not use long-lived npm token secrets')
+requireText(normalize(publishWorkflow), 'NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}', 'npm token wiring')
+requireText(normalize(publishWorkflow), 'npm publish --access public', 'public npm publication command')
 for (const [value, label] of [
   ['@oa-sdk/dpm', 'recommended public package identity'],
   ['npm public registry', 'recommended registry'],
@@ -34,7 +33,7 @@ for (const [value, label] of [
   requireText(normalizedPacket, value, label)
 }
 
-requireText(normalizedPacket, 'Stage and publish `@oa-sdk/dpm@0.1.2` from the approved tag through Trusted Publishing.', 'approved publication sequence')
+requireText(normalizedPacket, 'Publish `@oa-sdk/dpm@0.1.2` from the approved tag through GitHub Actions using `NPM_TOKEN`.', 'approved publication sequence')
 requireText(normalizedPacket, 'Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository', 'approved package continuity sequence')
 requireText(normalizedReadiness, 'create the exact `v0.1.2` tag on `main`', 'tag execution sequence')
 

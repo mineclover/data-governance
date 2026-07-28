@@ -21,7 +21,7 @@ for (const heading of requiredHeadings) {
   }
 }
 
-if (!/\*\*Status: v0\.1\.2 @oa-sdk package identity transition; OIDC publication pending\*\*/.test(source)) {
+if (!/\*\*Status: v0\.1\.2 @oa-sdk package identity transition; NPM_TOKEN publication verification in progress\*\*/.test(source)) {
   throw new Error("Roadmap checkpoint status must track the approved v0.1.2 @oa-sdk identity transition");
 }
 

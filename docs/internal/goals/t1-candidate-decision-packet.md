@@ -17,7 +17,7 @@ repository itself remains private, and the historical `oa-sdk` repository is non
 | License | Apache-2.0 | Permissive baseline with an explicit patent grant for a reusable library. | Approved |
 | Redistribution policy | Public package may be redistributed under the approved license; generated/private operational data remains governed by its owning system. | Separates library rights from customer data and deployment policy. | Approved |
 | Package continuity | Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository; keep the historical `oa-sdk` repository as a non-publishing mirror. | Existing consumers require no import migration and no conflicting adapter package is created. | Approved |
-| Cutover | Publish the canonical owner artifact through Trusted Publishing and freeze the historical mirror's publish path. | Prevents two repositories from competing for the same npm package identity. | Approved |
+| Cutover | Publish the canonical owner artifact through GitHub Actions using the `NPM_TOKEN` repository secret and freeze the historical mirror's publish path. | Prevents two repositories from competing for the same npm package identity. | Approved |
 
 ## Candidate baseline
 
@@ -38,7 +38,7 @@ manual revision entry or copy/paste synchronization across documents.
 
 After approval, the sequence should be:
 
-1. Stage and publish `@oa-sdk/dpm@0.1.2` from the approved tag through Trusted Publishing.
+1. Publish `@oa-sdk/dpm@0.1.2` from the approved tag through GitHub Actions using `NPM_TOKEN`.
 2. Keep the historical `oa-sdk` repository as a non-publishing mirror while consumers continue using
    the unchanged `@oa-sdk/dpm` import identity.
 3. Verify clean-install, subpath-import, type-consumer, and representative authoring workflows for

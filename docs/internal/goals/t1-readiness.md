@@ -1,6 +1,6 @@
 # DPM T1 Release Readiness
 
-**Status: v0.1.2 @oa-sdk package-identity transition; OIDC release preparation in progress**
+**Status: v0.1.2 @oa-sdk package-identity transition; NPM_TOKEN publication verification in progress**
 
 This document records the approved execution path for the first publishable external owner
 artifact. The repository remains private. The earlier private GitHub `v0.1.0` release is retained
@@ -15,7 +15,7 @@ as history; `v0.1.2` is the corrected `@oa-sdk` public package identity and regi
    rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
    and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
 4. Owner approval is recorded in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
-5. Configure npm Trusted Publishing for `publish.yml`, then create the exact `v0.1.2` tag on `main`;
+5. Configure the `NPM_TOKEN` repository secret for `publish.yml`, then create the exact `v0.1.2` tag on `main`;
    [the T1 release gate](../../../.github/workflows/release-gate.yml) reruns the full verification suite.
 
 ## Current evidence
@@ -34,8 +34,8 @@ as history; `v0.1.2` is the corrected `@oa-sdk` public package identity and regi
   the private readiness guard also verifies that this approval check and the deferred
   cross-definition read-model contract check remain wired.
 - Repository visibility: private.
-- Public registry publication and Apache-2.0 license metadata are approved; stage and publish
-  `@oa-sdk/dpm@0.1.2` through Trusted Publishing, then retain the historical `oa-sdk` repository as
+- Public registry publication and Apache-2.0 license metadata are approved; publish
+  `@oa-sdk/dpm@0.1.2` through GitHub Actions with `NPM_TOKEN`, then retain the historical `oa-sdk` repository as
   a non-publishing mirror.
 
 ## Non-goals of preflight
