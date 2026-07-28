@@ -5,6 +5,12 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      verify_only:
+        description: Verify the published package without publishing a new version.
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -45,9 +51,25 @@ jobs:
         run: pnpm --filter @oa-sdk/dpm smoke:pack
 
       - name: Publish package with npm token
+        if: ${{ !inputs.verify_only }}
         working-directory: packages/dpm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
           npm publish --access public
+
+      - name: Verify registry package with release token
+        working-directory: packages/dpm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
+          npm view "$(node -p \"require('./package.json').name + '@' + require('./package.json').version\")" version
+
+      - name: Verify public registry visibility
+        working-directory: packages/dpm
+        env:
+          NPM_CONFIG_USERCONFIG: /dev/null
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+        run: npm view "$(node -p \"require('./package.json').name + '@' + require('./package.json').version\")" version
