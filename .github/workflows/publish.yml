@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   stage:
@@ -42,6 +41,10 @@ jobs:
       - name: Verify package tarball
         run: pnpm --filter @oa-sdk/dpm smoke:pack
 
-      - name: Stage package through npm Trusted Publishing
+      - name: Publish package with npm token
         working-directory: packages/dpm
-        run: npm stage publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
+          npm publish --access public
