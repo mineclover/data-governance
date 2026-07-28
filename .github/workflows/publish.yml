@@ -8,6 +8,9 @@ on:
 
 permissions:
   contents: read
+  # Retained for the T1 readiness contract and a future OIDC migration.
+  # The current publish command intentionally uses the repository NPM_TOKEN.
+  id-token: write
 
 jobs:
   stage:
