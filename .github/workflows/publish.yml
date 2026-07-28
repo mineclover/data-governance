@@ -65,11 +65,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
-          npm view "$(node -p \"require('./package.json').name + '@' + require('./package.json').version\")" version
+          package_spec="$(node -p "require('./package.json').name + '@' + require('./package.json').version")"
+          npm view "$package_spec" version
 
       - name: Verify public registry visibility
         working-directory: packages/dpm
         env:
           NPM_CONFIG_USERCONFIG: /dev/null
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
-        run: npm view "$(node -p \"require('./package.json').name + '@' + require('./package.json').version\")" version
+        run: |
+          package_spec="$(node -p "require('./package.json').name + '@' + require('./package.json').version")"
+          npm view "$package_spec" version
