@@ -19,7 +19,7 @@ re-enabling publication from the historical mirror.
   and the repository pull-request review workflow.
 - **Extraction baseline:** initial extraction recorded in the canonical repository history
 - **Required verification:** `.github/workflows/ci.yml` runs on pushes to `main` and pull requests
-  with Node.js 25, pnpm 10.30.3, build, typecheck, boundary, documentation, test, and consumer
+  with Node.js 25, pnpm 11.28.6, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
 - **Package/publication policy:** publish `@oa-sdk/dpm` to the public npm registry under Apache-2.0
   through GitHub Actions Trusted Publishing. The repository remains private, and the previous

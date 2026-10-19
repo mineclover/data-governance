@@ -22,7 +22,7 @@ candidate canonical owner for the extracted contract plane.
 1. Keep the logical identity, semantic binding, neutral artifact, and provenance contracts
    deterministic and independently testable.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
-3. Keep owner CI green on Node.js 25 and pnpm 10.30.3 for `main` and pull requests.
+3. Keep owner CI green on Node.js 25 and pnpm 11.28.6 for `main` and pull requests.
 4. Keep the accepted private owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
 5. At the first accepted owner artifact release, switch the monorepo package to a forwarding
    compatibility adapter and carry the deprecation notice through the next compatibility release.

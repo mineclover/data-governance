@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "description": "Private owner repository for the DPM logical data definition and extraction boundary",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@11.28.6",
   "engines": {
     "node": ">=22.0.0",
-    "pnpm": ">=9.0.0"
+    "pnpm": ">=11.28.6 <12"
   },
   "scripts": {
     "build": "corepack pnpm --filter @oa-sdk/openapi-projection-contract build && corepack pnpm --filter @oa-sdk/dpm build",
