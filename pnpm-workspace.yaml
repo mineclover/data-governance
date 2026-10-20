@@ -1,2 +1,7 @@
 packages:
   - "packages/*"
+
+# pnpm 11은 strictDepBuilds=true가 기본값이라 빌드 스크립트가 있는 의존성을 명시해야 함.
+# pnpm 10과 동일하게 의존성 빌드 스크립트는 실행하지 않음.
+allowBuilds:
+  esbuild: false
