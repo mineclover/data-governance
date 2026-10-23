@@ -30,6 +30,8 @@ multiplies conflict, audit, and rollback concerns across definitions.
 - Maintain the [read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
   with disabled rollout values until an operational owner and authorization/persistence approvals
   are recorded.
+- Collect those activation values in [Issue #4](https://github.com/mineclover/data-governance/issues/4);
+  do not move the flag to `shadow` until the issue is explicitly approved.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).

@@ -28,7 +28,8 @@ Issue is not required for ordinary roadmap updates.
   before activating cross-definition search, automatic mutation, or bulk authoring.
 - Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
   as the prepared entry contract; keep runtime activation, durable indexing, and external
-  authorization deferred until the listed owner gates are accepted.
+  authorization deferred until the listed owner gates in [Issue #4](https://github.com/mineclover/data-governance/issues/4)
+  are accepted.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
 
@@ -82,6 +83,9 @@ Issue is not required for ordinary roadmap updates.
 - The read-model activation sequence is now captured as a recommendation-only packet with disabled,
   shadow, read-only pilot, fallback, owner-value, and abort rules; it does not authorize migration
   or deployment.
+- The private cross-definition fixture passes 7 tests covering bounded lookup, duplicate collapse,
+  deterministic cursors, interrupted rebuild retry, shadow parity, strict errors, and authorization
+  isolation; activation values are tracked in Issue #4.
 
 ## Next
 

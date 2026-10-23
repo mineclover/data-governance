@@ -3,6 +3,12 @@
 **Status: recommendation prepared; no read-model activation or database deployment authorized**
 **Recommended flag state: disabled**
 
+Owner decision tracking: [Issue #4](https://github.com/mineclover/data-governance/issues/4)
+
+The private reference fixture passes; Issue #4 collects the operational owner, persistence,
+authorization, observation, fallback, and explicit `disabled` → `shadow` approval values required
+before activation.
+
 This packet turns the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 into an owner-reviewable activation runbook. It is a recommendation and approval artifact only.
 It does not select an operational owner, connect to a database, add a public API, integrate an
