@@ -85,8 +85,8 @@ Issue is not required for ordinary roadmap updates.
 
 ## Next
 
-- Review the approved T1 decision packet and current evidence in [Issue #2](https://github.com/mineclover/data-governance/issues/2)
-  before creating the corrected `v0.1.2` tag.
+- Retain the completed T1/OIDC evidence in [Issue #3](https://github.com/mineclover/data-governance/issues/3)
+  and apply the same owner-approved `v*` release gate to future package changes.
 - Review the async service integration boundary and operational migration packet; keep production
   schema application and deployment deferred.
 - Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
@@ -101,7 +101,8 @@ Issue is not required for ordinary roadmap updates.
 
 ## Deferred
 
-- npm publication of `@oa-sdk/dpm@0.1.2` until the corrected tag gate and Trusted Publisher checks pass.
+- Production vaults, tokenization, row rewriting, source database mutation, and Phase 10 data-plane
+  runtime until a separate runtime-owner, security, and deployment decision is approved.
 - Re-enabling publication from the historical `oa-sdk` repository without a separate owner decision.
 
 ## Feedback loop

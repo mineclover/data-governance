@@ -87,7 +87,7 @@ and local extraction is not evidence of production runtime readiness.
 
 ### G-01 — Ownership and authority
 
-`@oa-sdk/dpm@0.1.2` is published and maintenance-only. The canonical public owner is
+`@oa-sdk/dpm@0.1.3` is published and maintenance-only. The canonical public owner is
 `https://github.com/mineclover/data-governance`; the repository owner `mineclover` is the release
 authority for the owner contract plane.
 

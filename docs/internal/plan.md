@@ -14,7 +14,7 @@ canonical owner for the extracted contract plane.
   use the same `publish.yml` OIDC workflow and `npm-release` environment.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
-- `@oa-sdk/dpm@0.1.2` is published. The monorepo package is the non-publishing
+- `@oa-sdk/dpm@0.1.3` is published. The monorepo package is the non-publishing
   compatibility/source mirror and becomes a forwarding adapter for one subsequent compatibility
   release.
 

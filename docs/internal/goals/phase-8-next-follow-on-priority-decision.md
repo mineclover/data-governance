@@ -33,8 +33,9 @@ multiplies conflict, audit, and rollback concerns across definitions.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).
-- Keep public package metadata, license finalization, `v*` tags, registry publication, and adapter
-  cutover behind [T1 Issue #2](https://github.com/mineclover/data-governance/issues/2).
+- Keep future public package metadata, license changes, `v*` tags, registry publication, and
+  adapter cutover behind the owner-approved release gate. The OIDC validation release is complete
+  in [Issue #3](https://github.com/mineclover/data-governance/issues/3).
 
 ## Revisit trigger
 
