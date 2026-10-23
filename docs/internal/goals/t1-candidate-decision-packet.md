@@ -1,7 +1,7 @@
 # DPM T1 Candidate Decision Packet
 
-**Status: owner-approved; `@oa-sdk/dpm@0.1.2` published 2026-07-28**
-**Updated: 2026-07-16**
+**Status: owner-approved; `@oa-sdk/dpm@0.1.3` OIDC-published 2026-10-24**
+**Updated: 2026-10-24**
 
 **OIDC validation release:** `@oa-sdk/dpm@0.1.3`, `v0.1.3`, [Issue #3](https://github.com/mineclover/data-governance/issues/3)
 

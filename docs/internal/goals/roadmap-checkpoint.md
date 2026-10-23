@@ -1,7 +1,7 @@
 # DPM Roadmap Checkpoint
 
-**Status: v0.1.2 public release complete; post-release maintenance**
-**Updated: 2026-10-23**
+**Status: v0.1.3 OIDC validation complete; post-release maintenance**
+**Updated: 2026-10-24**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
 This checkpoint is the lightweight operational loop for routine progress and feedback; a GitHub
@@ -11,9 +11,9 @@ Issue is not required for ordinary roadmap updates.
 
 - Maintain the accepted DPM contract and owner boundary.
 - Maintain the T1 release-gate workflow for future owner-approved `v*` releases.
-- `@oa-sdk/dpm@0.1.2` was published on 2026-07-28, and the matching GitHub Release is complete.
-  Future publication uses npm Trusted Publishing through GitHub Actions OIDC; existing consumer
-  imports remain unchanged and the historical `oa-sdk` repository is non-publishing.
+- `@oa-sdk/dpm@0.1.2` was published on 2026-07-28, and `@oa-sdk/dpm@0.1.3` was successfully
+  published through npm Trusted Publishing on 2026-10-24; existing consumer imports remain
+  unchanged and the historical `oa-sdk` repository is non-publishing.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)

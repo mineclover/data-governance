@@ -27,7 +27,7 @@ remains in `mineclover/oa-sdk` and is not mirrored here.
 
 | Package | Role | Registry |
 | --- | --- | --- |
-| `@oa-sdk/dpm` | DPM contract implementation, CLI, storage/authoring contracts, and consumer surfaces | Published (`0.1.2`, Apache-2.0) |
+| `@oa-sdk/dpm` | DPM contract implementation, CLI, storage/authoring contracts, and consumer surfaces | Published (`0.1.3`, Apache-2.0) |
 | `@oa-sdk/openapi-projection-contract` | Shared OpenAPI projection types and validation retained for compatibility checks | Private workspace package |
 
 `@oa-sdk/dpm` exposes these public subpaths:

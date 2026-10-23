@@ -32,7 +32,7 @@ data-plane runtime are outside this scope.
 
 | Tier | Surface | Policy |
 | --- | --- | --- |
-| Canonical package | `@oa-sdk/dpm` | Owns the DPM contract plane; published as `0.1.2` |
+| Canonical package | `@oa-sdk/dpm` | Owns the DPM contract plane; published as `0.1.3` |
 | Workspace companion | `@oa-sdk/openapi-projection-contract` | Retained compatibility/reference contract built and checked with the workspace |
 | Canonical documents | `docs/internal/goals/` | Owner decisions, contracts, roadmap, and progress |
 | Owner gates | `scripts/`, `.github/` | Boundary, documentation, roadmap, T1, and release checks |
@@ -84,7 +84,7 @@ data contract, and rollback plan.
   changes or adapter cutover.
 - The owner acceptance review is [Issue #1](https://github.com/mineclover/data-governance/issues/1);
   the T1 publication approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2).
-- `@oa-sdk/dpm@0.1.2` was published on 2026-07-28. Future releases follow the owner-approved `v*`
+- `@oa-sdk/dpm@0.1.3` was published through OIDC on 2026-10-24. Future releases follow the owner-approved `v*`
   release gate.
 - Breaking removal requires a separately approved major release with a migration guide,
   deprecation notice, and passing rollback fixture.

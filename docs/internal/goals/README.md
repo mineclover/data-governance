@@ -21,7 +21,7 @@ data-plane runtime are outside this repository.
 | Item | Status |
 | --- | --- |
 | Repository | Public |
-| Package | `@oa-sdk/dpm@0.1.2` — published 2026-07-28, current `latest` |
+| Package | `@oa-sdk/dpm@0.1.3` — OIDC-published 2026-10-24, current `latest` |
 | Current goal | Goal 68 — DPM logical data definition and extraction boundary |
 | Extraction | Complete; `oa-sdk` is a non-publishing compatibility mirror |
 | Phase 8 | Representative authoring slice activated; broader control plane deferred |
@@ -29,7 +29,8 @@ data-plane runtime are outside this repository.
 | Release authority | `mineclover` repository owner |
 
 The structured owner acceptance review is [Issue #1](https://github.com/mineclover/data-governance/issues/1);
-the T1 publication approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+the T1 publication approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2),
+and the OIDC validation release is [Issue #3](https://github.com/mineclover/data-governance/issues/3).
 Delegated maintainers may prepare changes but may not unilaterally approve contract/version
 changes or adapter cutover.
 

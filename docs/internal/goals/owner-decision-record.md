@@ -1,10 +1,10 @@
 # DPM Owner Decision Record
 
-**Status: `@oa-sdk/dpm@0.1.2` published 2026-07-28; repository public (confirmed 2026-10-23)**
+**Status: `@oa-sdk/dpm@0.1.3` OIDC-published 2026-10-24; repository public (confirmed 2026-10-24)**
 
-> **Amendment 2026-10-23:** the repository is public, and `@oa-sdk/dpm@0.1.2` is the published
-> `latest` npm version. The visibility and publication-status statements below were updated to
-> match the observed state. Phase 10 data-plane scope remains explicitly deferred.
+> **Amendment 2026-10-24:** the repository is public, and `@oa-sdk/dpm@0.1.3` is the latest npm
+> version published through GitHub Actions OIDC. The prior `0.1.2` release used `NPM_TOKEN`.
+> Phase 10 data-plane scope remains explicitly deferred.
 
 This record is the accepted owner decision for the extracted DPM contract plane. It authorizes the
 approved public package release while preserving the existing import surface. It does not authorize

@@ -50,7 +50,7 @@ These require a separate runtime owner, security/deployment contract, and owner 
 | Item | Status |
 | --- | --- |
 | Repository | Public |
-| Package | [`@oa-sdk/dpm@0.1.2`](https://www.npmjs.com/package/@oa-sdk/dpm) — published 2026-07-28, current `latest` |
+| Package | [`@oa-sdk/dpm@0.1.3`](https://www.npmjs.com/package/@oa-sdk/dpm) — OIDC-published 2026-10-24, current `latest` |
 | License | Apache-2.0 |
 | Canonical contract | `data_definitions` `1.0` frozen; `1.1` experimental |
 | Release authority | `mineclover` repository owner |
@@ -75,7 +75,8 @@ OIDC (`id-token: write`). The npm package must trust this repository, workflow, 
 - The owner decision is recorded in
   [`docs/internal/goals/owner-decision-record.md`](./docs/internal/goals/owner-decision-record.md).
 - The formal acceptance review is [Issue #1](https://github.com/mineclover/data-governance/issues/1);
-  the T1 approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+  the T1 approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2),
+  and the OIDC validation release is [Issue #3](https://github.com/mineclover/data-governance/issues/3).
 - The `mineclover` repository owner is the release authority. Delegated maintainers may prepare a
   release but may not unilaterally approve contract/version changes or adapter cutover.
 - Future releases and breaking removal follow the owner-approved `v*` release gate.
@@ -110,5 +111,6 @@ the release-candidate verification for every new version.
 
 The repository was created on 2026-07-15 for the Goal 68 extraction handoff. The package snapshot
 and migration evidence were validated here before the `@oa-sdk/dpm@0.1.2` publication on
-2026-07-28. Completed monorepo implementation history remains in `mineclover/oa-sdk`; this
-repository carries only the history needed to review and evolve the DPM contract.
+2026-07-28 and the OIDC validation release `@oa-sdk/dpm@0.1.3` on 2026-10-24. Completed monorepo
+implementation history remains in `mineclover/oa-sdk`; this repository carries only the history
+needed to review and evolve the DPM contract.

@@ -1,6 +1,6 @@
 # DPM Master Roadmap — Capability and Gap Alignment
 
-**Status: owner acceptance recorded 2026-07-15; `@oa-sdk/dpm@0.1.2` published 2026-07-28; repository public (confirmed 2026-10-23); breaking removal remains separately gated**
+**Status: owner acceptance recorded 2026-07-15; `@oa-sdk/dpm@0.1.3` OIDC-published 2026-10-24; repository public; breaking removal remains separately gated**
 
 > **Visibility amendment (2026-10-23):** the GitHub repository is public. Historical "private"
 > wording in the Goal 68 and Phase 8 documents refers to the owner-controlled, non-publication

@@ -1,6 +1,6 @@
 # DPM T1 Release Readiness
 
-**Status: v0.1.3 OIDC validation release in progress; repository public (confirmed 2026-10-24)**
+**Status: v0.1.3 OIDC validation complete; repository public (confirmed 2026-10-24)**
 
 This document records the approved execution path for the first publishable external owner
 artifact. The repository is public. The earlier GitHub `v0.1.0` release is retained as history;
@@ -17,7 +17,7 @@ artifact. The repository is public. The earlier GitHub `v0.1.0` release is retai
 4. Owner approval for the validation release is recorded in [Issue #3](https://github.com/mineclover/data-governance/issues/3).
 5. Configure npm Trusted Publishing for `publish.yml`, create the exact `v0.1.3` tag on `main`, and
    publish the package; [the T1 release gate](../../../.github/workflows/release-gate.yml) reruns the
-   full verification suite.
+   full verification suite. **Completed.**
 6. Create the matching GitHub Release and close Issue #3 after the OIDC validation publish succeeds.
 
 ## Current evidence
@@ -44,7 +44,8 @@ artifact. The repository is public. The earlier GitHub `v0.1.0` release is retai
   was created on 2026-10-23, and [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   was closed after the release record was completed.
 - The matching `v0.1.3` GitHub Release remains pending until the first successful OIDC publish
-  validates the npm Trusted Publisher configuration before 2026-10-25 15:24 UTC.
+  validates the npm Trusted Publisher configuration before 2026-10-25 15:24 UTC. The OIDC publish
+  succeeded on 2026-10-24; the GitHub Release record is the remaining closeout item.
 - npm Trusted Publishing is now the required publication mechanism. The npm package configuration
   must trust the `publish.yml` workflow in the `npm-release` environment.
 
