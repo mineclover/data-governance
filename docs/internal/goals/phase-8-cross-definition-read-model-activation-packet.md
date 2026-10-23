@@ -122,6 +122,10 @@ Activation is not complete until the owner links all of the following:
 - private shadow parity report, pilot metrics, observation-window result, and operator sign-off;
 - fallback/rollback execution record.
 
+The completed private evidence is recorded in the
+[shadow report](./phase-8-cross-definition-read-model-shadow-report.md). It is not a pilot result
+and does not change the disabled flag.
+
 ## Abort conditions
 
 Abort before serving any read-model result when the operational owner or authorization adapter is

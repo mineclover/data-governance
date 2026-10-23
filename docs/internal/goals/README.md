@@ -75,6 +75,7 @@ changes or adapter cutover.
 - [Phase 8 authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
+- [Phase 8 cross-definition read-model shadow report](./phase-8-cross-definition-read-model-shadow-report.md)
 
 ### TypeSpec logical ERD bridge
 
