@@ -9,7 +9,7 @@ Issue is not required for ordinary roadmap updates.
 
 ## Current focus
 
-- Maintain the accepted DPM contract and private owner boundary.
+- Maintain the accepted DPM contract and owner boundary.
 - Use the T1 preflight and release-gate workflows for the corrected public package candidate.
 - Publish `@oa-sdk/dpm@0.1.2` through GitHub Actions using `NPM_TOKEN`; existing consumer imports remain
   unchanged and the historical `oa-sdk` repository becomes non-publishing.

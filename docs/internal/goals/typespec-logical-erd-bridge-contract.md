@@ -1,6 +1,6 @@
 # TypeSpec Logical ERD Bridge Contract
 
-**Status: private owner bridge prototype — persistence and package release remain gated**
+**Status: owner bridge prototype — persistence and package release remain gated**
 
 ## Purpose
 

@@ -1,6 +1,10 @@
 # Phase 8 Private Activation Decision Record
 
-**Status: private representative slice activated 2026-07-15; T1 public release remains deferred**
+**Status: representative slice activated 2026-07-15; `@oa-sdk/dpm@0.1.2` published 2026-07-28**
+
+> **Amendment 2026-10-23:** the `mineclover/data-governance` repository is public. Historical
+> "private" wording in this record refers to the owner-controlled, non-publication decision
+> boundary. Phase 8 runtime activation and Phase 10 data-plane scope remain deferred.
 
 This record resolves the implementation decisions required by the [Phase 8 control-plane slice
 proposal](./phase-8-control-plane-proposal.md). The decision activates only one representative

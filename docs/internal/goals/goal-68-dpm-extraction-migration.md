@@ -99,7 +99,7 @@ If external extraction or a consumer migration fails:
 - Owner handoff checklist: `docs/internal/goals/goal-68-extraction-acceptance-checklist.md`.
 - Public package/type smoke: `packages/dpm/test/package-subpath-import-smoke.mjs` and
   `packages/dpm/test/package-subpath-type-consumer.ts`.
-- Owner decision record: `docs/internal/goals/owner-decision-record.md`. The private owner
+- Owner decision record: `docs/internal/goals/owner-decision-record.md`. The owner
   acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
   Latest owner CI workflow [29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791)
   passed with Node.js 25 and pnpm 10.30.3.

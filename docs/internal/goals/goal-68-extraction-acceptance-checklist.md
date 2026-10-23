@@ -6,7 +6,7 @@
 >
 > Contract: [Goal 68 Extraction Migration and Rollback Contract](./goal-68-dpm-extraction-migration.md)
 >
-> Decision: [DPM Private Owner Decision Record](./owner-decision-record.md)
+> Decision: [DPM Owner Decision Record](./owner-decision-record.md)
 >
 > Review: [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1)
 

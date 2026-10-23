@@ -54,9 +54,9 @@ production pseudonymization       = outside current oa-sdk boundary
 | 2. Evidence and proposal | Goals 7–19, 24–26, 31, 33, 37, 38, 51–56 | catalog/profile evidence, discovery proposals, thresholds, provenance, endpoint resolution | Implemented | evidence does not itself become data binding or relationship approval |
 | 3. Approval and durability | Goals 23, 27–30, 32, 34–50, 58, 59, 61, 63 | gateway workflow, registry approval, storage, audit and reports | Implemented within declared boundary | no production token/vault/data-plane execution |
 | 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; external extraction, CI, and `@oa-sdk/dpm@0.1.2` publication verified | future release metadata |
-| 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
-| 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
-| 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
+| 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for owner contract | future wire revisions |
+| 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for owner contract | future owner-authorized capability |
+| 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for owner contract | future owner-authorized capability |
 | 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Active private slice implemented; cross-definition search first, automatic mutation second, and bulk authoring last remain deferred | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
 | 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Owner acceptance recorded; `@oa-sdk/dpm@0.1.2` published; adapter transition scheduled | breaking removal and future release metadata |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
@@ -112,7 +112,7 @@ logical object/revision/locator/binding records, dataset/namespace-safe referenc
 snapshot/freshness context, API pointer identity, and Goal 67 canonical data-value encoding.
 `operationId` remains a navigation hint and does not participate in canonical API object identity.
 
-The current contract gap is closed and accepted for the private owner. Future wire revisions or
+The current contract gap is closed and accepted by the owner. Future wire revisions or
 additional lifecycle semantics are owner-authorized extensions, not unfinished Phase 5 work.
 
 Blocking phase: none for the accepted contract; future extensions are owner-gated.
@@ -123,7 +123,7 @@ Goal 68.2 implements entity membership, catalog table/column membership, API poi
 consistency, artifact version/provenance verification, binding cardinality, storage-origin
 consistency, and deterministic diagnostics.
 
-The current semantic binding contract is closed and accepted for the private owner. Future search,
+The current semantic binding contract is closed and accepted by the owner. Future search,
 authoring, and read-model consumers may extend these diagnostics after Phase 8 activation.
 
 Blocking phase: none for the accepted contract; future consumers are Phase 8 owner-gated.
@@ -132,7 +132,7 @@ Blocking phase: none for the accepted contract; future consumers are Phase 8 own
 
 Goal 68.3 provides the immutable `DpmNeutralDataBindingArtifact`, freshness tuple, compiled plan
 identity, trace/review links, and read-model source without making Core depend on DPM policy
-internals. The neutral artifact contract is implemented and accepted for private ownership.
+internals. The neutral artifact contract is implemented and accepted by the owner.
 
 Remaining work is consumption by the owner-authorized Phase 8 control plane and final external wire
 ownership in Phase 9; neither is a missing Phase 7 implementation.
@@ -230,7 +230,7 @@ Completed Goal 68.3:
 
 The 2026-07-15 [Phase 8 private activation decision](./phase-8-decision-record.md), amended by the
 [scoped lookup decision](./phase-8-scoped-lookup-decision.md), currently authorizes one
-definition-scoped representative flow in the private owner repository:
+definition-scoped representative flow in the owner repository:
 
 - exact lookup by logical object id, API pointer, or DB coordinate;
 - deterministic field filters for entity, full locator, field name, semantic type, origin, and lifecycle;
@@ -250,7 +250,7 @@ is prepared, but no Phase 8 implementation is added to the historical `oa-sdk` m
 
 ### Phase 9 — Extraction rehearsal (Goal 68.4, owner-gated)
 
-Private owner rehearsal and migration acceptance complete:
+Owner rehearsal and migration acceptance complete:
 
 - clean external consumer build and package smoke;
 - import/package migration contract;

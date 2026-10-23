@@ -25,7 +25,7 @@ Goal 68 owns this contract plane only. Cross-identity search, draft/edit/publish
 and authoring convenience are a follow-on control-plane capability after the neutral artifact
 is stable; they are not silently included in the Goal 68 compiler scope.
 
-Private owner: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
+Owner: [`mineclover/data-governance`](https://github.com/mineclover/data-governance).
 The accepted decision is recorded in [owner-decision-record.md](./owner-decision-record.md). The
 formal review is recorded in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1),
 and the structured owner acceptance form remains available at the current issue/review workflow.
@@ -126,12 +126,12 @@ Wire compatibility is frozen by version:
 | `data_definitions` `1.0` | Frozen compatibility contract | Existing structural field, storage, and API binding shape. |
 | `data_definitions` `1.1` | Experimental in this monorepo | Namespace-safe logical identity, catalog context, lifecycle, origin, and cardinality rules. |
 
-This decision completes 68.0 and the private 68.4 owner handoff. The private owner is
+This decision completes 68.0 and the 68.4 owner handoff. The owner is
 canonical for the extraction contract, the `mineclover` repository owner is the release authority,
 and the compatibility window is the first accepted owner artifact release plus one subsequent
 compatibility release. Public registry publication and breaking removal remain separate gates.
 
-## 68.4 private owner repository transition record
+## 68.4 owner repository transition record
 
 The private [`mineclover/data-governance`](https://github.com/mineclover/data-governance) repository
 contains the initial extraction, historic owner workflow, and acceptance-form implementation in

@@ -49,7 +49,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 - [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)
 - [Goal 68.4 acceptance checklist](./goal-68-extraction-acceptance-checklist.md)
-- [Private owner decision record](./owner-decision-record.md)
+- [Owner decision record](./owner-decision-record.md)
 - [Progress index](./progress-index.md)
 - [Owner plan](../plan.md)
 

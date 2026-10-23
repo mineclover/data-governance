@@ -22,7 +22,7 @@ progress feedback.
 
 | Phase | Capability | Current state | Next deliverable | Forecast | Confidence |
 | --- | --- | --- | --- | --- | --- |
-| 0 | Governance and ownership | Complete; private owner accepted | Routine checkpoint/evidence maintenance | 0–1 maintenance units | High |
+| 0 | Governance and ownership | Complete; owner accepted | Routine checkpoint/evidence maintenance | 0–1 maintenance units | High |
 | 1 | Relationship contract | Complete and tested | Compatibility maintenance only | 0–1 maintenance units | High |
 | 2 | Evidence and proposal | Complete and tested | Compatibility maintenance only | 0–1 maintenance units | High |
 | 3 | Approval and durability | Complete within boundary | Compatibility maintenance only | 0–1 maintenance units | High |
