@@ -1,7 +1,7 @@
 # DPM Roadmap Checkpoint
 
-**Status: v0.1.2 @oa-sdk package identity transition; NPM_TOKEN publication verification in progress**
-**Updated: 2026-07-16**
+**Status: v0.1.2 public release complete; post-release maintenance**
+**Updated: 2026-10-23**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
 This checkpoint is the lightweight operational loop for routine progress and feedback; a GitHub
@@ -10,9 +10,10 @@ Issue is not required for ordinary roadmap updates.
 ## Current focus
 
 - Maintain the accepted DPM contract and owner boundary.
-- Use the T1 preflight and release-gate workflows for the corrected public package candidate.
-- Publish `@oa-sdk/dpm@0.1.2` through GitHub Actions using `NPM_TOKEN`; existing consumer imports remain
-  unchanged and the historical `oa-sdk` repository becomes non-publishing.
+- Maintain the T1 release-gate workflow for future owner-approved `v*` releases.
+- `@oa-sdk/dpm@0.1.2` was published through GitHub Actions using `NPM_TOKEN`, and the matching
+  GitHub Release is complete; existing consumer imports remain unchanged and the historical `oa-sdk`
+  repository is non-publishing.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
@@ -47,13 +48,12 @@ Issue is not required for ordinary roadmap updates.
   prepared; no production cutover or migration authorized.
 - The recommendation-only operational change decision is checked by `pnpm check:operational-change`
   so required owner gates and no-execution invariants are verified without an Issue.
-- The approved T1 candidate state is checked by `pnpm check:t1-readiness`, preserving the private
+- The approved T1 release state is checked by `pnpm check:t1-readiness`, preserving the public
   repository boundary, Apache-2.0 metadata, exact package identity/version, and release-gate wiring.
 - The T1 release gate verifies all six explicit Issue #2 approval rows, including final release
   authorization, before accepting a `v*` tag;
   the private readiness check protects that workflow guard from drift.
-- Goal 68 owner-acceptance documents point to the latest successful Owner CI and T1 preflight for
-  the corrected `@oa-sdk/dpm@0.1.2` candidate.
+- Goal 68 owner-acceptance documents point to the corrected `@oa-sdk/dpm@0.1.2` release evidence.
 - Disposable local PostgreSQL rehearsal completed with schema, canonical identity index, fixture
   load, and backup/restore parity; no owner-managed database was contacted.
 - Provider-neutral authorization policy port prepared; external identity/RBAC integration remains
@@ -154,6 +154,7 @@ Issue is not required for ordinary roadmap updates.
 ## Formal approvals
 
 - [T1 release approval — Issue #2](https://github.com/mineclover/data-governance/issues/2) records
-  the approved `@oa-sdk/dpm@0.1.2` identity, license, registry, and OIDC release sequence.
+  the approved `@oa-sdk/dpm@0.1.2` identity, license, registry, and release sequence. The package
+  currently publishes with `NPM_TOKEN`; OIDC remains future hardening.
 - [Phase 8 private activation decision record](./phase-8-decision-record.md) authorizes only the
   representative private slice and does not authorize T1/public-release actions.

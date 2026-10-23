@@ -26,12 +26,12 @@ progress feedback.
 | 1 | Relationship contract | Complete and tested | Compatibility maintenance only | 0–1 maintenance units | High |
 | 2 | Evidence and proposal | Complete and tested | Compatibility maintenance only | 0–1 maintenance units | High |
 | 3 | Approval and durability | Complete within boundary | Compatibility maintenance only | 0–1 maintenance units | High |
-| 4 | Public package contract | Complete privately; public metadata gated | T1 policy/approval packet | 2–4 units after approval | Medium |
+| 4 | Public package contract | Complete; `@oa-sdk/dpm@0.1.2` published | Compatibility and release maintenance | 0–1 maintenance units | High |
 | 5 | Logical identity and wire contract | Complete and accepted privately | Future owner-authorized wire revisions only | 0–2 extension units | High |
 | 6 | Cross-object semantic binding | Complete and accepted privately | Future owner-authorized diagnostics/read-model consumers | 0–2 extension units | High |
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
 | 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, semantic-diff quick-fix suggestions, cross-definition entry contract, and private conformance fixture prepared | Runtime read-model activation, automatic mutation, bulk edit, and broader authoring decisions | 0–2 extension units | Medium |
-| 9 | External extraction and compatibility transition | Private rehearsal accepted; T1 pending | Owner policy, release reference, T1 gate, one compatibility release | 3–5 units after approval | Medium/Low |
+| 9 | External extraction and compatibility transition | Initial extraction and `v0.1.2` public release complete; mirror adapter transition remains owner-controlled | Compatibility maintenance and any separately approved adapter cutover | 0–2 maintenance units | Medium |
 | 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
 
 ## Phase detail and exit criteria
@@ -102,9 +102,10 @@ exists.
 | --- | --- | --- | --- |
 | Private maintenance | Checkpoint feedback, compatibility fixes, evidence refreshes | 0–1 unit per focused change | No extra approval |
 | Phase 8 activation | Representative control-plane slice | 6–10 units | [Private activation decision record](./phase-8-decision-record.md) |
-| T1 transition | Public artifact plus one compatibility release | 3–5 units | Issue #2 approval, license/registry decision, exact tag |
+| T1 transition | Public artifact and matching GitHub Release complete | Completed | Issue #2 approval, license/registry decision, exact `v0.1.2` tag |
 | Runtime program | Data-plane production system | Unknown/10+ units | Separate runtime owner and security/deployment contract |
 
-Phase 8 and Phase 9 remain separate branches after Phase 7. Phase 8 is now active only within the
-private slice decision above; Phase 9 remains blocked on T1 approval. Continue using the
-checkpoint/commit loop for each work unit.
+Phase 8 and Phase 9 remain separate branches after Phase 7. Phase 8 is active only within the
+representative slice decision above; the initial Phase 9 extraction and public release are complete.
+Any mirror adapter cutover or broader compatibility transition still requires the owner-approved
+release gate. Continue using the checkpoint/commit loop for each work unit.

@@ -55,7 +55,7 @@ The canonical package must preserve object identity, freshness, and provenance f
 
 ## Public release gate
 
-The public release may proceed after the owner-approved Issue #2 records all of the following:
+The public release proceeded after the owner-approved Issue #2 recorded all of the following:
 
 - public package identity, with `@oa-sdk/dpm` as the selected target;
 - registry scope and publication target;
@@ -65,8 +65,9 @@ The public release may proceed after the owner-approved Issue #2 records all of 
 - explicit approval from the `mineclover` repository owner.
 
 The superseded `v0.1.0` and `v0.1.1` GitHub Releases remain immutable. The approved `v0.1.2` tag
-defines the publishable artifact transition; its npm publication completed on 2026-07-28. A normal
-commit or branch build does not replace that gate.
+defines the publishable artifact transition; its npm publication completed on 2026-07-28 and its
+matching GitHub Release was created on 2026-10-23. A normal commit or branch build does not replace
+that gate.
 
 Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
 guide, deprecation notice, and passing rollback fixture.

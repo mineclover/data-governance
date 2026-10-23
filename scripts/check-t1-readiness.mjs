@@ -11,7 +11,7 @@ const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
 const normalizedPacket = normalize(packet)
 
-requireText(normalizedReadiness, '**Status: v0.1.2 @oa-sdk package identity published 2026-07-28; repository public (confirmed 2026-10-23)**', 'readiness status')
+requireText(normalizedReadiness, '**Status: v0.1.2 package and GitHub Release complete; repository public (confirmed 2026-10-23)**', 'readiness status')
 requireText(normalizedPacket, '**Status: owner-approved; `@oa-sdk/dpm@0.1.2` published 2026-07-28**', 'candidate packet status')
 requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
