@@ -11,11 +11,13 @@ const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
 const normalizedPacket = normalize(packet)
 
-requireText(normalizedReadiness, '**Status: v0.1.2 package and GitHub Release complete; repository public (confirmed 2026-10-23)**', 'readiness status')
+requireText(normalizedReadiness, '**Status: v0.1.3 OIDC validation release in progress; repository public (confirmed 2026-10-24)**', 'readiness status')
 requireText(normalizedPacket, '**Status: owner-approved; `@oa-sdk/dpm@0.1.2` published 2026-07-28**', 'candidate packet status')
 requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
-requireText(normalize(releaseGate), 'gh issue view 2', 'release-gate Issue #2 lookup')
+requireText(normalize(releaseGate), 'RELEASE_APPROVAL_ISSUE: 3', 'release-gate v0.1.3 approval issue')
+requireText(normalize(releaseGate), 'RELEASE_VERSION: 0.1.3', 'release-gate v0.1.3 version')
+requireText(normalize(releaseGate), 'gh issue view "$RELEASE_APPROVAL_ISSUE"', 'release-gate approval issue lookup')
 requireText(normalize(releaseGate), 'scripts/check-t1-approval.mjs', 'release-gate approval checker')
 requireText(normalize(releaseGate), 'Check cross-definition read-model contract', 'release-gate read-model contract step')
 requireText(normalize(releaseGate), 'pnpm check:read-model-contract', 'release-gate read-model contract checker')
@@ -29,22 +31,22 @@ if (/NPM_TOKEN|NODE_AUTH_TOKEN/.test(publishWorkflow)) {
 for (const [value, label] of [
   ['@oa-sdk/dpm', 'recommended public package identity'],
   ['npm public registry', 'recommended registry'],
-  ['v0.1.2', 'approved corrected release reference'],
+  ['v0.1.3', 'OIDC validation release reference'],
   ['Apache-2.0', 'recommended license'],
   ['existing `@oa-sdk/dpm` import identity', 'package continuity'],
 ]) {
   requireText(normalizedPacket, value, label)
 }
 
-requireText(normalizedPacket, 'Publish `@oa-sdk/dpm@0.1.2` from the approved tag through GitHub Actions using npm Trusted Publishing.', 'approved publication sequence')
+requireText(normalizedPacket, 'npm Trusted Publishing', 'approved publication sequence')
 requireText(normalizedPacket, 'Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository', 'approved package continuity sequence')
-requireText(normalizedReadiness, 'create the exact `v0.1.2` tag on `main`', 'tag execution sequence')
+requireText(normalizedReadiness, 'create the exact `v0.1.3` tag on `main`', 'tag execution sequence')
 
 if (rootPackage.private !== true) throw new Error('root workspace package must remain private')
-if (rootPackage.version !== '0.1.2') throw new Error(`root package version must remain 0.1.2 for the corrected release; received ${rootPackage.version}`)
+if (rootPackage.version !== '0.1.3') throw new Error(`root package version must remain 0.1.3 for the OIDC validation release; received ${rootPackage.version}`)
 if (dpmPackage.private === true) throw new Error('DPM package must be publishable')
 if (dpmPackage.name !== '@oa-sdk/dpm') throw new Error(`DPM package identity does not match approved public target: ${dpmPackage.name}`)
-if (dpmPackage.version !== '0.1.2') throw new Error(`DPM package version must remain 0.1.2 for the corrected release; received ${dpmPackage.version}`)
+if (dpmPackage.version !== '0.1.3') throw new Error(`DPM package version must remain 0.1.3 for the OIDC validation release; received ${dpmPackage.version}`)
 if (dpmPackage.license !== 'Apache-2.0') throw new Error(`DPM package license must be Apache-2.0; received ${dpmPackage.license ?? '<missing>'}`)
 if (dpmPackage.publishConfig?.access !== 'public') throw new Error('DPM package must declare public npm access')
 if (!dpmPackage.files?.includes('LICENSE')) throw new Error('DPM package files must include LICENSE')

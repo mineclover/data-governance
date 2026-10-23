@@ -1,6 +1,6 @@
 {
   "name": "data-governance",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "type": "module",
   "description": "Canonical owner repository for the DPM logical data definition and extraction boundary",

@@ -3,6 +3,11 @@
 **Status: owner-approved; `@oa-sdk/dpm@0.1.2` published 2026-07-28**
 **Updated: 2026-07-16**
 
+**OIDC validation release:** `@oa-sdk/dpm@0.1.3`, `v0.1.3`, [Issue #3](https://github.com/mineclover/data-governance/issues/3)
+
+The `0.1.3` patch release exists to validate the configured npm Trusted Publisher. It preserves the
+same public package identity and compatibility surface; it does not authorize Phase 10 runtime work.
+
 This packet records the approved decisions for the first publishable DPM artifact. The
 owner-approved values below authorize the public package artifact and exact release reference. The
 repository is public, and the historical `oa-sdk` repository is non-publishing.

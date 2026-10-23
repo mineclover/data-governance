@@ -41,7 +41,9 @@ jobs:
       - name: Verify T1 owner approval
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh issue view 2 --repo "$GITHUB_REPOSITORY" --json body --jq .body | node scripts/check-t1-approval.mjs
+          RELEASE_APPROVAL_ISSUE: 3
+          RELEASE_VERSION: 0.1.3
+        run: gh issue view "$RELEASE_APPROVAL_ISSUE" --repo "$GITHUB_REPOSITORY" --json body --jq .body | node scripts/check-t1-approval.mjs "$RELEASE_VERSION"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
