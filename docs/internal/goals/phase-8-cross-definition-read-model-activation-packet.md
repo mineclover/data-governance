@@ -9,6 +9,14 @@ The private reference fixture passes; Issue #4 collects the operational owner, p
 authorization, observation, fallback, and explicit `disabled` → `shadow` approval values required
 before activation.
 
+## Current approved scope
+
+Issue #4 approves only a private GitHub Actions CI-only shadow rehearsal against the existing
+ephemeral in-memory fixture. The consumer flag remains `disabled`; no durable target, owner-managed
+database, production on-call commitment, public route, or read-only pilot is approved.
+
+The full future rollout remains `disabled` → `shadow` → `read-only pilot` → approved expansion.
+
 This packet turns the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 into an owner-reviewable activation runbook. It is a recommendation and approval artifact only.
 It does not select an operational owner, connect to a database, add a public API, integrate an
@@ -19,12 +27,12 @@ external identity provider, or authorize any T1/public-release action.
 | Decision | Recommendation | Approval state |
 | --- | --- | --- |
 | Contract owner | `mineclover/data-governance` owns the contract and reference implementation. | Accepted for private preparation |
-| Operational owner | Name a separate owner for index storage, rebuild, monitoring, backup, and rollback. | Not selected |
-| Durable target | Use the prepared PostgreSQL direction with a dedicated read-model projection under the existing `dpm` namespace. | Recommendation only; migration deferred |
+| Operational owner | `mineclover` repository owner for the CI-only rehearsal; production operational owner remains unselected. | CI-only scope confirmed; production pending |
+| Durable target | Use the prepared PostgreSQL direction only after a separate production decision. | No durable target; migration deferred |
 | Build protocol | Build a new generation from one immutable published revision and publish an atomic `ready` pointer only after all rows are complete. | Contract prepared; runtime pending |
 | Consistency | Strict by default. Missing, `building`, `stale`, or `failed` generations return `read-model-unavailable`, never a false empty result. | Recommended |
 | Authorization | Use an owner-injected definition-scope resolver with deny-by-default behavior. | Adapter and owner pending |
-| Rollout | `disabled` → `shadow` → `read-only pilot` → approved expansion. | Owner change record pending |
+| Rollout | `disabled` → private CI-only shadow rehearsal → future read-only pilot. | CI-only shadow approved; consumer flag disabled |
 | Fallback | Keep the existing definition-scoped lookup as the fallback. Disable the read model without deleting source revisions or index history. | Recommended |
 
 The logical flag remains `disabled` until the owner-approved change record names its actual

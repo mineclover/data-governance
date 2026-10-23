@@ -31,7 +31,8 @@ multiplies conflict, audit, and rollback concerns across definitions.
   with disabled rollout values until an operational owner and authorization/persistence approvals
   are recorded.
 - Collect those activation values in [Issue #4](https://github.com/mineclover/data-governance/issues/4);
-  do not move the flag to `shadow` until the issue is explicitly approved.
+  the issue approves only a private CI-only shadow rehearsal; keep the consumer/runtime flag
+  `disabled` until a separate production activation decision.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).

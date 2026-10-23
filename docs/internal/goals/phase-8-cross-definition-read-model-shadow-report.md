@@ -42,7 +42,7 @@ authorization provider, or production deployment.
 
 ## Next gate
 
-The evidence is sufficient for private contract/rehearsal review. Runtime movement from `disabled`
-to `shadow` remains blocked on the operational owner, persistence target, authorization adapter,
-observation thresholds, fallback owner, and explicit approval tracked in
+The evidence and owner values are sufficient for the approved private CI-only shadow rehearsal.
+The consumer/runtime flag remains `disabled`; production movement to `shadow` remains blocked on a
+separate durable-target, production operational-owner, authorization, and deployment decision in
 [Issue #4](https://github.com/mineclover/data-governance/issues/4).
