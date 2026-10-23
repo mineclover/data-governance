@@ -2,13 +2,13 @@
 
 This plan is scoped to the public DPM owner repository. The historical implementation baseline
 is preserved in [mineclover/oa-sdk](https://github.com/mineclover/oa-sdk); this repository is the
-candidate canonical owner for the extracted contract plane.
+canonical owner for the extracted contract plane.
 
 ## Current boundary
 
 - `@oa-sdk/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
   provenance, and migration/rollback rules.
-- `@oa-sdk/openapi-projection-contract` is retained as the DPM dependency contract.
+- `@oa-sdk/openapi-projection-contract` is retained as the workspace compatibility/reference contract; `@oa-sdk/dpm` keeps its own internal projection types.
 - The repository is public. `@oa-sdk/dpm@0.1.2` was published on 2026-07-28 through the
   `publish.yml` workflow using the `NPM_TOKEN` secret; OIDC trusted publishing remains a future
   hardening step.
@@ -25,8 +25,8 @@ candidate canonical owner for the extracted contract plane.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
 3. Keep owner CI green on Node.js 25 and pnpm 11.28.6 for `main` and pull requests.
 4. Keep the accepted owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
-5. At the first accepted owner artifact release, switch the monorepo package to a forwarding
-   compatibility adapter and carry the deprecation notice through the next compatibility release.
+5. After the `0.1.2` publication, switch the monorepo package to a forwarding compatibility
+   adapter and carry the deprecation notice through the next compatibility release.
 
 ## Canonical documents
 

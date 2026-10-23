@@ -1,11 +1,11 @@
 # DPM T1 Candidate Decision Packet
 
-**Status: owner-approved; public release execution authorized**
+**Status: owner-approved; `@oa-sdk/dpm@0.1.2` published 2026-07-28**
 **Updated: 2026-07-16**
 
 This packet records the approved decisions for the first publishable DPM artifact. The
 owner-approved values below authorize the public package artifact and exact release reference. The
-repository itself remains private, and the historical `oa-sdk` repository is non-publishing.
+repository is public, and the historical `oa-sdk` repository is non-publishing.
 
 ## Recommended decisions
 

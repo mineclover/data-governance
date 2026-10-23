@@ -1,37 +1,69 @@
-# DPM Owner Goals
+# DPM Owner Documentation
 
+Canonical document index for the Data Pseudonymization Manifest (DPM) contract plane.
+
+→ Repository purpose and scope: [Root README](../../../README.md)
 → Progress index: [progress-index.md](./progress-index.md)
 → Owner plan: [../plan.md](../plan.md)
 
-## Scope
+## Purpose
 
-This repository owns the extracted DPM contract plane: logical data definitions, explicit
-API/catalog bindings, neutral artifacts, compatibility rules, and migration/rollback evidence.
-It does not own production tokenization, vault execution, or row rewriting.
+This document set records what the DPM contract plane owns, how it is governed, and which
+decisions are active. It is the canonical source for the extraction contract, compatibility and
+migration rules, owner decisions, and the Phase 8 authoring boundary.
 
-The repository is public under the accepted decision in
-[owner-decision-record.md](./owner-decision-record.md). The selected public package target is
-`@oa-sdk/dpm`; `0.1.2` was published on 2026-07-28 and is the current `latest`. Future registry
-releases run through the exact `v*` release gate.
+The implementation lives in `packages/dpm` and is published as `@oa-sdk/dpm`. Production
+tokenization, vault execution, row rewriting, source database mutation, and the Phase 10
+data-plane runtime are outside this repository.
 
-The formal acceptance review is recorded in the [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1);
-the structured issue form remains available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
-The `mineclover` repository owner is the release authority; delegated maintainers may prepare
-changes but may not unilaterally approve contract/version changes or adapter cutover.
+## Status
 
-## Current owner goal
+| Item | Status |
+| --- | --- |
+| Repository | Public |
+| Package | `@oa-sdk/dpm@0.1.2` — published 2026-07-28, current `latest` |
+| Current goal | Goal 68 — DPM logical data definition and extraction boundary |
+| Extraction | Complete; `oa-sdk` is a non-publishing compatibility mirror |
+| Phase 8 | Representative authoring slice activated; broader control plane deferred |
+| Phase 10 | Production data-plane explicitly deferred |
+| Release authority | `mineclover` repository owner |
 
-| Goal | Status | Package |
-|---|---|---|
-| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — `@oa-sdk/dpm@0.1.2` published 2026-07-28; existing imports remain unchanged | `@oa-sdk/dpm` |
+The structured owner acceptance review is [Issue #1](https://github.com/mineclover/data-governance/issues/1);
+the T1 publication approval record is [Issue #2](https://github.com/mineclover/data-governance/issues/2).
+Delegated maintainers may prepare changes but may not unilaterally approve contract/version
+changes or adapter cutover.
 
 ## Canonical document set
+
+### Governance and status
+
+- [Owner decision record](./owner-decision-record.md)
+- [Progress index](./progress-index.md)
+- [Owner plan](../plan.md)
+- [Platform scope](../platform-scope.md)
+
+### Roadmap and forecast
 
 - [DPM Master Roadmap](./dpm-master-roadmap.md)
 - [Roadmap checkpoint](./roadmap-checkpoint.md)
 - [Full phase execution forecast](./full-phase-execution-forecast.md)
+- [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
+
+### Goal 68 — extraction boundary
+
+- [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
+- [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)
+- [Goal 68.4 acceptance checklist](./goal-68-extraction-acceptance-checklist.md)
+
+### T1 publication
+
+- [T1 candidate decision packet](./t1-candidate-decision-packet.md)
+- [T1 release readiness](./t1-readiness.md)
+
+### Phase 8 — authoring and read model
+
 - [Phase 8 control-plane slice proposal](./phase-8-control-plane-proposal.md)
-- [Phase 8 private activation decision record](./phase-8-decision-record.md)
+- [Phase 8 activation decision record](./phase-8-decision-record.md)
 - [Phase 8 persistence and identity index proposal](./phase-8-persistence-proposal.md)
 - [Phase 8 operational migration packet](./phase-8-operational-migration-packet.md)
 - [Phase 8 operational change decision](./phase-8-operational-change-decision.md)
@@ -40,25 +72,20 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 - [Phase 8 authoring import/export decision](./phase-8-authoring-import-export-decision.md)
 - [Phase 8 authoring explain decision](./phase-8-authoring-explain-decision.md)
 - [Phase 8 authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md)
-- [TypeSpec logical ERD bridge contract](./typespec-logical-erd-bridge-contract.md)
-- [TypeSpec logical ERD bridge owner acceptance checklist](./typespec-logical-erd-bridge-acceptance-checklist.md)
-- [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
-- [T1 candidate decision packet](./t1-candidate-decision-packet.md)
-- [Goal 68 boundary](./goal-68-dpm-logical-data-definition-boundary.md)
-- [Goal 68 migration and rollback contract](./goal-68-dpm-extraction-migration.md)
-- [Goal 68.4 acceptance checklist](./goal-68-extraction-acceptance-checklist.md)
-- [Owner decision record](./owner-decision-record.md)
-- [Progress index](./progress-index.md)
-- [Owner plan](../plan.md)
 
-## Historical baseline
+### TypeSpec logical ERD bridge
 
-The completed monorepo implementation history remains in
-[mineclover/oa-sdk](https://github.com/mineclover/oa-sdk). This repository carries only the
-history needed to review the DPM extraction boundary and does not mirror unrelated repository
-goals.
+- [TypeSpec logical ERD bridge contract](./typespec-logical-erd-bridge-contract.md)
+- [TypeSpec logical ERD bridge owner acceptance checklist](./typespec-logical-erd-bridge-acceptance-checklist.md)
+
+### History
+
+- [DPM extraction history](https://github.com/mineclover/oa-sdk/tree/main/docs/internal/goals)
+
+The historical monorepo goals remain in `mineclover/oa-sdk`. This repository carries only the
+history needed to review and evolve the DPM contract.
 
 ## Verification
 
