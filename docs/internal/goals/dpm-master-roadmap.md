@@ -267,10 +267,12 @@ the accepted owner handoff is recorded in the [Goal 68.4 External Extraction Acc
 
 ### Phase 10 — Separate external runtime program
 
-Only after an external/runtime owner is selected, define vault, tokenization, source/target data
-movement, post-run relationship validation, and production operational controls as a separate goal
-family. Do not mark the current DPM contract roadmap incomplete because these are intentionally
-outside its boundary.
+The [Phase 10 runtime boundary decision](./phase-10-runtime-boundary-decision.md) authorizes only
+non-executing design preparation. Production vault, tokenization, source/target data movement,
+post-run relationship validation, and operational controls remain deferred until a separate
+runtime owner, security owner, deployment authority, and all execution gates are accepted. Do not
+mark the current DPM contract roadmap incomplete because these are intentionally outside its
+boundary.
 
 ## Definition of done for the owner-authorized roadmap
 

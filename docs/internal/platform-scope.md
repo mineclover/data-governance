@@ -71,11 +71,12 @@ control-plane search, editing, and authoring workflows remain gated.
 
 ### Phase 10 data-plane
 
-Phase 10 is a separate runtime program. The current owner decision does not authorize production
-vaults, tokenization workers, row rewriting, source database mutation, physical foreign-key
-creation, data movement, or production operational controls. Starting that work requires a new
-decision record in this repository naming the runtime owner, security model, deployment authority,
-data contract, and rollback plan.
+Phase 10 is a separate runtime program. The current decision authorizes only non-executing design
+preparation; it does not authorize production vaults, tokenization workers, row rewriting, source
+database mutation, physical foreign-key creation, data movement, or production operational
+controls. The [Phase 10 runtime boundary decision](./goals/phase-10-runtime-boundary-decision.md)
+records the required owners and gates. Runtime execution requires a later decision naming the
+runtime owner, security model, deployment authority, data contract, and rollback plan.
 
 ## Ownership and Release
 

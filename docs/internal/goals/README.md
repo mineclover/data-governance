@@ -77,6 +77,10 @@ changes or adapter cutover.
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
 - [Phase 8 cross-definition read-model shadow report](./phase-8-cross-definition-read-model-shadow-report.md)
 
+### Phase 10 — runtime boundary
+
+- [Phase 10 runtime boundary decision](./phase-10-runtime-boundary-decision.md)
+
 ### TypeSpec logical ERD bridge
 
 - [TypeSpec logical ERD bridge contract](./typespec-logical-erd-bridge-contract.md)

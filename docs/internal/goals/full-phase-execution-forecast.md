@@ -32,7 +32,7 @@ progress feedback.
 | 7 | Neutral artifact and provenance | Complete and accepted privately | Feed the Phase 8 slice and extraction compatibility | 0–2 extension units | High |
 | 8 | Search, edit, authoring control plane | Definition-scoped slice, canonical import/export, identity-only explain, semantic-diff quick-fix suggestions, cross-definition entry contract, and private conformance fixture prepared | Runtime read-model activation, automatic mutation, bulk edit, and broader authoring decisions | 0–2 extension units | Medium |
 | 9 | External extraction and compatibility transition | Initial extraction and `v0.1.2` public release complete; mirror adapter transition remains owner-controlled | Compatibility maintenance and any separately approved adapter cutover | 0–2 maintenance units | Medium |
-| 10 | Production data-plane runtime | Explicitly outside current roadmap | Separate runtime owner/security/deployment program | Not estimable; likely 10+ units | Low |
+| 10 | Production data-plane runtime | Design-only preparation authorized; execution deferred | Separate runtime owner/security/deployment program and all Phase 10 gates | Not estimable; likely 10+ units | Low |
 
 ## Phase detail and exit criteria
 
