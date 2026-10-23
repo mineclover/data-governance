@@ -7,6 +7,8 @@ This decision defines the next safe step for Phase 10 without turning the DPM co
 into a production data-plane runtime. It is an owner decision about scope and entry conditions, not
 an authorization to access real data or deploy workers.
 
+The non-executing sequence is detailed in the [Phase 10 runtime plan](./phase-10-runtime-plan.md).
+
 ## Decision
 
 1. Keep production vaults, tokenization workers, source/target data movement, row rewriting, source

@@ -80,6 +80,7 @@ changes or adapter cutover.
 ### Phase 10 — runtime boundary
 
 - [Phase 10 runtime boundary decision](./phase-10-runtime-boundary-decision.md)
+- [Phase 10 runtime plan](./phase-10-runtime-plan.md)
 
 ### TypeSpec logical ERD bridge
 
