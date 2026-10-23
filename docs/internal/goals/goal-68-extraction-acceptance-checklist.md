@@ -62,15 +62,16 @@ public registry publication or removal of the existing import surface.
 
 ## Public-release decision gate
 
-The selected public-release target is `@oa-sdk/dpm`. It is not published until the owner approval,
-OIDC Trusted Publisher configuration, and exact `v0.1.2` release gate are complete. `T1` is the first
-SemVer tag or GitHub Release on `main` whose release-gate workflow passes and has explicit `mineclover`
-owner approval.
+The selected public-release target is `@oa-sdk/dpm`. The initial `v0.1.2` publication used the
+owner-approved release gate and `NPM_TOKEN`; the current publication policy requires npm Trusted
+Publisher configuration, the exact `v*` release gate, and explicit `mineclover` owner approval.
+`T1` is the first SemVer tag or GitHub Release on `main` whose release-gate workflow passes and has
+explicit owner approval.
 A normal branch run or private rehearsal is not `T1`.
 
 ## Transition rule
 
-The owner acceptance is complete for Goal 68.4/DPM-90. The external owner is canonical for
-the extraction contract, while the package remains under the selected `@oa-sdk` scope until the
-first accepted owner artifact release. Public registry publication and breaking removal remain
-separately gated and are not authorized by this record.
+The owner acceptance is complete for Goal 68.4/DPM-90. The external owner is canonical for the
+extraction contract, and the package remains under the selected `@oa-sdk` scope. Future public
+registry publication and breaking removal remain separately gated and require the current Trusted
+Publisher workflow.

@@ -15,14 +15,14 @@ silently changing logical data identity.
 
 ## Current boundary
 
-- The source implementation remains `mineclover/oa-sdk/packages/dpm` as a historical mirror during
-  preparation. The private external owner contains the initial extraction recorded in its
-  repository history and becomes the canonical publisher at `T1`. Both surfaces use the same
-  `@oa-sdk/dpm` package identity, so existing consumer imports remain unchanged; the mirror must
-  not publish a conflicting artifact.
-- `@oa-sdk/dpm` is the selected public package identity, but it remains unpublished until the
-  owner-approved `v0.1.2` release gate and Trusted Publishing setup complete. The local extraction
-  rehearsal packages the built artifact and resolves a production dependency tree.
+- The source implementation in `mineclover/oa-sdk/packages/dpm` is now a historical,
+  non-publishing mirror. The external owner contains the canonical extraction and public package
+  under the same `@oa-sdk/dpm` identity, so existing consumer imports remain unchanged; the mirror
+  must not publish a conflicting artifact.
+- `@oa-sdk/dpm@0.1.2` is the completed public package identity. The historical release used the
+  owner-approved release gate and `NPM_TOKEN`; future releases use the configured npm Trusted
+  Publisher workflow. The local extraction rehearsal packages the built artifact and resolves a
+  production dependency tree.
 - Consumers must use the package root or declared public subpaths. `src/**`, `dist/chunk-*`, and
   other implementation paths are not compatibility surfaces.
 - The stable import set for the data contract is `@oa-sdk/dpm/package`, `@oa-sdk/dpm/data`, and
@@ -33,8 +33,8 @@ silently changing logical data identity.
 
 `T1` is the first owner-approved SemVer tag or GitHub Release on `main` whose release-gate workflow
 passes. A private branch build or extraction rehearsal does not constitute `T1`. The selected public
-package target is `@oa-sdk/dpm@0.1.2`; it remains unpublished until the registry, license,
-publication policy, and OIDC workflow receive the required release approval.
+package target is `@oa-sdk/dpm@0.1.2`; its npm publication and matching GitHub Release are complete.
+Future releases require the registry, license, publication policy, and Trusted Publisher workflow.
 
 ## Version migration rules
 
@@ -68,8 +68,8 @@ must not reuse a previous plan as if it were fresh.
    against its own package artifact and dependency tree.
 3. Consumers switch imports only to declared package names/subpaths; no source or deep chunk import
    is introduced.
-4. At the first accepted owner artifact release, the historical monorepo package becomes a
-   non-publishing mirror; consumers retain the existing package identity without an import change.
+4. At the accepted `v0.1.2` owner artifact release, the historical monorepo package became a
+   non-publishing mirror; consumers retained the existing package identity without an import change.
 5. Re-enabling publication from the historical mirror requires a separate owner decision and a
    passing rollback fixture.
 
@@ -103,5 +103,6 @@ If external extraction or a consumer migration fails:
   acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
   Latest owner CI workflow [29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791)
   passed with Node.js 25 and pnpm 10.30.3.
-- Registry publication remains intentionally disabled until the separate `v0.1.2` release decision
-  and Trusted Publisher configuration; it is not implied by the private acceptance.
+- Registry publication for `v0.1.2` completed after the separate release decision. Future registry
+  publication requires the configured Trusted Publisher workflow; it is not implied by private
+  acceptance.

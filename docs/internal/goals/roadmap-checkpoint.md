@@ -11,9 +11,9 @@ Issue is not required for ordinary roadmap updates.
 
 - Maintain the accepted DPM contract and owner boundary.
 - Maintain the T1 release-gate workflow for future owner-approved `v*` releases.
-- `@oa-sdk/dpm@0.1.2` was published through GitHub Actions using `NPM_TOKEN`, and the matching
-  GitHub Release is complete; existing consumer imports remain unchanged and the historical `oa-sdk`
-  repository is non-publishing.
+- `@oa-sdk/dpm@0.1.2` was published on 2026-07-28, and the matching GitHub Release is complete.
+  Future publication uses npm Trusted Publishing through GitHub Actions OIDC; existing consumer
+  imports remain unchanged and the historical `oa-sdk` repository is non-publishing.
 - Continue the activated [Phase 8 control-plane slice](./phase-8-decision-record.md) with focused
   private-owner work units, consumer evidence, and the [PostgreSQL persistence/index proposal](./phase-8-persistence-proposal.md).
 - Maintain the completed scoped [Phase 8 lookup extension](./phase-8-scoped-lookup-decision.md)
@@ -155,6 +155,7 @@ Issue is not required for ordinary roadmap updates.
 
 - [T1 release approval — Issue #2](https://github.com/mineclover/data-governance/issues/2) records
   the approved `@oa-sdk/dpm@0.1.2` identity, license, registry, and release sequence. The package
-  currently publishes with `NPM_TOKEN`; OIDC remains future hardening.
+  currently publishes through npm Trusted Publishing; the historical `v0.1.2` publication used
+  `NPM_TOKEN`.
 - [Phase 8 private activation decision record](./phase-8-decision-record.md) authorizes only the
   representative private slice and does not authorize T1/public-release actions.

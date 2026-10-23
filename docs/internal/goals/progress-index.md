@@ -427,7 +427,7 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 - [x] DPM-87 - Namespace-safe identity contract
 - [x] DPM-88 - Semantic API/catalog binding validation
 - [x] DPM-89 - Compiler and provenance artifact integration
-- [x] DPM-90 - External extraction rehearsal and owner acceptance (public repository, canonical owner decision, CI-backed runtime/declaration/rollback/workflow/pack rehearsal, package continuity under `@oa-sdk/dpm`, canonical document ownership, and rollback sign-off recorded; `@oa-sdk/dpm@0.1.2` published 2026-07-28 via `NPM_TOKEN`; OIDC remains future hardening)
+- [x] DPM-90 - External extraction rehearsal and owner acceptance (public repository, canonical owner decision, CI-backed runtime/declaration/rollback/workflow/pack rehearsal, package continuity under `@oa-sdk/dpm`, canonical document ownership, and rollback sign-off recorded; `@oa-sdk/dpm@0.1.2` published 2026-07-28 via `NPM_TOKEN`; future releases use npm Trusted Publishing)
 
 ## Done Criteria
 

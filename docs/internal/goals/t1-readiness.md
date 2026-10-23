@@ -15,8 +15,8 @@ artifact. The repository is public. The earlier GitHub `v0.1.0` release is retai
    rollback plan, and release reference using the [T1 candidate decision packet](./t1-candidate-decision-packet.md)
    and [T1 release approval issue form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml).
 4. Owner approval is recorded in [Issue #2](https://github.com/mineclover/data-governance/issues/2).
-5. Configure the `NPM_TOKEN` repository secret for `publish.yml`, create the exact `v0.1.2` tag on `main`,
-   and publish the package; [the T1 release gate](../../../.github/workflows/release-gate.yml) reruns the
+5. Configure npm Trusted Publishing for `publish.yml`, create the exact `v0.1.2` tag on `main`, and
+   publish the package; [the T1 release gate](../../../.github/workflows/release-gate.yml) reruns the
    full verification suite.
 6. Create the matching [GitHub Release](https://github.com/mineclover/data-governance/releases/tag/v0.1.2)
    and close Issue #2 after the release record is complete.
@@ -38,13 +38,14 @@ artifact. The repository is public. The earlier GitHub `v0.1.0` release is retai
   cross-definition read-model contract check remain wired.
 - Repository visibility: public (confirmed 2026-10-23).
 - Public registry publication and Apache-2.0 license metadata are approved; `@oa-sdk/dpm@0.1.2`
-  was published through GitHub Actions with `NPM_TOKEN` on 2026-07-28 and is the current `latest`.
-  The historical `oa-sdk` repository remains a non-publishing mirror.
+  was published on 2026-07-28 and is the current `latest`. That historical release used the
+  repository `NPM_TOKEN`; future releases use npm Trusted Publishing. The historical `oa-sdk`
+  repository remains a non-publishing mirror.
 - Matching GitHub Release [`v0.1.2`](https://github.com/mineclover/data-governance/releases/tag/v0.1.2)
   was created on 2026-10-23, and [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   was closed after the release record was completed.
-- OIDC trusted publishing remains a future hardening step; the current workflow intentionally uses
-  the `NPM_TOKEN` repository secret.
+- npm Trusted Publishing is now the required publication mechanism. The npm package configuration
+  must trust the `publish.yml` workflow in the `npm-release` environment.
 
 ## Non-goals of preflight
 

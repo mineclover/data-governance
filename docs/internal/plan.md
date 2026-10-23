@@ -9,9 +9,9 @@ canonical owner for the extracted contract plane.
 - `@oa-sdk/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
   provenance, and migration/rollback rules.
 - `@oa-sdk/openapi-projection-contract` is retained as the workspace compatibility/reference contract; `@oa-sdk/dpm` keeps its own internal projection types.
-- The repository is public. `@oa-sdk/dpm@0.1.2` was published on 2026-07-28 through the
-  `publish.yml` workflow using the `NPM_TOKEN` secret; OIDC trusted publishing remains a future
-  hardening step.
+- The repository is public. `@oa-sdk/dpm@0.1.2` was published on 2026-07-28; future releases use
+  npm Trusted Publishing through the `publish.yml` workflow and GitHub Actions OIDC. The npm
+  Trusted Publisher must match this repository, workflow, and `npm-release` environment.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
 - `@oa-sdk/dpm@0.1.2` is published. The monorepo package is the non-publishing

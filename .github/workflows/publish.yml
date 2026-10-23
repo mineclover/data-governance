@@ -14,8 +14,6 @@ on:
 
 permissions:
   contents: read
-  # Retained for the T1 readiness contract and a future OIDC migration.
-  # The current publish command intentionally uses the repository NPM_TOKEN.
   id-token: write
 
 jobs:
@@ -50,21 +48,15 @@ jobs:
       - name: Verify package tarball
         run: pnpm --filter @oa-sdk/dpm smoke:pack
 
-      - name: Publish package with npm token
+      - name: Publish package with npm trusted publishing
         if: ${{ !inputs.verify_only }}
         working-directory: packages/dpm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
-          npm publish --access public
+          npm publish --access public --provenance
 
-      - name: Verify registry package with release token
+      - name: Verify registry package
         working-directory: packages/dpm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          test -n "$NODE_AUTH_TOKEN" || { echo "NPM_TOKEN repository secret is required." >&2; exit 1; }
           package_spec="$(node -p "require('./package.json').name + '@' + require('./package.json').version")"
           npm view "$package_spec" version
 

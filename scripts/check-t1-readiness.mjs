@@ -21,8 +21,11 @@ requireText(normalize(releaseGate), 'Check cross-definition read-model contract'
 requireText(normalize(releaseGate), 'pnpm check:read-model-contract', 'release-gate read-model contract checker')
 requireText(normalize(releaseGate), 'Check read-model activation packet', 'release-gate activation packet step')
 requireText(normalize(releaseGate), 'pnpm check:read-model-activation', 'release-gate activation packet checker')
-requireText(normalize(publishWorkflow), 'NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}', 'npm token wiring')
-requireText(normalize(publishWorkflow), 'npm publish --access public', 'public npm publication command')
+requireText(normalize(publishWorkflow), 'id-token: write', 'npm trusted-publishing permission')
+requireText(normalize(publishWorkflow), 'npm publish --access public --provenance', 'public npm publication command')
+if (/NPM_TOKEN|NODE_AUTH_TOKEN/.test(publishWorkflow)) {
+  throw new Error('publish workflow must not depend on NPM_TOKEN or NODE_AUTH_TOKEN after OIDC migration')
+}
 for (const [value, label] of [
   ['@oa-sdk/dpm', 'recommended public package identity'],
   ['npm public registry', 'recommended registry'],
@@ -33,7 +36,7 @@ for (const [value, label] of [
   requireText(normalizedPacket, value, label)
 }
 
-requireText(normalizedPacket, 'Publish `@oa-sdk/dpm@0.1.2` from the approved tag through GitHub Actions using `NPM_TOKEN`.', 'approved publication sequence')
+requireText(normalizedPacket, 'Publish `@oa-sdk/dpm@0.1.2` from the approved tag through GitHub Actions using npm Trusted Publishing.', 'approved publication sequence')
 requireText(normalizedPacket, 'Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository', 'approved package continuity sequence')
 requireText(normalizedReadiness, 'create the exact `v0.1.2` tag on `main`', 'tag execution sequence')
 

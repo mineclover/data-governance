@@ -26,9 +26,10 @@ re-enabling publication from the historical mirror.
   with Node.js 25, pnpm 11.28.6, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
 - **Package/publication policy:** publish `@oa-sdk/dpm` to the public npm registry under Apache-2.0
-  through the GitHub Actions `publish.yml` workflow using the repository `NPM_TOKEN` secret. The
-  repository is public. OIDC trusted publishing remains a future hardening step, not the current
-  publication mechanism. The previous `@context-action/dpm@0.1.1` candidate is superseded.
+  through the GitHub Actions `publish.yml` workflow using npm Trusted Publishing via GitHub Actions
+  OIDC. The repository is public. The historical `v0.1.2` publication used `NPM_TOKEN`; future
+  releases must use the configured Trusted Publisher. The previous `@context-action/dpm@0.1.1`
+  candidate is superseded.
 - **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
   owner contract. Unknown markers or versions must be rejected rather than guessed.
 - **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
@@ -79,8 +80,8 @@ guide, deprecation notice, and passing rollback fixture.
   the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
 - `docs/internal/goals/t1-readiness.md`, `.github/workflows/t1-preflight.yml`, and the
   `t1-release-approval.yml` issue form provide a candidate/preflight path before T1.
-- The release gate does not publish a package. Publication uses `publish.yml` with the repository
-  `NPM_TOKEN` secret after the exact `v0.1.2` gate succeeds.
+- The release gate does not publish a package. Publication uses `publish.yml` with npm Trusted
+  Publishing after the exact `v*` gate succeeds.
 - GitHub branch protection is not currently enabled, so CODEOWNERS is a review-routing control until
   required-review enforcement is enabled.
 

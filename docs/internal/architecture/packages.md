@@ -100,8 +100,9 @@ from this repository.
 
 - `packages/dpm` is publishable and carries the Apache-2.0 license.
 - The root workspace package is private and is never published.
-- Publication uses `publish.yml` with the repository `NPM_TOKEN` secret; OIDC trusted publishing
-  remains a future hardening step.
+- Publication uses `publish.yml` with npm Trusted Publishing through GitHub Actions OIDC
+  (`id-token: write`). The npm Trusted Publisher must match this repository, workflow, and
+  `npm-release` environment.
 - The release gate verifies the owner approval issue, package identity, license, and rollback
   evidence before accepting a `v*` tag.
 - `mineclover/oa-sdk/packages/dpm` is a non-publishing source/compatibility mirror.

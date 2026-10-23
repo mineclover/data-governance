@@ -56,8 +56,9 @@ These require a separate runtime owner, security/deployment contract, and owner 
 | Release authority | `mineclover` repository owner |
 | Phase 10 data-plane | Explicitly deferred |
 
-Publication currently uses the `publish.yml` workflow with the repository `NPM_TOKEN` secret.
-OIDC trusted publishing remains a future hardening step, not the current mechanism.
+Publication uses the `publish.yml` workflow with npm Trusted Publishing through GitHub Actions
+OIDC (`id-token: write`). The npm package must trust this repository, workflow, and
+`npm-release` environment as its configured publisher.
 
 ## Repository layout
 
