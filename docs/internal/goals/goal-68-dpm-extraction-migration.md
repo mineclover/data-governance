@@ -1,6 +1,6 @@
 # Goal 68 Extraction Migration and Rollback Contract
 
-**Status: private owner acceptance recorded 2026-07-15; public registry release and breaking removal remain disabled**
+**Status: owner acceptance recorded 2026-07-15; `@oa-sdk/dpm@0.1.2` published 2026-07-28; breaking removal remains disabled**
 
 > Parent: [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md)
 

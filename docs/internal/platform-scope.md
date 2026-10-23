@@ -92,6 +92,11 @@ scope-reactivation decision을 남겨야 한다. 최소한 다음 내용을 기�
 
 ### DPM temporary reactivation — 2026-07-14
 
+> **Amendment 2026-10-23:** the repository is public and `@oa-sdk/dpm@0.1.2` is published to npm.
+> The "private" and "no publish" wording below records the 2026-07-14 decision only. No production
+> vault, tokenization worker, row rewrite, physical FK mutation, or control-plane activation is
+> implied by the visibility or publication change.
+
 The roadmap execution request for Goal 68 records a temporary scope reactivation for
 `@oa-sdk/dpm` in this monorepo. The current canonical implementation site is
 `mineclover/oa-sdk/packages/dpm`; the package remains private and is still excluded from

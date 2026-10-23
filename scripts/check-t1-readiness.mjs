@@ -11,7 +11,7 @@ const dpmPackage = readJson('packages/dpm/package.json')
 const normalizedReadiness = normalize(readiness)
 const normalizedPacket = normalize(packet)
 
-requireText(normalizedReadiness, '**Status: v0.1.2 @oa-sdk package-identity transition; NPM_TOKEN publication verification in progress**', 'readiness status')
+requireText(normalizedReadiness, '**Status: v0.1.2 @oa-sdk package identity published 2026-07-28; repository public (confirmed 2026-10-23)**', 'readiness status')
 requireText(normalizedPacket, '**Status: owner-approved; public release execution authorized**', 'candidate packet status')
 requireText(normalize(releaseGate), 'issues: read', 'release-gate issue permission')
 requireText(normalize(releaseGate), 'Verify T1 owner approval', 'release-gate approval step')
@@ -37,9 +37,9 @@ requireText(normalizedPacket, 'Publish `@oa-sdk/dpm@0.1.2` from the approved tag
 requireText(normalizedPacket, 'Reuse the existing `@oa-sdk/dpm` import identity from the canonical owner repository', 'approved package continuity sequence')
 requireText(normalizedReadiness, 'create the exact `v0.1.2` tag on `main`', 'tag execution sequence')
 
-if (rootPackage.private !== true) throw new Error('root package must remain private before T1 approval')
+if (rootPackage.private !== true) throw new Error('root workspace package must remain private')
 if (rootPackage.version !== '0.1.2') throw new Error(`root package version must remain 0.1.2 for the corrected release; received ${rootPackage.version}`)
-if (dpmPackage.private === true) throw new Error('DPM package must be publishable after T1 approval')
+if (dpmPackage.private === true) throw new Error('DPM package must be publishable')
 if (dpmPackage.name !== '@oa-sdk/dpm') throw new Error(`DPM package identity does not match approved public target: ${dpmPackage.name}`)
 if (dpmPackage.version !== '0.1.2') throw new Error(`DPM package version must remain 0.1.2 for the corrected release; received ${dpmPackage.version}`)
 if (dpmPackage.license !== 'Apache-2.0') throw new Error(`DPM package license must be Apache-2.0; received ${dpmPackage.license ?? '<missing>'}`)
@@ -51,7 +51,7 @@ for (const licenseFile of ['LICENSE', 'packages/dpm/LICENSE']) {
   if (!existsSync(`${root}/${licenseFile}`)) throw new Error(`approved license file is missing: ${licenseFile}`)
 }
 
-console.log('T1 readiness OK: owner-approved public candidate and release gate are intact')
+console.log('T1 readiness OK: published package identity and release gate are intact')
 
 function read(relativePath) {
   return readFileSync(`${root}/${relativePath}`, 'utf8')

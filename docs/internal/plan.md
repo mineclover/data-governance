@@ -1,6 +1,6 @@
 # DPM Owner Plan
 
-This plan is scoped to the private DPM owner repository. The historical implementation baseline
+This plan is scoped to the public DPM owner repository. The historical implementation baseline
 is preserved in [mineclover/oa-sdk](https://github.com/mineclover/oa-sdk); this repository is the
 candidate canonical owner for the extracted contract plane.
 
@@ -9,13 +9,14 @@ candidate canonical owner for the extracted contract plane.
 - `@oa-sdk/dpm` owns logical data definitions, explicit API/catalog bindings, neutral artifacts,
   provenance, and migration/rollback rules.
 - `@oa-sdk/openapi-projection-contract` is retained as the DPM dependency contract.
-- The repository remains private; `@oa-sdk/dpm` is approved for public npm publication after the
-  exact `v0.1.2` release gate and Trusted Publishing configuration.
+- The repository is public. `@oa-sdk/dpm@0.1.2` was published on 2026-07-28 through the
+  `publish.yml` workflow using the `NPM_TOKEN` secret; OIDC trusted publishing remains a future
+  hardening step.
 - `data_definitions` `1.0` is the frozen structural compatibility contract.
 - `data_definitions` `1.1` is experimental until formal wire-compatibility acceptance.
-- The monorepo package remains the source/compatibility implementation until
-  `@oa-sdk/dpm@0.1.2` is published. It then becomes a forwarding adapter for one
-  subsequent compatibility release.
+- `@oa-sdk/dpm@0.1.2` is published. The monorepo package is the non-publishing
+  compatibility/source mirror and becomes a forwarding adapter for one subsequent compatibility
+  release.
 
 ## Work sequence
 
@@ -23,7 +24,7 @@ candidate canonical owner for the extracted contract plane.
    deterministic and independently testable.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
 3. Keep owner CI green on Node.js 25 and pnpm 11.28.6 for `main` and pull requests.
-4. Keep the accepted private owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
+4. Keep the accepted owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
 5. At the first accepted owner artifact release, switch the monorepo package to a forwarding
    compatibility adapter and carry the deprecation notice through the next compatibility release.
 
@@ -61,8 +62,8 @@ The same gates run in
 
 ## Recommended public-release policy
 
-Keep the repository and package private until an owner-approved SemVer tag or GitHub Release exists
-on `main` with successful CI for the exact release commit. That release is `T1`. A normal commit,
-branch build, or private rehearsal is not `T1`. Before `T1`, do not add public package metadata,
-license, or registry publication. After `T1`, keep the old import surface through one compatibility
-release, add a deprecation notice, and require a separate approved major release before removal.
+The `T1` gate was satisfied for `@oa-sdk/dpm@0.1.2`: the exact tag is on `main` with successful CI,
+and the package is published. Future releases repeat that sequence: an owner-approved SemVer tag or
+GitHub Release on `main` with successful CI for the exact release commit. Keep the old import surface
+through one compatibility release, add a deprecation notice, and require a separate approved major
+release before removal.

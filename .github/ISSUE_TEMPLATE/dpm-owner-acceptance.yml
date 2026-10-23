@@ -1,5 +1,5 @@
 name: DPM Goal 68.4 owner acceptance
-description: Record the formal owner decision for the private DPM contract plane.
+description: Record the formal owner decision for the DPM contract plane.
 title: "[DPM] Goal 68.4 owner acceptance"
 body:
   - type: markdown
@@ -48,7 +48,7 @@ body:
     attributes:
       label: Package, registry, and license policy
       description: Record the package name, registry scope, license, and publication policy.
-      placeholder: "Private package/no public registry, or the authorized release policy"
+      placeholder: "Package visibility and registry publication policy"
     validations:
       required: true
 
@@ -85,7 +85,7 @@ body:
       label: Acceptance gates
       description: Check each gate only after reviewing the linked evidence.
       options:
-        - label: The private repository, owner, default branch, and issue/review location are confirmed.
+        - label: The repository, owner, default branch, and issue/review location are confirmed.
           required: true
         - label: The owner CI run covers build, typecheck, boundary, documentation, tests, and consumer smoke.
           required: true

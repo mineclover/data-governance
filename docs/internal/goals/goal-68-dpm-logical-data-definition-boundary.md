@@ -1,6 +1,6 @@
 # Goal 68 — DPM Logical Data Definition and Extraction Boundary
 
-**Status: active — 68.0·68.1·68.2·68.3·68.4 private owner acceptance complete; public release and breaking removal remain separately gated**
+**Status: active — 68.0·68.1·68.2·68.3·68.4 owner acceptance complete; `@oa-sdk/dpm@0.1.2` published 2026-07-28; breaking removal remains separately gated**
 
 > Predecessor: [Goal 67 — DPM Canonical Key Typed Encoding v2](./goal-67-dpm-canonical-key-typed-v2.md)<br>
 > Architecture boundary: [Package Architecture](../architecture/packages.md)<br>

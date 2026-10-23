@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this issue only when a private T1 candidate has passed preflight and the owner is
+        Use this issue only when a T1 candidate has passed preflight and the owner is
         ready to decide whether to authorize the first public artifact release.
 
         Opening this issue does not publish a package, create a release tag, or authorize adapter
@@ -17,8 +17,8 @@ body:
     id: candidate-source
     attributes:
       label: Candidate source
-      description: Private branch or pull request used for the candidate. The workflow run records the resolved revision automatically.
-      placeholder: "main or private pull request URL"
+      description: Branch or pull request used for the candidate. The workflow run records the resolved revision automatically.
+      placeholder: "main or pull request URL"
     validations:
       required: true
 
@@ -26,7 +26,7 @@ body:
     id: preflight-run
     attributes:
       label: T1 preflight run
-      description: Link the successful private T1 preflight or owner CI run for the candidate source.
+      description: Link the successful T1 preflight or owner CI run for the candidate source.
       placeholder: "https://github.com/mineclover/data-governance/actions/runs/..."
     validations:
       required: true
@@ -76,7 +76,7 @@ body:
       label: Approval gates
       description: Check only after reviewing the linked evidence.
       options:
-        - label: The candidate source is private and the linked preflight/owner CI passed.
+        - label: The candidate source is on main or an authorized branch and the linked preflight/owner CI passed.
           required: true
         - label: Package identity, registry scope, and publication target are approved.
           required: true

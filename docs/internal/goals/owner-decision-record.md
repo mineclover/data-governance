@@ -1,6 +1,10 @@
-# DPM Private Owner Decision Record
+# DPM Owner Decision Record
 
-**Status: `@oa-sdk/dpm@0.1.2` OIDC publication candidate; npm publication pending**
+**Status: `@oa-sdk/dpm@0.1.2` published 2026-07-28; repository public (confirmed 2026-10-23)**
+
+> **Amendment 2026-10-23:** the repository is public, and `@oa-sdk/dpm@0.1.2` is the published
+> `latest` npm version. The visibility and publication-status statements below were updated to
+> match the observed state. Phase 10 data-plane scope remains explicitly deferred.
 
 This record is the accepted owner decision for the extracted DPM contract plane. It authorizes the
 approved public package release while preserving the existing import surface. It does not authorize
@@ -9,7 +13,7 @@ re-enabling publication from the historical mirror.
 ## Decisions
 
 - **Canonical repository:** [`mineclover/data-governance`](https://github.com/mineclover/data-governance)
-- **Visibility:** private
+- **Visibility:** public
 - **Default branch:** `main`
 - **Owning namespace:** `mineclover`
 - **Formal release authority:** the `mineclover` repository owner. An explicitly delegated
@@ -22,15 +26,16 @@ re-enabling publication from the historical mirror.
   with Node.js 25, pnpm 11.28.6, build, typecheck, boundary, documentation, test, and consumer
   smoke gates.
 - **Package/publication policy:** publish `@oa-sdk/dpm` to the public npm registry under Apache-2.0
-  through GitHub Actions Trusted Publishing. The repository remains private, and the previous
-  `@context-action/dpm@0.1.1` candidate is superseded.
+  through the GitHub Actions `publish.yml` workflow using the repository `NPM_TOKEN` secret. The
+  repository is public. OIDC trusted publishing remains a future hardening step, not the current
+  publication mechanism. The previous `@context-action/dpm@0.1.1` candidate is superseded.
 - **Artifact policy:** `kind: dpm.data-binding-artifact.v1` / `version: 1.0` is accepted as the
-  private owner contract. Unknown markers or versions must be rejected rather than guessed.
+  owner contract. Unknown markers or versions must be rejected rather than guessed.
 - **Manifest policy:** `data_definitions` `1.0` is the frozen structural compatibility contract;
   `1.1` is deferred experimental and has no compatibility promise.
 - **Canonical documents:** this owner repository is canonical for the extraction contract,
   migration/rollback rules, and owner decisions. The `oa-sdk` documents remain the historical mirror.
-- **Phase 8 scope:** the private representative authoring slice is activated under the separate
+- **Phase 8 scope:** the representative authoring slice is activated under the separate
   [Phase 8 activation decision record](./phase-8-decision-record.md). This does not change T1 or
   public-release authority.
 
@@ -56,12 +61,12 @@ The public release may proceed after the owner-approved Issue #2 records all of 
 - registry scope and publication target;
 - license and redistribution policy;
 - a SemVer release tag or GitHub Release on `main`;
-- a successful owner CI run for the selected private source ref;
+- a successful owner CI run for the selected source ref;
 - explicit approval from the `mineclover` repository owner.
 
-The superseded `v0.1.0` and `v0.1.1` private GitHub Releases remain immutable. The new approved
-`v0.1.2` tag and release will define the publishable artifact transition; a normal commit or branch
-build does not replace that gate.
+The superseded `v0.1.0` and `v0.1.1` GitHub Releases remain immutable. The approved `v0.1.2` tag
+defines the publishable artifact transition; its npm publication completed on 2026-07-28. A normal
+commit or branch build does not replace that gate.
 
 Breaking removal of `@oa-sdk/dpm` requires a later separately approved major release with a migration
 guide, deprecation notice, and passing rollback fixture.
@@ -72,11 +77,11 @@ guide, deprecation notice, and passing rollback fixture.
 - `.github/workflows/release-gate.yml` verifies every `v*` tag is an ancestor of `main` and reruns
   the full owner build, typecheck, boundary, documentation, test, and consumer-smoke gates.
 - `docs/internal/goals/t1-readiness.md`, `.github/workflows/t1-preflight.yml`, and the
-  `t1-release-approval.yml` issue form provide a private candidate/preflight path before T1.
-- The release gate does not publish a package. Publication uses the configured npm Trusted Publisher
-  after the exact `v0.1.2` gate succeeds.
-- GitHub branch protection is not available under the current private-repository plan, so CODEOWNERS
-  is a review-routing control until required-review enforcement is enabled.
+  `t1-release-approval.yml` issue form provide a candidate/preflight path before T1.
+- The release gate does not publish a package. Publication uses `publish.yml` with the repository
+  `NPM_TOKEN` secret after the exact `v0.1.2` gate succeeds.
+- GitHub branch protection is not currently enabled, so CODEOWNERS is a review-routing control until
+  required-review enforcement is enabled.
 
 ## Rollback acceptance
 
@@ -90,7 +95,8 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 ## Evidence
 
 - External repository creation and initial push: recorded in the canonical repository history.
-- Latest external owner CI and document gates: [`29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791) for the selected private source ref.
+- Latest external owner CI and document gates: [`29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791) for the selected source ref.
+- `@oa-sdk/dpm@0.1.2` npm publication: 2026-07-28 (`latest`; repository metadata points to this repository).
 - Structured owner acceptance form: `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
 - Canonical owner document set: [`docs/internal/goals/README.md`](./README.md).
 - Migration and rollback contract: [`goal-68-dpm-extraction-migration.md`](./goal-68-dpm-extraction-migration.md).
@@ -103,4 +109,4 @@ Evidence and owner approval are recorded in [Goal 68.4 owner acceptance issue](h
 - Production tokenization, vault execution, row rewriting, and data-plane deployment.
 
 These items require separate product, security, and release-owner decisions and are not implied by
-this private owner acceptance.
+this owner acceptance.

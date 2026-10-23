@@ -1,6 +1,10 @@
 # DPM Master Roadmap — Capability and Gap Alignment
 
-**Status: private owner acceptance recorded 2026-07-15; public release and breaking removal remain separately gated**
+**Status: owner acceptance recorded 2026-07-15; `@oa-sdk/dpm@0.1.2` published 2026-07-28; repository public (confirmed 2026-10-23); breaking removal remains separately gated**
+
+> **Visibility amendment (2026-10-23):** the GitHub repository is public. Historical "private"
+> wording in the Goal 68 and Phase 8 documents refers to the owner-controlled, non-publication
+> decision boundary, not to the current repository visibility.
 
 > Relationship-first baseline: [Goal 4](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/goals/goal-4-dpm-relationship-first-roadmap.md)<br>
 > Control-plane runtime/storage baseline: [Goal 5](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/goals/goal-5-dpm-runtime-storage-integration.md)<br>
@@ -25,7 +29,7 @@ capability는 Goal 68의 contract boundary와 구분하며, owner 결정 전에 
 ```text
 relationship-first DPM core       = implemented and tested
 logical data/API/DB shape         = v1.1 identity, semantic binding, and neutral artifact implemented
-ownership and implementation site = private external owner is canonical; monorepo remains compatibility/source until T1
+ownership and implementation site = public external owner is canonical; monorepo remains a non-publishing compatibility mirror
 cross-object semantic binding     = implemented and tested for v1.1
 search/edit/authoring control     = scope-gated follow-on capability
 production pseudonymization       = outside current oa-sdk boundary
@@ -45,16 +49,16 @@ production pseudonymization       = outside current oa-sdk boundary
 
 | Phase | Goal history | Capability | Current status | Gap after phase |
 |---|---|---|---|---|
-| 0. Governance | ADR-010, release policy, package architecture, Goal 68.0 | DPM package ownership, implementation site and safety boundary | Private `mineclover/data-governance` owner and private acceptance recorded | public release metadata and breaking removal |
+| 0. Governance | ADR-010, release policy, package architecture, Goal 68.0 | DPM package ownership, implementation site and safety boundary | Public `mineclover/data-governance` owner and owner acceptance recorded | breaking removal and future release metadata |
 | 1. Relationship contract | Goals 4–6, 64, 67 | manifest, entity, relationship, column policy, validator, compiler, typed identity | Implemented | logical field identity is not yet cross-bound to API/catalog |
 | 2. Evidence and proposal | Goals 7–19, 24–26, 31, 33, 37, 38, 51–56 | catalog/profile evidence, discovery proposals, thresholds, provenance, endpoint resolution | Implemented | evidence does not itself become data binding or relationship approval |
 | 3. Approval and durability | Goals 23, 27–30, 32, 34–50, 58, 59, 61, 63 | gateway workflow, registry approval, storage, audit and reports | Implemented within declared boundary | no production token/vault/data-plane execution |
-| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; private external extraction and CI verified | public release metadata |
+| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; external extraction, CI, and `@oa-sdk/dpm@0.1.2` publication verified | future release metadata |
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for private owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for private owner contract | future owner-authorized capability |
 | 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Active private slice implemented; cross-definition search first, automatic mutation second, and bulk authoring last remain deferred | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
-| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Private owner acceptance recorded; adapter transition scheduled after first accepted owner artifact release | public release metadata and breaking removal |
+| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Owner acceptance recorded; `@oa-sdk/dpm@0.1.2` published; adapter transition scheduled | breaking removal and future release metadata |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
 ## Dependency order
@@ -83,21 +87,21 @@ and local extraction is not evidence of production runtime readiness.
 
 ### G-01 — Ownership and authority
 
-Current `@oa-sdk/dpm` is private and maintenance-only. The canonical private owner is now
-`https://github.com/mineclover/data-governance`; the repository
-owner `mineclover` is the release authority for the private contract plane.
+`@oa-sdk/dpm@0.1.2` is published and maintenance-only. The canonical public owner is
+`https://github.com/mineclover/data-governance`; the repository owner `mineclover` is the release
+authority for the owner contract plane.
 
-The 2026-07-15 owner decision created the private repository and completed the private extraction
-handoff. The accepted decision record is [here](./owner-decision-record.md), and the latest owner
+The 2026-07-15 owner decision created the owner repository and completed the extraction handoff.
+The accepted decision record is [here](./owner-decision-record.md), and the latest owner
 verification workflow [29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791)
-passed for the selected private source ref. GitHub Issues, the structured Goal 68.4 acceptance form, the compatibility
-window, and the canonical document ownership are recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1).
+passed for the selected source ref. GitHub Issues, the structured Goal 68.4 acceptance form, the
+compatibility window, and the canonical document ownership are recorded in
+[Issue #1](https://github.com/mineclover/data-governance/issues/1).
 
-The remaining release gate is intentionally narrow: the selected public target is
-`@oa-sdk/dpm@0.1.2`, but public registry publication and breaking removal of the old import surface
-require a separate owner-approved SemVer tag or GitHub Release with a successful release-gate
-workflow for the selected source ref. The repository remains private and npm publication remains
-staged behind Trusted Publishing.
+`@oa-sdk/dpm@0.1.2` was published to npm on 2026-07-28. Future releases use the `v*` release gate,
+and breaking removal of the old import surface still requires a separately approved major release
+with a migration guide, deprecation notice, and passing rollback fixture. The repository is public;
+production data-plane execution (Phase 10) remains explicitly deferred.
 
 Blocking phases: 5–10.
 
@@ -177,11 +181,12 @@ Blocking phase: 10 only.
 
 ### Phase 0 — Ownership and compatibility decision (Goal 68.0) ✅
 
-Goal 68.0 is resolved. The 2026-07-15 owner decision makes this private repository canonical for
+Goal 68.0 is resolved. The 2026-07-15 owner decision makes this public repository canonical for
 the extraction contract and freezes `data_definitions` `1.0` as the structural compatibility
-contract; `1.1` remains deferred experimental. The former `oa-sdk` package remains a historical
-mirror until the first accepted owner artifact release (`T1`). The canonical owner reuses the same
-`@oa-sdk/dpm` package identity, so no separate adapter package or consumer import migration is required.
+contract; `1.1` remains deferred experimental. The former `oa-sdk` package is a non-publishing
+historical mirror after the `@oa-sdk/dpm@0.1.2` publication (`T1`). The canonical owner reuses the
+same `@oa-sdk/dpm` package identity, so no separate adapter package or consumer import migration is
+required.
 
 New persisted schemas, gateway workflows, cross-repository resolvers, search services, and edit
 workflows remain blocked unless separately authorized by the owner. Public registry publication and
@@ -249,7 +254,7 @@ Private owner rehearsal and migration acceptance complete:
 
 - clean external consumer build and package smoke;
 - import/package migration contract;
-- private repository governance and owner release authority;
+- public repository governance and owner release authority;
 - adapter fallback and rollback window.
 
 The local packed artifact and clean runtime/declaration/rollback consumer evidence live in

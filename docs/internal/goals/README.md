@@ -9,10 +9,10 @@ This repository owns the extracted DPM contract plane: logical data definitions,
 API/catalog bindings, neutral artifacts, compatibility rules, and migration/rollback evidence.
 It does not own production tokenization, vault execution, or row rewriting.
 
-The repository remains private under the accepted decision in
+The repository is public under the accepted decision in
 [owner-decision-record.md](./owner-decision-record.md). The selected public package target is
-`@oa-sdk/dpm`; the repository remains private while the registry release runs through the exact
-`v0.1.2` gate and OIDC publishing is configured.
+`@oa-sdk/dpm`; `0.1.2` was published on 2026-07-28 and is the current `latest`. Future registry
+releases run through the exact `v*` release gate.
 
 The formal acceptance review is recorded in the [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1);
 the structured issue form remains available at `.github/ISSUE_TEMPLATE/dpm-owner-acceptance.yml`.
@@ -23,7 +23,7 @@ changes but may not unilaterally approve contract/version changes or adapter cut
 
 | Goal | Status | Package |
 |---|---|---|
-| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — `@oa-sdk/dpm@0.1.2` OIDC publication candidate; existing imports remain unchanged | `@oa-sdk/dpm` |
+| [Goal 68 — DPM Logical Data Definition and Extraction Boundary](./goal-68-dpm-logical-data-definition-boundary.md) | Active — `@oa-sdk/dpm@0.1.2` published 2026-07-28; existing imports remain unchanged | `@oa-sdk/dpm` |
 
 ## Canonical document set
 

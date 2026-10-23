@@ -61,12 +61,12 @@ The owner or delegated release authority should copy the exact final values into
 [T1 release approval form](../../../.github/ISSUE_TEMPLATE/t1-release-approval.yml), then approve
 only after reviewing:
 
-- candidate source ref and successful private preflight/owner CI run links;
+- candidate source ref and successful preflight/owner CI run links;
 - package identity and registry target;
 - license and redistribution policy;
 - `v0.1.2` or an explicitly substituted release reference;
 - package continuity, non-publishing mirror, and rollback evidence;
 - release-gate output for the exact approved tag.
 
-The checklist is complete in Issue #2. The repository remains private, and the exact tag, registry
-publication, and historical-mirror policy must still follow the sequence and verification gates above.
+The checklist is complete in Issue #2. The repository is public, and `@oa-sdk/dpm@0.1.2` is
+published. Future releases must still follow the sequence and verification gates above.

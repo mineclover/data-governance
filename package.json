@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "private": true,
   "type": "module",
-  "description": "Private owner repository for the DPM logical data definition and extraction boundary",
+  "description": "Canonical owner repository for the DPM logical data definition and extraction boundary",
   "packageManager": "pnpm@11.28.6",
   "engines": {
     "node": ">=22.0.0",
