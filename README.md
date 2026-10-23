@@ -103,6 +103,10 @@ corepack pnpm test
 corepack pnpm smoke:dpm
 ```
 
+For a single sequential release-candidate verification, run `corepack pnpm verify`. It keeps
+build, checks, the private read-model shadow fixture, tests, and package smokes out of competing
+`dist/` writers.
+
 The DPM extraction smoke covers package-name runtime imports, public declarations, changed
 freshness plan identity, stale rollout rejection, and rollback from preserved inputs. It remains
 the release-candidate verification for every new version.

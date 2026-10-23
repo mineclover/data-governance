@@ -60,6 +60,9 @@ jobs:
       - name: Check read-model activation packet
         run: pnpm check:read-model-activation
 
+      - name: Run private read-model shadow fixture
+        run: pnpm check:read-model-shadow
+
       - name: Check T1 readiness
         run: pnpm check:t1-readiness
 
