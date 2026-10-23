@@ -81,6 +81,7 @@ changes or adapter cutover.
 
 - [Phase 10 runtime boundary decision](./phase-10-runtime-boundary-decision.md)
 - [Phase 10 runtime plan](./phase-10-runtime-plan.md)
+- [Phase 10 ownership and threat model](./phase-10-ownership-and-threat-model.md)
 
 ### TypeSpec logical ERD bridge
 

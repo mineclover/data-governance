@@ -7,6 +7,8 @@ This plan describes how a future production data-plane program could be evaluate
 It is not an implementation plan for the current `@oa-sdk/dpm` package and does not authorize
 production data, credentials, migrations, deployment, or cutover.
 
+The first work item is [P10.0 ownership and threat model](./phase-10-ownership-and-threat-model.md).
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs
