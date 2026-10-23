@@ -43,9 +43,10 @@ artifact. The repository is public. The earlier GitHub `v0.1.0` release is retai
 - Matching GitHub Release [`v0.1.2`](https://github.com/mineclover/data-governance/releases/tag/v0.1.2)
   was created on 2026-10-23, and [Issue #2](https://github.com/mineclover/data-governance/issues/2)
   was closed after the release record was completed.
-- The matching `v0.1.3` GitHub Release remains pending until the first successful OIDC publish
-  validates the npm Trusted Publisher configuration before 2026-10-25 15:24 UTC. The OIDC publish
-  succeeded on 2026-10-24; the GitHub Release record is the remaining closeout item.
+- The matching [v0.1.3 GitHub Release](https://github.com/mineclover/data-governance/releases/tag/v0.1.3)
+  was created after the successful OIDC publish on 2026-10-24, before the
+  2026-10-25 15:24 UTC validation deadline. [Issue #3](https://github.com/mineclover/data-governance/issues/3)
+  was then closed.
 - npm Trusted Publishing is now the required publication mechanism. The npm package configuration
   must trust the `publish.yml` workflow in the `npm-release` environment.
 
