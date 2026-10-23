@@ -27,14 +27,14 @@ The non-executing sequence is detailed in the [Phase 10 runtime plan](./phase-10
 | Responsibility | Current decision |
 | --- | --- |
 | DPM contract owner | `mineclover/data-governance` |
-| Runtime operational owner | **Not assigned** |
-| Security/privacy owner | **Not assigned** |
-| Deployment authority | **Not assigned** |
-| Production data steward | **Not assigned** |
-| Abort authority | No production execution is authorized; a future runtime owner must name it |
+| Runtime operational owner | `mineclover` as interim design coordinator; production owner not assigned |
+| Security/privacy owner | `mineclover` as interim design coordinator; independent security owner not assigned |
+| Deployment authority | `mineclover` for design gates only; production deployment authority not assigned |
+| Production data steward | `mineclover` for synthetic fixtures only; source/target stewards not assigned |
+| Abort authority | `mineclover` may stop design work; production abort authority not assigned |
 
-The missing owners are intentional blockers. The DPM repository owner is not automatically the
-production runtime, security, or deployment owner.
+The interim assignment is only for design coordination and synthetic preparation. It does not make
+the DPM repository owner the production runtime, security, data-steward, or deployment owner.
 
 ## Preparation boundary
 
