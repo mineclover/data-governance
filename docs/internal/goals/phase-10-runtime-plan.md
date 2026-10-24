@@ -14,6 +14,9 @@ followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md) and
 P10.3 is the [synthetic rehearsal](./phase-10-synthetic-rehearsal.md); it must pass before any
 non-production integration design is considered.
 
+P10.4 is the [non-production integration plan](./phase-10-non-production-integration-plan.md);
+actual provisioning and deployment require an approved environment and owner values.
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs

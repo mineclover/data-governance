@@ -85,6 +85,7 @@ changes or adapter cutover.
 - [Phase 10 runtime contract](./phase-10-runtime-contract.md)
 - [Phase 10 vault and tokenization design](./phase-10-vault-tokenization-design.md)
 - [Phase 10 synthetic rehearsal](./phase-10-synthetic-rehearsal.md)
+- [Phase 10 non-production integration plan](./phase-10-non-production-integration-plan.md)
 
 ### TypeSpec logical ERD bridge
 
