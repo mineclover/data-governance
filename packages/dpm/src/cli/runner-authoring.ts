@@ -343,11 +343,15 @@ function runAuthoringValidation(flags: readonly string[]): DpmCliResult {
     }, format)
   }
   const events = readAuditEvents(values.eventsPath!)
+  const chronological = events.every((event, index) => index === 0 || event.at >= events[index - 1]!.at)
+  if (!chronological) {
+    throw invalidAuthoringDocument(values.eventsPath!, 'audit events must be in chronological order')
+  }
   return createDpmCliResult('authoring-validate', 0, {
     valid: true,
     documentKind: 'audit-events',
     eventCount: events.length,
-    chronological: events.every((event, index) => index === 0 || event.at >= events[index - 1]!.at),
+    chronological,
   }, format)
 }
 
@@ -411,6 +415,7 @@ function readAuditEvents(path: string): readonly DpmAuthoringAuditEvent[] {
     if (typeof event.definitionId !== 'string' || !event.definitionId) throw invalidAuthoringDocument(path, `audit event ${index} is missing definitionId`)
     if (typeof event.actorId !== 'string' || !event.actorId) throw invalidAuthoringDocument(path, `audit event ${index} is missing actorId`)
     if (typeof event.at !== 'string' || !event.at) throw invalidAuthoringDocument(path, `audit event ${index} is missing at`)
+    if (Number.isNaN(Date.parse(event.at))) throw invalidAuthoringDocument(path, `audit event ${index} has invalid at timestamp`)
     if (event.breaking !== undefined && typeof event.breaking !== 'boolean') throw invalidAuthoringDocument(path, `audit event ${index} has invalid breaking value`)
     return event as DpmAuthoringAuditEvent
   })

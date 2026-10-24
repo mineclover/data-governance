@@ -1,0 +1,19 @@
+[
+  {
+    "eventId": "audit-2",
+    "action": "draft.created",
+    "definitionId": "customer-definition",
+    "actorId": "editor",
+    "at": "2026-07-15T00:02:00.000Z",
+    "draftId": "draft-1",
+    "baseRevisionId": "revision-1"
+  },
+  {
+    "eventId": "audit-1",
+    "action": "revision.seeded",
+    "definitionId": "customer-definition",
+    "actorId": "owner",
+    "at": "2026-07-15T00:01:00.000Z",
+    "revisionId": "revision-1"
+  }
+]

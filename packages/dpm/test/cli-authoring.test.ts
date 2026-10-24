@@ -140,6 +140,18 @@ describe('DPM CLI authoring commands', () => {
     expect(result.stderr).toBe('Authoring validate requires exactly one of --revision, --draft, or --events\n')
   })
 
+  it('rejects non-chronological audit snapshots in validation mode', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'validate',
+      '--events',
+      fixture('audit-events-out-of-order.json'),
+    ])
+
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toContain('audit events must be in chronological order')
+  })
+
   it('rejects malformed audit snapshots', async () => {
     const result = await runDpmCli([
       'authoring',
