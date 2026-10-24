@@ -7,6 +7,21 @@ This checklist collects the owner decisions required before implementing or enab
 `authoring apply`. Checking an item requires explicit owner evidence; passing repository tests alone
 does not check or activate it.
 
+## Proposed review values
+
+These are the conservative values selected for review. They are proposals, not approvals, and do
+not change the unchecked gates below.
+
+| Decision | Proposed value | State |
+| --- | --- | --- |
+| Operational owner | TBD; owner role/identifier still required | pending owner input |
+| Initial scope | Dry-run only | proposed |
+| Authorization | Owner-injected adapter with default-deny `editor`/`reviewer`/`publisher`/`rollback` roles | proposed |
+| Persistence | No writes; memory/injected-adapter rehearsal only | proposed |
+| Idempotency | Required for `definitionId` + `baseRevisionId`; retention TBD | proposed |
+| Audit and rollback | Plan-only; no audit event or revision creation | proposed |
+| Release | Existing T1 package/release gate | proposed |
+
 ## Required owner decisions
 
 - [ ] Operational owner named for authoring writes, audit, monitoring, backup, and rollback.
