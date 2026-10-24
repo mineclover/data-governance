@@ -24,6 +24,23 @@ checks.push({ name: 'semantic diff', pass: diff.command === 'authoring-diff' && 
 const review = await runJson(['authoring', 'review', '--before', before, '--after', after])
 checks.push({ name: 'approval review', pass: review.command === 'authoring-review' && review.result.approvalRequired === true })
 
+const reviewGate = await runExpectedFailure([
+  'authoring',
+  'review',
+  '--before',
+  before,
+  '--after',
+  after,
+  '--fail-on-approval-required',
+  'true',
+])
+checks.push({
+  name: 'approval review CI gate',
+  pass: reviewGate.exitCode === 1
+    && JSON.parse(reviewGate.stdout).result.approvalRequired === true
+    && reviewGate.stderr === '',
+})
+
 const applyPlan = await runJson(['authoring', 'apply-plan', '--before', before, '--after', after])
 checks.push({
   name: 'apply plan remains read-only',
@@ -74,4 +91,13 @@ async function runJson(args) {
   const result = await runDpmCli(args)
   if (result.exitCode !== 0) throw new Error(result.stderr || `CLI failed: ${args.join(' ')}`)
   return JSON.parse(result.stdout)
+}
+
+async function runExpectedFailure(args) {
+  const result = await runDpmCli(args)
+  return {
+    exitCode: result.exitCode,
+    stdout: result.stdout,
+    stderr: result.stderr,
+  }
 }
