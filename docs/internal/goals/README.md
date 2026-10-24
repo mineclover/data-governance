@@ -28,6 +28,7 @@ data-plane runtime are outside this repository.
 | Phase 8 | Representative authoring slice activated; broader control plane deferred |
 | Management CLI | File-based read-only registry/profile/authoring flow; later changes not yet republished |
 | Private read-model evidence | 81 conformance tests; consumer/runtime activation remains disabled |
+| Private SQL proposal | 19 offline structural tests; no PostgreSQL execution, adapter or client |
 | Phase 10 | Production data-plane explicitly deferred |
 | Release authority | `mineclover` repository owner |
 

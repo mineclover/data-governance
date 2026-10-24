@@ -9,6 +9,7 @@ const contract = fs.readFileSync(
 )
 const authoringIndex = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/index.ts'), 'utf8')
 const publicAuthoring = fs.readFileSync(path.join(root, 'packages/dpm/src/public/authoring.ts'), 'utf8')
+const packageIndex = fs.readFileSync(path.join(root, 'packages/dpm/src/index.ts'), 'utf8')
 const shadowHarness = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/read-model-shadow.ts'), 'utf8')
 const authorizationHarness = fs.readFileSync(path.join(root, 'packages/dpm/src/authoring/read-model-authorization.ts'), 'utf8')
 const normalizedContract = contract.replace(/\s+/g, ' ')
@@ -49,6 +50,18 @@ if (authoringIndex.includes('read-model-contract') || publicAuthoring.includes('
   authoringIndex.includes('read-model-shadow') || publicAuthoring.includes('read-model-shadow') ||
   authoringIndex.includes('read-model-authorization') || publicAuthoring.includes('read-model-authorization')) {
   console.error('Cross-definition read-model reference and private harnesses must not be exported from the public authoring seam')
+  process.exit(1)
+}
+
+const proposalModule = 'read-model-postgres-contract'
+const proposalSurfaces = [authoringIndex, publicAuthoring, packageIndex]
+for (const directory of ['packages/dpm/src/public', 'packages/dpm/src/cli']) {
+  for (const name of fs.readdirSync(path.join(root, directory)).filter(name => name.endsWith('.ts'))) {
+    proposalSurfaces.push(fs.readFileSync(path.join(root, directory, name), 'utf8'))
+  }
+}
+if (proposalSurfaces.some(source => source.includes(proposalModule) || source.includes('DPM_READ_MODEL_POSTGRES_'))) {
+  console.error('Read-model SQL proposal must remain private and unwired from package exports and CLI')
   process.exit(1)
 }
 

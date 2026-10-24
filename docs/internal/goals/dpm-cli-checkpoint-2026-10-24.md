@@ -3,7 +3,8 @@
 **Original checkpoint:** 2026-10-24
 **Updated:** 2026-10-25
 **Repository:** `mineclover/data-governance`
-**Verified implementation:** `be47ccc` (this handoff is a subsequent documentation refresh)
+**CLI/reference implementation baseline:** `be47ccc`
+**Current follow-on:** private unexecuted SQL proposal and 19 offline structural tests
 **Branch at implementation handoff:** `main` clean and synchronized with `origin/main`
 **Recorded published package:** `@oa-sdk/dpm@0.1.3`, OIDC-published 2026-10-24
 
@@ -106,7 +107,11 @@ PostgreSQL as the staging design baseline. The
 [local staging design](./phase-8-read-model-local-staging-design.md) now describes logical records,
 durable session/transaction and freshness requirements, and acceptance scenarios. Actual instance,
 version/image pin, namespace, roles, retention, thresholds, recovery, and the execution change
-record remain pending; no SQL, driver, container, or connection was added or run.
+record remain pending. A subsequent explicit approval permits private SQL strings and offline
+tests only: `read-model-postgres-contract.ts` now holds a schema/statement/transaction proposal,
+but no SQL has been applied and no driver/client, adapter, container, or connection was added.
+The proposal requires review of source-registrar authority, lock-first transactions, duplicate
+attempt handling, exact affected-row checks and rollback, and ready-pointer/readiness semantics.
 
 ## Key implementation locations
 
@@ -121,16 +126,20 @@ record remain pending; no SQL, driver, container, or connection was added or run
 - `packages/dpm/src/authoring/read-model-shadow.ts` — private fallback parity comparison.
 - `packages/dpm/src/authoring/read-model-authorization.ts` — injected definition-scope isolation.
 - `packages/dpm/test/authoring-read-model-contract.test.ts` — 81 private conformance tests.
+- `packages/dpm/src/authoring/read-model-postgres-contract.ts` — private SQL/parameter/transaction strings only.
+- `packages/dpm/test/authoring-read-model-postgres-contract.test.ts` — 19 offline structural tests, not SQL execution.
 - `docs/internal/goals/roadmap-checkpoint.md` — canonical routine roadmap/evidence record.
 
 ## Verification snapshot
 
-Local `CI=true pnpm verify` passed for implementation `be47ccc`:
+Local `CI=true pnpm verify` passed after private offline SQL proposal preparation (CLI/reference
+behavior remains based on `be47ccc`; the proposal is not publicly wired):
 
 - `pnpm verify` — full build, typecheck, gates, tests, and DPM smokes;
-- DPM full suite: **134 files / 422 tests**;
+- DPM full suite: **135 files / 441 tests**;
 - projection contract: **4 files / 30 tests**;
 - private read-model fixture: **1 file / 81 tests**, included in the DPM total;
+- private SQL proposal: **1 file / 19 structural tests**, also included in the DPM total;
 - `pnpm --filter @oa-sdk/dpm smoke:cli` — built binary positive and negative paths;
 - built CLI smoke compares authoring fixture bytes and directory entries after every command,
   including approval-required and invalid-input failures; this is input-integrity evidence,
@@ -186,7 +195,7 @@ This work unit is complete; no additional implementation or activation is implie
    state rather than assuming this recorded clean snapshot is still current.
 2. For the first operational follow-on, review the staging design in the read-model activation
    packet and local PostgreSQL design with intended owner `mineclover` and Issue #4. Review the
-   proposed records/protocols, name the exact local instance and execution authorities, and
+   proposed records and unexecuted SQL/transaction contracts, name the exact local instance and execution authorities, and
    approve projection-writer authority, durable target configuration,
    source reconciliation, authorization, observation, backup/restore, and fallback before durable
    shadow. Approve the consumer read-only pilot separately; keep consumers disabled beforehand.

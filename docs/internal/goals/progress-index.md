@@ -15,6 +15,8 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 
 ## Recently Completed
 
+- Private read-model SQL proposal and 19 offline structural tests prepared after explicit scope approval. Schema/parameter/transaction strings remain unwired from public exports and CLI; no PostgreSQL execution, driver/client, adapter, or migration is included. Current full local verification covers DPM **135 files / 441 tests**; see the [local design](./phase-8-read-model-local-staging-design.md) for unverified database semantics and pending approvals.
+
 - Read-only management CLI and approval-required CI gate, built CLI input-integrity checks, fail-closed query/cursor validation, and private rebuild-session fencing. No durable index, consumer service, CLI mutation, or Phase 10 runtime was activated.
 
 - [x] Goal 67 / DPM Canonical Key Typed Encoding v2 (complete)

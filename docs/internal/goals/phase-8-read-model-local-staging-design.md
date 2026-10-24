@@ -1,6 +1,6 @@
 # Phase 8 Read-Model Local PostgreSQL Staging Design
 
-**Status: design only; no provisioning, connection, migration, or durable write authorized**
+**Status: design and offline SQL proposal only; no provisioning, connection, migration, or durable write authorized**
 **Updated:** 2026-10-25
 **Intended read-model operational owner:** `mineclover`
 **Selected design environment:** isolated disposable local PostgreSQL
@@ -10,6 +10,11 @@ The user selected this environment for design, not execution. This document refi
 [activation packet](./phase-8-cross-definition-read-model-activation-packet.md) and
 [read-model contract](./phase-8-cross-definition-read-model-contract.md). It contains no SQL,
 connection settings, credentials, container launcher, driver integration, or migration command.
+
+The user subsequently approved **private SQL contracts and offline tests only**. The proposal in
+`packages/dpm/src/authoring/read-model-postgres-contract.ts` is declarative SQL/parameter/recipe
+constants, not an executing client or adapter. The 19 structural tests in
+`packages/dpm/test/authoring-read-model-postgres-contract.test.ts` do not parse or run PostgreSQL.
 
 ## Isolation and source boundary
 
@@ -104,7 +109,52 @@ that the read-model schema or durable fencing has been validated.
 
 ## Remaining execution gates and next review
 
-Before adding SQL/driver integration or running any local database rehearsal, separately approve:
+### Offline SQL proposal scope and review requirements
+
+- `proposal-1` is an unexecuted private proposal identifier, not a public wire/schema compatibility
+  promise. Fixed SQL namespace `dpm_read_model` is a proposed isolation boundary, not a selected
+  existing schema or permission to create one. Plain table creation deliberately fails on reuse;
+  no upgrade/idempotent migration system is supplied.
+- Four records model source expectations, attempts, identity-only projected fields and ready
+  pointers. Namespace/definition keys and foreign keys preserve attempt isolation. There is no
+  authoring table reuse, source revision mutation, automatic cleanup, or grant/role creation.
+- `expected_projection` maps object IDs to canonical `{ field, identities, apiBindings }` payloads
+  derived from the existing validated projection helper. A separately authorized source registrar
+  must accept the synthetic manifest. Builders must not choose or modify this blueprint.
+  Top-level payload checks and equality with approved expectations are not a general JSON sanitizer;
+  approved input normalization and actual database privilege enforcement remain required.
+- Source registration is a single atomic upsert that advances the epoch only on changed
+  expectation content. An unchanged registration returns zero rows and means no change, not a
+  new build. This operation is separate from builder authority.
+- The proposed begin/append/complete/fail recipes use separate statements in one `READ COMMITTED`
+  transaction, retaining a per-definition source-row lock until commit/rollback. Re-read after
+  locking; do not replace the sequence with a single snapshot-based CTE. The isolation/privilege
+  mechanism still needs PostgreSQL review and execution evidence.
+- Begin checks for an existing scoped attempt ID after locking and before advancing the epoch.
+  A duplicate with matching source identity returns its original outcome without advancing or
+  reviving ownership; mismatched identity is a conflict. Superseded/terminal attempts do not become
+  active merely because their ID is retried. A new rebuild uses a new attempt ID.
+- Except unchanged registration and the optional initial attempt lookup, require exactly one row
+  from each scoped lock/mutation. A missing source, stale epoch, rejected row, or missing ready
+  transition means reject and roll back; uniqueness violations also roll back. In particular,
+  ready promotion and pointer change are one transaction: pointer failure must undo promotion.
+- Append compares both expected object membership and full canonical payload equality; duplicate
+  rows are errors, not upserts. Completion checks expected-minus-actual and actual-minus-expected
+  sets and payload parity, not merely row counts. Failure never changes the ready pointer.
+- Scope readiness is a single status-only statement over already-authorized definition IDs;
+  empty/malformed scopes are forbidden and any unavailable member prevents partial success.
+  It is not authentication, a full search query, a pagination adapter, or a consumer route.
+- No driver/client, transaction executor, connection/configuration, migration runner, package/CLI
+  export, worker, or durable read path is provided. Direct table writes could bypass the protocol;
+  an approved access-control/privilege boundary is a prerequisite, not a capability of these strings.
+
+Offline tests inspect placeholder metadata, scoped constraints/predicates, completeness expressions,
+recipe ordering and absence of public/CLI wiring. They do **not** establish PostgreSQL syntax,
+locking, rollback, source authorization, throughput, or backup/restore correctness.
+
+### Still blocked before execution or client/driver integration
+
+Separately approve:
 
 - this logical layout and durable ownership/transaction/freshness semantics;
 - exact PostgreSQL version/image pin, database/namespace, migration and application role identities;
@@ -113,6 +163,7 @@ Before adding SQL/driver integration or running any local database rehearsal, se
 - retry/concurrency, retention and cleanup, backup/restore and recovery requirements;
 - observation window and latency/error/lag/cardinality thresholds, plus telemetry access/retention.
 
-The immediate next step is design review and completion of these values, not container startup or
-SQL implementation. No scope change is implied for authoring mutation, managed staging, production,
+The immediate next step is review of the unexecuted SQL/transaction proposal and completion of
+these values, not container startup, SQL application, or a storage adapter. No scope change is
+implied for authoring mutation, managed staging, production,
 consumer pilots, external IdP deployment, package release, or Phase 10.

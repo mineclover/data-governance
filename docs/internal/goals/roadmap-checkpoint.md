@@ -49,7 +49,8 @@ Issue is not required for ordinary roadmap updates.
 - The selected staging design baseline is isolated disposable local PostgreSQL. The
   [local read-model design](./phase-8-read-model-local-staging-design.md) prepares logical records,
   source-expectation/ownership transactions, scoped reads, and a rehearsal acceptance matrix;
-  it does not add SQL, a driver, or database execution.
+  the subsequently approved private SQL proposal adds only unexecuted schema/statement/recipe
+  constants and offline structural tests, not a driver/client, adapter, or database execution.
 
 ## Completed
 
@@ -108,6 +109,9 @@ Issue is not required for ordinary roadmap updates.
 - Local `CI=true pnpm verify` passed at implementation `be47ccc`: DPM 134 files / 422 tests,
   projection contract 4 files / 30 tests, plus subpath/CLI/demo/extraction/consumer/pack smokes.
   The 81 private read-model tests are included in the DPM total, not an additional suite total.
+- After the separately approved offline SQL proposal, full local verification covers DPM
+  135 files / 441 tests, including 81 read-model conformance tests and 19 SQL structural tests.
+  This does not provide PostgreSQL syntax, transaction/locking, or migration execution evidence.
 
 ## Next
 
@@ -204,6 +208,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-25 | The implementation is complete for this work unit, but the handoff and status summaries retained older commit/test snapshots. | adopt handoff refresh / close work unit | Synchronize the verified implementation, CLI/read-model behavior, unpublished package changes, selected no-write constraints, evidence limitations, and owner-gated resumption order without adding functionality or activation. | `be47ccc`, [Current handoff](./dpm-cli-checkpoint-2026-10-24.md), `CI=true pnpm verify` |
 | 2026-10-25 | The user named mineclover as the intended read-model operational owner and selected staging design only, not execution. | adopt scoped owner selection / defer activation | Prepare isolated synthetic-input staging topology, projection writer/reader separation, durable-session/freshness requirements, and acceptance/stop criteria; keep provider, roles, retention, execution approval, authoring mutation ownership, and production authority separate. | [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md), [Handoff](./dpm-cli-checkpoint-2026-10-24.md) |
 | 2026-10-25 | The user selected isolated disposable local PostgreSQL as the read-model staging design baseline, without authorizing execution. | adopt local design target / defer implementation | Prepare source-expectation, attempt, projection and ready-pointer responsibilities plus durable fencing/freshness, least-privilege and recovery acceptance; distinguish historical authoring PostgreSQL evidence from unimplemented read-model storage. | [Local staging design](./phase-8-read-model-local-staging-design.md), [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md) |
+| 2026-10-25 | The user explicitly expanded the design-only scope to private SQL contracts and offline tests, excluding execution and clients/adapters. | adopt unexecuted SQL proposal / defer integration | Prepare isolated scoped schema, parameterized lifecycle/readiness statements and lock-first transaction recipes; test structure and prevent public/CLI wiring without claiming PostgreSQL syntax, concurrency, rollback, or durable execution evidence. | `packages/dpm/src/authoring/read-model-postgres-contract.ts`, `packages/dpm/test/authoring-read-model-postgres-contract.test.ts`, [Local design](./phase-8-read-model-local-staging-design.md) |
 
 ## Formal approvals
 

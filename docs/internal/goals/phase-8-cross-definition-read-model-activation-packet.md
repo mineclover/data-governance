@@ -49,7 +49,7 @@ CI-only; no external issue approval state was changed by this repository update.
 | Decision | Recorded state |
 | --- | --- |
 | Intended read-model operational owner | `mineclover`, explicitly selected for this follow-on |
-| Next scope | Isolated non-production staging design only |
+| Next scope | Isolated non-production staging design and subsequently approved private SQL contracts/offline tests only |
 | Current execution | Existing ephemeral CI/reference fixture; consumers remain `disabled` |
 | Durable target | PostgreSQL selected as the local staging design baseline; no service provisioned |
 | Environment/provider and projection namespace | Isolated disposable local environment selected; no cloud provider, database/host, version/image pin, roles, or schema selected |
@@ -60,6 +60,11 @@ The user subsequently selected **isolated local PostgreSQL** as the design envir
 without execution permission. The [local staging design](./phase-8-read-model-local-staging-design.md)
 defines proposed storage responsibilities, generation ownership/atomic ready publication, scoped
 freshness checks, and the rehearsal acceptance matrix. It is not DDL or a validated durable adapter.
+
+The subsequent user approval permits authoring private SQL strings and offline structural tests,
+not their execution. The local design now links the `proposal-1` schema/statement/transaction
+contract; no driver/client, adapter, container, connection, migration, or consumer route is added.
+The original design-only selection is not being treated as retroactive execution approval.
 
 ### Proposed staging components
 
@@ -117,7 +122,8 @@ OA SDK Core code generation or the Spec-Lens source/spec observation index. The 
 `@oa-sdk/dpm` workspace in OA SDK remains maintenance-only; package namespace continuity is not
 a scope reactivation or permission to implement this service in that monorepo.
 
-The current follow-up prepares operational requirements and approval criteria only. It retains
+The current follow-up prepares operational requirements, unexecuted SQL contracts, and offline
+structural evidence only. It retains
 file-based CLI inputs and the existing ephemeral in-memory conformance/shadow fixture. It creates
 no durable index, audit event, revision, connection, migration, deployment flag, or consumer route.
 Transient fixture generation is evidence, not operational persistence. Read-model activation is
