@@ -18,16 +18,16 @@ database, production on-call commitment, public route, or read-only pilot is app
 The full future rollout remains `disabled` → `shadow` → `read-only pilot` → approved expansion.
 
 This packet turns the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
-into an owner-reviewable activation runbook. It is a recommendation and approval artifact only.
-It does not select an operational owner, connect to a database, add a public API, integrate an
-external identity provider, or authorize any T1/public-release action.
+into an owner-reviewable activation runbook. It records the intended staging owner and design-only
+decision below, but does not connect to a database, add a public API, integrate an external identity
+provider, or authorize any T1/public-release action.
 
 ## Recommended operating model
 
 | Decision | Recommendation | Approval state |
 | --- | --- | --- |
 | Contract owner | `mineclover/data-governance` owns the contract and reference implementation. | Accepted for private preparation |
-| Operational owner | `mineclover` repository owner for the CI-only rehearsal; production operational owner remains unselected. | CI-only scope confirmed; production pending |
+| Operational owner | `mineclover` owns the CI-only rehearsal and is explicitly selected as the intended read-model operational owner for staging preparation. | Staging design-only selection recorded 2026-10-25; actual execution/on-call and production authority pending |
 | Durable target | Use the prepared PostgreSQL direction only after a separate production decision. | No durable target; migration deferred |
 | Build protocol | Build a new generation from one immutable published revision and publish an atomic `ready` pointer only after all rows are complete. | Contract prepared; runtime pending |
 | Consistency | Strict by default. Missing, `building`, `stale`, or `failed` generations return `read-model-unavailable`, never a false empty result. | Recommended |
@@ -37,6 +37,73 @@ external identity provider, or authorize any T1/public-release action.
 
 The logical flag remains `disabled` until the owner-approved change record names its actual
 deployment flag, operator, and rollback path. This repository does not add or set that flag.
+
+## Staging design-only decision — 2026-10-25
+
+The user explicitly selected `mineclover` as the intended read-model operational owner and
+**staging design only** as the next review scope. This is not inferred from repository ownership.
+It authorizes preparation of this design, not provisioning, migration, connections, durable writes,
+workers, consumer traffic, or production operation. Issue #4's existing execution approval remains
+CI-only; no external issue approval state was changed by this repository update.
+
+| Decision | Recorded state |
+| --- | --- |
+| Intended read-model operational owner | `mineclover`, explicitly selected for this follow-on |
+| Next scope | Isolated non-production staging design only |
+| Current execution | Existing ephemeral CI/reference fixture; consumers remain `disabled` |
+| Durable target | PostgreSQL remains a candidate, not a selected/provisioned service |
+| Environment/provider and projection namespace | TBD; no database, host, account, region, or schema selected |
+| On-call, abort and deployment authority | Execution-specific assignments and acceptance still required |
+| Authoring mutation | Separate owner/checklist remains unchanged; no apply/write activation |
+
+### Proposed staging components
+
+```text
+Explicit synthetic immutable published revisions + freshness identities
+  -> generation builder (future, separately authorized projection writer)
+  -> isolated projection store (future durable target; not an authoring/source database)
+  -> private scoped shadow query + definition-scoped fallback comparison
+  -> identity-only parity, freshness, failure and recovery report
+Consumers: disabled throughout durable shadow; a pilot needs its own approval
+```
+
+Only synthetic metadata fixtures are proposed for the first staging rehearsal. Real customer
+rows, credentials, production dumps, drafts, and unrestricted catalog discovery are excluded.
+An owner must name the exact fixture/scope and environment before execution. Existing authoring
+schema blocks are not automatically a schema or migration plan for this projection store.
+
+### Proposed role and storage boundary
+
+- **Migration authority:** separately approved schema setup only; no runtime reader/builder DDL.
+- **Builder:** read only approved source artifacts and write only the isolated projection store;
+  never approve/publish source definitions or access source business rows.
+- **Shadow reader:** bounded reads of complete ready generations in the caller's resolved scope;
+  no rebuild, DDL, authoring writes, or scope expansion.
+- **Operator:** stop/retry and fallback through an approved runbook; no implicit permission to
+  delete source revisions or projection history. Actual identities and grants remain TBD.
+
+For a future durable implementation, stage rows outside visible generations and atomically switch
+the ready pointer only after completeness and source/freshness verification. Reject superseded
+session completion/failure using an owner-reviewed durable ownership/transaction mechanism; the
+current single-instance reference's object-identity check is not a database fencing mechanism.
+Reconcile the authoritative latest source before serving; the current fixture cannot discover
+an unindexed revision by itself. Retention, retry/concurrency, and cleanup authority remain TBD.
+
+### Staging acceptance and stop criteria
+
+Before approving execution, record the provider/environment/residency, role identities, schema and
+migration plan, connection/TLS/timeouts, source scope, authorization/revocation policy, retry and
+generation ownership protocol, backup/restore, retention, and telemetry/observation thresholds.
+Do not invent these values from the local fixture's timings or test count.
+
+The future rehearsal must demonstrate no partial-ready visibility or obsolete-session overwrite,
+strict stale/missing-generation rejection, zero scope leakage, deterministic bounded pagination,
+shadow parity with zero correctness mismatches, and backup/rebuild plus stop/fallback recovery.
+Stop on any correctness, authorization, freshness, auditability/observation, or recovery failure;
+preserve evidence rather than repairing failure by widening scope or deleting history.
+
+Approval of that evidence may permit a separately bounded read-only pilot. It does not authorize
+authoring mutation, external IdP integration, production deployment, npm release, or Phase 10.
 
 ## Product ownership and current work boundary
 
@@ -54,8 +121,9 @@ authorized by a search pilot.
 
 ## Operational requirements and pending decisions
 
-These requirements refine the owner-value list below. All future operational values remain
-pending; this table supplies no owner approval, credentials, or production defaults.
+These requirements refine the owner-value list below. Apart from the intended staging owner and
+design-only scope recorded above, execution-specific values remain pending; this table supplies
+no execution approval, credentials, or production defaults.
 
 | Area | Required behavior and acceptance evidence | Owner value still required |
 | --- | --- | --- |

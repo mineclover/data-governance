@@ -92,10 +92,17 @@ The user-selected conservative values remain recorded as proposals, not activati
 | Persistence | No writes; ephemeral/injected rehearsal only |
 | Idempotency | Required for definition/base-revision scope; retention TBD |
 | Audit / rollback | Plan-only; no operational event or revision creation |
-| Operational owner | Identifier still TBD; repository release ownership is not a production on-call assignment |
+| Authoring mutation operational owner | Identifier still TBD; repository release ownership is not a production on-call assignment |
 
 Every mutation approval checkbox remains unchecked. Read-model CI-only shadow evidence does not
 approve durable shadow, a consumer pilot, migration, connection, or production deployment.
+
+For the separate read-model follow-on, the user selected `mineclover` as the intended operational
+owner and **staging design only** on 2026-10-25. The activation packet now contains the proposed
+synthetic-input topology, projection-writer/reader role separation, staging acceptance and stop
+criteria. This does not change the authoring mutation owner, approve any durable execution, or
+assign production on-call authority. Provider/environment, durable target, roles, retention,
+thresholds, recovery, and the execution change record are still pending.
 
 ## Key implementation locations
 
@@ -173,8 +180,9 @@ This work unit is complete; no additional implementation or activation is implie
 
 1. Maintain the current read-only CLI, private conformance, and consumer evidence. Re-check git
    state rather than assuming this recorded clean snapshot is still current.
-2. For the first operational follow-on, use the existing read-model activation packet and
-   Issue #4. Name the operator/environment and approve projection-writer authority, durable target,
+2. For the first operational follow-on, review the staging design in the read-model activation
+   packet with intended owner `mineclover` and Issue #4. Name the actual environment and
+   execution authorities, and approve projection-writer authority, durable target,
    source reconciliation, authorization, observation, backup/restore, and fallback before durable
    shadow. Approve the consumer read-only pilot separately; keep consumers disabled beforehand.
 3. Only after a separate mutation decision, consider automatic authoring apply with durable

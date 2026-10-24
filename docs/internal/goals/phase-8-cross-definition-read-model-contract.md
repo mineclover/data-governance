@@ -14,8 +14,10 @@ The current private slice searches one definition at a time. The next recommende
 read-only projection that can resolve the same logical field across authorized definitions without
 turning display names, API artifacts, or catalog coordinates into a new source of truth.
 
-The contract owner is the private `mineclover/data-governance` repository. The operational runtime
-owner is not yet assigned. PostgreSQL remains the prepared durable target from the
+The contract owner is the private `mineclover/data-governance` repository. On 2026-10-25 the user
+selected `mineclover` as the intended read-model operational owner for staging design only;
+execution-specific on-call/deployment authority and production ownership remain unapproved.
+PostgreSQL remains the prepared durable candidate from the
 [persistence proposal](./phase-8-persistence-proposal.md), but no database or deployment change is
 authorized by this contract.
 

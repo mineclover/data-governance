@@ -43,6 +43,9 @@ Issue is not required for ordinary roadmap updates.
   for any future apply discussion; it is recommendation-only and does not activate mutation.
 - Use the [authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md)
   to collect owner decisions before any mutation implementation discussion.
+- Read-model intended operational owner `mineclover` and staging design-only scope were explicitly
+  selected on 2026-10-25. Review the synthetic-input topology, role separation, and acceptance/stop
+  criteria in the activation packet; durable shadow, deployment, and consumer traffic stay unapproved.
 
 ## Completed
 
@@ -195,6 +198,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-25 | Empty or unsupported predicates and malformed cursor tuples could be accepted as normal read-model queries. | adopt fail-closed input validation | Reject invalid query/identity/locator shapes and cursor tuples, preserve supported filters and generated continuations, and verify offline CLI exit/output and input-integrity boundaries without enabling runtime or persistence. | [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm --filter @oa-sdk/dpm smoke:cli` |
 | 2026-10-25 | An obsolete rebuild session could overwrite a replacement generation, and the state setter could expose incomplete staged rows as ready. | adopt private session fencing / defer durable execution | Check per-definition/revision session ownership before append/complete/fail, reject incomplete ready promotion, and verify cancellation, terminal-state, retry, and cross-definition isolation without introducing workers, locks, or persistence. | [Read-model contract](./phase-8-cross-definition-read-model-contract.md), [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm check:read-model-shadow` |
 | 2026-10-25 | The implementation is complete for this work unit, but the handoff and status summaries retained older commit/test snapshots. | adopt handoff refresh / close work unit | Synchronize the verified implementation, CLI/read-model behavior, unpublished package changes, selected no-write constraints, evidence limitations, and owner-gated resumption order without adding functionality or activation. | `be47ccc`, [Current handoff](./dpm-cli-checkpoint-2026-10-24.md), `CI=true pnpm verify` |
+| 2026-10-25 | The user named mineclover as the intended read-model operational owner and selected staging design only, not execution. | adopt scoped owner selection / defer activation | Prepare isolated synthetic-input staging topology, projection writer/reader separation, durable-session/freshness requirements, and acceptance/stop criteria; keep provider, roles, retention, execution approval, authoring mutation ownership, and production authority separate. | [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md), [Handoff](./dpm-cli-checkpoint-2026-10-24.md) |
 
 ## Formal approvals
 
