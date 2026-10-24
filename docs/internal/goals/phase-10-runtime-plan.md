@@ -7,8 +7,9 @@ This plan describes how a future production data-plane program could be evaluate
 It is not an implementation plan for the current `@oa-sdk/dpm` package and does not authorize
 production data, credentials, migrations, deployment, or cutover.
 
-The plan is complete as a design baseline. No further runtime phase starts until the missing
-production owners and a separate go/no-go decision are recorded in Issue #5.
+The plan is complete as a design baseline. `mineclover` is the organizational owner for the
+responsibilities, but no further runtime phase starts until named delegates, execution values, and
+a separate go/no-go decision are recorded in Issue #5.
 
 The first work item is [P10.0 ownership and threat model](./phase-10-ownership-and-threat-model.md),
 followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md) and

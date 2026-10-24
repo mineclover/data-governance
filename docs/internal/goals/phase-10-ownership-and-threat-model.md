@@ -1,6 +1,6 @@
 # Phase 10 Ownership and Threat Model
 
-**Status: design owner assigned; no production execution authorized**
+**Status: organization owner assigned; production execution still gated**
 **Started: 2026-10-24**
 
 This is the P10.0 design artifact for a future runtime/data-plane program. It defines the system
@@ -41,19 +41,18 @@ does not add production execution code to `@oa-sdk/dpm` or the historical `oa-sd
 | Responsibility | Current owner | Required before execution |
 | --- | --- | --- |
 | DPM contract and artifact | `mineclover/data-governance` | Already assigned |
-| Runtime implementation | `mineclover` — interim design owner | Separate production runtime owner |
-| Runtime operations/on-call | `mineclover` — design coordination only | Production operator and on-call rotation |
-| Security/privacy review | `mineclover` — interim decision coordinator | Independent security/privacy owner |
-| Vault and key management | `mineclover` — design coordination only | Named key-management owner |
-| Source data stewardship | `mineclover` — synthetic scope only | Source owner approval |
-| Target data stewardship | `mineclover` — synthetic scope only | Target owner approval |
-| Deployment/change authority | `mineclover` — design gate only | Named production deployment authority |
-| Abort/incident authority | `mineclover` — no-production-execution authority | Production incident authority and escalation path |
+| Runtime implementation | `mineclover` organization | Named runtime team/operator |
+| Runtime operations/on-call | `mineclover` organization | Named operator and on-call rotation |
+| Security/privacy review | `mineclover` organization | Named security/privacy reviewer |
+| Vault and key management | `mineclover` organization | Named key-management operator |
+| Source data stewardship | `mineclover` organization | Named source data steward |
+| Target data stewardship | `mineclover` organization | Named target data steward |
+| Deployment/change authority | `mineclover` organization | Named deployment authority and change record |
+| Abort/incident authority | `mineclover` organization | Named incident authority and escalation path |
 
-This interim assignment covers design, review coordination, and synthetic preparation only. It does
-not grant production on-call, database, vault, credential, deployment, or data-steward authority.
-The DPM contract owner is not automatically a production runtime owner. Phase 10 remains
-design-only until the separate production owners are approved.
+`mineclover` is the organizational owner for all listed responsibilities. This does not by itself
+identify individual operators, on-call rotation, environment, credentials, or a production change
+record. Those execution details must be assigned and approved before runtime work.
 
 ## Threat scenarios and required controls
 
@@ -87,7 +86,7 @@ P10.0 is complete only when the future runtime owner and security owner accept:
 - Design documents and synthetic fixtures are permitted.
 - Real data, production secrets, owner-managed databases, vault access, and deployments are not
   permitted.
-- `mineclover` is the interim design/approval coordinator; production owners remain a later gate in
-  [Issue #5](https://github.com/mineclover/data-governance/issues/5).
+- `mineclover` is the organizational owner; named delegates and execution values remain a later
+  gate in [Issue #5](https://github.com/mineclover/data-governance/issues/5).
 - Phase 10 execution remains deferred under the
   [runtime boundary decision](./phase-10-runtime-boundary-decision.md).

@@ -1,6 +1,6 @@
 # Phase 10 Runtime Boundary Decision
 
-**Status: design-only preparation complete; production data-plane execution deferred**
+**Status: organization owner assigned; production data-plane execution deferred**
 **Decision date: 2026-10-24**
 
 This decision defines the next safe step for Phase 10 without turning the DPM contract repository
@@ -27,14 +27,14 @@ The non-executing sequence is detailed in the [Phase 10 runtime plan](./phase-10
 | Responsibility | Current decision |
 | --- | --- |
 | DPM contract owner | `mineclover/data-governance` |
-| Runtime operational owner | `mineclover` as interim design coordinator; production owner not assigned |
-| Security/privacy owner | `mineclover` as interim design coordinator; independent security owner not assigned |
-| Deployment authority | `mineclover` for design gates only; production deployment authority not assigned |
-| Production data steward | `mineclover` for synthetic fixtures only; source/target stewards not assigned |
-| Abort authority | `mineclover` may stop design work; production abort authority not assigned |
+| Runtime operational owner | `mineclover` organization; named operator/on-call pending |
+| Security/privacy owner | `mineclover` organization; named reviewer pending |
+| Deployment authority | `mineclover` organization; named production authority/change record pending |
+| Production data steward | `mineclover` organization; named source/target stewards pending |
+| Abort authority | `mineclover` organization; named incident authority pending |
 
-The interim assignment is only for design coordination and synthetic preparation. It does not make
-the DPM repository owner the production runtime, security, data-steward, or deployment owner.
+The organizational assignment does not complete individual operator, environment, credential,
+change-record, or go/no-go requirements. Those values remain mandatory before production execution.
 
 ## Preparation boundary
 
