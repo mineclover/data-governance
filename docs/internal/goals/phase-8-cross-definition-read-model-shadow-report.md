@@ -17,7 +17,7 @@ authorization provider, or production deployment.
     --maxWorkers 1 --no-file-parallelism
   ```
 
-- Result: **1 test file passed; 30 tests passed**
+- Result: **1 test file passed; 62 tests passed**
 
 ## Verified behaviors
 
@@ -41,6 +41,12 @@ authorization provider, or production deployment.
 12. Injected identity, freshness, API-binding, ordering, and cursor-presence faults produce shadow
     mismatches; an unchanged control still matches.
 13. False empty success for an unavailable model and incorrect failure reasons are detected.
+14. Empty/unsupported predicates, incomplete locators, mixed query modes, invalid enum values,
+    and malformed identity inputs return `invalid-query` instead of broadening a search, returning
+    a false empty success, or throwing a null-input exception. Supported bounded filters still match.
+15. Cursor tuples require five non-empty strings and a supported identity kind; malformed base64url
+    is rejected while generated cursor continuations remain valid. This is structural validation,
+    not cursor signing, query binding, or cross-generation snapshot consistency.
 
 These are ephemeral reference/conformance checks, not production measurements. The fixture receives
 the revisions and generation states explicitly; it does not discover a newer unindexed source

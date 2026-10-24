@@ -109,6 +109,43 @@ describe('DPM CLI authoring commands', () => {
     expect(output.result.rollback.targetRetentionRequired).toBe(true)
   })
 
+  it.each(['json', 'text'])('rejects malformed search cursors in %s output without returning hits', async format => {
+    const cursor = Buffer.from(JSON.stringify(['customer-definition', 'revision-1', 'customer-number', 'sql', 'key']))
+      .toString('base64url')
+    const result = await runDpmCli([
+      'authoring', 'search', '--revision', beforePath, '--field-name', 'customerNo',
+      '--cursor', cursor, '--format', format,
+    ])
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toBe('')
+    if (format === 'json') {
+      expect(JSON.parse(result.stdout).result).toEqual({ status: 'invalid-query', reason: 'cursor is invalid' })
+    } else {
+      expect(result.stdout).toContain('status: failed')
+      expect(result.stdout).toContain('searchStatus: invalid-query')
+      expect(result.stdout).toContain('reason: cursor is invalid')
+      expect(result.stdout).not.toContain('hits:')
+    }
+  })
+
+  it('preserves valid offline search continuation after cursor validation', async () => {
+    const args = [
+      'authoring', 'search', '--revision', beforePath, '--revision', fixture('billing-revision.json'),
+      '--field-name', 'customerNo', '--page-size', '1',
+    ]
+    const first = await runDpmCli(args)
+    const firstPage = JSON.parse(first.stdout).result
+    expect(first.exitCode).toBe(0)
+    expect(firstPage.nextCursor).toEqual(expect.any(String))
+    const next = await runDpmCli([...args, '--cursor', firstPage.nextCursor])
+    const nextPage = JSON.parse(next.stdout).result
+    expect(next.exitCode).toBe(0)
+    expect(next.stderr).toBe('')
+    expect(nextPage.hits).toHaveLength(1)
+    expect(nextPage.hits[0].definitionId).not.toBe(firstPage.hits[0].definitionId)
+    expect(nextPage.nextCursor).toBeUndefined()
+  })
+
   it('reads and filters file-based authoring audit events', async () => {
     const result = await runDpmCli([
       'authoring',

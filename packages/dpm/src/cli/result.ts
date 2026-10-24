@@ -31,6 +31,11 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
   const lines = [`command: ${command}`, `status: ${exitCode === 0 ? 'ok' : 'failed'}`]
   if (!isRecord(result)) return lines.join('\n')
 
+  if (command === 'authoring-search') {
+    if (typeof result.status === 'string') lines.push(`searchStatus: ${result.status}`)
+    if (typeof result.reason === 'string') lines.push(`reason: ${result.reason}`)
+  }
+
   const summary = result.summary
   if (isRecord(summary)) {
     for (const key of ['errors', 'warnings', 'infos', 'relationships', 'fields']) {

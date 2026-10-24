@@ -9,6 +9,7 @@ import { createDpmIdentityDatabaseColumnIdentity } from '../src/model/data-ident
 import {
   createDpmCrossDefinitionReadModelReference,
   projectDpmCrossDefinitionReadModelRows,
+  type DpmCrossDefinitionReadModelQuery,
 } from '../src/authoring/read-model-contract.js'
 import { createDpmCrossDefinitionReadModelScopedAuthorization } from '../src/authoring/read-model-authorization.js'
 import { compareDpmCrossDefinitionReadModelShadow } from '../src/authoring/read-model-shadow.js'
@@ -476,6 +477,93 @@ describe('DPM deferred cross-definition read-model contract', () => {
       expect(compareDpmCrossDefinitionReadModelShadow(input).status).toBe('match')
     },
   )
+
+  it.each([
+    ['empty entity', { field: { entity: {} } }],
+    ['undefined predicate', { field: { name: undefined } }],
+    ['unknown predicate', { field: { fullText: 'customer' } }],
+    ['unknown nested predicate', { field: { entity: { fullText: 'customer' } } }],
+    ['blank predicate', { field: { name: ' ' } }],
+    ['invalid field type', { field: { type: 'sql' } }],
+    ['invalid origin', { field: { origin: 'database' } }],
+    ['invalid lifecycle', { field: { lifecycle: 'deleted' } }],
+    ['incomplete locator', { field: { locator: { field: 'customerNo' } } }],
+    ['mixed query', { field: { name: 'customerNo' }, identity: { identityKind: 'object', identityKey: 'customer-number' } }],
+    ['missing query kind', {}],
+    ['null query', null],
+    ['null identity', { identity: null }],
+    ['unsupported identity kind', { identity: { identityKind: 'sql', identityKey: 'customer-number' } }],
+    ['non-string identity key', { identity: { identityKind: 'object', identityKey: 1 } }],
+    ['blank identity key', { identity: { identityKind: 'object', identityKey: ' ' } }],
+  ])('rejects %s rather than silently broadening or emptying a query', (_label, query) => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    reference.upsert({ revision, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    const result = reference.search({
+      definitionIds: ['orders-definition'], query: query as unknown as DpmCrossDefinitionReadModelQuery,
+    })
+    expect(result).toEqual({ status: 'invalid-query', reason: expect.any(String) })
+  })
+
+  it.each([
+    { entity: { datasetId: 'commerce' } },
+    { entity: { namespace: 'orders' } },
+    { entity: { name: 'customer' } },
+    { locator: { datasetId: 'commerce', namespace: 'orders', entity: 'customer', field: 'customerNo' } },
+    { name: 'customerNo' },
+    { type: 'string' as const },
+    { origin: 'persisted' as const },
+    { lifecycle: 'active' as const },
+  ])('preserves supported bounded field lookup %j', field => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    reference.upsert({ revision, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    const result = reference.search({ definitionIds: ['orders-definition'], query: { field } })
+    expect(result.status).toBe('ready')
+    if (result.status !== 'ready') throw new Error('expected ready result')
+    expect(result.hits.some(hit => hit.objectId === 'customer-number')).toBe(true)
+  })
+
+  it.each([
+    ['unsupported identity kind', ['orders-definition', 'revision-1', 'customer-number', 'sql', 'key']],
+    ['empty definition', ['', 'revision-1', 'customer-number', 'object', 'key']],
+    ['empty revision', ['orders-definition', '', 'customer-number', 'object', 'key']],
+    ['empty object', ['orders-definition', 'revision-1', '', 'object', 'key']],
+    ['blank key', ['orders-definition', 'revision-1', 'customer-number', 'object', ' ']],
+    ['wrong tuple length', ['orders-definition', 'revision-1']],
+    ['non-string member', ['orders-definition', 'revision-1', 1, 'object', 'key']],
+  ])('rejects cursor with %s', (_label, tuple) => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    reference.upsert({ revision, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+      cursor: Buffer.from(JSON.stringify(tuple)).toString('base64url'),
+    })).toEqual({ status: 'invalid-query', reason: 'cursor is invalid' })
+  })
+
+  it('rejects malformed base64url without changing a valid cursor continuation', () => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    reference.upsert({ revision, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    const input = { definitionIds: ['orders-definition'], query: { field: { type: 'string' as const } }, pageSize: 1 }
+    const first = reference.search(input)
+    if (first.status !== 'ready' || !first.nextCursor) throw new Error('expected cursor')
+    const continuation = reference.search({ ...input, cursor: first.nextCursor })
+    expect(continuation).toMatchObject({ status: 'ready', hits: [{ objectId: 'customer-number' }] })
+    for (const cursor of ['', 'not-json', `${first.nextCursor}!`, ` ${first.nextCursor}`]) {
+      expect(reference.search({ ...input, cursor })).toEqual({ status: 'invalid-query', reason: 'cursor is invalid' })
+    }
+    expect(reference.search({ ...input, cursor: first.nextCursor })).toEqual(continuation)
+  })
 
   it('detects false empty success and incorrect failure reasons during shadow comparison', () => {
     const input = {

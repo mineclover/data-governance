@@ -137,6 +137,12 @@ Only `authoring review` accepts `--fail-on-approval-required true|false` (defaul
 With `true`, semantic changes return exit code `1`; no changes return `0`. Both keep the report
 on stdout and stderr empty. Invalid inputs or use of this option on other commands return `2`.
 This gate detects changes requiring review; it does not verify or grant an approval.
+Offline authoring search rejects empty or unsupported predicates and malformed cursor tuples as
+`invalid-query` (exit `2`), rather than treating them as an unrestricted query or a successful empty
+result. Use the returned `nextCursor` unchanged; cursors are continuation positions, not authorization
+tokens or a guarantee of snapshot consistency across changed input files.
+Search text output includes `searchStatus` and the validation `reason`, while JSON preserves the
+structured result; both report invalid queries on stdout with empty stderr.
 `apply-plan` makes the future mutation contract explicit (base-revision guard, reviewer/publisher
 roles, audit, and rollback retention) while reporting `mutation: none` and `executable: false`.
 

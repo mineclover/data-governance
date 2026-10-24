@@ -371,17 +371,63 @@ function matchedIdentities(
   return candidate.row.identities
 }
 
-function validateQuery(query: DpmCrossDefinitionReadModelQuery): string | undefined {
+function validateQuery(query: unknown): string | undefined {
+  if (!isRecord(query) || Object.keys(query).length !== 1 ||
+    !Object.keys(query).every(key => key === 'identity' || key === 'field')) {
+    return 'query must contain exactly one of identity or field'
+  }
   if ('identity' in query) {
-    if (!query.identity.identityKey) return 'identityKey must be non-empty'
+    const identity = query.identity
+    if (!isRecord(identity) || Object.keys(identity).some(key => key !== 'identityKind' && key !== 'identityKey')) {
+      return 'identity query must contain identityKind and identityKey only'
+    }
+    if (!isIdentityKind(identity.identityKind)) return 'identityKind must be object, api, or db'
+    if (!isNonEmptyString(identity.identityKey)) return 'identityKey must be non-empty'
     return undefined
   }
 
   const field = query.field
-  if (!field || Object.keys(field).length === 0) {
+  if (!isRecord(field)) return 'field query must be an object'
+  const predicates = Object.entries(field).filter(([, value]) => value !== undefined)
+  if (predicates.length === 0) {
     return 'field query must include at least one bounded predicate'
   }
+  const supportedFields = ['entity', 'locator', 'name', 'type', 'origin', 'lifecycle']
+  if (Object.keys(field).some(key => !supportedFields.includes(key))) return 'field query contains an unsupported predicate'
+  const allowedValues: Readonly<Record<string, readonly string[]>> = {
+    type: ['string', 'integer', 'number', 'boolean', 'date', 'date-time', 'object', 'array', 'json', 'unknown'],
+    origin: ['persisted', 'derived', 'computed', 'api_only'],
+    lifecycle: ['active', 'deprecated', 'superseded'],
+  }
+  for (const [key, value] of predicates) {
+    if (key === 'entity' || key === 'locator') {
+      if (!isRecord(value)) return `${key} predicate must be an object`
+      const supportedKeys = key === 'entity' ? ['datasetId', 'namespace', 'name'] : ['datasetId', 'namespace', 'entity', 'field']
+      const entries = Object.entries(value)
+      if (entries.length === 0 || entries.some(([name, entry]) => !supportedKeys.includes(name) || !isNonEmptyString(entry))) {
+        return `${key} predicate must contain supported non-empty values`
+      }
+      if (key === 'locator' && !supportedKeys.every(name => isNonEmptyString(value[name]))) {
+        return 'locator predicate requires datasetId, namespace, entity, and field'
+      }
+    } else {
+      if (!isNonEmptyString(value)) return `${key} predicate must be a non-empty string`
+      if (allowedValues[key] && !allowedValues[key].includes(value)) return `${key} predicate is invalid`
+    }
+  }
   return undefined
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0
+}
+
+function isIdentityKind(value: unknown): value is DpmAuthoringIdentityIndexKind {
+  return value === 'object' || value === 'api' || value === 'db'
 }
 
 function latestGeneration(
@@ -415,8 +461,10 @@ function encodeCursor(cursor: CursorKey): string {
 
 function decodeCursor(value: string): CursorKey | undefined {
   try {
+    if (!/^[A-Za-z0-9_-]+$/.test(value)) return undefined
     const parsed = JSON.parse(Buffer.from(value, 'base64url').toString('utf8')) as unknown
-    if (!Array.isArray(parsed) || parsed.length !== 5 || parsed.some(item => typeof item !== 'string')) return undefined
+    if (!Array.isArray(parsed) || parsed.length !== 5 || !parsed.every(isNonEmptyString)) return undefined
+    if (!isIdentityKind(parsed[3])) return undefined
     return parsed as CursorKey
   } catch {
     return undefined

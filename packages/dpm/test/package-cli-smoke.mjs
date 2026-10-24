@@ -48,6 +48,30 @@ const search = runJson([
 assert(search.command === 'authoring-search', 'search command envelope')
 assert(search.result.status === 'ready' && search.result.hits.length === 2, 'search result')
 
+const paginatedSearchArgs = [
+  'authoring', 'search', '--revision', before, '--revision', billing,
+  '--field-name', 'customerNo', '--page-size', '1',
+]
+const firstSearchPage = runJson(paginatedSearchArgs)
+assert(typeof firstSearchPage.result.nextCursor === 'string', 'search continuation cursor')
+const nextSearchPage = runJson([...paginatedSearchArgs, '--cursor', firstSearchPage.result.nextCursor])
+assert(nextSearchPage.result.hits.length === 1 && nextSearchPage.result.nextCursor === undefined, 'search final page')
+assert(nextSearchPage.result.hits[0].definitionId !== firstSearchPage.result.hits[0].definitionId, 'search continuation does not repeat a hit')
+
+const malformedCursor = Buffer.from(JSON.stringify(['customer-definition', 'revision-1', 'customer-number', 'sql', 'key'])).toString('base64url')
+const invalidSearch = runFailure([...paginatedSearchArgs, '--cursor', malformedCursor])
+assert(invalidSearch.status === 2 && invalidSearch.stderr === '', 'invalid cursor exit/output boundary')
+const invalidSearchResult = JSON.parse(invalidSearch.stdout).result
+assert(invalidSearchResult.status === 'invalid-query' && invalidSearchResult.reason === 'cursor is invalid', 'invalid cursor diagnostic')
+assert(!('hits' in invalidSearchResult) && !('nextCursor' in invalidSearchResult), 'invalid cursor exposes no results')
+const invalidSearchText = runFailure([...paginatedSearchArgs, '--cursor', malformedCursor, '--format', 'text'])
+assert(invalidSearchText.status === 2 && invalidSearchText.stderr === '', 'invalid cursor text exit/output boundary')
+assert(invalidSearchText.stdout.includes('searchStatus: invalid-query') && invalidSearchText.stdout.includes('reason: cursor is invalid'), 'invalid cursor text diagnostic')
+assert(!invalidSearchText.stdout.includes('hits:'), 'invalid cursor text exposes no hits')
+
+const blankSearch = runFailure(['authoring', 'search', '--revision', before, '--field-name', ' '])
+assert(blankSearch.status === 2 && JSON.parse(blankSearch.stdout).result.status === 'invalid-query', 'blank search predicate rejected')
+
 const auditReadback = runJson(['authoring', 'audit', '--events', audit])
 assert(auditReadback.command === 'authoring-audit', 'audit command envelope')
 assert(auditReadback.result.eventCount === 3 && auditReadback.result.chronological === true, 'audit result')
