@@ -72,6 +72,7 @@
     "demo": "corepack pnpm build && node examples/customer-orders/run-demo.mjs",
     "demo:storage": "corepack pnpm build && node examples/customer-orders-storage/run-demo.mjs",
     "demo:profile": "corepack pnpm build && node examples/profile-kafka/run-demo.mjs",
+    "demo:authoring": "corepack pnpm build && node examples/authoring-review/run-demo.mjs",
     "test": "vitest run --maxWorkers 1 --no-file-parallelism",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
