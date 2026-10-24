@@ -8,6 +8,7 @@ const cliPackage = JSON.parse(read('packages/dpm/package.json'))
 const workspacePackage = JSON.parse(read('package.json'))
 const checkpoint = read('docs/internal/goals/dpm-cli-checkpoint-2026-10-24.md')
 const mutationContract = read('docs/internal/goals/phase-8-authoring-mutation-entry-contract.md')
+const reviewChecklist = read('docs/internal/goals/phase-8-authoring-mutation-review-checklist.md')
 
 const requiredRunnerMarkers = [
   "'authoring-apply-plan'",
@@ -29,6 +30,10 @@ if (!checkpoint.includes('authoring apply-plan')) failures.push('checkpoint read
 if (!mutationContract.includes('**Status: recommendation prepared; mutation activation deferred**')) {
   failures.push('mutation contract deferred status')
 }
+if (!reviewChecklist.includes('**Status: review preparation only; no mutation activation authorized**')) {
+  failures.push('mutation review checklist deferred status')
+}
+if (reviewChecklist.includes('- [x]')) failures.push('mutation review checklist must remain unchecked')
 
 if (failures.length > 0) {
   console.error(`Authoring CLI boundary check failed:\n- ${failures.join('\n- ')}`)
