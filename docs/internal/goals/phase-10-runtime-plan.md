@@ -11,6 +11,9 @@ The first work item is [P10.0 ownership and threat model](./phase-10-ownership-a
 followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md) and
 [P10.2 vault/tokenization design](./phase-10-vault-tokenization-design.md).
 
+P10.3 is the [synthetic rehearsal](./phase-10-synthetic-rehearsal.md); it must pass before any
+non-production integration design is considered.
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs

@@ -84,6 +84,7 @@ changes or adapter cutover.
 - [Phase 10 ownership and threat model](./phase-10-ownership-and-threat-model.md)
 - [Phase 10 runtime contract](./phase-10-runtime-contract.md)
 - [Phase 10 vault and tokenization design](./phase-10-vault-tokenization-design.md)
+- [Phase 10 synthetic rehearsal](./phase-10-synthetic-rehearsal.md)
 
 ### TypeSpec logical ERD bridge
 

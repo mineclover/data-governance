@@ -112,6 +112,7 @@ publish a competing artifact. Existing `@oa-sdk/dpm` consumer imports remain unc
 | `pnpm check:read-model-contract` | Cross-definition read-model contract state |
 | `pnpm check:read-model-activation` | Read-model activation remains disabled |
 | `pnpm check:read-model-shadow` | Private cross-definition shadow fixture |
+| `pnpm check:phase10-synthetic` | Synthetic-only Phase 10 rewrite/integrity/rollback rehearsal |
 | `pnpm verify` | Run the full verification sequence serially |
 
 Release publication happens only from the owner-approved release gate. The root workspace package
