@@ -67,7 +67,7 @@ const FIELD_LIFECYCLES = ['active', 'deprecated', 'superseded'] as const
 export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult {
   try {
     const [subcommand, ...flags] = argv
-    if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
+    if (!subcommand || subcommand === 'help' || subcommand === '--help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: AUTHORING_HELP, stderr: '' }
     }
     if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'audit' && subcommand !== 'validate' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {

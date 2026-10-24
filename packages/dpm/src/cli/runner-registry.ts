@@ -19,7 +19,7 @@ Options:
 export function runDpmCliRegistryCommand(argv: readonly string[]): DpmCliResult {
   try {
     const [subcommand, ...flags] = argv
-    if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
+    if (!subcommand || subcommand === 'help' || subcommand === '--help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: REGISTRY_HELP, stderr: '' }
     }
     if (subcommand !== 'summary' && subcommand !== 'list') {

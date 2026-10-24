@@ -36,16 +36,15 @@ Options:
 
 export async function runDpmCli(argv: readonly string[]): Promise<DpmCliResult> {
   try {
+    if (argv[0] === 'registry') return runDpmCliRegistryCommand(argv.slice(1))
+    if (argv[0] === 'profile') return runDpmCliProfileCommand(argv.slice(1))
+    if (argv[0] === 'authoring') return runDpmCliAuthoringCommand(argv.slice(1))
     if (argv.length === 0 || argv[0] === 'help' || argv.includes('--help')) {
       return { exitCode: 0, stdout: HELP, stderr: '' }
     }
     if (argv[0] === 'version' || argv.includes('--version')) {
       return { exitCode: 0, stdout: `${DPM_CLI_VERSION}\n`, stderr: '' }
     }
-    if (argv[0] === 'registry') return runDpmCliRegistryCommand(argv.slice(1))
-    if (argv[0] === 'profile') return runDpmCliProfileCommand(argv.slice(1))
-    if (argv[0] === 'authoring') return runDpmCliAuthoringCommand(argv.slice(1))
-
     const args = parseDpmCliArgs(argv)
     const inputs = readDpmCliInputs(args)
 

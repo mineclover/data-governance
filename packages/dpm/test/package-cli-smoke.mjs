@@ -13,6 +13,9 @@ const validation = runJson(['authoring', 'validate', '--revision', before])
 assert(validation.command === 'authoring-validate', 'validate command envelope')
 assert(validation.result.valid === true, 'validate result')
 
+const help = runText(['authoring', '--help'])
+assert(help.includes('Usage: oa-dpm authoring <inspect|search|audit|validate|diff|review|apply-plan|rollback-plan> [options]'), 'authoring help routing')
+
 const search = runJson([
   'authoring',
   'search',

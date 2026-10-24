@@ -19,6 +19,14 @@ describe('DPM CLI UX', () => {
     expect(result).toEqual({ exitCode: 0, stdout: '0.1.3\n', stderr: '' })
   })
 
+  it('routes grouped command help to the grouped command', async () => {
+    const result = await runDpmCli(['authoring', '--help'])
+
+    expect(result.exitCode).toBe(0)
+    expect(result.stdout).toContain('Usage: oa-dpm authoring <inspect|search|audit|validate|diff|review|apply-plan|rollback-plan> [options]')
+    expect(result.stdout).toContain('mutation')
+  })
+
   it('rejects unknown options with a concise error', async () => {
     const result = await runDpmCli([
       'validate',
