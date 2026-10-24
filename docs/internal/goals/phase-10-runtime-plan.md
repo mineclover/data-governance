@@ -20,6 +20,9 @@ actual provisioning and deployment require an approved environment and owner val
 P10.5 is the [canary decision plan](./phase-10-canary-decision-plan.md); a passing canary would
 provide evidence only and would not authorize production execution.
 
+P10.6 is the [production readiness plan](./phase-10-production-readiness-plan.md); P10.7 remains
+blocked until a separate production go/no-go decision is approved.
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs

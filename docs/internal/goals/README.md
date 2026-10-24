@@ -87,6 +87,7 @@ changes or adapter cutover.
 - [Phase 10 synthetic rehearsal](./phase-10-synthetic-rehearsal.md)
 - [Phase 10 non-production integration plan](./phase-10-non-production-integration-plan.md)
 - [Phase 10 canary decision plan](./phase-10-canary-decision-plan.md)
+- [Phase 10 production readiness plan](./phase-10-production-readiness-plan.md)
 
 ### TypeSpec logical ERD bridge
 
