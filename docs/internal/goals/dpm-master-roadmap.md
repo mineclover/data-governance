@@ -39,10 +39,10 @@ production pseudonymization       = outside current oa-sdk boundary
 
 | Product purpose | Current coverage | Remaining capability |
 |---|---|---|
-| Spec management | logical entity/relationship, explicit field identity, semantic validation, compilation, and neutral artifact | immutable revision, diff, lifecycle, breaking-change classification |
+| Spec management | logical entity/relationship, explicit field identity, semantic validation, neutral artifact, immutable revision, semantic diff and breaking-change review | broader lifecycle metadata and owner-approved operational activation |
 | Unique-key management | column coordinate uniqueness, versioned canonical-key encoding, and separate object/revision/locator/binding identities | final external wire ownership and migration compatibility |
-| Search | profile summary and registry/audit readback | cross-identity lookup, filtered search, reverse lookup and where-used |
-| Edit | proposal review and relationship approval | data-definition draft, validate preview, publish, deprecate and rollback |
+| Search | profile/registry/audit readback, definition-scoped identity/field lookup, bounded offline CLI search, and private read-model conformance | durable cross-definition service; separately owned metadata and where-used contracts |
+| Edit | representative draft/approval/publish/audit/rollback helpers; read-only CLI diff/review and apply/rollback plans | CLI mutation and durable operational authoring require separate approval |
 | Convenience | public subpaths, package smoke, import/export, explain, and machine-readable quick-fix suggestions | automatic mutation, bulk edit and broader authoring workflows |
 
 ## Capability map
@@ -53,12 +53,12 @@ production pseudonymization       = outside current oa-sdk boundary
 | 1. Relationship contract | Goals 4–6, 64, 67 | manifest, entity, relationship, column policy, validator, compiler, typed identity | Implemented | logical field identity is not yet cross-bound to API/catalog |
 | 2. Evidence and proposal | Goals 7–19, 24–26, 31, 33, 37, 38, 51–56 | catalog/profile evidence, discovery proposals, thresholds, provenance, endpoint resolution | Implemented | evidence does not itself become data binding or relationship approval |
 | 3. Approval and durability | Goals 23, 27–30, 32, 34–50, 58, 59, 61, 63 | gateway workflow, registry approval, storage, audit and reports | Implemented within declared boundary | no production token/vault/data-plane execution |
-| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; external extraction, CI, and `@oa-sdk/dpm@0.1.2` publication verified | future release metadata |
+| 4. Public package contract | Goals 20–22, 57, 60, 62 | subpaths, pack boundary, consumer workflow, docs and contract checks | Implemented; extraction and `@oa-sdk/dpm@0.1.3` OIDC publication verified; later maintenance not republished | future owner-approved releases |
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for owner contract | future owner-authorized capability |
 | 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Active private slice implemented; cross-definition search first, automatic mutation second, and bulk authoring last remain deferred | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
-| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Owner acceptance recorded; `@oa-sdk/dpm@0.1.2` published; adapter transition scheduled | breaking removal and future release metadata |
+| 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Owner acceptance recorded; `@oa-sdk/dpm@0.1.3` OIDC-published; mirror transition separately governed | breaking removal and future release metadata |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 
 ## Dependency order
@@ -92,7 +92,7 @@ and local extraction is not evidence of production runtime readiness.
 authority for the owner contract plane.
 
 The 2026-07-15 owner decision created the owner repository and completed the extraction handoff.
-The accepted decision record is [here](./owner-decision-record.md), and the latest owner
+The accepted decision record is [here](./owner-decision-record.md), and the historical owner-acceptance
 verification workflow [29427810791](https://github.com/mineclover/data-governance/actions/runs/29427810791)
 passed for the selected source ref. GitHub Issues, the structured Goal 68.4 acceptance form, the
 compatibility window, and the canonical document ownership are recorded in
@@ -152,10 +152,14 @@ Blocking phase: 8 follow-ons only.
 
 The private representative slice provides definition-scoped lookup by logical object id, API
 pointer, DB coordinate, and deterministic field filters for locator, name, type, origin, and
-lifecycle. A cross-definition neutral read model is still absent: sensitivity/owner metadata,
-bounded multi-definition queries, index freshness/rebuild state, authorization scope, reverse
-lookup, and where-used behavior remain outside runtime scope until the follow-on entry contract's
-activation gates are accepted.
+lifecycle. The file-based CLI also supports bounded cross-definition lookup over explicitly supplied
+published revisions. A private reference and 81 conformance tests cover projection, authorization,
+readiness, pagination, strict input validation, shadow parity, and rebuild-session ownership.
+This is not an activated persistent search service: durable indexing, external source reconciliation,
+consumer routing, and operational authorization remain behind the follow-on contract's activation
+gates. Sensitivity/owner metadata and relationship/policy/trace where-used remain excluded.
+Current evidence and its limitations are in the [handoff](./dpm-cli-checkpoint-2026-10-24.md) and
+[shadow report](./phase-8-cross-definition-read-model-shadow-report.md).
 
 Blocking phase: 8.
 
@@ -247,6 +251,12 @@ relationship/policy/trace where-used, and bulk edit remain separate follow-on de
 Durable production persistence, external authorization, broad indexing, and unrestricted authoring
 remain deferred. The [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 is prepared, but no Phase 8 implementation is added to the historical `oa-sdk` mirror.
+
+The read-only management CLI now provides inspect/search/diff/review/apply-plan/rollback-plan/audit/
+validate with approval-required CI signaling, input-integrity smoke, and fail-closed search input
+handling. Private read-model session fencing prevents obsolete rebuilds and incomplete `ready`
+promotion. These are contract/safety evidence, not activation of CLI mutation, durable shadow,
+a consumer pilot, or Phase 10. See the [current handoff](./dpm-cli-checkpoint-2026-10-24.md).
 
 ### Phase 9 — Extraction rehearsal (Goal 68.4, owner-gated)
 

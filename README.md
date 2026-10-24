@@ -103,6 +103,10 @@ The canonical document set is indexed in
 [`docs/internal/goals/README.md`](./docs/internal/goals/README.md). Start with the
 [DPM Master Roadmap](./docs/internal/goals/dpm-master-roadmap.md) and the
 [Goal 68 boundary](./docs/internal/goals/goal-68-dpm-logical-data-definition-boundary.md).
+For current implementation status and resumption, use the
+[CLI/read-model handoff](./docs/internal/goals/dpm-cli-checkpoint-2026-10-24.md) (updated 2026-10-25).
+It distinguishes recorded npm publication from later repository changes and keeps operational
+activation separate from passing local verification.
 
 ## Verification
 

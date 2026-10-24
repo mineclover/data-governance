@@ -25,7 +25,8 @@ Issue is not required for ordinary roadmap updates.
 - Maintain the completed private [Phase 8 authoring quick-fix helper](./phase-8-authoring-quick-fix-decision.md)
   as review-only semantic-diff suggestions; keep automatic mutation, bulk edit, and broad search deferred.
 - Maintain the read-only `oa-dpm` management CLI across registry, profile, and authoring artifacts:
-  inspect, bounded offline search, semantic diff/review, apply-plan, audit readback, and validation.
+  inspect, bounded offline search, semantic diff/review, apply-plan/rollback-plan, audit readback,
+  and validation, including review-only approval gating and fail-closed search diagnostics.
   Keep `authoring apply`, publish, rollback execution, database writes, and external authorization
   deferred until their owner-approved entry contracts exist.
 - Follow the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
@@ -36,7 +37,7 @@ Issue is not required for ordinary roadmap updates.
   are accepted.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
-- Use the [DPM CLI checkpoint](./dpm-cli-checkpoint-2026-10-24.md) when resuming management CLI
+- Use the [DPM CLI/read-model handoff](./dpm-cli-checkpoint-2026-10-24.md) when resuming management CLI
   work; it records the current implementation boundary, evidence, and owner-gated next steps.
 - Use the [authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md)
   for any future apply discussion; it is recommendation-only and does not activate mutation.
@@ -93,9 +94,13 @@ Issue is not required for ordinary roadmap updates.
 - The read-model activation sequence is now captured as a recommendation-only packet with disabled,
   shadow, read-only pilot, fallback, owner-value, and abort rules; it does not authorize migration
   or deployment.
-- The private cross-definition fixture passes 7 tests covering bounded lookup, duplicate collapse,
-  deterministic cursors, interrupted rebuild retry, shadow parity, strict errors, and authorization
-  isolation; activation values are tracked in Issue #4.
+- The private cross-definition fixture passes 81 tests covering bounded lookup, duplicate collapse,
+  deterministic cursors, generation readiness, hidden-scope isolation, injected shadow mismatches,
+  malformed inputs, and rebuild-session ownership. This remains single-instance synthetic evidence;
+  activation values are tracked in Issue #4.
+- Local `CI=true pnpm verify` passed at implementation `be47ccc`: DPM 134 files / 422 tests,
+  projection contract 4 files / 30 tests, plus subpath/CLI/demo/extraction/consumer/pack smokes.
+  The 81 private read-model tests are included in the DPM total, not an additional suite total.
 
 ## Next
 
@@ -115,6 +120,8 @@ Issue is not required for ordinary roadmap updates.
 - Keep the packed CLI binary smoke green, including grouped help/version routing and the expected
   non-zero failure for non-chronological audit validation; this verifies the shipped CLI boundary,
   not only source-level Vitest behavior.
+- Do not treat a routine continuation as approval for durable shadow, a consumer pilot, mutation,
+  or a new release. Follow the owner-input and resumption sequence in the current handoff.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -187,6 +194,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-25 | Operational read-model requirements need negative conformance evidence, not only successful shadow comparisons. | adopt private regression coverage / defer runtime | Expand the ephemeral fixture from 7 to 30 tests covering unavailable latest generations, missing authorized projections, hidden-scope state isolation, page bounds, and injected shadow mismatches; leave source reconciliation and durable/runtime activation owner-gated. | [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm check:read-model-shadow` |
 | 2026-10-25 | Empty or unsupported predicates and malformed cursor tuples could be accepted as normal read-model queries. | adopt fail-closed input validation | Reject invalid query/identity/locator shapes and cursor tuples, preserve supported filters and generated continuations, and verify offline CLI exit/output and input-integrity boundaries without enabling runtime or persistence. | [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm --filter @oa-sdk/dpm smoke:cli` |
 | 2026-10-25 | An obsolete rebuild session could overwrite a replacement generation, and the state setter could expose incomplete staged rows as ready. | adopt private session fencing / defer durable execution | Check per-definition/revision session ownership before append/complete/fail, reject incomplete ready promotion, and verify cancellation, terminal-state, retry, and cross-definition isolation without introducing workers, locks, or persistence. | [Read-model contract](./phase-8-cross-definition-read-model-contract.md), [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm check:read-model-shadow` |
+| 2026-10-25 | The implementation is complete for this work unit, but the handoff and status summaries retained older commit/test snapshots. | adopt handoff refresh / close work unit | Synchronize the verified implementation, CLI/read-model behavior, unpublished package changes, selected no-write constraints, evidence limitations, and owner-gated resumption order without adding functionality or activation. | `be47ccc`, [Current handoff](./dpm-cli-checkpoint-2026-10-24.md), `CI=true pnpm verify` |
 
 ## Formal approvals
 

@@ -103,12 +103,13 @@ publish a competing artifact. Existing `@oa-sdk/dpm` consumer imports remain unc
 | `pnpm build` | Build the projection contract and `@oa-sdk/dpm` |
 | `pnpm test` | Run both package test suites |
 | `pnpm typecheck` | Typecheck both packages |
-| `pnpm smoke:dpm` | Subpath, declaration, extraction, consumer-workflow, and pack smokes |
+| `pnpm smoke:dpm` | Subpath/declaration, built CLI, authoring demo, extraction, consumer-workflow, and pack smokes |
 | `pnpm check:docs` | Local documentation links |
 | `pnpm check:roadmap` | Roadmap checkpoint and feedback rows |
 | `pnpm check:t1-readiness` | Package identity, release gate, and publication wiring |
 | `pnpm check:boundary` | Reject monorepo source imports in `packages/dpm` |
 | `pnpm check:operational-change` | Operational migration decision evidence |
+| `pnpm check:authoring-cli-boundary` | Planning-only CLI and unapproved mutation checklist remain deferred |
 | `pnpm check:read-model-contract` | Cross-definition read-model contract state |
 | `pnpm check:read-model-activation` | Read-model activation remains disabled |
 | `pnpm check:read-model-shadow` | Private cross-definition shadow fixture |

@@ -17,16 +17,26 @@ canonical owner for the extracted contract plane.
 - `@oa-sdk/dpm@0.1.3` is published. The monorepo package is the non-publishing
   compatibility/source mirror and becomes a forwarding adapter for one subsequent compatibility
   release.
+- The later management CLI remains file-based and read-only. Private read-model validation and
+  rebuild-session safety maintenance do not activate a durable index, consumer service, or CLI
+  approval/publish/apply/rollback execution; these changes have not been republished.
+- Resume from the [CLI/read-model handoff](./goals/dpm-cli-checkpoint-2026-10-24.md), updated
+  2026-10-25 for verified implementation `be47ccc` (DPM 422 tests; private read-model 81 included).
 
 ## Work sequence
 
 1. Keep the logical identity, semantic binding, neutral artifact, and provenance contracts
    deterministic and independently testable.
 2. Run the external package-name, declaration, workflow, rollback, and pack consumer smokes.
-3. Keep owner CI green on Node.js 25 and pnpm 11.28.6 for `main` and pull requests.
+3. Keep owner CI green on its configured Node.js 22.x/24.x matrix and pnpm 11.28.6 for `main` and pull requests.
 4. Keep the accepted owner policy and evidence in [Goal 68.4 owner acceptance issue](https://github.com/mineclover/data-governance/issues/1).
 5. After the `0.1.2` publication, switch the monorepo package to a forwarding compatibility
    adapter and carry the deprecation notice through the next compatibility release.
+   This is a separately governed mirror transition, not authorization to modify the historical
+   repository during read-only CLI maintenance.
+6. Before any operational follow-on, collect the read-model owner values and separate durable
+   shadow/pilot approvals; automatic mutation and bulk authoring follow their own accepted gates.
+   Until then, maintain no-write CLI and ephemeral conformance evidence only.
 
 ## Canonical documents
 
@@ -51,6 +61,8 @@ corepack pnpm smoke:dpm
 
 The same gates run in
 [.github/workflows/ci.yml](../../.github/workflows/ci.yml).
+For the complete serial local gate, including authoring boundary checks, use `CI=true pnpm verify`.
+Do not run competing package builds/smokes against the same `dist` directories in parallel.
 
 ## Explicitly deferred decisions
 

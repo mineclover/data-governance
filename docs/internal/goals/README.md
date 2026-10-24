@@ -5,6 +5,7 @@ Canonical document index for the Data Pseudonymization Manifest (DPM) contract p
 → Repository purpose and scope: [Root README](../../../README.md)
 → Progress index: [progress-index.md](./progress-index.md)
 → Owner plan: [../plan.md](../plan.md)
+→ Resume here: [CLI and read-model handoff](./dpm-cli-checkpoint-2026-10-24.md) (updated 2026-10-25)
 
 ## Purpose
 
@@ -25,6 +26,8 @@ data-plane runtime are outside this repository.
 | Current goal | Goal 68 — DPM logical data definition and extraction boundary |
 | Extraction | Complete; `oa-sdk` is a non-publishing compatibility mirror |
 | Phase 8 | Representative authoring slice activated; broader control plane deferred |
+| Management CLI | File-based read-only registry/profile/authoring flow; later changes not yet republished |
+| Private read-model evidence | 81 conformance tests; consumer/runtime activation remains disabled |
 | Phase 10 | Production data-plane explicitly deferred |
 | Release authority | `mineclover` repository owner |
 
@@ -47,6 +50,7 @@ changes or adapter cutover.
 
 - [DPM Master Roadmap](./dpm-master-roadmap.md)
 - [Roadmap checkpoint](./roadmap-checkpoint.md)
+- [CLI and read-model handoff](./dpm-cli-checkpoint-2026-10-24.md)
 - [Full phase execution forecast](./full-phase-execution-forecast.md)
 - [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
 
@@ -73,6 +77,8 @@ changes or adapter cutover.
 - [Phase 8 authoring import/export decision](./phase-8-authoring-import-export-decision.md)
 - [Phase 8 authoring explain decision](./phase-8-authoring-explain-decision.md)
 - [Phase 8 authoring quick-fix decision](./phase-8-authoring-quick-fix-decision.md)
+- [Phase 8 authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md)
+- [Phase 8 authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
 - [Phase 8 cross-definition read-model shadow report](./phase-8-cross-definition-read-model-shadow-report.md)

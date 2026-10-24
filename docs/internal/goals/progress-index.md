@@ -1,17 +1,21 @@
 # Goal Progress Index
 
-Last updated: 2026-07-15
+Last updated: 2026-10-25
 
 이 파일은 goal 진행 현황만 관리한다. 설계, 범위, 수용 기준은 각 goal 문서를 따르며,
 DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)을 따른다.
 
 ## Current
 
-- Goal 68 is active in the public owner repository `mineclover/data-governance`. DPM-86 through DPM-90 are complete, including external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, T1 release-gate verification, and the structured GitHub Issues review workflow. The owner acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1); latest owner verification [workflow `29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791) passed, and `@oa-sdk/dpm@0.1.2` was published on 2026-07-28. Breaking removal remains separately gated.
+- Goal 68 is active in the public owner repository `mineclover/data-governance`. DPM-86 through DPM-90 are complete, including external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, T1 release-gate verification, and the structured GitHub Issues review workflow. The owner acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1); historical owner-acceptance [workflow `29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791) passed, and `@oa-sdk/dpm@0.1.2` was published on 2026-07-28. Breaking removal remains separately gated.
 
 - The private Phase 8 representative slice now includes definition-scoped lookup filters, canonical import/export, identity-only explain, immutable authoring revisions, and semantic-diff quick-fix suggestions. The cross-definition read-model entry contract, private conformance fixture (including staged rebuild/retry, atomic ready publication, fallback shadow parity, and scoped authorization isolation), and recommendation-only activation packet are prepared, while public-seam/runtime search activation, automatic mutation, bulk edit, durable migration, and external authorization remain deferred by decision records.
 
+- `@oa-sdk/dpm@0.1.3` was OIDC-published on 2026-10-24. The later file-based management CLI and private read-model maintenance are committed but not republished. At implementation `be47ccc`, local `CI=true pnpm verify` passed: DPM **134 files / 422 tests**, projection contract **4 files / 30 tests**, and private read-model **81 tests** (included in the DPM total). See the [current handoff](./dpm-cli-checkpoint-2026-10-24.md) for resumption and evidence limits; the workflow link above is historical owner-acceptance evidence, not a fresh run for this implementation.
+
 ## Recently Completed
+
+- Read-only management CLI and approval-required CI gate, built CLI input-integrity checks, fail-closed query/cursor validation, and private rebuild-session fencing. No durable index, consumer service, CLI mutation, or Phase 10 runtime was activated.
 
 - [x] Goal 67 / DPM Canonical Key Typed Encoding v2 (complete)
 - [x] Goal 66 / spec-lens TypeSpec Observability and Cache v2 (complete)
