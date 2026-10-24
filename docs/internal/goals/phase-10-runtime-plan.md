@@ -8,7 +8,8 @@ It is not an implementation plan for the current `@oa-sdk/dpm` package and does 
 production data, credentials, migrations, deployment, or cutover.
 
 The first work item is [P10.0 ownership and threat model](./phase-10-ownership-and-threat-model.md),
-followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md).
+followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md) and
+[P10.2 vault/tokenization design](./phase-10-vault-tokenization-design.md).
 
 ## Objective
 

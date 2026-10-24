@@ -119,3 +119,5 @@ P10.1 is ready for synthetic implementation only when the interim design owner a
 
 Production runtime ownership, security approval, deployment authority, and real-data access remain
 separate gates tracked in [Issue #5](https://github.com/mineclover/data-governance/issues/5).
+
+The next design dependency is the [P10.2 vault and tokenization design](./phase-10-vault-tokenization-design.md).
