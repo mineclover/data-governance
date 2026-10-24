@@ -143,6 +143,134 @@ describe('DPM deferred cross-definition read-model contract', () => {
     expect(result.hits.map(hit => hit.objectId)).toEqual(['customer-number'])
   })
 
+  it.each((['rebuild', 'upsert', 'state-change'] as const).flatMap(replacement =>
+    (['append', 'complete', 'fail'] as const).map(operation => ({ replacement, operation })),
+  ))('rejects obsolete session $operation after $replacement without changing the replacement', ({ replacement, operation }) => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const obsolete = reference.beginRebuild({ revision, freshnessIdentity: 'sha256:old' })
+    obsolete.append({ objectId: 'customer-email' })
+    obsolete.append({ objectId: 'customer-number' })
+    const replacementFreshness = replacement === 'rebuild' ? 'sha256:old' : 'sha256:new'
+    if (replacement === 'rebuild') {
+      // Identical revision/freshness still represents a new session, not revived ownership.
+      const retry = reference.beginRebuild({ revision, freshnessIdentity: replacementFreshness })
+      retry.append({ objectId: 'customer-email' })
+      retry.append({ objectId: 'customer-number' })
+      retry.complete()
+    } else if (replacement === 'upsert') {
+      reference.upsert({ revision, freshnessIdentity: replacementFreshness, state: 'ready' })
+    } else {
+      reference.setGenerationState({ definitionId: revision.definitionId, revisionId: revision.revisionId, state: 'stale' })
+    }
+    const query = { definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } } }
+    const replacementResult = reference.search(query)
+    if (replacement === 'state-change') {
+      expect(replacementResult).toEqual({ status: 'read-model-unavailable' })
+    } else {
+      expect(replacementResult).toMatchObject({ status: 'ready', hits: [{ freshnessIdentity: replacementFreshness }] })
+    }
+    expect(() => operation === 'append' ? obsolete.append({ objectId: 'customer-email' }) : obsolete[operation]())
+      .toThrow('read-model rebuild session is superseded')
+    expect(reference.search(query)).toEqual(replacementResult)
+  })
+
+  it('does not revive a cancelled session when its generation is set back to building', () => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const session = reference.beginRebuild({ revision, freshnessIdentity: 'sha256:old' })
+    session.append({ objectId: 'customer-email' })
+    session.append({ objectId: 'customer-number' })
+    reference.setGenerationState({ definitionId: revision.definitionId, revisionId: revision.revisionId, state: 'failed' })
+    reference.setGenerationState({ definitionId: revision.definitionId, revisionId: revision.revisionId, state: 'building' })
+    expect(() => session.complete()).toThrow('read-model rebuild session is superseded')
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+  })
+
+  it('does not expose an incomplete staged generation through the state setter', () => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const session = reference.beginRebuild({ revision, freshnessIdentity: 'sha256:orders-freshness' })
+    session.append({ objectId: 'customer-email' })
+    expect(() => reference.setGenerationState({
+      definitionId: revision.definitionId, revisionId: revision.revisionId, state: 'ready',
+    })).toThrow('read-model rebuild is incomplete')
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+    session.append({ objectId: 'customer-number' })
+    session.complete()
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+    })).toMatchObject({ status: 'ready', hits: [{ objectId: 'customer-number' }] })
+  })
+
+  it('rejects incomplete, duplicate, and unknown staged rows without corrupting a recoverable session', () => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const session = reference.beginRebuild({ revision, freshnessIdentity: 'sha256:orders-freshness' })
+    session.append({ objectId: 'customer-email' })
+    expect(() => session.append({ objectId: 'customer-email' })).toThrow('read-model row already appended')
+    expect(() => session.append({ objectId: 'unknown-field' })).toThrow('read-model row not found')
+    expect(() => session.complete()).toThrow('read-model rebuild is incomplete: 1/2 rows')
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+    session.append({ objectId: 'customer-number' })
+    session.complete()
+    expect(reference.search({
+      definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } },
+    })).toMatchObject({ status: 'ready', hits: [{ objectId: 'customer-number' }] })
+  })
+
+  it.each((['complete', 'fail'] as const).flatMap(terminal =>
+    (['append', 'complete', 'fail'] as const).map(operation => ({ terminal, operation })),
+  ))('keeps a session closed after $terminal when $operation is retried', ({ terminal, operation }) => {
+    const revision = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const session = reference.beginRebuild({ revision, freshnessIdentity: 'sha256:orders-freshness' })
+    session.append({ objectId: 'customer-email' })
+    session.append({ objectId: 'customer-number' })
+    session[terminal]()
+    const query = { definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } } }
+    const terminalResult = reference.search(query)
+    expect(() => operation === 'append' ? session.append({ objectId: 'customer-email' }) : session[operation]())
+      .toThrow('read-model rebuild session is closed')
+    expect(reference.search(query)).toEqual(terminalResult)
+  })
+
+  it('keeps rebuild sessions isolated between definitions with the same revision id', () => {
+    const definitionIds = ['orders-definition', 'billing-definition']
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(definitionIds),
+    })
+    const sessions = definitionIds.map(definitionId => reference.beginRebuild({
+      revision: createRevision(definitionId, 'revision-1', `${definitionId}-catalog`, '2026-07-15T00:00:01.000Z'),
+      freshnessIdentity: `sha256:${definitionId}`,
+    }))
+    for (const session of sessions) {
+      session.append({ objectId: 'customer-email' })
+      session.append({ objectId: 'customer-number' })
+      session.complete()
+    }
+    const result = reference.search({ definitionIds, query: { field: { name: 'customerNo' } } })
+    expect(result.status).toBe('ready')
+    if (result.status !== 'ready') throw new Error('expected ready result')
+    expect(result.hits.map(hit => hit.definitionId)).toEqual(['billing-definition', 'orders-definition'])
+  })
+
   it('reports shadow parity for fallback identity, freshness, ordering, and API context', () => {
     const allowed = new Set(['billing-definition', 'orders-definition'])
     const reference = createDpmCrossDefinitionReadModelReference({

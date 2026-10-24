@@ -127,6 +127,7 @@ type InternalGeneration = {
   createdAt: string
   freshnessIdentity: string
   state: DpmCrossDefinitionReadModelGenerationState
+  rowsComplete: boolean
   rows: readonly InternalRow[]
 }
 
@@ -197,6 +198,7 @@ export function createDpmCrossDefinitionReadModelReference(
         revision: input.revision,
         freshnessIdentity: input.freshnessIdentity,
         state: input.state ?? 'building',
+        rowsComplete: true,
         rows: createInternalRows(input.revision, input.freshnessIdentity),
       })
     },
@@ -206,23 +208,31 @@ export function createDpmCrossDefinitionReadModelReference(
       const stagedRows = new Map<string, InternalRow>()
       let closed = false
 
-      commitGeneration(generations, {
+      const generation = commitGeneration(generations, {
         revision: input.revision,
         freshnessIdentity: input.freshnessIdentity,
         state: 'building',
+        rowsComplete: false,
         rows: [],
       })
 
+      function ensureCurrentSession() {
+        ensureOpen(closed)
+        if (generations.get(generation.definitionId)?.get(generation.revisionId) !== generation) {
+          throw new Error('read-model rebuild session is superseded')
+        }
+      }
+
       return {
         append({ objectId }) {
-          ensureOpen(closed)
+          ensureCurrentSession()
           const row = rowsByObjectId.get(objectId)
           if (!row) throw new Error(`read-model row not found: ${objectId}`)
           if (stagedRows.has(objectId)) throw new Error(`read-model row already appended: ${objectId}`)
           stagedRows.set(objectId, row)
         },
         complete() {
-          ensureOpen(closed)
+          ensureCurrentSession()
           if (stagedRows.size !== rows.length) {
             throw new Error(`read-model rebuild is incomplete: ${stagedRows.size}/${rows.length} rows`)
           }
@@ -230,16 +240,18 @@ export function createDpmCrossDefinitionReadModelReference(
             revision: input.revision,
             freshnessIdentity: input.freshnessIdentity,
             state: 'ready',
+            rowsComplete: true,
             rows: [...stagedRows.values()],
           })
           closed = true
         },
         fail() {
-          ensureOpen(closed)
+          ensureCurrentSession()
           commitGeneration(generations, {
             revision: input.revision,
             freshnessIdentity: input.freshnessIdentity,
             state: 'failed',
+            rowsComplete: false,
             rows: [],
           })
           closed = true
@@ -251,7 +263,11 @@ export function createDpmCrossDefinitionReadModelReference(
       if (!generation) {
         throw new Error(`read-model generation not found: ${input.definitionId}/${input.revisionId}`)
       }
-      generation.state = input.state
+      if (input.state === 'ready' && !generation.rowsComplete) {
+        throw new Error('read-model rebuild is incomplete')
+      }
+      // Replace rather than mutate so a cancelled session cannot regain ownership later.
+      generations.get(input.definitionId)!.set(input.revisionId, { ...generation, state: input.state })
     },
     search(input) {
       const pageSize = input.pageSize ?? DEFAULT_PAGE_SIZE
@@ -334,19 +350,23 @@ function commitGeneration(
     revision: DpmAuthoringPublishedRevision
     freshnessIdentity: string
     state: DpmCrossDefinitionReadModelGenerationState
+    rowsComplete: boolean
     rows: readonly InternalRow[]
   },
-): void {
+): InternalGeneration {
   const byRevision = generations.get(input.revision.definitionId) ?? new Map<string, InternalGeneration>()
-  byRevision.set(input.revision.revisionId, {
+  const generation: InternalGeneration = {
     definitionId: input.revision.definitionId,
     revisionId: input.revision.revisionId,
     createdAt: input.revision.createdAt,
     freshnessIdentity: input.freshnessIdentity,
     state: input.state,
+    rowsComplete: input.rowsComplete,
     rows: Object.freeze([...input.rows]),
-  })
+  }
+  byRevision.set(input.revision.revisionId, generation)
   generations.set(input.revision.definitionId, byRevision)
+  return generation
 }
 
 function matchesQuery(

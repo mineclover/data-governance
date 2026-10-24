@@ -70,6 +70,10 @@ revision, even if multiple API bindings match; matched identity keys are returne
    retry after interruption. The private reference uses a staged rebuild session: rows are held
    outside the visible generation until the complete row set is committed, and an interrupted or
    failed session leaves the generation unavailable. Partial generations are not queryable.
+   Within the private reference, replacing a generation invalidates the earlier rebuild session
+   for that definition/revision, even when freshness is unchanged. Obsolete append/complete/fail
+   calls must not overwrite the replacement. A state change must not revive a cancelled session
+   or publish an incomplete staged generation as `ready`.
 4. The projection exposes an explicit state of `building`, `ready`, `stale`, or `failed`, together
    with the source revision and freshness identity. A stale or failed generation is not silently
    served as a successful empty result.

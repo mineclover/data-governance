@@ -17,7 +17,7 @@ authorization provider, or production deployment.
     --maxWorkers 1 --no-file-parallelism
   ```
 
-- Result: **1 test file passed; 62 tests passed**
+- Result: **1 test file passed; 81 tests passed**
 
 ## Verified behaviors
 
@@ -47,12 +47,21 @@ authorization provider, or production deployment.
 15. Cursor tuples require five non-empty strings and a supported identity kind; malformed base64url
     is rejected while generated cursor continuations remain valid. This is structural validation,
     not cursor signing, query binding, or cross-generation snapshot consistency.
+16. Superseded rebuild sessions cannot append, complete, or fail over a replacement generation,
+    including a retry with identical revision/freshness. Explicit state changes also invalidate
+    session ownership and cannot revive it by setting the generation back to `building`.
+17. The state setter cannot publish an incomplete staged generation as `ready`. Unknown/duplicate
+    rows and premature completion are rejected without preventing a valid session from finishing.
+18. Completed/failed sessions remain closed, and rebuilding separate definitions with the same
+    revision ID does not invalidate their independent sessions.
 
 These are ephemeral reference/conformance checks, not production measurements. The fixture receives
 the revisions and generation states explicitly; it does not discover a newer unindexed source
 revision, prove external freshness reconciliation, or validate a durable database transaction.
 Operational source reconciliation, revocation timing, latency/lag thresholds, backup/restore, and
 deployment fallback remain separate owner-approved evidence requirements.
+Session ownership checks here cover interleaved calls in one ephemeral reference instance; they
+are not a distributed lock, a worker scheduler, or evidence of durable transaction isolation.
 
 ## Boundary confirmation
 
