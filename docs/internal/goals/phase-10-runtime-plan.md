@@ -17,6 +17,9 @@ non-production integration design is considered.
 P10.4 is the [non-production integration plan](./phase-10-non-production-integration-plan.md);
 actual provisioning and deployment require an approved environment and owner values.
 
+P10.5 is the [canary decision plan](./phase-10-canary-decision-plan.md); a passing canary would
+provide evidence only and would not authorize production execution.
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs
