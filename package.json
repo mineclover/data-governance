@@ -17,11 +17,12 @@
     "check:docs": "node scripts/check-doc-links.mjs",
     "check:roadmap": "node scripts/check-roadmap-state.mjs",
     "check:operational-change": "node scripts/check-operational-change-decision.mjs",
+    "check:authoring-cli-boundary": "node scripts/check-authoring-cli-boundary.mjs",
     "check:read-model-contract": "node scripts/check-cross-definition-read-model-contract.mjs",
     "check:read-model-activation": "node scripts/check-read-model-activation-packet.mjs",
     "check:read-model-shadow": "corepack pnpm --filter @oa-sdk/dpm exec vitest run test/authoring-read-model-contract.test.ts --maxWorkers 1 --no-file-parallelism",
     "check:t1-readiness": "node scripts/check-t1-readiness.mjs",
     "check:boundary": "! rg -n '\\.\\./\\.\\./(parser|core|packages)/src' packages/dpm/src packages/dpm/test packages/dpm/examples packages/dpm/package.json",
-    "verify": "corepack pnpm build && corepack pnpm typecheck && corepack pnpm check:boundary && corepack pnpm check:docs && corepack pnpm check:roadmap && corepack pnpm check:operational-change && corepack pnpm check:read-model-contract && corepack pnpm check:read-model-activation && corepack pnpm check:read-model-shadow && corepack pnpm check:t1-readiness && corepack pnpm test && corepack pnpm smoke:dpm"
+    "verify": "corepack pnpm build && corepack pnpm typecheck && corepack pnpm check:boundary && corepack pnpm check:docs && corepack pnpm check:roadmap && corepack pnpm check:operational-change && corepack pnpm check:authoring-cli-boundary && corepack pnpm check:read-model-contract && corepack pnpm check:read-model-activation && corepack pnpm check:read-model-shadow && corepack pnpm check:t1-readiness && corepack pnpm test && corepack pnpm smoke:dpm"
   }
 }
