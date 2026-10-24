@@ -174,6 +174,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-24 | The three supported DPM demos should remain executable evidence after CLI and authoring maintenance. | adopt demo evidence | Run customer-orders, storage, and captured-profile demos; retain source-DB/no-live-Kafka and proposal-review safety assertions. | `pnpm --filter @oa-sdk/dpm demo`, `demo:storage`, `demo:profile` |
 | 2026-10-24 | Authoring CLI behavior should be demonstrable as one read-only product flow rather than isolated commands only. | adopt authoring demo evidence | Run inspect, diff, review, apply-plan, audit, validate, offline search, and rollback-plan over deterministic fixtures; retain `mutation: none`. | `pnpm --filter @oa-sdk/dpm demo:authoring` |
 | 2026-10-24 | Automatic mutation needs a durable, authorized, idempotent apply boundary beyond the current review-only CLI. | adopt contract / defer activation | Prepare the mutation entry contract covering authorization, stale-base rejection, recomputed approval, idempotency, atomic audit, dry-run, and rollback; keep `authoring apply` unimplemented. | [Authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md), `295152d` |
+| 2026-10-24 | The read-only authoring boundary must be protected from accidental CLI or release-gate drift. | adopt static boundary guard | Check non-executable apply-plan markers, deferred mutation contract, authoring demo smoke inclusion, and checkpoint evidence in CI. | `4acafe1`, `pnpm check:authoring-cli-boundary` |
 
 ## Formal approvals
 

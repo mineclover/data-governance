@@ -51,6 +51,8 @@ Passed:
 - `pnpm verify` — full build, typecheck, gates, tests, and DPM smokes;
 - DPM full suite: **134 files / 329 tests** after audit validation hardening;
 - `pnpm --filter @oa-sdk/dpm smoke:cli` — built binary positive and negative paths;
+- `pnpm check:authoring-cli-boundary` — static guard for non-executable apply plans, deferred
+  mutation, and the authoring demo smoke gate;
 - root `pnpm verify` now includes `demo:authoring` through `smoke:dpm`;
 - subpath, extraction, consumer-workflow, and pack smoke;
 - `pnpm --filter @oa-sdk/dpm demo` — validate/compile/dry-run and safety diagnostics;
