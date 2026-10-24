@@ -1,0 +1,27 @@
+{
+  "definitionId": "customer-definition",
+  "draftId": "draft-1",
+  "baseRevisionId": "revision-1",
+  "status": "draft",
+  "createdBy": "editor",
+  "createdAt": "2026-07-15T00:01:00.000Z",
+  "definitions": {
+    "version": "1.1",
+    "fields": [
+      {
+        "objectId": "customer-number",
+        "revisionId": "customer-number-rev-2",
+        "entity": { "datasetId": "commerce", "namespace": "customer", "name": "customer" },
+        "name": "customerNo",
+        "type": "number",
+        "origin": "persisted",
+        "storageRef": {
+          "table": "public.customers",
+          "column": "customer_no",
+          "catalog": { "snapshotId": "commerce-catalog-1", "versionHash": "sha256:catalog-1" }
+        }
+      }
+    ],
+    "apiBindings": []
+  }
+}

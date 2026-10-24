@@ -5,6 +5,7 @@ import { runDpmCliDryRunCommand } from './runner-dry-run.js'
 import { runDpmCliValidateCommand } from './runner-validate.js'
 import { runDpmCliRegistryCommand } from './runner-registry.js'
 import { runDpmCliProfileCommand } from './runner-profile.js'
+import { runDpmCliAuthoringCommand } from './runner-authoring.js'
 import type {
   DpmCliResult,
 } from './types.js'
@@ -19,6 +20,7 @@ Commands:
   dry-run     Produce an impact report without changing external state
   registry    Inspect registry snapshots without changing external state
   profile     Inspect or analyze profile artifacts without external connectors
+  authoring   Review semantic diffs and rollback plans without external state
   help        Show this help
   version     Show the CLI version
 
@@ -42,6 +44,7 @@ export async function runDpmCli(argv: readonly string[]): Promise<DpmCliResult> 
     }
     if (argv[0] === 'registry') return runDpmCliRegistryCommand(argv.slice(1))
     if (argv[0] === 'profile') return runDpmCliProfileCommand(argv.slice(1))
+    if (argv[0] === 'authoring') return runDpmCliAuthoringCommand(argv.slice(1))
 
     const args = parseDpmCliArgs(argv)
     const inputs = readDpmCliInputs(args)

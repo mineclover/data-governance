@@ -62,6 +62,35 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
     if (result.relationships.length > 50) lines.push(`- ... ${result.relationships.length - 50} more`)
   }
 
+  for (const key of ['changeCount', 'breakingChangeCount']) {
+    if (typeof result[key] === 'number') lines.push(`${key}: ${result[key]}`)
+  }
+  if (typeof result.breaking === 'boolean') lines.push(`breaking: ${result.breaking}`)
+  if (typeof result.approvalRequired === 'boolean') lines.push(`approvalRequired: ${result.approvalRequired}`)
+  if (typeof result.mutation === 'string') lines.push(`mutation: ${result.mutation}`)
+  if (typeof result.currentRevisionId === 'string') lines.push(`currentRevisionId: ${result.currentRevisionId}`)
+  if (typeof result.targetRevisionId === 'string') lines.push(`targetRevisionId: ${result.targetRevisionId}`)
+  if (Array.isArray(result.changes)) {
+    lines.push(`changes: ${result.changes.length}`)
+    for (const change of result.changes.slice(0, 50)) {
+      if (!isRecord(change)) continue
+      const kind = typeof change.kind === 'string' ? change.kind : 'change'
+      const identity = typeof change.identity === 'string' ? ` ${change.identity}` : ''
+      const breaking = change.breaking === true ? ' [breaking]' : ''
+      lines.push(`- ${kind}${identity}${breaking}`)
+    }
+    if (result.changes.length > 50) lines.push(`- ... ${result.changes.length - 50} more`)
+  }
+  if (Array.isArray(result.quickFixes)) {
+    lines.push(`quickFixes: ${result.quickFixes.length}`)
+    for (const quickFix of result.quickFixes.slice(0, 20)) {
+      if (!isRecord(quickFix)) continue
+      const kind = typeof quickFix.kind === 'string' ? quickFix.kind : 'review'
+      const summary = typeof quickFix.summary === 'string' ? `: ${quickFix.summary}` : ''
+      lines.push(`- ${kind}${summary}`)
+    }
+  }
+
   for (const key of ['planIdentity', 'artifactKind', 'artifactVersion']) {
     if (typeof result[key] === 'string') lines.push(`${key}: ${result[key]}`)
   }

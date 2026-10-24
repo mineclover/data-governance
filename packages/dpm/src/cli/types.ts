@@ -1,4 +1,14 @@
-export type DpmCliCommand = 'validate' | 'compile' | 'dry-run' | 'registry-summary' | 'registry-list' | 'profile-inspect' | 'profile-analyze'
+export type DpmCliCommand =
+  | 'validate'
+  | 'compile'
+  | 'dry-run'
+  | 'registry-summary'
+  | 'registry-list'
+  | 'profile-inspect'
+  | 'profile-analyze'
+  | 'authoring-diff'
+  | 'authoring-review'
+  | 'authoring-rollback-plan'
 export type DpmCliFormat = 'json' | 'text'
 
 export type DpmCliResult = {

@@ -103,6 +103,9 @@ oa-dpm registry summary --registry registry.yaml
 oa-dpm registry list --registry registry.yaml --status approved --format text
 oa-dpm profile inspect --profile profile.json
 oa-dpm profile analyze --profile profile.json --format text
+oa-dpm authoring diff --before published-revision.json --after draft.json
+oa-dpm authoring review --before published-revision.json --after draft.json --format text
+oa-dpm authoring rollback-plan --current current-revision.json --target target-revision.json
 ```
 
 JSON is the default for automation. `--format text` provides a concise operator summary. The CLI
@@ -116,6 +119,12 @@ state.
 Profile commands are also read-only. They inspect captured profile graph artifacts or generate
 analysis reports from files; they do not connect to Kafka/database connectors, approve proposals,
 or mutate registry state.
+
+Authoring commands are review-only. `diff` and `review` consume a published revision document and
+a draft document; `rollback-plan` consumes current and target published revision documents. The
+documents contain the authoring metadata plus a `definitions` object in the portable `1.1` shape.
+These commands report semantic changes, approval-required diagnostics, quick-fix suggestions, and
+rollback impact, but never create drafts, approve, publish, execute rollback, or write a database.
 
 Package surface regressions are covered by:
 
