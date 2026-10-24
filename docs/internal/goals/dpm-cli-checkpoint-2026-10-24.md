@@ -76,7 +76,8 @@ The next work should be one of:
 
 The prepared contract is documented in
 [`phase-8-authoring-mutation-entry-contract.md`](./phase-8-authoring-mutation-entry-contract.md);
-it is not an activation decision.
+it is not an activation decision. Owner inputs are collected in the
+[`phase-8-authoring-mutation-review-checklist.md`](./phase-8-authoring-mutation-review-checklist.md).
 
 The prepared cross-definition read-model contract remains evidence-only; its persistent index,
 external authorization, and consumer route remain disabled.

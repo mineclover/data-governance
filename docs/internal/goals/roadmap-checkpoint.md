@@ -40,6 +40,8 @@ Issue is not required for ordinary roadmap updates.
   work; it records the current implementation boundary, evidence, and owner-gated next steps.
 - Use the [authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md)
   for any future apply discussion; it is recommendation-only and does not activate mutation.
+- Use the [authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md)
+  to collect owner decisions before any mutation implementation discussion.
 
 ## Completed
 
@@ -175,6 +177,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-24 | Authoring CLI behavior should be demonstrable as one read-only product flow rather than isolated commands only. | adopt authoring demo evidence | Run inspect, diff, review, apply-plan, audit, validate, offline search, and rollback-plan over deterministic fixtures; retain `mutation: none`. | `pnpm --filter @oa-sdk/dpm demo:authoring` |
 | 2026-10-24 | Automatic mutation needs a durable, authorized, idempotent apply boundary beyond the current review-only CLI. | adopt contract / defer activation | Prepare the mutation entry contract covering authorization, stale-base rejection, recomputed approval, idempotency, atomic audit, dry-run, and rollback; keep `authoring apply` unimplemented. | [Authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md), `295152d` |
 | 2026-10-24 | The read-only authoring boundary must be protected from accidental CLI or release-gate drift. | adopt static boundary guard | Check non-executable apply-plan markers, deferred mutation contract, authoring demo smoke inclusion, and checkpoint evidence in CI. | `4acafe1`, `pnpm check:authoring-cli-boundary` |
+| 2026-10-24 | The mutation entry contract needs explicit owner decisions before it can become an implementation task. | adopt review checklist / defer activation | Collect operational, authorization, persistence, audit, rollback, rehearsal, and release decisions without adding `authoring apply`. | [Authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md) |
 
 ## Formal approvals
 
