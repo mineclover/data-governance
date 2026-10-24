@@ -65,6 +65,15 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
   for (const key of ['changeCount', 'breakingChangeCount']) {
     if (typeof result[key] === 'number') lines.push(`${key}: ${result[key]}`)
   }
+  for (const key of ['fieldCount', 'apiBindingCount']) {
+    if (typeof result[key] === 'number') lines.push(`${key}: ${result[key]}`)
+  }
+  if (isRecord(result.explanation)) {
+    for (const key of ['fieldCount', 'apiBindingCount']) {
+      if (typeof result.explanation[key] === 'number') lines.push(`${key}: ${result.explanation[key]}`)
+    }
+  }
+  if (typeof result.documentKind === 'string') lines.push(`documentKind: ${result.documentKind}`)
   if (typeof result.breaking === 'boolean') lines.push(`breaking: ${result.breaking}`)
   if (typeof result.approvalRequired === 'boolean') lines.push(`approvalRequired: ${result.approvalRequired}`)
   if (typeof result.mutation === 'string') lines.push(`mutation: ${result.mutation}`)

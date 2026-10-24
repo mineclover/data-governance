@@ -7,6 +7,37 @@ const beforePath = fixture('customer-before-revision.json')
 const afterPath = fixture('customer-after-draft.json')
 
 describe('DPM CLI authoring commands', () => {
+  it('inspects identity-only revision readback', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'inspect',
+      '--revision',
+      beforePath,
+      '--format',
+      'text',
+    ])
+
+    expect(result.exitCode).toBe(0)
+    expect(result.stdout).toContain('command: authoring-inspect')
+    expect(result.stdout).toContain('documentKind: published-revision')
+    expect(result.stdout).toContain('fieldCount: 1')
+    expect(result.stdout).toContain('apiBindingCount: 0')
+  })
+
+  it('rejects ambiguous inspect inputs', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'inspect',
+      '--revision',
+      beforePath,
+      '--draft',
+      afterPath,
+    ])
+
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toBe('Authoring inspect requires exactly one of --revision or --draft\n')
+  })
+
   it('returns semantic changes and approval diagnostics for diff', async () => {
     const result = await runDpmCli(['authoring', 'diff', '--before', beforePath, '--after', afterPath])
     const output = JSON.parse(result.stdout)

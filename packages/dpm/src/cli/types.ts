@@ -7,6 +7,7 @@ export type DpmCliCommand =
   | 'profile-inspect'
   | 'profile-analyze'
   | 'authoring-diff'
+  | 'authoring-inspect'
   | 'authoring-review'
   | 'authoring-rollback-plan'
 export type DpmCliFormat = 'json' | 'text'

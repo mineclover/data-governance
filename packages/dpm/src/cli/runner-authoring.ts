@@ -1,5 +1,6 @@
 import { createDpmAuthoringQuickFixes } from '../authoring/quick-fix.js'
 import { createDpmAuthoringSemanticDiff } from '../authoring/diff.js'
+import { explainDpmAuthoringDefinitions } from '../authoring/explain.js'
 import { importDpmAuthoringDefinitions } from '../authoring/io.js'
 import type {
   DpmAuthoringDraft,
@@ -11,9 +12,10 @@ import { readDpmCliStructuredFile } from './input-file.js'
 import { createDpmCliResult } from './result.js'
 import type { DpmCliFormat, DpmCliResult } from './types.js'
 
-const AUTHORING_HELP = `Usage: oa-dpm authoring <diff|review|rollback-plan> [options]
+const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|diff|review|rollback-plan> [options]
 
 Commands:
+  inspect                 Show identity-only revision or draft readback
   diff                    Show a semantic diff between revision files
   review                  Show approval-required review findings
   rollback-plan           Plan a rollback without changing external state
@@ -23,6 +25,8 @@ Options:
   --after <path>          Draft JSON/YAML path for diff/review
   --current <path>        Current published revision for rollback planning
   --target <path>         Target published revision for rollback planning
+  --revision <path>       Published revision JSON/YAML path for inspect
+  --draft <path>          Draft JSON/YAML path for inspect
   --format <json|text>    Output format (default: json)
 
 All authoring commands are read-only. They do not create drafts, publish revisions,
@@ -35,12 +39,39 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: AUTHORING_HELP, stderr: '' }
     }
-    if (subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'rollback-plan') {
+    if (subcommand !== 'inspect' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'rollback-plan') {
       throw new Error(`Unknown authoring command ${subcommand}`)
     }
 
     const values = parseFlags(flags)
     const format = parseFormat(values.get('--format'))
+
+    if (subcommand === 'inspect') {
+      const revisionPath = values.get('--revision')
+      const draftPath = values.get('--draft')
+      if ((revisionPath === undefined) === (draftPath === undefined)) {
+        throw new Error('Authoring inspect requires exactly one of --revision or --draft')
+      }
+      if (revisionPath) {
+        const document = readPublishedRevision(revisionPath)
+        return createDpmCliResult('authoring-inspect', 0, {
+          definitionId: document.definitionId,
+          documentKind: 'published-revision',
+          revisionId: document.revisionId,
+          reason: document.reason,
+          explanation: explainDpmAuthoringDefinitions(document.definitions),
+        }, format)
+      }
+      const document = readDraft(draftPath!)
+      return createDpmCliResult('authoring-inspect', 0, {
+        definitionId: document.definitionId,
+        documentKind: 'draft',
+        draftId: document.draftId,
+        baseRevisionId: document.baseRevisionId,
+        status: document.status,
+        explanation: explainDpmAuthoringDefinitions(document.definitions),
+      }, format)
+    }
 
     if (subcommand === 'rollback-plan') {
       const current = readPublishedRevision(requireFlag(values, '--current'))
@@ -236,7 +267,7 @@ function readDefinitions(value: unknown, path: string): DpmIdentityDataDefinitio
 
 function parseFlags(flags: readonly string[]): Map<string, string> {
   const values = new Map<string, string>()
-  const known = new Set(['--before', '--after', '--current', '--target', '--format'])
+  const known = new Set(['--before', '--after', '--current', '--target', '--revision', '--draft', '--format'])
   for (let index = 0; index < flags.length; index += 2) {
     const key = flags[index]
     const value = flags[index + 1]
