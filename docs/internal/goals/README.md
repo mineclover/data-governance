@@ -90,6 +90,7 @@ changes or adapter cutover.
 - [Phase 10 canary decision plan](./phase-10-canary-decision-plan.md)
 - [Phase 10 canary rehearsal report](./phase-10-canary-rehearsal-report.md)
 - [Phase 10 production readiness plan](./phase-10-production-readiness-plan.md)
+- [Phase 10 production readiness review](./phase-10-production-readiness-review.md)
 - [Phase 10 controlled execution runbook](./phase-10-controlled-execution-runbook.md)
 
 ### TypeSpec logical ERD bridge
