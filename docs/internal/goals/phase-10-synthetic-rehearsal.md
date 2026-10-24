@@ -1,6 +1,6 @@
 # Phase 10 Synthetic Rehearsal
 
-**Status: synthetic rehearsal passed; no production execution authorized**
+**Status: optional future-runtime evidence; not part of DPM release verification**
 **Verified: 2026-10-24**
 
 This is the P10.3 synthetic-only rehearsal. It uses fixed fake customer/order rows and a clearly
