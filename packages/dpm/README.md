@@ -106,6 +106,7 @@ oa-dpm profile analyze --profile profile.json --format text
 oa-dpm authoring inspect --revision published-revision.json --format text
 oa-dpm authoring inspect --draft draft.json
 oa-dpm authoring search --revision published-revision.json --revision another-revision.json --field-name customerNo
+oa-dpm authoring audit --events authoring-audit.json --format text
 oa-dpm authoring diff --before published-revision.json --after draft.json
 oa-dpm authoring review --before published-revision.json --after draft.json --format text
 oa-dpm authoring apply-plan --before published-revision.json --after draft.json --format text
@@ -137,6 +138,10 @@ roles, audit, and rollback retention) while reporting `mutation: none` and `exec
 revision files only. It requires source freshness identities, supports exact canonical identity or
 bounded field predicates with pagination, and does not create a persistent index, connect to a
 database, or enable the deferred runtime search route.
+
+`authoring audit` reads and validates a file-based append-only event snapshot. It can filter by
+definition and reports action counts and chronological ordering; it never appends events or connects
+to an audit database.
 
 Package surface regressions are covered by:
 

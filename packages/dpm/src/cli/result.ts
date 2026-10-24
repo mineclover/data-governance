@@ -110,6 +110,8 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
     if (result.hits.length > 50) lines.push(`- ... ${result.hits.length - 50} more`)
   }
   if (typeof result.nextCursor === 'string') lines.push(`nextCursor: ${result.nextCursor}`)
+  if (typeof result.eventCount === 'number') lines.push(`eventCount: ${result.eventCount}`)
+  if (typeof result.chronological === 'boolean') lines.push(`chronological: ${result.chronological}`)
   if (typeof result.executable === 'boolean') lines.push(`executable: ${result.executable}`)
   if (Array.isArray(result.steps)) lines.push(`steps: ${result.steps.length}`)
 

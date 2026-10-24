@@ -9,6 +9,8 @@ import {
 import { createDpmCrossDefinitionReadModelScopedAuthorization } from '../authoring/read-model-authorization.js'
 import type {
   DpmAuthoringDraft,
+  DpmAuthoringAuditAction,
+  DpmAuthoringAuditEvent,
   DpmAuthoringFieldLookup,
   DpmAuthoringPublishedRevision,
   DpmAuthoringSemanticDiff,
@@ -20,11 +22,12 @@ import { readDpmCliStructuredFile } from './input-file.js'
 import { createDpmCliResult } from './result.js'
 import type { DpmCliFormat, DpmCliResult } from './types.js'
 
-const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|diff|review|apply-plan|rollback-plan> [options]
+const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|audit|diff|review|apply-plan|rollback-plan> [options]
 
 Commands:
   inspect                 Show identity-only revision or draft readback
   search                  Search supplied published revisions offline
+  audit                   Inspect file-based authoring audit events
   diff                    Show a semantic diff between revision files
   review                  Show approval-required review findings
   apply-plan              Prepare an approval-gated mutation plan without applying it
@@ -49,6 +52,7 @@ Options:
   --field-lifecycle <x>   Bounded lifecycle predicate for search
   --page-size <n>         Search page size, maximum 100
   --cursor <cursor>       Continue a prior search page
+  --events <path>         Authoring audit event JSON/YAML path
   --format <json|text>    Output format (default: json)
 
 All authoring commands are read-only. They do not create drafts, publish revisions,
@@ -65,11 +69,12 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: AUTHORING_HELP, stderr: '' }
     }
-    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {
+    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'audit' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {
       throw new Error(`Unknown authoring command ${subcommand}`)
     }
 
     if (subcommand === 'search') return runOfflineAuthoringSearch(flags)
+    if (subcommand === 'audit') return runAuthoringAuditReadback(flags)
 
     const values = parseFlags(flags)
     const format = parseFormat(values.get('--format'))
@@ -285,6 +290,83 @@ function runOfflineAuthoringSearch(flags: readonly string[]): DpmCliResult {
       }
   const exitCode = searchResult.status === 'ready' ? 0 : 2
   return createDpmCliResult('authoring-search', exitCode, result, format)
+}
+
+function runAuthoringAuditReadback(flags: readonly string[]): DpmCliResult {
+  const values = parseAuditFlags(flags)
+  const format = parseFormat(values.format)
+  const events = readAuditEvents(values.eventsPath)
+  const filteredEvents = values.definitionId === undefined
+    ? events
+    : events.filter(event => event.definitionId === values.definitionId)
+  const actionCounts: Partial<Record<DpmAuthoringAuditAction, number>> = {}
+  for (const event of filteredEvents) actionCounts[event.action] = (actionCounts[event.action] ?? 0) + 1
+  const chronological = filteredEvents.every((event, index) => index === 0 || event.at >= filteredEvents[index - 1]!.at)
+
+  return createDpmCliResult('authoring-audit', 0, {
+    ...(values.definitionId === undefined ? {} : { definitionId: values.definitionId }),
+    eventCount: filteredEvents.length,
+    chronological,
+    actionCounts,
+    events: filteredEvents,
+  }, format)
+}
+
+function readAuditEvents(path: string): readonly DpmAuthoringAuditEvent[] {
+  const value = readDpmCliStructuredFile(path)
+  const rawEvents = Array.isArray(value)
+    ? value
+    : isRecord(value) && Array.isArray(value.events) ? value.events : undefined
+  if (!rawEvents) throw invalidAuthoringDocument(path, 'expected an audit event array or an object with an events array')
+
+  const seen = new Set<string>()
+  return rawEvents.map((value, index) => {
+    if (!isRecord(value)) throw invalidAuthoringDocument(path, `audit event ${index} must be an object`)
+    const event = value as Partial<DpmAuthoringAuditEvent>
+    if (typeof event.eventId !== 'string' || !event.eventId) throw invalidAuthoringDocument(path, `audit event ${index} is missing eventId`)
+    if (seen.has(event.eventId)) throw invalidAuthoringDocument(path, `duplicate audit eventId ${event.eventId}`)
+    seen.add(event.eventId)
+    if (!isAuditAction(event.action)) throw invalidAuthoringDocument(path, `audit event ${index} has invalid action`)
+    if (typeof event.definitionId !== 'string' || !event.definitionId) throw invalidAuthoringDocument(path, `audit event ${index} is missing definitionId`)
+    if (typeof event.actorId !== 'string' || !event.actorId) throw invalidAuthoringDocument(path, `audit event ${index} is missing actorId`)
+    if (typeof event.at !== 'string' || !event.at) throw invalidAuthoringDocument(path, `audit event ${index} is missing at`)
+    if (event.breaking !== undefined && typeof event.breaking !== 'boolean') throw invalidAuthoringDocument(path, `audit event ${index} has invalid breaking value`)
+    return event as DpmAuthoringAuditEvent
+  })
+}
+
+function parseAuditFlags(flags: readonly string[]): { eventsPath: string; definitionId?: string; format?: string } {
+  let eventsPath: string | undefined
+  let definitionId: string | undefined
+  let format: string | undefined
+  for (let index = 0; index < flags.length; index += 2) {
+    const key = flags[index]
+    const value = flags[index + 1]
+    if (!key?.startsWith('--')) throw new Error(`Invalid argument near ${key ?? '<end>'}`)
+    if (!value) throw new Error(`Invalid argument near ${key}`)
+    if (key === '--events') {
+      if (eventsPath !== undefined) throw new Error('Duplicate option --events')
+      eventsPath = value
+    } else if (key === '--definition-id') {
+      if (definitionId !== undefined) throw new Error('Duplicate option --definition-id')
+      definitionId = value
+    } else if (key === '--format') {
+      if (format !== undefined) throw new Error('Duplicate option --format')
+      format = value
+    } else {
+      throw new Error(`Unknown option ${key}`)
+    }
+  }
+  if (!eventsPath) throw new Error('Authoring audit requires --events')
+  return { eventsPath, ...(definitionId === undefined ? {} : { definitionId }), ...(format === undefined ? {} : { format }) }
+}
+
+function isAuditAction(value: unknown): value is DpmAuthoringAuditAction {
+  return value === 'revision.seeded'
+    || value === 'draft.created'
+    || value === 'draft.submitted'
+    || value === 'revision.published'
+    || value === 'revision.rolled_back'
 }
 
 function createSearchQuery(values: SearchFlagValues): DpmCrossDefinitionReadModelQuery {

@@ -93,6 +93,36 @@ describe('DPM CLI authoring commands', () => {
     expect(result.stdout).toContain('steps: 6')
   })
 
+  it('reads and filters file-based authoring audit events', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'audit',
+      '--events',
+      fixture('audit-events.json'),
+      '--definition-id',
+      'customer-definition',
+      '--format',
+      'text',
+    ])
+
+    expect(result.exitCode).toBe(0)
+    expect(result.stdout).toContain('command: authoring-audit')
+    expect(result.stdout).toContain('eventCount: 3')
+    expect(result.stdout).toContain('chronological: true')
+  })
+
+  it('rejects malformed audit snapshots', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'audit',
+      '--events',
+      fixture('customer-after-draft.json'),
+    ])
+
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toContain('expected an audit event array')
+  })
+
   it('fails closed when offline search lacks freshness evidence', async () => {
     const result = await runDpmCli([
       'authoring',
