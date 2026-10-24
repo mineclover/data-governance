@@ -38,6 +38,8 @@ Issue is not required for ordinary roadmap updates.
   gate-based planning instead of calendar promises.
 - Use the [DPM CLI checkpoint](./dpm-cli-checkpoint-2026-10-24.md) when resuming management CLI
   work; it records the current implementation boundary, evidence, and owner-gated next steps.
+- Use the [authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md)
+  for any future apply discussion; it is recommendation-only and does not activate mutation.
 
 ## Completed
 
@@ -171,6 +173,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-24 | Source-level CLI tests are insufficient if the packed binary regresses grouped routing or validation exit behavior. | adopt binary smoke evidence | Exercise the built `dist/cli/index.js` for authoring validate/search/audit/apply-plan, grouped help/version, and an invalid audit failure; keep the CLI file-based and mutation-free. | `2eace16`, `pnpm --filter @oa-sdk/dpm smoke:cli` |
 | 2026-10-24 | The three supported DPM demos should remain executable evidence after CLI and authoring maintenance. | adopt demo evidence | Run customer-orders, storage, and captured-profile demos; retain source-DB/no-live-Kafka and proposal-review safety assertions. | `pnpm --filter @oa-sdk/dpm demo`, `demo:storage`, `demo:profile` |
 | 2026-10-24 | Authoring CLI behavior should be demonstrable as one read-only product flow rather than isolated commands only. | adopt authoring demo evidence | Run inspect, diff, review, apply-plan, audit, validate, offline search, and rollback-plan over deterministic fixtures; retain `mutation: none`. | `pnpm --filter @oa-sdk/dpm demo:authoring` |
+| 2026-10-24 | Automatic mutation needs a durable, authorized, idempotent apply boundary beyond the current review-only CLI. | adopt contract / defer activation | Prepare the mutation entry contract covering authorization, stale-base rejection, recomputed approval, idempotency, atomic audit, dry-run, and rollback; keep `authoring apply` unimplemented. | [Authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md), `295152d` |
 
 ## Formal approvals
 

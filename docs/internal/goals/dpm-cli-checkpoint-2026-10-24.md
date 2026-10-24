@@ -71,5 +71,9 @@ The next work should be one of:
 2. prepare a separately approved mutation contract covering authorization, optimistic concurrency,
    audit persistence, dry-run, and rollback before any `authoring apply` implementation.
 
+The prepared contract is documented in
+[`phase-8-authoring-mutation-entry-contract.md`](./phase-8-authoring-mutation-entry-contract.md);
+it is not an activation decision.
+
 The prepared cross-definition read-model contract remains evidence-only; its persistent index,
 external authorization, and consumer route remain disabled.
