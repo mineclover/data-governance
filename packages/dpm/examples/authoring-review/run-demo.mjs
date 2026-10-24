@@ -27,7 +27,14 @@ checks.push({ name: 'approval review', pass: review.command === 'authoring-revie
 const applyPlan = await runJson(['authoring', 'apply-plan', '--before', before, '--after', after])
 checks.push({
   name: 'apply plan remains read-only',
-  pass: applyPlan.result.mutation === 'none' && applyPlan.result.executable === false,
+  pass: applyPlan.result.mutation === 'none'
+    && applyPlan.result.executable === false
+    && applyPlan.result.authorization.defaultDeny === true
+    && applyPlan.result.concurrency.staleBaseMustBeRejected === true
+    && applyPlan.result.idempotency.duplicateRequestReturnsOriginalOutcome === true
+    && applyPlan.result.persistence.atomicAuditWithPublication === true
+    && applyPlan.result.dryRun.default === true
+    && applyPlan.result.rollback.targetRetentionRequired === true,
 })
 
 const audit = await runJson(['authoring', 'audit', '--events', events])

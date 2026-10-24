@@ -39,8 +39,13 @@ const invalidAudit = runFailure(['authoring', 'validate', '--events', outOfOrder
 assert(invalidAudit.status === 2, 'invalid audit exit code')
 assert(invalidAudit.stderr.includes('audit events must be in chronological order'), 'invalid audit diagnostic')
 
-const applyPlan = runText(['authoring', 'apply-plan', '--before', before, '--after', after, '--format', 'text'])
-assert(applyPlan.includes('mutation: none') && applyPlan.includes('executable: false'), 'apply-plan safety boundary')
+const applyPlan = runJson(['authoring', 'apply-plan', '--before', before, '--after', after])
+assert(applyPlan.result.mutation === 'none' && applyPlan.result.executable === false, 'apply-plan safety boundary')
+assert(applyPlan.result.authorization.defaultDeny === true, 'apply-plan authorization contract')
+assert(applyPlan.result.concurrency.staleBaseMustBeRejected === true, 'apply-plan concurrency contract')
+assert(applyPlan.result.idempotency.duplicateRequestReturnsOriginalOutcome === true, 'apply-plan idempotency contract')
+assert(applyPlan.result.persistence.atomicAuditWithPublication === true, 'apply-plan audit contract')
+assert(applyPlan.result.dryRun.default === true && applyPlan.result.rollback.targetRetentionRequired === true, 'apply-plan recovery contract')
 
 console.log('DPM CLI binary smoke OK')
 
