@@ -1,0 +1,647 @@
+{
+  "kind": "dpm.profile.artifact.v1",
+  "profileId": "profile:commerce-events",
+  "datasetId": "commerce_ai",
+  "profileVersion": "2026-07-04.kafka",
+  "createdAt": "2026-07-04T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "source:kafka:orders.created",
+      "kind": "kafka_topic_bundle",
+      "connectorId": "dpm.kafka.fixture",
+      "connectorVersion": "0.1.0",
+      "refs": [
+        "kafka://commerce/orders.created"
+      ],
+      "captureMode": "fixture",
+      "sourceVersionHash": "sha256:ff527e469b595c1579b98ac70f1dc3fb1dec1ca98c6f9ca90401683e60efac29"
+    }
+  ],
+  "evidenceSources": {
+    "evidence:kafka:orders.created": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/topic"
+      },
+      "connectorId": "dpm.kafka.fixture",
+      "description": "Kafka topic orders.created"
+    },
+    "evidence:kafka:orders.created.header.correlation_id": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.header.correlation_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/headers/correlation_id"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.key": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.key",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/key"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.partition.0": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.0",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/0"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.partition.1": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.1",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/1"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.partition.2": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.2",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/2"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.relationship_hint.hint:orders-created-customer": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.relationshipHints.hint:orders-created-customer",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/relationshipHints/hint:orders-created-customer"
+      },
+      "connectorId": "dpm.kafka.fixture",
+      "description": "field-name-and-presence"
+    },
+    "evidence:kafka:orders.created.schema.orders%2Ecreated-value": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.schema.orders%2Ecreated-value",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/schema"
+      },
+      "connectorId": "dpm.kafka.fixture",
+      "description": "json-schema"
+    },
+    "evidence:kafka:orders.created.value.customer": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.customer.customer_no": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer.customer_no",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer/customer_no"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.customer.tenant_id": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer.tenant_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer/tenant_id"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.order": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.order.amount": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.amount",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/amount"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.order.order_id": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.order_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/order_id"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    },
+    "evidence:kafka:orders.created.value.order.promo_code": {
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.promo_code",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/promo_code"
+      },
+      "connectorId": "dpm.kafka.fixture"
+    }
+  },
+  "nodes": [
+    {
+      "id": "node:field:orders.created.value.customer",
+      "kind": "message_field",
+      "label": "value.customer",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer"
+      },
+      "dataType": "object"
+    },
+    {
+      "id": "node:field:orders.created.value.customer.customer_no",
+      "kind": "message_field",
+      "label": "value.customer.customer_no",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer.customer_no",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer/customer_no"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:field:orders.created.value.customer.tenant_id",
+      "kind": "message_field",
+      "label": "value.customer.tenant_id",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.customer.tenant_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/customer/tenant_id"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:field:orders.created.value.order",
+      "kind": "message_field",
+      "label": "value.order",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order"
+      },
+      "dataType": "object"
+    },
+    {
+      "id": "node:field:orders.created.value.order.amount",
+      "kind": "message_field",
+      "label": "value.order.amount",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.amount",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/amount"
+      },
+      "dataType": "number"
+    },
+    {
+      "id": "node:field:orders.created.value.order.order_id",
+      "kind": "message_field",
+      "label": "value.order.order_id",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.order_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/order_id"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:field:orders.created.value.order.promo_code",
+      "kind": "message_field",
+      "label": "value.order.promo_code",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.value.order.promo_code",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/value/order/promo_code"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:header:orders.created.correlation_id",
+      "kind": "message_header",
+      "label": "header.correlation_id",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.header.correlation_id",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/headers/correlation_id"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:key:orders.created",
+      "kind": "message_key",
+      "label": "orders.created key",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.key",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/key"
+      },
+      "dataType": "string"
+    },
+    {
+      "id": "node:partition:orders.created.0",
+      "kind": "partition",
+      "label": "orders.created[0]",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.0",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/0"
+      },
+      "dataType": "partition"
+    },
+    {
+      "id": "node:partition:orders.created.1",
+      "kind": "partition",
+      "label": "orders.created[1]",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.1",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/1"
+      },
+      "dataType": "partition"
+    },
+    {
+      "id": "node:partition:orders.created.2",
+      "kind": "partition",
+      "label": "orders.created[2]",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.partition.2",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/partitions/2"
+      },
+      "dataType": "partition"
+    },
+    {
+      "id": "node:relationship-hint:hint:orders-created-customer",
+      "kind": "relationship_hint",
+      "label": "orders.created customer_no resembles public.customers.customer_no",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.relationshipHints.hint:orders-created-customer",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/relationshipHints/hint:orders-created-customer",
+        "externalId": "catalog://commerce/public.customers.customer_no"
+      },
+      "shape": {
+        "evidenceRef": "field-name-and-presence",
+        "fromPath": "value.customer.customer_no",
+        "toRef": "catalog://commerce/public.customers.customer_no"
+      }
+    },
+    {
+      "id": "node:schema-subject:orders%2Ecreated-value",
+      "kind": "schema_subject",
+      "label": "orders.created-value",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created.schema.orders%2Ecreated-value",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/schema"
+      },
+      "dataType": "json-schema",
+      "shape": {
+        "latestVersion": 8
+      }
+    },
+    {
+      "id": "node:topic:orders.created",
+      "kind": "topic",
+      "label": "orders.created",
+      "coordinate": {
+        "kind": "kafka_topic_bundle",
+        "path": "orders.created",
+        "sourceId": "source:kafka:orders.created",
+        "pointer": "/topic"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.customer",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:field:orders.created.value.customer",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.customer.customer_no",
+      "kind": "contains",
+      "fromNodeId": "node:field:orders.created.value.customer",
+      "toNodeId": "node:field:orders.created.value.customer.customer_no",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.customer_no"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.customer.tenant_id",
+      "kind": "contains",
+      "fromNodeId": "node:field:orders.created.value.customer",
+      "toNodeId": "node:field:orders.created.value.customer.tenant_id",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.tenant_id"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.order",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:field:orders.created.value.order",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.order.amount",
+      "kind": "contains",
+      "fromNodeId": "node:field:orders.created.value.order",
+      "toNodeId": "node:field:orders.created.value.order.amount",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.amount"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.order.order_id",
+      "kind": "contains",
+      "fromNodeId": "node:field:orders.created.value.order",
+      "toNodeId": "node:field:orders.created.value.order.order_id",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.order_id"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.field:orders.created.value.order.promo_code",
+      "kind": "contains",
+      "fromNodeId": "node:field:orders.created.value.order",
+      "toNodeId": "node:field:orders.created.value.order.promo_code",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.promo_code"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.header:orders.created.correlation_id",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:header:orders.created.correlation_id",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.header.correlation_id"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.key:orders.created",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:key:orders.created",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.key"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.partition:orders.created.0",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:partition:orders.created.0",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.partition.0"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.partition:orders.created.1",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:partition:orders.created.1",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.partition.1"
+      ]
+    },
+    {
+      "id": "edge:orders.created.contains.partition:orders.created.2",
+      "kind": "contains",
+      "fromNodeId": "node:topic:orders.created",
+      "toNodeId": "node:partition:orders.created.2",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.partition.2"
+      ]
+    },
+    {
+      "id": "edge:orders.created.schema_version_of.orders%2Ecreated-value",
+      "kind": "schema_version_of",
+      "fromNodeId": "node:schema-subject:orders%2Ecreated-value",
+      "toNodeId": "node:topic:orders.created",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.schema.orders%2Ecreated-value"
+      ]
+    },
+    {
+      "id": "edge:relationship-hint:hint:orders-created-customer",
+      "kind": "candidate_relationship",
+      "fromNodeId": "node:field:orders.created.value.customer.customer_no",
+      "toNodeId": "node:relationship-hint:hint:orders-created-customer",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.relationship_hint.hint:orders-created-customer"
+      ],
+      "confidence": 0.93
+    }
+  ],
+  "metrics": [
+    {
+      "id": "metric:orders.created.header.correlation_id.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:header:orders.created.correlation_id",
+      "value": 0.991,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.header.correlation_id"
+      ]
+    },
+    {
+      "id": "metric:orders.created.key_coverage",
+      "kind": "key_coverage_ratio",
+      "subjectId": "node:key:orders.created",
+      "value": 0.998,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.key"
+      ]
+    },
+    {
+      "id": "metric:orders.created.message_rate_estimate",
+      "kind": "message_rate_estimate",
+      "subjectId": "node:topic:orders.created",
+      "value": 42.5,
+      "unit": "messages_per_second",
+      "evidenceIds": [
+        "evidence:kafka:orders.created"
+      ]
+    },
+    {
+      "id": "metric:orders.created.schema_version_count",
+      "kind": "schema_version_count",
+      "subjectId": "node:schema-subject:orders%2Ecreated-value",
+      "value": 2,
+      "unit": "versions",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.schema.orders%2Ecreated-value"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.customer.customer_no.null",
+      "kind": "null_ratio",
+      "subjectId": "node:field:orders.created.value.customer.customer_no",
+      "value": 0.003,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.customer_no"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.customer.customer_no.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.customer.customer_no",
+      "value": 0.997,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.customer_no"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.customer.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.customer",
+      "value": 1,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.customer.tenant_id.null",
+      "kind": "null_ratio",
+      "subjectId": "node:field:orders.created.value.customer.tenant_id",
+      "value": 0,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.tenant_id"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.customer.tenant_id.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.customer.tenant_id",
+      "value": 1,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.customer.tenant_id"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.amount.null",
+      "kind": "null_ratio",
+      "subjectId": "node:field:orders.created.value.order.amount",
+      "value": 0,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.amount"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.amount.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.order.amount",
+      "value": 1,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.amount"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.order_id.null",
+      "kind": "null_ratio",
+      "subjectId": "node:field:orders.created.value.order.order_id",
+      "value": 0,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.order_id"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.order_id.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.order.order_id",
+      "value": 1,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.order_id"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.order",
+      "value": 1,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.promo_code.null",
+      "kind": "null_ratio",
+      "subjectId": "node:field:orders.created.value.order.promo_code",
+      "value": 0.88,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.promo_code"
+      ]
+    },
+    {
+      "id": "metric:orders.created.value.order.promo_code.presence",
+      "kind": "presence_ratio",
+      "subjectId": "node:field:orders.created.value.order.promo_code",
+      "value": 0.12,
+      "unit": "ratio",
+      "evidenceIds": [
+        "evidence:kafka:orders.created.value.order.promo_code"
+      ]
+    }
+  ],
+  "diagnostics": [],
+  "freshness": {
+    "versionHash": "sha256:d0b2bfc242289dff3d184cddbae519bfab3f4f3838786f05d9099cffec90e465",
+    "sourceVersionHashes": {
+      "source:kafka:orders.created": "sha256:ff527e469b595c1579b98ac70f1dc3fb1dec1ca98c6f9ca90401683e60efac29"
+    }
+  }
+}

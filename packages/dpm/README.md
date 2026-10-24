@@ -101,6 +101,8 @@ oa-dpm compile --manifest manifest.json --catalog catalog.json --registry regist
 oa-dpm dry-run --manifest manifest.json --catalog catalog.json --registry registry.yaml --estimated-rows rows.json
 oa-dpm registry summary --registry registry.yaml
 oa-dpm registry list --registry registry.yaml --status approved --format text
+oa-dpm profile inspect --profile profile.json
+oa-dpm profile analyze --profile profile.json --format text
 ```
 
 JSON is the default for automation. `--format text` provides a concise operator summary. The CLI
@@ -110,6 +112,10 @@ runtime behavior.
 Registry commands are read-only snapshot management helpers. They inspect status counts or list
 relationships from a supplied YAML snapshot; they do not approve, import, export, or persist registry
 state.
+
+Profile commands are also read-only. They inspect captured profile graph artifacts or generate
+analysis reports from files; they do not connect to Kafka/database connectors, approve proposals,
+or mutate registry state.
 
 Package surface regressions are covered by:
 
