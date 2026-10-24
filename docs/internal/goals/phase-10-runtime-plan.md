@@ -1,11 +1,14 @@
 # Phase 10 Runtime Plan
 
-**Status: planning only; no runtime execution authorized**
+**Status: planning complete; production runtime execution deferred**
 **Plan date: 2026-10-24**
 
 This plan describes how a future production data-plane program could be evaluated and delivered.
 It is not an implementation plan for the current `@oa-sdk/dpm` package and does not authorize
 production data, credentials, migrations, deployment, or cutover.
+
+The plan is complete as a design baseline. No further runtime phase starts until the missing
+production owners and a separate go/no-go decision are recorded in Issue #5.
 
 The first work item is [P10.0 ownership and threat model](./phase-10-ownership-and-threat-model.md),
 followed by the [P10.1 runtime contract](./phase-10-runtime-contract.md) and
