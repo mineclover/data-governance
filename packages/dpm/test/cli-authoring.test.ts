@@ -111,6 +111,35 @@ describe('DPM CLI authoring commands', () => {
     expect(result.stdout).toContain('chronological: true')
   })
 
+  it('validates revision artifacts without mutation', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'validate',
+      '--revision',
+      beforePath,
+    ])
+    const output = JSON.parse(result.stdout)
+
+    expect(result.exitCode).toBe(0)
+    expect(output.command).toBe('authoring-validate')
+    expect(output.result.valid).toBe(true)
+    expect(output.result.documentKind).toBe('published-revision')
+  })
+
+  it('rejects ambiguous validation artifact inputs', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'validate',
+      '--revision',
+      beforePath,
+      '--events',
+      fixture('audit-events.json'),
+    ])
+
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toBe('Authoring validate requires exactly one of --revision, --draft, or --events\n')
+  })
+
   it('rejects malformed audit snapshots', async () => {
     const result = await runDpmCli([
       'authoring',

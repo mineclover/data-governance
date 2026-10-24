@@ -11,6 +11,7 @@ export type DpmCliCommand =
   | 'authoring-search'
   | 'authoring-apply-plan'
   | 'authoring-audit'
+  | 'authoring-validate'
   | 'authoring-review'
   | 'authoring-rollback-plan'
 export type DpmCliFormat = 'json' | 'text'

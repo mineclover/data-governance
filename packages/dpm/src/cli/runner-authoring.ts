@@ -22,12 +22,13 @@ import { readDpmCliStructuredFile } from './input-file.js'
 import { createDpmCliResult } from './result.js'
 import type { DpmCliFormat, DpmCliResult } from './types.js'
 
-const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|audit|diff|review|apply-plan|rollback-plan> [options]
+const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|audit|validate|diff|review|apply-plan|rollback-plan> [options]
 
 Commands:
   inspect                 Show identity-only revision or draft readback
   search                  Search supplied published revisions offline
   audit                   Inspect file-based authoring audit events
+  validate                Validate one authoring artifact without mutation
   diff                    Show a semantic diff between revision files
   review                  Show approval-required review findings
   apply-plan              Prepare an approval-gated mutation plan without applying it
@@ -69,12 +70,13 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: AUTHORING_HELP, stderr: '' }
     }
-    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'audit' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {
+    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'audit' && subcommand !== 'validate' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {
       throw new Error(`Unknown authoring command ${subcommand}`)
     }
 
     if (subcommand === 'search') return runOfflineAuthoringSearch(flags)
     if (subcommand === 'audit') return runAuthoringAuditReadback(flags)
+    if (subcommand === 'validate') return runAuthoringValidation(flags)
 
     const values = parseFlags(flags)
     const format = parseFormat(values.get('--format'))
@@ -310,6 +312,85 @@ function runAuthoringAuditReadback(flags: readonly string[]): DpmCliResult {
     actionCounts,
     events: filteredEvents,
   }, format)
+}
+
+function runAuthoringValidation(flags: readonly string[]): DpmCliResult {
+  const values = parseValidationFlags(flags)
+  const format = parseFormat(values.format)
+  if (values.revisionPath !== undefined) {
+    const revision = readPublishedRevision(values.revisionPath)
+    const explanation = explainDpmAuthoringDefinitions(revision.definitions)
+    return createDpmCliResult('authoring-validate', 0, {
+      valid: true,
+      documentKind: 'published-revision',
+      definitionId: revision.definitionId,
+      revisionId: revision.revisionId,
+      fieldCount: explanation.fieldCount,
+      apiBindingCount: explanation.apiBindingCount,
+    }, format)
+  }
+  if (values.draftPath !== undefined) {
+    const draft = readDraft(values.draftPath)
+    const explanation = explainDpmAuthoringDefinitions(draft.definitions)
+    return createDpmCliResult('authoring-validate', 0, {
+      valid: true,
+      documentKind: 'draft',
+      definitionId: draft.definitionId,
+      draftId: draft.draftId,
+      baseRevisionId: draft.baseRevisionId,
+      fieldCount: explanation.fieldCount,
+      apiBindingCount: explanation.apiBindingCount,
+    }, format)
+  }
+  const events = readAuditEvents(values.eventsPath!)
+  return createDpmCliResult('authoring-validate', 0, {
+    valid: true,
+    documentKind: 'audit-events',
+    eventCount: events.length,
+    chronological: events.every((event, index) => index === 0 || event.at >= events[index - 1]!.at),
+  }, format)
+}
+
+function parseValidationFlags(flags: readonly string[]): {
+  revisionPath?: string
+  draftPath?: string
+  eventsPath?: string
+  format?: string
+} {
+  let revisionPath: string | undefined
+  let draftPath: string | undefined
+  let eventsPath: string | undefined
+  let format: string | undefined
+  for (let index = 0; index < flags.length; index += 2) {
+    const key = flags[index]
+    const value = flags[index + 1]
+    if (!key?.startsWith('--')) throw new Error(`Invalid argument near ${key ?? '<end>'}`)
+    if (!value) throw new Error(`Invalid argument near ${key}`)
+    if (key === '--revision') {
+      if (revisionPath !== undefined) throw new Error('Duplicate option --revision')
+      revisionPath = value
+    } else if (key === '--draft') {
+      if (draftPath !== undefined) throw new Error('Duplicate option --draft')
+      draftPath = value
+    } else if (key === '--events') {
+      if (eventsPath !== undefined) throw new Error('Duplicate option --events')
+      eventsPath = value
+    } else if (key === '--format') {
+      if (format !== undefined) throw new Error('Duplicate option --format')
+      format = value
+    } else {
+      throw new Error(`Unknown option ${key}`)
+    }
+  }
+  if ([revisionPath, draftPath, eventsPath].filter(value => value !== undefined).length !== 1) {
+    throw new Error('Authoring validate requires exactly one of --revision, --draft, or --events')
+  }
+  return {
+    ...(revisionPath === undefined ? {} : { revisionPath }),
+    ...(draftPath === undefined ? {} : { draftPath }),
+    ...(eventsPath === undefined ? {} : { eventsPath }),
+    ...(format === undefined ? {} : { format }),
+  }
 }
 
 function readAuditEvents(path: string): readonly DpmAuthoringAuditEvent[] {

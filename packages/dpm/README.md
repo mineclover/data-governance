@@ -107,6 +107,7 @@ oa-dpm authoring inspect --revision published-revision.json --format text
 oa-dpm authoring inspect --draft draft.json
 oa-dpm authoring search --revision published-revision.json --revision another-revision.json --field-name customerNo
 oa-dpm authoring audit --events authoring-audit.json --format text
+oa-dpm authoring validate --revision published-revision.json
 oa-dpm authoring diff --before published-revision.json --after draft.json
 oa-dpm authoring review --before published-revision.json --after draft.json --format text
 oa-dpm authoring apply-plan --before published-revision.json --after draft.json --format text
@@ -142,6 +143,10 @@ database, or enable the deferred runtime search route.
 `authoring audit` reads and validates a file-based append-only event snapshot. It can filter by
 definition and reports action counts and chronological ordering; it never appends events or connects
 to an audit database.
+
+`authoring validate` is the CI/preflight gate for one revision, draft, or audit-event artifact. It
+normalizes and validates the file without creating drafts, publishing revisions, or changing audit
+state.
 
 Package surface regressions are covered by:
 
