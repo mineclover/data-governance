@@ -24,6 +24,10 @@ Issue is not required for ordinary roadmap updates.
   as a read-only identity summary; keep bulk edit and broad search deferred.
 - Maintain the completed private [Phase 8 authoring quick-fix helper](./phase-8-authoring-quick-fix-decision.md)
   as review-only semantic-diff suggestions; keep automatic mutation, bulk edit, and broad search deferred.
+- Maintain the read-only `oa-dpm` management CLI across registry, profile, and authoring artifacts:
+  inspect, bounded offline search, semantic diff/review, apply-plan, audit readback, and validation.
+  Keep `authoring apply`, publish, rollback execution, database writes, and external authorization
+  deferred until their owner-approved entry contracts exist.
 - Follow the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
   before activating cross-definition search, automatic mutation, or bulk authoring.
 - Maintain the [cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
@@ -100,6 +104,8 @@ Issue is not required for ordinary roadmap updates.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
   unsupported metadata filters, automatic mutation, bulk edit, and cross-definition runtime search;
   keep the prepared read-model contract and its drift check green.
+- Keep the file-based authoring CLI evidence green; `authoring apply-plan` must remain
+  `mutation: none` and `executable: false`, and `authoring validate` must remain a no-write gate.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -156,6 +162,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-16 | The approved `@mineclover/dpm` identity could not be published by the authenticated npm owner because the `mineclover` scope was unavailable. | adopt scope correction | Use the owner-controlled `@context-action` scope, keep the immutable private `v0.1.0` release, and execute the corrected `@context-action/dpm@0.1.1` release with a fresh gate. | `npm access list packages @context-action`, `npm view @context-action/dpm`, [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-07-16 | The selected `@context-action` scope belongs to a separate repository, while the canonical owner already has the `oa-sdk` namespace and existing consumers use `@oa-sdk/dpm`. | adopt scope continuity | Reuse `@oa-sdk/dpm` as the canonical package at `v0.1.2`, add GitHub Actions Trusted Publishing with staged npm approval, and keep the historical `oa-sdk` repository non-publishing. | `.github/workflows/publish.yml`, [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/), [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-10-24 | Phase 10 runtime planning is useful as a future boundary but is not part of the current DPM contract product. | adopt boundary / defer runtime | Keep Phase 10 documents and optional synthetic evidence for future use, but remove Phase 10 checks from DPM `verify`, CI, and T1 preflight; return active work to contract/control-plane maintenance. | `ceee1ae`, [Phase 10 runtime plan](./phase-10-runtime-plan.md), [Issue #5](https://github.com/mineclover/data-governance/issues/5) |
+| 2026-10-24 | The management CLI now covers read-only registry, profile, and authoring artifact workflows, while automatic authoring mutation still lacks owner-approved persistence, authorization, audit, and rollback entry conditions. | adopt read-only boundary / defer mutation | Keep authoring inspect/search/diff/review/apply-plan/audit/validate file-based and no-write; do not add `authoring apply` or runtime search activation until the Phase 8 follow-on gates are accepted. | `0964610`, [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
 
 ## Formal approvals
 
