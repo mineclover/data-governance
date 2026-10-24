@@ -110,6 +110,7 @@ oa-dpm authoring audit --events authoring-audit.json --format text
 oa-dpm authoring validate --revision published-revision.json
 oa-dpm authoring diff --before published-revision.json --after draft.json
 oa-dpm authoring review --before published-revision.json --after draft.json --format text
+oa-dpm authoring review --before published-revision.json --after draft.json --fail-on-approval-required true
 oa-dpm authoring apply-plan --before published-revision.json --after draft.json --format text
 oa-dpm authoring rollback-plan --current current-revision.json --target target-revision.json
 ```

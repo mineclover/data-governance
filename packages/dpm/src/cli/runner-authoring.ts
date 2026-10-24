@@ -54,6 +54,8 @@ Options:
   --page-size <n>         Search page size, maximum 100
   --cursor <cursor>       Continue a prior search page
   --events <path>         Authoring audit event JSON/YAML path
+  --fail-on-approval-required <bool>
+                          Review exits 1 when approval is required (default: false)
   --format <json|text>    Output format (default: json)
 
 All authoring commands are read-only. They do not create drafts, publish revisions,
@@ -124,7 +126,7 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     }
 
     if (subcommand === 'review') {
-      return createDpmCliResult('authoring-review', 0, {
+      const reviewResult = {
         definitionId: diff.definitionId,
         baseRevisionId: diff.baseRevisionId,
         draftId: diff.draftId,
@@ -134,7 +136,13 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
         approvalRequired: diff.changes.length > 0,
         quickFixes,
         diagnostics: createReviewDiagnostics(diff, quickFixes),
-      }, format)
+      }
+      return createDpmCliResult(
+        'authoring-review',
+        values.get('--fail-on-approval-required') === 'true' && reviewResult.approvalRequired ? 1 : 0,
+        reviewResult,
+        format,
+      )
     }
 
     return createDpmCliResult('authoring-diff', 0, {
@@ -673,13 +681,19 @@ function readDefinitions(value: unknown, path: string): DpmIdentityDataDefinitio
 
 function parseFlags(flags: readonly string[]): Map<string, string> {
   const values = new Map<string, string>()
-  const known = new Set(['--before', '--after', '--current', '--target', '--revision', '--draft', '--format'])
+  const known = new Set([
+    '--before', '--after', '--current', '--target', '--revision', '--draft',
+    '--fail-on-approval-required', '--format',
+  ])
   for (let index = 0; index < flags.length; index += 2) {
     const key = flags[index]
     const value = flags[index + 1]
     if (!key?.startsWith('--')) throw new Error(`Invalid argument near ${key ?? '<end>'}`)
     if (!known.has(key)) throw new Error(`Unknown option ${key}`)
     if (!value) throw new Error(`Invalid argument near ${key}`)
+    if (key === '--fail-on-approval-required' && value !== 'true' && value !== 'false') {
+      throw new Error(`Invalid ${key} ${value}; expected true or false`)
+    }
     if (values.has(key)) throw new Error(`Duplicate option ${key}`)
     values.set(key, value)
   }

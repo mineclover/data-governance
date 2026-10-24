@@ -213,6 +213,23 @@ describe('DPM CLI authoring commands', () => {
     expect(result.stdout).not.toContain('"before"')
   })
 
+  it('can fail CI review when approval is required without mutating state', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'review',
+      '--before',
+      beforePath,
+      '--after',
+      afterPath,
+      '--fail-on-approval-required',
+      'true',
+    ])
+
+    expect(result.exitCode).toBe(1)
+    expect(JSON.parse(result.stdout).result.approvalRequired).toBe(true)
+    expect(result.stderr).toBe('')
+  })
+
   it('plans rollback without mutating revisions', async () => {
     const result = await runDpmCli([
       'authoring',
