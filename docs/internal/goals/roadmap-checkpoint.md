@@ -106,6 +106,9 @@ Issue is not required for ordinary roadmap updates.
   keep the prepared read-model contract and its drift check green.
 - Keep the file-based authoring CLI evidence green; `authoring apply-plan` must remain
   `mutation: none` and `executable: false`, and `authoring validate` must remain a no-write gate.
+- Keep the packed CLI binary smoke green, including grouped help/version routing and the expected
+  non-zero failure for non-chronological audit validation; this verifies the shipped CLI boundary,
+  not only source-level Vitest behavior.
 - Continue contract maintenance and evidence refreshes through normal commits.
 - Re-run `pnpm check:roadmap` and the owner CI for each checkpoint change.
 
@@ -163,6 +166,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-07-16 | The selected `@context-action` scope belongs to a separate repository, while the canonical owner already has the `oa-sdk` namespace and existing consumers use `@oa-sdk/dpm`. | adopt scope continuity | Reuse `@oa-sdk/dpm` as the canonical package at `v0.1.2`, add GitHub Actions Trusted Publishing with staged npm approval, and keep the historical `oa-sdk` repository non-publishing. | `.github/workflows/publish.yml`, [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/), [Issue #2](https://github.com/mineclover/data-governance/issues/2) |
 | 2026-10-24 | Phase 10 runtime planning is useful as a future boundary but is not part of the current DPM contract product. | adopt boundary / defer runtime | Keep Phase 10 documents and optional synthetic evidence for future use, but remove Phase 10 checks from DPM `verify`, CI, and T1 preflight; return active work to contract/control-plane maintenance. | `ceee1ae`, [Phase 10 runtime plan](./phase-10-runtime-plan.md), [Issue #5](https://github.com/mineclover/data-governance/issues/5) |
 | 2026-10-24 | The management CLI now covers read-only registry, profile, and authoring artifact workflows, while automatic authoring mutation still lacks owner-approved persistence, authorization, audit, and rollback entry conditions. | adopt read-only boundary / defer mutation | Keep authoring inspect/search/diff/review/apply-plan/audit/validate file-based and no-write; do not add `authoring apply` or runtime search activation until the Phase 8 follow-on gates are accepted. | `0964610`, [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
+| 2026-10-24 | Source-level CLI tests are insufficient if the packed binary regresses grouped routing or validation exit behavior. | adopt binary smoke evidence | Exercise the built `dist/cli/index.js` for authoring validate/search/audit/apply-plan, grouped help/version, and an invalid audit failure; keep the CLI file-based and mutation-free. | `2eace16`, `pnpm --filter @oa-sdk/dpm smoke:cli` |
 
 ## Formal approvals
 
