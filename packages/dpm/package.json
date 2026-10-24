@@ -66,6 +66,7 @@
     "build": "rm -rf dist && tsup src/index.ts src/cli/index.ts src/public/package.ts src/public/catalog.ts src/public/data.ts src/public/profile.ts src/public/relationship.ts src/public/gateway.ts src/public/storage.ts src/public/publishing.ts src/public/authoring.ts --format esm --dts",
     "smoke:pack": "mkdir -p dist && echo stale > dist/stale-pack-boundary.txt && corepack pnpm build && node test/package-pack-smoke.mjs",
     "smoke:subpaths": "corepack pnpm build && node test/package-subpath-import-smoke.mjs && tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --strict --skipLibCheck --types node test/package-subpath-type-consumer.ts",
+    "smoke:cli": "corepack pnpm build && node test/package-cli-smoke.mjs",
     "smoke:extraction": "corepack pnpm build && node test/package-extraction-smoke.mjs",
     "smoke:consumer-workflow": "corepack pnpm build && node test/package-consumer-workflow-smoke.mjs",
     "demo": "corepack pnpm build && node examples/customer-orders/run-demo.mjs",

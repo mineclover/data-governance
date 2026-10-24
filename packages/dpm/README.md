@@ -152,6 +152,7 @@ Package surface regressions are covered by:
 
 ```bash
 pnpm --filter @oa-sdk/dpm run smoke:subpaths
+pnpm --filter @oa-sdk/dpm run smoke:cli
 pnpm --filter @oa-sdk/dpm run smoke:extraction
 pnpm --filter @oa-sdk/dpm run smoke:consumer-workflow
 pnpm --filter @oa-sdk/dpm run smoke:pack
