@@ -74,6 +74,25 @@ describe('DPM CLI authoring commands', () => {
     expect(output.result.nextCursor).toBeDefined()
   })
 
+  it('prepares an approval-gated apply plan without mutation', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'apply-plan',
+      '--before',
+      beforePath,
+      '--after',
+      afterPath,
+      '--format',
+      'text',
+    ])
+
+    expect(result.exitCode).toBe(0)
+    expect(result.stdout).toContain('command: authoring-apply-plan')
+    expect(result.stdout).toContain('mutation: none')
+    expect(result.stdout).toContain('executable: false')
+    expect(result.stdout).toContain('steps: 6')
+  })
+
   it('fails closed when offline search lacks freshness evidence', async () => {
     const result = await runDpmCli([
       'authoring',

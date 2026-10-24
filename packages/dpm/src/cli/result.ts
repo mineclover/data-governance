@@ -110,6 +110,8 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
     if (result.hits.length > 50) lines.push(`- ... ${result.hits.length - 50} more`)
   }
   if (typeof result.nextCursor === 'string') lines.push(`nextCursor: ${result.nextCursor}`)
+  if (typeof result.executable === 'boolean') lines.push(`executable: ${result.executable}`)
+  if (Array.isArray(result.steps)) lines.push(`steps: ${result.steps.length}`)
 
   for (const key of ['planIdentity', 'artifactKind', 'artifactVersion']) {
     if (typeof result[key] === 'string') lines.push(`${key}: ${result[key]}`)

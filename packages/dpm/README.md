@@ -108,6 +108,7 @@ oa-dpm authoring inspect --draft draft.json
 oa-dpm authoring search --revision published-revision.json --revision another-revision.json --field-name customerNo
 oa-dpm authoring diff --before published-revision.json --after draft.json
 oa-dpm authoring review --before published-revision.json --after draft.json --format text
+oa-dpm authoring apply-plan --before published-revision.json --after draft.json --format text
 oa-dpm authoring rollback-plan --current current-revision.json --target target-revision.json
 ```
 
@@ -129,6 +130,8 @@ a draft document; `rollback-plan` consumes current and target published revision
 documents contain the authoring metadata plus a `definitions` object in the portable `1.1` shape.
 These commands report semantic changes, approval-required diagnostics, quick-fix suggestions, and
 rollback impact, but never create drafts, approve, publish, execute rollback, or write a database.
+`apply-plan` makes the future mutation contract explicit (base-revision guard, reviewer/publisher
+roles, audit, and rollback retention) while reporting `mutation: none` and `executable: false`.
 
 `authoring search` is an offline, bounded read-model rehearsal over explicitly supplied published
 revision files only. It requires source freshness identities, supports exact canonical identity or

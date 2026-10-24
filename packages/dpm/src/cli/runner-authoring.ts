@@ -20,13 +20,14 @@ import { readDpmCliStructuredFile } from './input-file.js'
 import { createDpmCliResult } from './result.js'
 import type { DpmCliFormat, DpmCliResult } from './types.js'
 
-const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|diff|review|rollback-plan> [options]
+const AUTHORING_HELP = `Usage: oa-dpm authoring <inspect|search|diff|review|apply-plan|rollback-plan> [options]
 
 Commands:
   inspect                 Show identity-only revision or draft readback
   search                  Search supplied published revisions offline
   diff                    Show a semantic diff between revision files
   review                  Show approval-required review findings
+  apply-plan              Prepare an approval-gated mutation plan without applying it
   rollback-plan           Plan a rollback without changing external state
 
 Options:
@@ -64,7 +65,7 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     if (!subcommand || subcommand === 'help' || flags.includes('--help')) {
       return { exitCode: 0, stdout: AUTHORING_HELP, stderr: '' }
     }
-    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'rollback-plan') {
+    if (subcommand !== 'inspect' && subcommand !== 'search' && subcommand !== 'diff' && subcommand !== 'review' && subcommand !== 'apply-plan' && subcommand !== 'rollback-plan') {
       throw new Error(`Unknown authoring command ${subcommand}`)
     }
 
@@ -111,6 +112,10 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     const diff = createDiff(before, after)
     const quickFixes = createDpmAuthoringQuickFixes(diff)
 
+    if (subcommand === 'apply-plan') {
+      return createDpmCliResult('authoring-apply-plan', 0, createApplyPlan(diff, quickFixes), format)
+    }
+
     if (subcommand === 'review') {
       return createDpmCliResult('authoring-review', 0, {
         definitionId: diff.definitionId,
@@ -139,6 +144,44 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
       stdout: '',
       stderr: `${error instanceof Error ? error.message : String(error)}\n`,
     }
+  }
+}
+
+function createApplyPlan(
+  diff: DpmAuthoringSemanticDiff,
+  quickFixes: ReturnType<typeof createDpmAuthoringQuickFixes>,
+) {
+  return {
+    planVersion: '1',
+    definitionId: diff.definitionId,
+    baseRevisionId: diff.baseRevisionId,
+    draftId: diff.draftId,
+    changeCount: diff.changes.length,
+    breakingChangeCount: diff.changes.filter(change => change.breaking).length,
+    breaking: diff.breaking,
+    approvalRequired: diff.changes.length > 0,
+    mutation: 'none',
+    executable: false,
+    concurrency: {
+      baseRevisionId: diff.baseRevisionId,
+      staleBaseMustBeRejected: true,
+    },
+    requiredRoles: diff.changes.length > 0 ? ['reviewer', 'publisher'] : [],
+    steps: [
+      { order: 1, action: 'revalidate-base-revision', required: true },
+      { order: 2, action: 'review-semantic-diff', required: diff.changes.length > 0 },
+      { order: 3, action: 'approve-draft', required: diff.changes.length > 0 },
+      { order: 4, action: 'publish-draft', required: diff.changes.length > 0, deferred: true },
+      { order: 5, action: 'append-audit-event', required: diff.changes.length > 0, deferred: true },
+      { order: 6, action: 'retain-rollback-target', required: diff.changes.length > 0, deferred: true },
+    ],
+    quickFixes,
+    diagnostics: [{
+      code: 'AUTH_APPLY_DEFERRED',
+      severity: diff.changes.length > 0 ? 'warning' : 'info',
+      message: 'This CLI prepares an approval and mutation plan only; no draft, publish, audit, or rollback state is changed.',
+      requiresApproval: diff.changes.length > 0,
+    }],
   }
 }
 
