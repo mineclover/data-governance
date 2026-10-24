@@ -8,6 +8,7 @@ const before = file('customer-before-revision.json')
 const after = file('customer-after-draft.json')
 const billing = file('billing-revision.json')
 const audit = file('audit-events.json')
+const outOfOrderAudit = file('audit-events-out-of-order.json')
 
 const validation = runJson(['authoring', 'validate', '--revision', before])
 assert(validation.command === 'authoring-validate', 'validate command envelope')
@@ -34,6 +35,10 @@ const auditReadback = runJson(['authoring', 'audit', '--events', audit])
 assert(auditReadback.command === 'authoring-audit', 'audit command envelope')
 assert(auditReadback.result.eventCount === 3 && auditReadback.result.chronological === true, 'audit result')
 
+const invalidAudit = runFailure(['authoring', 'validate', '--events', outOfOrderAudit])
+assert(invalidAudit.status === 2, 'invalid audit exit code')
+assert(invalidAudit.stderr.includes('audit events must be in chronological order'), 'invalid audit diagnostic')
+
 const applyPlan = runText(['authoring', 'apply-plan', '--before', before, '--after', after, '--format', 'text'])
 assert(applyPlan.includes('mutation: none') && applyPlan.includes('executable: false'), 'apply-plan safety boundary')
 
@@ -52,6 +57,21 @@ function runText(args) {
     cwd: packageRoot,
     encoding: 'utf8',
   })
+}
+
+function runFailure(args) {
+  try {
+    execFileSync(process.execPath, [cliPath.pathname, ...args], {
+      cwd: packageRoot,
+      encoding: 'utf8',
+    })
+  } catch (error) {
+    return {
+      status: error.status,
+      stderr: error.stderr ?? '',
+    }
+  }
+  throw new Error(`DPM CLI binary smoke expected failure: ${args.join(' ')}`)
 }
 
 function assert(condition, label) {
