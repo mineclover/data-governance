@@ -1,4 +1,5 @@
 export type DpmCliCommand = 'validate' | 'compile' | 'dry-run'
+export type DpmCliFormat = 'json' | 'text'
 
 export type DpmCliResult = {
   exitCode: number
@@ -12,4 +13,5 @@ export type DpmCliParsedArgs = {
   catalogPath: string
   registryPath: string
   estimatedRowsPath?: string
+  format: DpmCliFormat
 }

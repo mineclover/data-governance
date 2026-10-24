@@ -11,6 +11,7 @@ export function readDpmCliInputs(args: DpmCliParsedArgs): DpmCliInputs {
     manifest: readDpmCliStructuredFile(args.manifestPath),
     catalog: readDpmCliCatalogSnapshot(args.catalogPath),
     registry: readDpmCliRegistrySnapshot(args.registryPath),
+    format: args.format,
     ...(estimatedRows ? { estimatedRows } : {}),
   }
 }

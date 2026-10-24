@@ -88,6 +88,23 @@ The internal decision rule is tracked in [Goal 63](../../docs/internal/goals/goa
 
 ## Verification
 
+### Management CLI
+
+The `oa-dpm` binary is intentionally file-based and read-only with respect to external systems:
+
+```bash
+oa-dpm help
+oa-dpm version
+oa-dpm validate --manifest manifest.json --catalog catalog.json --registry registry.yaml
+oa-dpm validate --manifest manifest.json --catalog catalog.json --registry registry.yaml --format text
+oa-dpm compile --manifest manifest.json --catalog catalog.json --registry registry.yaml
+oa-dpm dry-run --manifest manifest.json --catalog catalog.json --registry registry.yaml --estimated-rows rows.json
+```
+
+JSON is the default for automation. `--format text` provides a concise operator summary. The CLI
+does not connect to a database, mutate a registry, access a vault, rewrite rows, or execute Phase 10
+runtime behavior.
+
 Package surface regressions are covered by:
 
 ```bash

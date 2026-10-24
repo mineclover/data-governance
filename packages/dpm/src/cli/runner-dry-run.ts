@@ -1,7 +1,7 @@
 import { compileDpmPlan } from '../compiler/compile-orchestrator.js'
 import { createDpmDryRunReport } from '../dry-run/report-builder.js'
 import type { DpmCliInputs } from './input-types.js'
-import { createDpmCliJsonResult } from './result.js'
+import { createDpmCliResult } from './result.js'
 import type { DpmCliResult } from './types.js'
 
 export function runDpmCliDryRunCommand(inputs: DpmCliInputs): DpmCliResult {
@@ -12,11 +12,11 @@ export function runDpmCliDryRunCommand(inputs: DpmCliInputs): DpmCliResult {
     phase: 'dry_run',
   })
   if (!compiled.ok) {
-    return createDpmCliJsonResult('dry-run', 1, compiled)
+    return createDpmCliResult('dry-run', 1, compiled, inputs.format)
   }
 
-  return createDpmCliJsonResult('dry-run', 0, createDpmDryRunReport({
+  return createDpmCliResult('dry-run', 0, createDpmDryRunReport({
     plan: compiled.plan,
     ...(inputs.estimatedRows ? { estimatedRows: inputs.estimatedRows } : {}),
-  }))
+  }), inputs.format)
 }

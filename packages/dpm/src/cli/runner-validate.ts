@@ -1,6 +1,6 @@
 import { validateDpmManifest } from '../validator/manifest-validator.js'
 import type { DpmCliInputs } from './input-types.js'
-import { createDpmCliJsonResult } from './result.js'
+import { createDpmCliResult } from './result.js'
 import type { DpmCliResult } from './types.js'
 
 export function runDpmCliValidateCommand(inputs: DpmCliInputs): DpmCliResult {
@@ -10,9 +10,10 @@ export function runDpmCliValidateCommand(inputs: DpmCliInputs): DpmCliResult {
     registry: inputs.registry,
     phase: 'validate',
   })
-  return createDpmCliJsonResult(
+  return createDpmCliResult(
     'validate',
     result.summary.errors > 0 ? 1 : 0,
     result,
+    inputs.format,
   )
 }
