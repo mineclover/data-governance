@@ -180,6 +180,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-24 | The mutation entry contract needs explicit owner decisions before it can become an implementation task. | adopt review checklist / defer activation | Collect operational, authorization, persistence, audit, rollback, rehearsal, and release decisions without adding `authoring apply`. | [Authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md) |
 | 2026-10-25 | The owner review checklist remains unapproved and all mutation activation fields remain unchecked. | maintain deferred state | Keep the read-only CLI, contract conformance, demo smoke, and static boundary guard green; wait for explicit owner inputs before mutation or persistence work. | `c736a9e`, `pnpm check:authoring-cli-boundary`, [Review checklist](./phase-8-authoring-mutation-review-checklist.md) |
 | 2026-10-25 | CI consumers need a non-mutating failure signal when an authoring review still requires approval. | adopt review failure mode | Support `--fail-on-approval-required true` with exit code `1`, machine-readable output, and no stderr or write behavior; keep default review behavior unchanged. | `702ef0e`, `pnpm --filter @oa-sdk/dpm smoke:cli` |
+| 2026-10-25 | The authoring demo should cover the same approval failure behavior as the packed CLI smoke. | adopt demo parity | Include the approval-required exit-code rehearsal in `demo:authoring` while preserving the read-only boundary. | `30d259a`, `pnpm --filter @oa-sdk/dpm demo:authoring` |
 
 ## Formal approvals
 

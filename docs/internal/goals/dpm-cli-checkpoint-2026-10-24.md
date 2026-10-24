@@ -63,7 +63,8 @@ Passed:
 - `pnpm --filter @oa-sdk/dpm demo:profile` — captured Kafka profile analysis, baseline comparison,
   and proposal review without live Kafka access;
 - `pnpm --filter @oa-sdk/dpm demo:authoring` — authoring inspect, diff, review, apply-plan, audit,
-  validation, offline search, and rollback-plan rehearsal with `mutation: none`;
+  validation, offline search, rollback-plan, and approval-failure CI-gate rehearsal with
+  `mutation: none`;
 - docs, roadmap, operational-change, read-model contract/activation/shadow, T1 readiness, and
   boundary checks.
 
