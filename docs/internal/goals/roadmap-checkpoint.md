@@ -1,7 +1,7 @@
 # DPM Roadmap Checkpoint
 
 **Status: v0.1.3 OIDC validation complete; post-release maintenance**
-**Updated: 2026-10-24**
+**Updated: 2026-10-25**
 
 The [DPM Master Roadmap](./dpm-master-roadmap.md) remains the canonical scope and phase plan.
 This checkpoint is the lightweight operational loop for routine progress and feedback; a GitHub
@@ -178,6 +178,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-24 | Automatic mutation needs a durable, authorized, idempotent apply boundary beyond the current review-only CLI. | adopt contract / defer activation | Prepare the mutation entry contract covering authorization, stale-base rejection, recomputed approval, idempotency, atomic audit, dry-run, and rollback; keep `authoring apply` unimplemented. | [Authoring mutation entry contract](./phase-8-authoring-mutation-entry-contract.md), `295152d` |
 | 2026-10-24 | The read-only authoring boundary must be protected from accidental CLI or release-gate drift. | adopt static boundary guard | Check non-executable apply-plan markers, deferred mutation contract, authoring demo smoke inclusion, and checkpoint evidence in CI. | `4acafe1`, `pnpm check:authoring-cli-boundary` |
 | 2026-10-24 | The mutation entry contract needs explicit owner decisions before it can become an implementation task. | adopt review checklist / defer activation | Collect operational, authorization, persistence, audit, rollback, rehearsal, and release decisions without adding `authoring apply`. | [Authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md) |
+| 2026-10-25 | The owner review checklist remains unapproved and all mutation activation fields remain unchecked. | maintain deferred state | Keep the read-only CLI, contract conformance, demo smoke, and static boundary guard green; wait for explicit owner inputs before mutation or persistence work. | `c736a9e`, `pnpm check:authoring-cli-boundary`, [Review checklist](./phase-8-authoring-mutation-review-checklist.md) |
 
 ## Formal approvals
 
