@@ -1,14 +1,31 @@
-import { execFileSync } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
+import { readFileSync, readdirSync } from 'node:fs'
 
 const packageRoot = new URL('..', import.meta.url)
 const cliPath = new URL('../dist/cli/index.js', import.meta.url)
 const fixtureRoot = new URL('./fixtures/authoring/', import.meta.url)
+const fixtureNames = readdirSync(fixtureRoot).sort()
+const fixtureContents = new Map(fixtureNames.map(name => [name, readFileSync(new URL(name, fixtureRoot))]))
 
 const before = file('customer-before-revision.json')
 const after = file('customer-after-draft.json')
 const billing = file('billing-revision.json')
 const audit = file('audit-events.json')
 const outOfOrderAudit = file('audit-events-out-of-order.json')
+const current = file('customer-current-revision.json')
+const target = file('customer-target-revision.json')
+
+const inspect = runJson(['authoring', 'inspect', '--revision', before])
+assert(inspect.result.documentKind === 'published-revision', 'inspect result')
+
+const diff = runJson(['authoring', 'diff', '--before', before, '--after', after])
+assert(diff.result.breaking === true, 'semantic diff result')
+
+const review = runJson(['authoring', 'review', '--before', before, '--after', after])
+assert(review.result.approvalRequired === true, 'default review result')
+
+const rollback = runJson(['authoring', 'rollback-plan', '--current', current, '--target', target])
+assert(rollback.result.action === 'rollback' && rollback.result.mutation === 'none', 'rollback-plan safety boundary')
 
 const validation = runJson(['authoring', 'validate', '--revision', before])
 assert(validation.command === 'authoring-validate', 'validate command envelope')
@@ -70,7 +87,7 @@ const invalidReviewOption = runFailure(['authoring', 'diff', '--fail-on-approval
 assert(invalidReviewOption.status === 2 && invalidReviewOption.stdout === '', 'review-only option misuse exit boundary')
 assert(invalidReviewOption.stderr.includes('Unknown option --fail-on-approval-required'), 'review-only option misuse diagnostic')
 
-console.log('DPM CLI binary smoke OK')
+console.log('DPM CLI binary smoke OK: input fixture bytes and directory entries unchanged after every command')
 
 function file(name) {
   return new URL(name, fixtureRoot).pathname
@@ -81,26 +98,29 @@ function runJson(args) {
 }
 
 function runText(args) {
-  return execFileSync(process.execPath, [cliPath.pathname, ...args], {
-    cwd: packageRoot,
-    encoding: 'utf8',
-  })
+  const result = runCli(args)
+  assert(result.status === 0, `expected success: ${args.join(' ')}\n${result.stderr}`)
+  return result.stdout
 }
 
 function runFailure(args) {
-  try {
-    execFileSync(process.execPath, [cliPath.pathname, ...args], {
-      cwd: packageRoot,
-      encoding: 'utf8',
-    })
-  } catch (error) {
-    return {
-      status: error.status,
-      stdout: error.stdout ?? '',
-      stderr: error.stderr ?? '',
-    }
+  const result = runCli(args)
+  assert(result.status !== 0, `expected failure: ${args.join(' ')}`)
+  return result
+}
+
+function runCli(args) {
+  const result = spawnSync(process.execPath, [cliPath.pathname, ...args], {
+    cwd: packageRoot,
+    encoding: 'utf8',
+  })
+  const command = args.join(' ')
+  assert(JSON.stringify(readdirSync(fixtureRoot).sort()) === JSON.stringify(fixtureNames), `input fixture directory changed after ${command}`)
+  for (const [name, contents] of fixtureContents) {
+    assert(readFileSync(new URL(name, fixtureRoot)).equals(contents), `input fixture bytes changed after ${command}: ${name}`)
   }
-  throw new Error(`DPM CLI binary smoke expected failure: ${args.join(' ')}`)
+  assert(!result.error && result.signal === null && result.status !== null, `CLI process failed: ${command}`)
+  return result
 }
 
 function assert(condition, label) {

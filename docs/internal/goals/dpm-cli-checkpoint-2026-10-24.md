@@ -51,6 +51,9 @@ Passed:
 - `pnpm verify` — full build, typecheck, gates, tests, and DPM smokes;
 - DPM full suite: **134 files / 329 tests** after audit validation hardening;
 - `pnpm --filter @oa-sdk/dpm smoke:cli` — built binary positive and negative paths;
+- built CLI smoke compares authoring fixture bytes and directory entries after every command,
+  including approval-required and invalid-input failures; this is input-integrity evidence,
+  not a filesystem sandbox or proof against writes elsewhere;
 - packed CLI smoke also verifies `review --fail-on-approval-required true` returns exit code `1`
   with machine-readable approval diagnostics and no stderr/mutation;
 - `pnpm check:authoring-cli-boundary` — static guard for non-executable apply plans, deferred
