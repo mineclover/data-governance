@@ -38,6 +38,54 @@ external identity provider, or authorize any T1/public-release action.
 The logical flag remains `disabled` until the owner-approved change record names its actual
 deployment flag, operator, and rollback path. This repository does not add or set that flag.
 
+## Product ownership and current work boundary
+
+This read model belongs to the DPM contract/control plane in `mineclover/data-governance`, not
+OA SDK Core code generation or the Spec-Lens source/spec observation index. The historical
+`@oa-sdk/dpm` workspace in OA SDK remains maintenance-only; package namespace continuity is not
+a scope reactivation or permission to implement this service in that monorepo.
+
+The current follow-up prepares operational requirements and approval criteria only. It retains
+file-based CLI inputs and the existing ephemeral in-memory conformance/shadow fixture. It creates
+no durable index, audit event, revision, connection, migration, deployment flag, or consumer route.
+Transient fixture generation is evidence, not operational persistence. Read-model activation is
+also not Phase 10 data-plane activation: neither authoring writes nor source-row processing is
+authorized by a search pilot.
+
+## Operational requirements and pending decisions
+
+These requirements refine the owner-value list below. All future operational values remain
+pending; this table supplies no owner approval, credentials, or production defaults.
+
+| Area | Required behavior and acceptance evidence | Owner value still required |
+| --- | --- | --- |
+| Ownership and environment | One accountable operator can stop serving results and restore the definition-scoped fallback; record the permitted definitions and environment before any service is enabled. | Production operator/on-call, abort authority, environment, definition scope, change record |
+| Durable projection | Derive the index only from immutable published revisions; preserve canonical identity and source/freshness references. Rebuild must not rewrite source definitions. | Durable target, schema/version, residency, migration authority, backup/restore and retention policies |
+| Writer/reader separation | Search is read-only for callers, but index rebuilds write projection storage. Approve rebuild writes separately; a read-only pilot never grants authoring or source-database write rights. | Builder and query roles, transaction boundary, least-privilege grants, connection limits and timeouts |
+| Authorization | Resolve explicit definition scopes before evaluation, deny empty or widened scopes, and expose no out-of-scope existence, count, cursor, or freshness information. | Adapter owner, caller-scope authority, scope expiry/revocation policy |
+| Freshness and recovery | Expose only complete `ready` generations; missing/building/stale/failed generations are unavailable, not empty matches. Interrupted rebuilds must be retryable without partial visibility. | Generation trigger, freshness verification policy, retry budget, rebuild concurrency, stale-generation retention |
+| Query bounds | Exact identity or bounded predicates only; deterministic ordering, duplicate collapse, and opaque cursors; page size defaults to `25` and must not exceed `100`. | Approved pilot workload and capacity envelope; no arbitrary SQL, full-text search, or raw values |
+| Observation | Record identity parity, authorization isolation, generation lag, availability, latency, and query/rebuild outcomes without sensitive payloads or credentials. Correctness parity mismatches and authorization leakage must be zero. | Observation window, latency/error/lag/cardinality thresholds, telemetry access and retention |
+| Fallback and expansion | Stop on any correctness/scope/freshness failure; rehearse disabling the service and using definition-scoped lookup without deleting source or generation evidence. | Actual flag/route, rollback owner, recovery objective, pilot and expansion sign-off |
+
+Latency, capacity, observation-window, and retention numbers are deliberately not invented here.
+They must be chosen against the owner-approved workload. Zero correctness mismatches and zero
+authorization leakage are safety requirements, not a claim that production measurement exists.
+
+## Approval boundaries
+
+1. **Current preparation / private CI evidence:** documentation, file-based CLI, and the existing
+   ephemeral fixture only. Keep consumers disabled and retain no-write behavior.
+2. **Durable shadow:** requires explicit owner acceptance of target, migration/connection and
+   index-writer authority, source scope, authorization, rebuild/backup, telemetry, and abort values.
+   Consumers remain disabled; the CI-only shadow approval is not sufficient for this step.
+3. **Read-only pilot:** requires accepted durable-shadow evidence, exact consumer scope, bounded
+   query behavior, observation thresholds, and a rehearsed fallback. Projection maintenance may
+   write only its separately approved storage; authoring and source-data writes remain excluded.
+4. **Expansion:** requires a new scope and operator sign-off based on pilot evidence. Authoring
+   apply, bulk edit, external identity-provider deployment, and Phase 10 execution require their
+   own decisions; they are not implied by any read-model gate.
+
 ## Scope of the first activation
 
 The first runtime pilot may serve only:

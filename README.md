@@ -21,6 +21,22 @@ In practical terms, the repository answers three questions:
 The canonical implementation is `@oa-sdk/dpm`. The historical `oa-sdk` copy remains a
 non-publishing source/compatibility mirror; it is not the release authority for this repository.
 
+## Position within the OA SDK ecosystem
+
+| Area | Responsibility | Relationship to DPM |
+| --- | --- | --- |
+| OA SDK Core Platform | TypeSpec/OpenAPI contracts, parsing, validation, code generation, and spec provenance | Adjacent contract tooling; DPM does not extend its product scope or introduce a new Core dependency |
+| OA SDK Spec-Lens | Spec/source revision, diff, and provenance observation | Not the DPM cross-definition index; DPM uses published definition identities, freshness, and authorization scopes |
+| DPM contract/control plane | Logical field identities, API/catalog bindings, review, revision contracts, and bounded read-model planning | Owned here; the OA SDK monorepo copy remains maintenance-only |
+| Future data plane | Source/target data movement, tokenization, vault access, and execution recovery | Separately owned Phase 10 program; not activated by DPM authoring or search work |
+
+The OA SDK classification is recorded in its
+[platform scope](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/platform-scope.md)
+and [release policy](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/release-policy.json).
+The next read-model work is limited by the
+[activation packet](./docs/internal/goals/phase-8-cross-definition-read-model-activation-packet.md):
+private no-write evidence does not authorize a persistent index, consumer service, or authoring mutation.
+
 ## What this repository owns
 
 - Logical data definitions and namespace-safe identity (`data_definitions` `1.0` is frozen;
