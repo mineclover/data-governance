@@ -80,7 +80,7 @@ export function runDpmCliAuthoringCommand(argv: readonly string[]): DpmCliResult
     if (subcommand === 'audit') return runAuthoringAuditReadback(flags)
     if (subcommand === 'validate') return runAuthoringValidation(flags)
 
-    const values = parseFlags(flags)
+    const values = parseFlags(flags, subcommand === 'review')
     const format = parseFormat(values.get('--format'))
 
     if (subcommand === 'inspect') {
@@ -679,12 +679,13 @@ function readDefinitions(value: unknown, path: string): DpmIdentityDataDefinitio
   }
 }
 
-function parseFlags(flags: readonly string[]): Map<string, string> {
+function parseFlags(flags: readonly string[], review: boolean): Map<string, string> {
   const values = new Map<string, string>()
   const known = new Set([
     '--before', '--after', '--current', '--target', '--revision', '--draft',
-    '--fail-on-approval-required', '--format',
+    '--format',
   ])
+  if (review) known.add('--fail-on-approval-required')
   for (let index = 0; index < flags.length; index += 2) {
     const key = flags[index]
     const value = flags[index + 1]

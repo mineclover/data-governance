@@ -133,6 +133,10 @@ a draft document; `rollback-plan` consumes current and target published revision
 documents contain the authoring metadata plus a `definitions` object in the portable `1.1` shape.
 These commands report semantic changes, approval-required diagnostics, quick-fix suggestions, and
 rollback impact, but never create drafts, approve, publish, execute rollback, or write a database.
+Only `authoring review` accepts `--fail-on-approval-required true|false` (default: `false`).
+With `true`, semantic changes return exit code `1`; no changes return `0`. Both keep the report
+on stdout and stderr empty. Invalid inputs or use of this option on other commands return `2`.
+This gate detects changes requiring review; it does not verify or grant an approval.
 `apply-plan` makes the future mutation contract explicit (base-revision guard, reviewer/publisher
 roles, audit, and rollback retention) while reporting `mutation: none` and `executable: false`.
 

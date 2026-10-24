@@ -248,6 +248,60 @@ describe('DPM CLI authoring commands', () => {
     expect(output.result.approvalRequired).toBe(true)
   })
 
+  it.each(['json', 'text'])('passes unchanged review with the approval gate enabled in %s mode', async format => {
+    const result = await runDpmCli([
+      'authoring', 'review', '--before', beforePath,
+      '--after', fixture('customer-unchanged-draft.json'),
+      '--fail-on-approval-required', 'true', '--format', format,
+    ])
+
+    expect(result.exitCode).toBe(0)
+    expect(result.stderr).toBe('')
+    if (format === 'json') {
+      expect(JSON.parse(result.stdout).result).toMatchObject({
+        approvalRequired: false, changeCount: 0, quickFixes: [], diagnostics: [],
+      })
+    } else {
+      expect(result.stdout).toContain('status: ok')
+      expect(result.stdout).toContain('approvalRequired: false')
+    }
+  })
+
+  it('preserves changed review output when the approval gate is explicitly disabled', async () => {
+    const args = ['authoring', 'review', '--before', beforePath, '--after', afterPath]
+    expect(await runDpmCli([...args, '--fail-on-approval-required', 'false']))
+      .toEqual(await runDpmCli(args))
+  })
+
+  it('keeps text diagnostics on stdout when the approval gate fails', async () => {
+    const result = await runDpmCli([
+      'authoring', 'review', '--before', beforePath, '--after', afterPath,
+      '--fail-on-approval-required', 'true', '--format', 'text',
+    ])
+    expect(result.exitCode).toBe(1)
+    expect(result.stderr).toBe('')
+    expect(result.stdout).toContain('status: failed')
+    expect(result.stdout).toContain('approvalRequired: true')
+    expect(result.stdout).toContain('AUTH_BREAKING_CHANGE_APPROVAL_REQUIRED')
+  })
+
+  it.each(['yes', 'TRUE', '1', '--format'])('rejects invalid approval gate value %s', async value => {
+    const result = await runDpmCli(['authoring', 'review', '--fail-on-approval-required', value])
+    expect(result).toEqual({
+      exitCode: 2, stdout: '',
+      stderr: `Invalid --fail-on-approval-required ${value}; expected true or false\n`,
+    })
+  })
+
+  it.each(['inspect', 'diff', 'apply-plan', 'rollback-plan', 'search', 'audit', 'validate'])(
+    'rejects the review-only approval option on %s before loading files', async command => {
+      const result = await runDpmCli(['authoring', command, '--fail-on-approval-required', 'true'])
+      expect(result).toEqual({
+        exitCode: 2, stdout: '', stderr: 'Unknown option --fail-on-approval-required\n',
+      })
+    },
+  )
+
   it('rejects mismatched authoring base revisions', async () => {
     const result = await runDpmCli([
       'authoring',

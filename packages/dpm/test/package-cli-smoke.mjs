@@ -61,6 +61,15 @@ assert(approvalFailure.status === 1, 'approval-required exit code')
 assert(JSON.parse(approvalFailure.stdout).result.approvalRequired === true, 'approval-required JSON result')
 assert(approvalFailure.stderr === '', 'approval-required stderr boundary')
 
+const unchangedReview = runJson([
+  'authoring', 'review', '--before', before,
+  '--after', file('customer-unchanged-draft.json'), '--fail-on-approval-required', 'true',
+])
+assert(unchangedReview.result.approvalRequired === false && unchangedReview.result.changeCount === 0, 'unchanged review passes approval gate')
+const invalidReviewOption = runFailure(['authoring', 'diff', '--fail-on-approval-required', 'true'])
+assert(invalidReviewOption.status === 2 && invalidReviewOption.stdout === '', 'review-only option misuse exit boundary')
+assert(invalidReviewOption.stderr.includes('Unknown option --fail-on-approval-required'), 'review-only option misuse diagnostic')
+
 console.log('DPM CLI binary smoke OK')
 
 function file(name) {
