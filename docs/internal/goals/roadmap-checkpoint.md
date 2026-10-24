@@ -36,6 +36,8 @@ Issue is not required for ordinary roadmap updates.
   are accepted.
 - Use the [full phase execution forecast](./full-phase-execution-forecast.md) for work-unit and
   gate-based planning instead of calendar promises.
+- Use the [DPM CLI checkpoint](./dpm-cli-checkpoint-2026-10-24.md) when resuming management CLI
+  work; it records the current implementation boundary, evidence, and owner-gated next steps.
 
 ## Completed
 
