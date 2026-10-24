@@ -1,6 +1,6 @@
 # Phase 10 Non-Production Integration Plan
 
-**Status: readiness design; no environment or deployment authorized**
+**Status: synthetic-only readiness values fixed; no environment or deployment authorized**
 **Started: 2026-10-24**
 
 This is the P10.4 non-production integration plan. It defines how a future runtime can be tested in
@@ -38,6 +38,25 @@ Before provisioning, Issue #5 must name and approve:
 - abort authority and cleanup owner.
 
 No default cloud provider, database, vault, or credential is selected by this plan.
+
+## Fixed initial rehearsal values
+
+For the next design/rehearsal step only, the following values are fixed:
+
+| Value | Decision |
+| --- | --- |
+| Organizational owner | `mineclover` |
+| Operator/abort authority | `mineclover` repository owner for the synthetic run |
+| Provider | GitHub Actions hosted runner |
+| Environment | ephemeral CI job, synthetic fixtures only |
+| Source/target | in-memory synthetic source and target fixtures |
+| Database/vault | none; no external connection or credential |
+| Deployment artifact | repository scripts only; no worker deployment |
+| Change record | [Issue #5](https://github.com/mineclover/data-governance/issues/5) |
+| Rollback | discard in-memory target and preserve redacted result |
+
+These values authorize only the existing local/CI synthetic rehearsal. They do not authorize a
+non-production service, database, vault, cloud resource, or production operation.
 
 ## Integration sequence
 
@@ -83,7 +102,10 @@ The integration is not ready to run until all checks pass:
 
 ## Current blocker
 
-P10.3 synthetic rehearsal passed locally, but no approved non-production environment, vault owner,
-deployment authority, or abort/on-call operator has been selected. Therefore P10.4 remains a
-readiness plan only. Production execution remains prohibited by the
+P10.3 synthetic rehearsal passed locally. The fixed values above make the next rehearsal boundary
+explicit, but they do not authorize a deployed integration. P10.4 remains a readiness plan only;
+production execution remains prohibited by the
 [Phase 10 runtime boundary decision](./phase-10-runtime-boundary-decision.md).
+
+The fixed synthetic-only rehearsal evidence is recorded in the
+[P10.4 rehearsal report](./phase-10-non-production-rehearsal-report.md).
