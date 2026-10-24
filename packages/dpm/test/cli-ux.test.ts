@@ -27,6 +27,12 @@ describe('DPM CLI UX', () => {
     expect(result.stdout).toContain('mutation')
   })
 
+  it('preserves the global version flag for grouped commands', async () => {
+    const result = await runDpmCli(['authoring', '--version'])
+
+    expect(result).toEqual({ exitCode: 0, stdout: '0.1.3\n', stderr: '' })
+  })
+
   it('rejects unknown options with a concise error', async () => {
     const result = await runDpmCli([
       'validate',
