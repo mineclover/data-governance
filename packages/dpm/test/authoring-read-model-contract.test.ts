@@ -306,6 +306,195 @@ describe('DPM deferred cross-definition read-model contract', () => {
     }))
       .toEqual({ status: 'read-model-unavailable' })
   })
+
+  it.each(['building', 'stale', 'failed'] as const)(
+    'does not serve old ready results when the latest authorized generation is %s', state => {
+      const reference = createDpmCrossDefinitionReadModelReference({
+        authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+      })
+      const old = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+      const latest = createRevision('orders-definition', 'revision-2', 'orders-catalog-2', '2026-07-15T00:00:02.000Z')
+      // Insert the old revision last: latest selection must not depend on insertion order.
+      reference.upsert({ revision: latest, freshnessIdentity: 'sha256:latest', state })
+      reference.upsert({ revision: old, freshnessIdentity: 'sha256:old', state: 'ready' })
+      expect(reference.search({
+        definitionIds: ['orders-definition'],
+        query: { field: { name: 'customerNo' } },
+      })).toEqual({ status: 'read-model-unavailable' })
+    },
+  )
+
+  it('returns unavailable rather than partial results when an authorized definition has no generation', () => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition', 'billing-definition']),
+    })
+    const orders = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    reference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+    expect(reference.search({
+      definitionIds: ['orders-definition', 'billing-definition'],
+      query: { field: { name: 'customerNo' } },
+    })).toEqual({ status: 'read-model-unavailable' })
+  })
+
+  it('serves only the latest ready revision without changing its source artifacts', () => {
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+    })
+    const old = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+    const latest = createRevision('orders-definition', 'revision-2', 'orders-catalog-2', '2026-07-15T00:00:02.000Z')
+    const source = JSON.stringify([old, latest])
+    reference.upsert({ revision: latest, freshnessIdentity: 'sha256:latest', state: 'ready' })
+    reference.upsert({ revision: old, freshnessIdentity: 'sha256:old', state: 'ready' })
+
+    const result = reference.search({
+      definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } },
+    })
+    expect(result.status).toBe('ready')
+    if (result.status !== 'ready') throw new Error('expected ready result')
+    expect(result.hits).toHaveLength(1)
+    expect(result.hits[0]).toMatchObject({ revisionId: 'revision-2', freshnessIdentity: 'sha256:latest' })
+    expect(JSON.stringify([old, latest])).toBe(source)
+  })
+
+  it.each(['missing', 'ready', 'building', 'stale', 'failed'] as const)(
+    'does not leak an unauthorized definition whose generation is %s', state => {
+      const reference = createDpmCrossDefinitionReadModelReference({
+        authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+      })
+      const orders = createRevision('orders-definition', 'revision-1', 'orders-catalog-1', '2026-07-15T00:00:01.000Z')
+      reference.upsert({ revision: orders, freshnessIdentity: 'sha256:orders-freshness', state: 'ready' })
+      const input = {
+        definitionIds: ['orders-definition'],
+        query: { field: { type: 'string' as const } },
+        pageSize: 1,
+      }
+      const withoutHiddenDefinition = reference.search(input)
+      expect(withoutHiddenDefinition.status).toBe('ready')
+      if (withoutHiddenDefinition.status !== 'ready') throw new Error('expected ready result')
+      expect(withoutHiddenDefinition.nextCursor).toBeDefined()
+      const continuationWithoutHiddenDefinition = reference.search({ ...input, cursor: withoutHiddenDefinition.nextCursor })
+      expect(continuationWithoutHiddenDefinition).toMatchObject({
+        status: 'ready', hits: [{ definitionId: 'orders-definition' }],
+      })
+
+      if (state !== 'missing') {
+        const billing = createRevision('billing-definition', 'revision-secret', 'billing-secret', '2026-07-15T00:00:03.000Z')
+        reference.upsert({ revision: billing, freshnessIdentity: 'sha256:secret-freshness', state })
+      }
+
+      expect(reference.search(input)).toEqual(withoutHiddenDefinition)
+      expect(reference.search({ ...input, cursor: withoutHiddenDefinition.nextCursor }))
+        .toEqual(continuationWithoutHiddenDefinition)
+      expect(reference.search({ ...input, definitionIds: ['billing-definition'] }))
+        .toEqual({ status: 'forbidden' })
+      expect(reference.search({ ...input, definitionIds: ['orders-definition', 'billing-definition'] }))
+        .toEqual({ status: 'forbidden' })
+    },
+  )
+
+  it.each([0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY, 101])(
+    'rejects invalid page size %s without returning hits or cursors', pageSize => {
+      const reference = createDpmCrossDefinitionReadModelReference({
+        authorization: createDpmCrossDefinitionReadModelScopedAuthorization(['orders-definition']),
+      })
+      expect(reference.search({
+        definitionIds: ['orders-definition'], query: { field: { name: 'customerNo' } }, pageSize,
+      })).toEqual({ status: 'invalid-query', reason: 'pageSize must be an integer from 1 to 100' })
+    },
+  )
+
+  it('uses a default page size of 25 and paginates at the maximum of 100 without duplicates', () => {
+    const definitionIds = Array.from({ length: 60 }, (_, index) => `scope${String(index).padStart(2, '0')}-definition`)
+    const reference = createDpmCrossDefinitionReadModelReference({
+      authorization: createDpmCrossDefinitionReadModelScopedAuthorization(definitionIds),
+    })
+    for (const definitionId of [...definitionIds].reverse()) {
+      reference.upsert({
+        revision: createRevision(definitionId, 'revision-1', `${definitionId}-catalog`, '2026-07-15T00:00:01.000Z'),
+        freshnessIdentity: `sha256:${definitionId}`, state: 'ready',
+      })
+    }
+    const input = { definitionIds, query: { field: { type: 'string' as const } } }
+    const defaultPage = reference.search(input)
+    const first = reference.search({ ...input, pageSize: 100 })
+    expect(defaultPage.status).toBe('ready')
+    expect(first.status).toBe('ready')
+    if (defaultPage.status !== 'ready' || first.status !== 'ready') throw new Error('expected ready pages')
+    expect(defaultPage.hits).toHaveLength(25)
+    expect(defaultPage.nextCursor).toBeDefined()
+    expect(first.hits).toHaveLength(100)
+    expect(first.nextCursor).toBeDefined()
+    expect(reference.search({ ...input, pageSize: 100 })).toEqual(first)
+
+    const second = reference.search({ ...input, pageSize: 100, cursor: first.nextCursor })
+    expect(second.status).toBe('ready')
+    if (second.status !== 'ready') throw new Error('expected ready continuation')
+    expect(second.hits).toHaveLength(20)
+    expect(second.nextCursor).toBeUndefined()
+    const keys = [...first.hits, ...second.hits].map(hit => `${hit.definitionId}/${hit.objectId}`)
+    expect(new Set(keys).size).toBe(120)
+    expect(keys).toEqual([...keys].sort((left, right) => left.localeCompare(right)))
+  })
+
+  it.each(['identity-parity', 'freshness-parity', 'api-binding-parity', 'result-order', 'cursor-bound'] as const)(
+    'detects injected %s faults in the private shadow report', code => {
+      const definitionIds = ['billing-definition', 'orders-definition']
+      const revisions = definitionIds.map(definitionId =>
+        createRevision(definitionId, 'revision-1', `${definitionId}-catalog`, '2026-07-15T00:00:01.000Z'))
+      const reference = createDpmCrossDefinitionReadModelReference({
+        authorization: createDpmCrossDefinitionReadModelScopedAuthorization(definitionIds),
+      })
+      for (const revision of revisions) {
+        reference.upsert({ revision, freshnessIdentity: `sha256:${revision.definitionId}`, state: 'ready' })
+      }
+      const query = { field: { name: 'customerNo' } }
+      const actual = reference.search({ definitionIds, query, pageSize: 100 })
+      if (actual.status !== 'ready') throw new Error('expected ready result')
+      const input = {
+        revisions, definitionIds, query, actual, pageSize: 100,
+        freshnessIdentityByDefinitionId: Object.fromEntries(definitionIds.map(id => [id, `sha256:${id}`])),
+      }
+      expect(compareDpmCrossDefinitionReadModelShadow(input).status).toBe('match')
+
+      let contaminated = actual
+      if (code === 'identity-parity') {
+        contaminated = { ...actual, hits: actual.hits.map(hit => ({ ...hit, identities: [] })) }
+      } else if (code === 'freshness-parity') {
+        contaminated = { ...actual, hits: actual.hits.map(hit => ({ ...hit, freshnessIdentity: 'sha256:wrong' })) }
+      } else if (code === 'api-binding-parity') {
+        contaminated = { ...actual, hits: actual.hits.map(hit => ({ ...hit, apiBindings: [] })) }
+      } else if (code === 'result-order') {
+        contaminated = { ...actual, hits: [...actual.hits].reverse() }
+      } else {
+        contaminated = { ...actual, nextCursor: 'unexpected-cursor' }
+      }
+
+      const report = compareDpmCrossDefinitionReadModelShadow({ ...input, actual: contaminated })
+      expect(report.status).toBe('mismatch')
+      expect(report.issues.map(issue => issue.code)).toContain(code)
+      expect(compareDpmCrossDefinitionReadModelShadow(input).status).toBe('match')
+    },
+  )
+
+  it('detects false empty success and incorrect failure reasons during shadow comparison', () => {
+    const input = {
+      revisions: [], definitionIds: ['orders-definition'],
+      query: { field: { name: 'customerNo' } }, freshnessIdentityByDefinitionId: {},
+    }
+    const falseEmpty = compareDpmCrossDefinitionReadModelShadow({
+      ...input, actual: { status: 'ready', hits: [] }, expectedFailure: { status: 'read-model-unavailable' },
+    })
+    expect(falseEmpty.status).toBe('mismatch')
+    expect(falseEmpty.issues.map(issue => issue.code)).toEqual(['status'])
+
+    const wrongReason = compareDpmCrossDefinitionReadModelShadow({
+      ...input, actual: { status: 'invalid-query', reason: 'wrong reason' },
+      expectedFailure: { status: 'invalid-query', reason: 'cursor is invalid' },
+    })
+    expect(wrongReason.status).toBe('mismatch')
+    expect(wrongReason.issues.map(issue => issue.code)).toEqual(['reason'])
+  })
 })
 
 function createRevision(
