@@ -50,6 +50,18 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
     if (result.diagnostics.length > 20) lines.push(`- ... ${result.diagnostics.length - 20} more`)
   }
 
+  if (Array.isArray(result.relationships)) {
+    lines.push(`relationships: ${result.relationships.length}`)
+    for (const relationship of result.relationships.slice(0, 50)) {
+      if (!isRecord(relationship)) continue
+      const name = typeof relationship.name === 'string' ? relationship.name : 'relationship'
+      const status = typeof relationship.status === 'string' ? relationship.status : 'unknown'
+      const identity = typeof relationship.identity === 'string' ? ` (${relationship.identity})` : ''
+      lines.push(`- ${name} [${status}]${identity}`)
+    }
+    if (result.relationships.length > 50) lines.push(`- ... ${result.relationships.length - 50} more`)
+  }
+
   for (const key of ['planIdentity', 'artifactKind', 'artifactVersion']) {
     if (typeof result[key] === 'string') lines.push(`${key}: ${result[key]}`)
   }

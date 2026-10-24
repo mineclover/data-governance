@@ -3,6 +3,7 @@ import { readDpmCliInputs } from './input-loader.js'
 import { runDpmCliCompileCommand } from './runner-compile.js'
 import { runDpmCliDryRunCommand } from './runner-dry-run.js'
 import { runDpmCliValidateCommand } from './runner-validate.js'
+import { runDpmCliRegistryCommand } from './runner-registry.js'
 import type {
   DpmCliResult,
 } from './types.js'
@@ -15,6 +16,7 @@ Commands:
   validate    Validate a manifest against catalog and registry evidence
   compile     Compile a validated manifest into a neutral plan
   dry-run     Produce an impact report without changing external state
+  registry    Inspect registry snapshots without changing external state
   help        Show this help
   version     Show the CLI version
 
@@ -36,6 +38,7 @@ export async function runDpmCli(argv: readonly string[]): Promise<DpmCliResult> 
     if (argv[0] === 'version' || argv.includes('--version')) {
       return { exitCode: 0, stdout: `${DPM_CLI_VERSION}\n`, stderr: '' }
     }
+    if (argv[0] === 'registry') return runDpmCliRegistryCommand(argv.slice(1))
 
     const args = parseDpmCliArgs(argv)
     const inputs = readDpmCliInputs(args)

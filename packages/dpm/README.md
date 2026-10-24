@@ -99,11 +99,17 @@ oa-dpm validate --manifest manifest.json --catalog catalog.json --registry regis
 oa-dpm validate --manifest manifest.json --catalog catalog.json --registry registry.yaml --format text
 oa-dpm compile --manifest manifest.json --catalog catalog.json --registry registry.yaml
 oa-dpm dry-run --manifest manifest.json --catalog catalog.json --registry registry.yaml --estimated-rows rows.json
+oa-dpm registry summary --registry registry.yaml
+oa-dpm registry list --registry registry.yaml --status approved --format text
 ```
 
 JSON is the default for automation. `--format text` provides a concise operator summary. The CLI
 does not connect to a database, mutate a registry, access a vault, rewrite rows, or execute Phase 10
 runtime behavior.
+
+Registry commands are read-only snapshot management helpers. They inspect status counts or list
+relationships from a supplied YAML snapshot; they do not approve, import, export, or persist registry
+state.
 
 Package surface regressions are covered by:
 
