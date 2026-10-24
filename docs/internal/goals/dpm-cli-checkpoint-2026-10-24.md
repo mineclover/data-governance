@@ -52,6 +52,11 @@ Passed:
 - DPM full suite: **134 files / 329 tests** after audit validation hardening;
 - `pnpm --filter @oa-sdk/dpm smoke:cli` — built binary positive and negative paths;
 - subpath, extraction, consumer-workflow, and pack smoke;
+- `pnpm --filter @oa-sdk/dpm demo` — validate/compile/dry-run and safety diagnostics;
+- `pnpm --filter @oa-sdk/dpm demo:storage` — fixture-backed catalog/registry/report flow with no
+  source database mutation;
+- `pnpm --filter @oa-sdk/dpm demo:profile` — captured Kafka profile analysis, baseline comparison,
+  and proposal review without live Kafka access;
 - docs, roadmap, operational-change, read-model contract/activation/shadow, T1 readiness, and
   boundary checks.
 
