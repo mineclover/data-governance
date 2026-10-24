@@ -24,7 +24,7 @@ decision rehearsal. It is a no-go record, not a production approval.
 | DPM artifact/contract design | Pass | Contract and runtime boundary are documented |
 | Synthetic rewrite/integrity | Pass | Cardinality, relationship, replay, partial failure, rollback pass |
 | Synthetic canary thresholds | Pass | All synthetic thresholds pass |
-| Production runtime owner | No-go | `mineclover` organization owner only; named operator pending |
+| Production runtime owner | Partial | `mineclover` repository owner assigned; production environment and execution window pending |
 | Security/privacy owner | No-go | Named reviewer and sign-off pending |
 | Vault/key-management owner | No-go | No vault/key system selected or approved |
 | Deployment authority | No-go | No production environment or change record |
