@@ -28,7 +28,7 @@ provider, or authorize any T1/public-release action.
 | --- | --- | --- |
 | Contract owner | `mineclover/data-governance` owns the contract and reference implementation. | Accepted for private preparation |
 | Operational owner | `mineclover` owns the CI-only rehearsal and is explicitly selected as the intended read-model operational owner for staging preparation. | Staging design-only selection recorded 2026-10-25; actual execution/on-call and production authority pending |
-| Durable target | Use the prepared PostgreSQL direction only after a separate production decision. | No durable target; migration deferred |
+| Durable target | Use isolated disposable local PostgreSQL as the selected design baseline; managed staging/production require separate decisions. | Design selection only; no instance, schema, connection, or migration authorized |
 | Build protocol | Build a new generation from one immutable published revision and publish an atomic `ready` pointer only after all rows are complete. | Contract prepared; runtime pending |
 | Consistency | Strict by default. Missing, `building`, `stale`, or `failed` generations return `read-model-unavailable`, never a false empty result. | Recommended |
 | Authorization | Use an owner-injected definition-scope resolver with deny-by-default behavior. | Adapter and owner pending |
@@ -51,10 +51,15 @@ CI-only; no external issue approval state was changed by this repository update.
 | Intended read-model operational owner | `mineclover`, explicitly selected for this follow-on |
 | Next scope | Isolated non-production staging design only |
 | Current execution | Existing ephemeral CI/reference fixture; consumers remain `disabled` |
-| Durable target | PostgreSQL remains a candidate, not a selected/provisioned service |
-| Environment/provider and projection namespace | TBD; no database, host, account, region, or schema selected |
+| Durable target | PostgreSQL selected as the local staging design baseline; no service provisioned |
+| Environment/provider and projection namespace | Isolated disposable local environment selected; no cloud provider, database/host, version/image pin, roles, or schema selected |
 | On-call, abort and deployment authority | Execution-specific assignments and acceptance still required |
 | Authoring mutation | Separate owner/checklist remains unchanged; no apply/write activation |
+
+The user subsequently selected **isolated local PostgreSQL** as the design environment, still
+without execution permission. The [local staging design](./phase-8-read-model-local-staging-design.md)
+defines proposed storage responsibilities, generation ownership/atomic ready publication, scoped
+freshness checks, and the rehearsal acceptance matrix. It is not DDL or a validated durable adapter.
 
 ### Proposed staging components
 

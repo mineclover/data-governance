@@ -101,8 +101,12 @@ For the separate read-model follow-on, the user selected `mineclover` as the int
 owner and **staging design only** on 2026-10-25. The activation packet now contains the proposed
 synthetic-input topology, projection-writer/reader role separation, staging acceptance and stop
 criteria. This does not change the authoring mutation owner, approve any durable execution, or
-assign production on-call authority. Provider/environment, durable target, roles, retention,
-thresholds, recovery, and the execution change record are still pending.
+assign production on-call authority. The user subsequently selected isolated disposable local
+PostgreSQL as the staging design baseline. The
+[local staging design](./phase-8-read-model-local-staging-design.md) now describes logical records,
+durable session/transaction and freshness requirements, and acceptance scenarios. Actual instance,
+version/image pin, namespace, roles, retention, thresholds, recovery, and the execution change
+record remain pending; no SQL, driver, container, or connection was added or run.
 
 ## Key implementation locations
 
@@ -181,8 +185,9 @@ This work unit is complete; no additional implementation or activation is implie
 1. Maintain the current read-only CLI, private conformance, and consumer evidence. Re-check git
    state rather than assuming this recorded clean snapshot is still current.
 2. For the first operational follow-on, review the staging design in the read-model activation
-   packet with intended owner `mineclover` and Issue #4. Name the actual environment and
-   execution authorities, and approve projection-writer authority, durable target,
+   packet and local PostgreSQL design with intended owner `mineclover` and Issue #4. Review the
+   proposed records/protocols, name the exact local instance and execution authorities, and
+   approve projection-writer authority, durable target configuration,
    source reconciliation, authorization, observation, backup/restore, and fallback before durable
    shadow. Approve the consumer read-only pilot separately; keep consumers disabled beforehand.
 3. Only after a separate mutation decision, consider automatic authoring apply with durable

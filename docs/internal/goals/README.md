@@ -81,6 +81,7 @@ changes or adapter cutover.
 - [Phase 8 authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md)
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
+- [Phase 8 read-model local PostgreSQL staging design](./phase-8-read-model-local-staging-design.md)
 - [Phase 8 cross-definition read-model shadow report](./phase-8-cross-definition-read-model-shadow-report.md)
 
 ### Phase 10 — runtime boundary

@@ -46,6 +46,10 @@ Issue is not required for ordinary roadmap updates.
 - Read-model intended operational owner `mineclover` and staging design-only scope were explicitly
   selected on 2026-10-25. Review the synthetic-input topology, role separation, and acceptance/stop
   criteria in the activation packet; durable shadow, deployment, and consumer traffic stay unapproved.
+- The selected staging design baseline is isolated disposable local PostgreSQL. The
+  [local read-model design](./phase-8-read-model-local-staging-design.md) prepares logical records,
+  source-expectation/ownership transactions, scoped reads, and a rehearsal acceptance matrix;
+  it does not add SQL, a driver, or database execution.
 
 ## Completed
 
@@ -199,6 +203,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-25 | An obsolete rebuild session could overwrite a replacement generation, and the state setter could expose incomplete staged rows as ready. | adopt private session fencing / defer durable execution | Check per-definition/revision session ownership before append/complete/fail, reject incomplete ready promotion, and verify cancellation, terminal-state, retry, and cross-definition isolation without introducing workers, locks, or persistence. | [Read-model contract](./phase-8-cross-definition-read-model-contract.md), [Shadow report](./phase-8-cross-definition-read-model-shadow-report.md), `pnpm check:read-model-shadow` |
 | 2026-10-25 | The implementation is complete for this work unit, but the handoff and status summaries retained older commit/test snapshots. | adopt handoff refresh / close work unit | Synchronize the verified implementation, CLI/read-model behavior, unpublished package changes, selected no-write constraints, evidence limitations, and owner-gated resumption order without adding functionality or activation. | `be47ccc`, [Current handoff](./dpm-cli-checkpoint-2026-10-24.md), `CI=true pnpm verify` |
 | 2026-10-25 | The user named mineclover as the intended read-model operational owner and selected staging design only, not execution. | adopt scoped owner selection / defer activation | Prepare isolated synthetic-input staging topology, projection writer/reader separation, durable-session/freshness requirements, and acceptance/stop criteria; keep provider, roles, retention, execution approval, authoring mutation ownership, and production authority separate. | [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md), [Handoff](./dpm-cli-checkpoint-2026-10-24.md) |
+| 2026-10-25 | The user selected isolated disposable local PostgreSQL as the read-model staging design baseline, without authorizing execution. | adopt local design target / defer implementation | Prepare source-expectation, attempt, projection and ready-pointer responsibilities plus durable fencing/freshness, least-privilege and recovery acceptance; distinguish historical authoring PostgreSQL evidence from unimplemented read-model storage. | [Local staging design](./phase-8-read-model-local-staging-design.md), [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md) |
 
 ## Formal approvals
 
