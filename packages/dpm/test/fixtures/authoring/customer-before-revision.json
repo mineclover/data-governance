@@ -4,6 +4,7 @@
   "reason": "initial",
   "createdBy": "owner",
   "createdAt": "2026-07-15T00:00:00.000Z",
+  "source": { "artifactIdentity": "artifact:customer-definition", "freshnessIdentity": "sha256:customer-revision-1" },
   "definitions": {
     "version": "1.1",
     "fields": [

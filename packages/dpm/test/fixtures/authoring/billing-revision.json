@@ -1,0 +1,27 @@
+{
+  "definitionId": "billing-definition",
+  "revisionId": "billing-revision-1",
+  "reason": "initial",
+  "createdBy": "owner",
+  "createdAt": "2026-07-15T00:01:00.000Z",
+  "source": { "artifactIdentity": "artifact:billing-definition", "freshnessIdentity": "sha256:billing-revision-1" },
+  "definitions": {
+    "version": "1.1",
+    "fields": [
+      {
+        "objectId": "billing-customer-number",
+        "revisionId": "billing-customer-number-rev-1",
+        "entity": { "datasetId": "commerce", "namespace": "billing", "name": "customer" },
+        "name": "customerNo",
+        "type": "string",
+        "origin": "persisted",
+        "storageRef": {
+          "table": "billing.customers",
+          "column": "customer_no",
+          "catalog": { "snapshotId": "billing-catalog-1", "versionHash": "sha256:billing-catalog-1" }
+        }
+      }
+    ],
+    "apiBindings": []
+  }
+}

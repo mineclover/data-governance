@@ -105,6 +105,7 @@ oa-dpm profile inspect --profile profile.json
 oa-dpm profile analyze --profile profile.json --format text
 oa-dpm authoring inspect --revision published-revision.json --format text
 oa-dpm authoring inspect --draft draft.json
+oa-dpm authoring search --revision published-revision.json --revision another-revision.json --field-name customerNo
 oa-dpm authoring diff --before published-revision.json --after draft.json
 oa-dpm authoring review --before published-revision.json --after draft.json --format text
 oa-dpm authoring rollback-plan --current current-revision.json --target target-revision.json
@@ -128,6 +129,11 @@ a draft document; `rollback-plan` consumes current and target published revision
 documents contain the authoring metadata plus a `definitions` object in the portable `1.1` shape.
 These commands report semantic changes, approval-required diagnostics, quick-fix suggestions, and
 rollback impact, but never create drafts, approve, publish, execute rollback, or write a database.
+
+`authoring search` is an offline, bounded read-model rehearsal over explicitly supplied published
+revision files only. It requires source freshness identities, supports exact canonical identity or
+bounded field predicates with pagination, and does not create a persistent index, connect to a
+database, or enable the deferred runtime search route.
 
 Package surface regressions are covered by:
 

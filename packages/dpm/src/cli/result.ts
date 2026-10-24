@@ -99,6 +99,17 @@ function formatDpmCliText(command: DpmCliCommand, exitCode: number, result: unkn
       lines.push(`- ${kind}${summary}`)
     }
   }
+  if (Array.isArray(result.hits)) {
+    lines.push(`hits: ${result.hits.length}`)
+    for (const hit of result.hits.slice(0, 50)) {
+      if (!isRecord(hit)) continue
+      const definitionId = typeof hit.definitionId === 'string' ? hit.definitionId : 'definition'
+      const objectId = typeof hit.objectId === 'string' ? hit.objectId : 'object'
+      lines.push(`- ${definitionId}/${objectId}`)
+    }
+    if (result.hits.length > 50) lines.push(`- ... ${result.hits.length - 50} more`)
+  }
+  if (typeof result.nextCursor === 'string') lines.push(`nextCursor: ${result.nextCursor}`)
 
   for (const key of ['planIdentity', 'artifactKind', 'artifactVersion']) {
     if (typeof result[key] === 'string') lines.push(`${key}: ${result[key]}`)

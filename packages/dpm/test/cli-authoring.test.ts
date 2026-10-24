@@ -52,6 +52,42 @@ describe('DPM CLI authoring commands', () => {
     expect(output.result.quickFixes[0].autoApplicable).toBe(false)
   })
 
+  it('searches only explicitly supplied published revisions with bounded pagination', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'search',
+      '--revision',
+      beforePath,
+      '--revision',
+      fixture('billing-revision.json'),
+      '--field-name',
+      'customerNo',
+      '--page-size',
+      '1',
+    ])
+    const output = JSON.parse(result.stdout)
+
+    expect(result.exitCode).toBe(0)
+    expect(output.command).toBe('authoring-search')
+    expect(output.result.status).toBe('ready')
+    expect(output.result.hits).toHaveLength(1)
+    expect(output.result.nextCursor).toBeDefined()
+  })
+
+  it('fails closed when offline search lacks freshness evidence', async () => {
+    const result = await runDpmCli([
+      'authoring',
+      'search',
+      '--revision',
+      fixture('customer-current-revision.json'),
+      '--field-name',
+      'customerNo',
+    ])
+
+    expect(result.exitCode).toBe(2)
+    expect(result.stderr).toContain('source.freshnessIdentity is required for offline search')
+  })
+
   it('renders a concise review in text mode without raw payloads', async () => {
     const result = await runDpmCli([
       'authoring',
