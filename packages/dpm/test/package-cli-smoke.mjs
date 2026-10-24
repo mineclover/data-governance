@@ -47,6 +47,20 @@ assert(applyPlan.result.idempotency.duplicateRequestReturnsOriginalOutcome === t
 assert(applyPlan.result.persistence.atomicAuditWithPublication === true, 'apply-plan audit contract')
 assert(applyPlan.result.dryRun.default === true && applyPlan.result.rollback.targetRetentionRequired === true, 'apply-plan recovery contract')
 
+const approvalFailure = runFailure([
+  'authoring',
+  'review',
+  '--before',
+  before,
+  '--after',
+  after,
+  '--fail-on-approval-required',
+  'true',
+])
+assert(approvalFailure.status === 1, 'approval-required exit code')
+assert(JSON.parse(approvalFailure.stdout).result.approvalRequired === true, 'approval-required JSON result')
+assert(approvalFailure.stderr === '', 'approval-required stderr boundary')
+
 console.log('DPM CLI binary smoke OK')
 
 function file(name) {
@@ -73,6 +87,7 @@ function runFailure(args) {
   } catch (error) {
     return {
       status: error.status,
+      stdout: error.stdout ?? '',
       stderr: error.stderr ?? '',
     }
   }
