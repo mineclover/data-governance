@@ -23,6 +23,9 @@ provide evidence only and would not authorize production execution.
 P10.6 is the [production readiness plan](./phase-10-production-readiness-plan.md); P10.7 remains
 blocked until a separate production go/no-go decision is approved.
 
+P10.7 is documented as the [controlled execution runbook](./phase-10-controlled-execution-runbook.md),
+but no execution is authorized by this repository.
+
 ## Objective
 
 Build a separately owned runtime that consumes an accepted DPM artifact and safely performs
