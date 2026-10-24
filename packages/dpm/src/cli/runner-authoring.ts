@@ -173,7 +173,31 @@ function createApplyPlan(
       baseRevisionId: diff.baseRevisionId,
       staleBaseMustBeRejected: true,
     },
+    authorization: {
+      defaultDeny: true,
+      requiredRoles: diff.changes.length > 0 ? ['reviewer', 'publisher'] : [],
+      externalProvider: 'deferred',
+    },
     requiredRoles: diff.changes.length > 0 ? ['reviewer', 'publisher'] : [],
+    idempotency: {
+      required: true,
+      scope: ['definitionId', 'baseRevisionId'],
+      duplicateRequestReturnsOriginalOutcome: true,
+      deferred: true,
+    },
+    persistence: {
+      transactionRequired: true,
+      atomicAuditWithPublication: true,
+      deferred: true,
+    },
+    dryRun: {
+      default: true,
+      executable: false,
+    },
+    rollback: {
+      targetRetentionRequired: true,
+      deferred: true,
+    },
     steps: [
       { order: 1, action: 'revalidate-base-revision', required: true },
       { order: 2, action: 'review-semantic-diff', required: diff.changes.length > 0 },

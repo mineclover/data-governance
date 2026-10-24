@@ -91,6 +91,22 @@ describe('DPM CLI authoring commands', () => {
     expect(result.stdout).toContain('mutation: none')
     expect(result.stdout).toContain('executable: false')
     expect(result.stdout).toContain('steps: 6')
+
+    const jsonResult = await runDpmCli([
+      'authoring',
+      'apply-plan',
+      '--before',
+      beforePath,
+      '--after',
+      afterPath,
+    ])
+    const output = JSON.parse(jsonResult.stdout)
+    expect(output.result.authorization.defaultDeny).toBe(true)
+    expect(output.result.concurrency.staleBaseMustBeRejected).toBe(true)
+    expect(output.result.idempotency.duplicateRequestReturnsOriginalOutcome).toBe(true)
+    expect(output.result.persistence.atomicAuditWithPublication).toBe(true)
+    expect(output.result.dryRun.default).toBe(true)
+    expect(output.result.rollback.targetRetentionRequired).toBe(true)
   })
 
   it('reads and filters file-based authoring audit events', async () => {
