@@ -28,7 +28,7 @@ data-plane runtime are outside this repository.
 | Phase 8 | Representative authoring slice activated; broader control plane deferred |
 | Management CLI | File-based read-only registry/profile/authoring flow; later changes not yet republished |
 | Private read-model evidence | 81 conformance tests; consumer/runtime activation remains disabled |
-| Private SQL proposal | 19 offline structural tests; no PostgreSQL execution, adapter or client |
+| Private SQL proposal | 19 offline structural tests plus one isolated local PostgreSQL rehearsal; no operational adapter/client or activation |
 | Phase 10 | Production data-plane explicitly deferred |
 | Release authority | `mineclover` repository owner |
 
@@ -83,6 +83,7 @@ changes or adapter cutover.
 - [Phase 8 cross-definition read-model contract](./phase-8-cross-definition-read-model-contract.md)
 - [Phase 8 cross-definition read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
 - [Phase 8 read-model local PostgreSQL staging design](./phase-8-read-model-local-staging-design.md)
+- [Phase 8 read-model local PostgreSQL rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md)
 - [Phase 8 cross-definition read-model shadow report](./phase-8-cross-definition-read-model-shadow-report.md)
 
 ### Phase 10 — runtime boundary

@@ -3,6 +3,11 @@
 **Status: recommendation prepared; no read-model activation or database deployment authorized**
 **Recommended flag state: disabled**
 
+The deployment prohibition is operational: a subsequent user-authorized one-off disposable local
+PostgreSQL validation was completed and cleaned up, as recorded in the
+[local rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md). It did not activate a
+service, change Issue #4 approval state, or grant standing database execution permission.
+
 Owner decision tracking: [Issue #4](https://github.com/mineclover/data-governance/issues/4)
 
 The private reference fixture passes; Issue #4 collects the operational owner, persistence,
@@ -50,7 +55,7 @@ CI-only; no external issue approval state was changed by this repository update.
 | --- | --- |
 | Intended read-model operational owner | `mineclover`, explicitly selected for this follow-on |
 | Next scope | Isolated non-production staging design and subsequently approved private SQL contracts/offline tests only |
-| Current execution | Existing ephemeral CI/reference fixture; consumers remain `disabled` |
+| Current execution | Existing ephemeral CI/reference fixture plus completed/cleaned one-off local validation; consumers remain `disabled` |
 | Durable target | PostgreSQL selected as the local staging design baseline; no service provisioned |
 | Environment/provider and projection namespace | Isolated disposable local environment selected; no cloud provider, database/host, version/image pin, roles, or schema selected |
 | On-call, abort and deployment authority | Execution-specific assignments and acceptance still required |
@@ -65,6 +70,9 @@ The subsequent user approval permits authoring private SQL strings and offline s
 not their execution. The local design now links the `proposal-1` schema/statement/transaction
 contract; no driver/client, adapter, container, connection, migration, or consumer route is added.
 The original design-only selection is not being treated as retroactive execution approval.
+Actual local execution was subsequently authorized separately and completed under the bounded
+conditions in the rehearsal report. No package client/adapter, permanent launcher or CI database
+dependency was introduced; bootstrap-role results are not operational permission enforcement.
 
 ### Proposed staging components
 
@@ -122,10 +130,11 @@ OA SDK Core code generation or the Spec-Lens source/spec observation index. The 
 `@oa-sdk/dpm` workspace in OA SDK remains maintenance-only; package namespace continuity is not
 a scope reactivation or permission to implement this service in that monorepo.
 
-The current follow-up prepares operational requirements, unexecuted SQL contracts, and offline
-structural evidence only. It retains
-file-based CLI inputs and the existing ephemeral in-memory conformance/shadow fixture. It creates
-no durable index, audit event, revision, connection, migration, deployment flag, or consumer route.
+The maintained package contains SQL contracts and offline structural evidence, while the separate
+one-off local SQL validation is recorded as completed/cleaned evidence. It retains file-based CLI
+inputs and the existing ephemeral in-memory conformance/shadow fixture. No operational durable
+index, audit event, revision, package connection, migration runner, deployment flag, or consumer
+route is added.
 Transient fixture generation is evidence, not operational persistence. Read-model activation is
 also not Phase 10 data-plane activation: neither authoring writes nor source-row processing is
 authorized by a search pilot.
@@ -271,7 +280,8 @@ deleting audit/index history.
 
 ## Explicit non-goals
 
-- No PostgreSQL migration, owner-managed database connection, or production deployment is performed.
+- No PostgreSQL migration into an existing/owner-managed target or production deployment is
+  authorized. Proposal SQL was applied only in the separately approved disposable local rehearsal.
 - No external OIDC/RBAC integration or token/secret access is performed.
 - No public package metadata, license finalization, registry publication, `v*` tag, or adapter
   cutover is authorized.

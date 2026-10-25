@@ -1,6 +1,6 @@
 # Phase 8 Read-Model Local PostgreSQL Staging Design
 
-**Status: design and offline SQL proposal only; no provisioning, connection, migration, or durable write authorized**
+**Status: proposal with bounded local validation evidence; no operational deployment or durable activation authorized**
 **Updated:** 2026-10-25
 **Intended read-model operational owner:** `mineclover`
 **Selected design environment:** isolated disposable local PostgreSQL
@@ -15,6 +15,12 @@ The user subsequently approved **private SQL contracts and offline tests only**.
 `packages/dpm/src/authoring/read-model-postgres-contract.ts` is declarative SQL/parameter/recipe
 constants, not an executing client or adapter. The 19 structural tests in
 `packages/dpm/test/authoring-read-model-postgres-contract.test.ts` do not parse or run PostgreSQL.
+
+After the subsequent user authorization to proceed with actual local validation, one disposable,
+isolated PostgreSQL 17.10 run applied the proposal and passed 19 acceptance checks. Its container
+and tmpfs data were removed. The [rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md)
+records the exact image, conditions and limits. That scoped exception does not authorize operational
+deployment, a permanent runner/client, a consumer pilot, or repeated/broader database execution.
 
 ## Isolation and source boundary
 
@@ -111,9 +117,9 @@ that the read-model schema or durable fencing has been validated.
 
 ### Offline SQL proposal scope and review requirements
 
-- `proposal-1` is an unexecuted private proposal identifier, not a public wire/schema compatibility
+- `proposal-1` is a private proposal identifier with bounded local validation, not a public wire/schema compatibility
   promise. Fixed SQL namespace `dpm_read_model` is a proposed isolation boundary, not a selected
-  existing schema or permission to create one. Plain table creation deliberately fails on reuse;
+  existing operational schema or standing permission to create one. Plain table creation deliberately fails on reuse;
   no upgrade/idempotent migration system is supplied.
 - Four records model source expectations, attempts, identity-only projected fields and ready
   pointers. Namespace/definition keys and foreign keys preserve attempt isolation. There is no
@@ -151,8 +157,10 @@ that the read-model schema or durable fencing has been validated.
 Offline tests inspect placeholder metadata, scoped constraints/predicates, completeness expressions,
 recipe ordering and absence of public/CLI wiring. They do **not** establish PostgreSQL syntax,
 locking, rollback, source authorization, throughput, or backup/restore correctness.
+The separate local report now provides bounded syntax/lifecycle/lock/rollback/restore evidence,
+not least-privilege, real source authorization, operational recovery, or production proof.
 
-### Still blocked before execution or client/driver integration
+### Still blocked before further execution or client/driver integration
 
 Separately approve:
 
@@ -163,7 +171,8 @@ Separately approve:
 - retry/concurrency, retention and cleanup, backup/restore and recovery requirements;
 - observation window and latency/error/lag/cardinality thresholds, plus telemetry access/retention.
 
-The immediate next step is review of the unexecuted SQL/transaction proposal and completion of
-these values, not container startup, SQL application, or a storage adapter. No scope change is
+The immediate next step is review of the local evidence and the unverified privilege/source
+authority boundaries, then completion of these values before further execution or a storage
+adapter. No scope change is
 implied for authoring mutation, managed staging, production,
 consumer pilots, external IdP deployment, package release, or Phase 10.

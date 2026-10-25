@@ -1,7 +1,7 @@
 /**
- * Private, unexecuted SQL proposal for an isolated local read-model rehearsal.
+ * Private SQL proposal with one isolated synthetic PostgreSQL rehearsal recorded.
  * Not a migration, database client, storage adapter, or public package seam.
- * Offline tests inspect strings/recipes only; PostgreSQL validation is still required.
+ * Offline tests inspect strings/recipes only; local evidence is not production readiness.
  */
 export const DPM_READ_MODEL_POSTGRES_PROPOSAL_VERSION = 'proposal-1' as const
 

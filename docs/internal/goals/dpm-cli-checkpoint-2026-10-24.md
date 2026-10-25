@@ -4,7 +4,8 @@
 **Updated:** 2026-10-25
 **Repository:** `mineclover/data-governance`
 **CLI/reference implementation baseline:** `be47ccc`
-**Current follow-on:** private unexecuted SQL proposal and 19 offline structural tests
+**SQL proposal candidate:** `c73e166`, private `proposal-1` and 19 offline structural tests
+**Current evidence:** one-off PostgreSQL 17.10 validation passed 19 checks; container/data removed
 **Branch at implementation handoff:** `main` clean and synchronized with `origin/main`
 **Recorded published package:** `@oa-sdk/dpm@0.1.3`, OIDC-published 2026-10-24
 
@@ -105,13 +106,16 @@ criteria. This does not change the authoring mutation owner, approve any durable
 assign production on-call authority. The user subsequently selected isolated disposable local
 PostgreSQL as the staging design baseline. The
 [local staging design](./phase-8-read-model-local-staging-design.md) now describes logical records,
-durable session/transaction and freshness requirements, and acceptance scenarios. Actual instance,
-version/image pin, namespace, roles, retention, thresholds, recovery, and the execution change
-record remain pending. A subsequent explicit approval permits private SQL strings and offline
-tests only: `read-model-postgres-contract.ts` now holds a schema/statement/transaction proposal,
-but no SQL has been applied and no driver/client, adapter, container, or connection was added.
-The proposal requires review of source-registrar authority, lock-first transactions, duplicate
-attempt handling, exact affected-row checks and rollback, and ready-pointer/readiness semantics.
+durable session/transaction and freshness requirements, and acceptance scenarios. After approval of
+private SQL strings/offline tests, the user separately authorized actual isolated local validation.
+The [local rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md) records the pinned
+image and one-run conditions: synthetic fixtures, container-internal Unix sockets/SCRAM, no
+network/ports/host or persistent volumes, bootstrap superuser, and final container/tmpfs cleanup.
+All 19 checks passed, including SQL preparation, complete/obsolete ownership, pointer rollback,
+two-session contention/source recheck, and backup/restore parity. No SQL correction was needed.
+No package driver/client, adapter, permanent launcher, or default CI database dependency was added.
+Operational source-registrar/least-privilege enforcement, source reconciliation, environment/roles,
+retention, thresholds, recovery and authorization before further integration remain pending.
 
 ## Key implementation locations
 
@@ -128,6 +132,7 @@ attempt handling, exact affected-row checks and rollback, and ready-pointer/read
 - `packages/dpm/test/authoring-read-model-contract.test.ts` — 81 private conformance tests.
 - `packages/dpm/src/authoring/read-model-postgres-contract.ts` — private SQL/parameter/transaction strings only.
 - `packages/dpm/test/authoring-read-model-postgres-contract.test.ts` — 19 offline structural tests, not SQL execution.
+- `docs/internal/goals/phase-8-read-model-local-postgres-rehearsal.md` — actual one-off PostgreSQL evidence/limits and non-secret result record.
 - `docs/internal/goals/roadmap-checkpoint.md` — canonical routine roadmap/evidence record.
 
 ## Verification snapshot
@@ -140,6 +145,8 @@ behavior remains based on `be47ccc`; the proposal is not publicly wired):
 - projection contract: **4 files / 30 tests**;
 - private read-model fixture: **1 file / 81 tests**, included in the DPM total;
 - private SQL proposal: **1 file / 19 structural tests**, also included in the DPM total;
+- actual disposable PostgreSQL validation: **19 acceptance checks**, reported separately from
+  Vitest totals; cleanup confirmed and no standing database execution permission inferred;
 - `pnpm --filter @oa-sdk/dpm smoke:cli` — built binary positive and negative paths;
 - built CLI smoke compares authoring fixture bytes and directory entries after every command,
   including approval-required and invalid-input failures; this is input-integrity evidence,
@@ -195,8 +202,9 @@ This work unit is complete; no additional implementation or activation is implie
    state rather than assuming this recorded clean snapshot is still current.
 2. For the first operational follow-on, review the staging design in the read-model activation
    packet and local PostgreSQL design with intended owner `mineclover` and Issue #4. Review the
-   proposed records and unexecuted SQL/transaction contracts, name the exact local instance and execution authorities, and
-   approve projection-writer authority, durable target configuration,
+   SQL/transaction contracts and completed local evidence. Next review the unverified source
+   registrar and builder/reader privilege boundaries before any driver/client or further execution;
+   approve actual execution authorities, projection-writer authority, durable target configuration,
    source reconciliation, authorization, observation, backup/restore, and fallback before durable
    shadow. Approve the consumer read-only pilot separately; keep consumers disabled beforehand.
 3. Only after a separate mutation decision, consider automatic authoring apply with durable

@@ -10,7 +10,7 @@ import {
 } from '../src/authoring/read-model-postgres-contract.js'
 
 // Structural offline checks only: no SQL parser, database driver, query fake, or PostgreSQL execution.
-describe('DPM private read-model PostgreSQL SQL proposal (unexecuted)', () => {
+describe('DPM private read-model PostgreSQL SQL proposal (offline structure)', () => {
   it('contains declarative constants only and remains outside public/CLI wiring', () => {
     expect(DPM_READ_MODEL_POSTGRES_PROPOSAL_VERSION).toBe('proposal-1')
     const source = readFileSync(new URL('../src/authoring/read-model-postgres-contract.ts', import.meta.url), 'utf8')

@@ -174,7 +174,11 @@ Passing private tests or T1 preflight alone does not activate it.
 The separately approved offline SQL proposal is in
 `packages/dpm/src/authoring/read-model-postgres-contract.ts`, with structural-only tests in
 `packages/dpm/test/authoring-read-model-postgres-contract.test.ts`. It contains schema/statement
-strings and transaction recipes, not a client, adapter, migration or executed PostgreSQL evidence.
+strings and transaction recipes, not a client, adapter or operational migration.
 The drift check also prevents this proposal from package exports and CLI wiring. The
 [local staging design](./phase-8-read-model-local-staging-design.md) documents its trust boundary,
 required row-count/rollback handling, and still-unapproved execution gates.
+The subsequent [local PostgreSQL rehearsal](./phase-8-read-model-local-postgres-rehearsal.md)
+supplies bounded actual syntax, lifecycle, contention, rollback and restore evidence. It used a
+disposable bootstrap role and does not prove deployed least-privilege access, production source
+reconciliation, a durable search adapter, or consumer activation.
