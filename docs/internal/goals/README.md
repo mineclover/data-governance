@@ -6,6 +6,7 @@ Canonical document index for the Data Pseudonymization Manifest (DPM) contract p
 → Progress index: [progress-index.md](./progress-index.md)
 → Owner plan: [../plan.md](../plan.md)
 → Resume here: [CLI and read-model handoff](./dpm-cli-checkpoint-2026-10-24.md) (updated 2026-10-25)
+→ Deferred feature: [Always-on/shared search TODO](./shared-search-todo.md)
 
 ## Purpose
 
@@ -27,6 +28,7 @@ data-plane runtime are outside this repository.
 | Extraction | Complete; `oa-sdk` is a non-publishing compatibility mirror |
 | Phase 8 | Representative authoring slice activated; broader control plane deferred |
 | Management CLI | File-based read-only registry/profile/authoring flow; later changes not yet republished |
+| Always-on/shared search | Deferred TODO, not active development; current CLI needs no DB |
 | Private read-model evidence | 81 conformance tests; consumer/runtime activation remains disabled |
 | Private SQL proposal | 19 offline structural tests plus one isolated local PostgreSQL rehearsal; no operational adapter/client or activation |
 | Phase 10 | Production data-plane explicitly deferred |
@@ -52,6 +54,7 @@ changes or adapter cutover.
 - [DPM Master Roadmap](./dpm-master-roadmap.md)
 - [Roadmap checkpoint](./roadmap-checkpoint.md)
 - [CLI and read-model handoff](./dpm-cli-checkpoint-2026-10-24.md)
+- [Always-on/shared search TODO](./shared-search-todo.md)
 - [Full phase execution forecast](./full-phase-execution-forecast.md)
 - [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md)
 

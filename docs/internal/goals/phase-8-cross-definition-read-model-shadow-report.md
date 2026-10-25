@@ -3,6 +3,10 @@
 **Status: private verification passed; runtime flag remains `disabled`**
 **Verified: 2026-10-25**
 
+**Current use:** retained reference/regression evidence for
+[TODO-SHARED-SEARCH](./shared-search-todo.md). The user deferred an always-on/shared service;
+the current file-based CLI remains DB-free, and this report is not an active integration plan.
+
 This report records the private rehearsal and shadow-parity evidence for the first Phase 8
 follow-on. It does not authorize a database migration, persistent index, consumer route, external
 authorization provider, or production deployment.

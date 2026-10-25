@@ -3,6 +3,11 @@
 **Status: recommendation prepared; no read-model activation or database deployment authorized**
 **Recommended flag state: disabled**
 
+**Current work state — 2026-10-25:** [always-on/shared search is deferred TODO](./shared-search-todo.md).
+This packet is retained reference material, not the next active work queue. No DB is needed by
+the current file-based CLI; do not continue privilege/adapter/staging or further DB work unless
+the user explicitly reopens the capability after product-need review.
+
 The deployment prohibition is operational: a subsequent user-authorized one-off disposable local
 PostgreSQL validation was completed and cleaned up, as recorded in the
 [local rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md). It did not activate a

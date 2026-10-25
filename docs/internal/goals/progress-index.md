@@ -7,6 +7,11 @@ DPM phase 순서와 gap 정렬은 [DPM Master Roadmap](./dpm-master-roadmap.md)�
 
 ## Current
 
+- Maintain the DB-free file-based read-only CLI. Always-on/shared search is explicitly parked in
+  [TODO-SHARED-SEARCH](./shared-search-todo.md), not active database/staging/privilege/adapter work.
+  Existing private contracts, tests and cleaned-up local rehearsal evidence are retained; a
+  concrete shared-service need and explicit reopening are required before further work.
+
 - Goal 68 is active in the public owner repository `mineclover/data-governance`. DPM-86 through DPM-90 are complete, including external runtime, declaration, rollback, workflow, pack, owner CI, owner `check:docs`, T1 release-gate verification, and the structured GitHub Issues review workflow. The owner acceptance is recorded in [Issue #1](https://github.com/mineclover/data-governance/issues/1); historical owner-acceptance [workflow `29427810791`](https://github.com/mineclover/data-governance/actions/runs/29427810791) passed, and `@oa-sdk/dpm@0.1.2` was published on 2026-07-28. Breaking removal remains separately gated.
 
 - The private Phase 8 representative slice now includes definition-scoped lookup filters, canonical import/export, identity-only explain, immutable authoring revisions, and semantic-diff quick-fix suggestions. The cross-definition read-model entry contract, private conformance fixture (including staged rebuild/retry, atomic ready publication, fallback shadow parity, and scoped authorization isolation), and recommendation-only activation packet are prepared, while public-seam/runtime search activation, automatic mutation, bulk edit, durable migration, and external authorization remain deferred by decision records.

@@ -150,6 +150,9 @@ roles, audit, and rollback retention) while reporting `mutation: none` and `exec
 revision files only. It requires source freshness identities, supports exact canonical identity or
 bounded field predicates with pagination, and does not create a persistent index, connect to a
 database, or enable the deferred runtime search route.
+No PostgreSQL/Docker setup, account, persistent index, or background service is needed for this
+file-based CLI workflow. Always-on/shared search is future TODO scope, not a prerequisite or the
+next implementation step; retained SQL/rehearsal evidence does not add a runtime DB dependency.
 
 `authoring audit` reads and validates a file-based append-only event snapshot. It can filter by
 definition and reports action counts and chronological ordering; it never appends events or connects

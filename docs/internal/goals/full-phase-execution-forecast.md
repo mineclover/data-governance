@@ -1,7 +1,12 @@
 # DPM Full Phase Execution Forecast
 
 **Status: private Phase 8 representative slice active; no public release authorization**
-**Updated: 2026-07-15**
+**Updated: 2026-10-25**
+
+**Current priority amendment:** [always-on/shared search is deferred TODO](./shared-search-todo.md).
+The forecast baseline below originated on 2026-07-15 and is not the current execution queue or
+release status; use the roadmap checkpoint/handoff for current evidence. No active DB/shared-search
+implementation units are assigned. Today's file-based CLI requires no DB or hosted service.
 
 This document forecasts the complete DPM roadmap from Phase 0 through Phase 10. It is an execution
 model, not a release approval. The [DPM Master Roadmap](./dpm-master-roadmap.md) remains canonical
@@ -70,8 +75,9 @@ definition-scoped [lookup extension](./phase-8-scoped-lookup-decision.md):
 7. validate-preview, semantic diff, breaking classification, approval, publish, audit readback, and rollback;
 8. clean consumer fixture, public seam, documentation, and evidence.
 
-The next follow-ons are ordered by the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md):
-cross-definition search/read models first, automatic mutation second, and bulk edit last. The
+Conditional future follow-ons are ordered by the [Phase 8 next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md):
+shared cross-definition service before automatic mutation and bulk edit, if explicitly reopened.
+The shared-service feature is currently parked as TODO, not the next implementation task. The
 cross-definition entry contract is prepared, but durable persistence, external authorization, and
 runtime activation remain separate gates. No Phase 8 code should be added to the historical
 `oa-sdk` mirror.

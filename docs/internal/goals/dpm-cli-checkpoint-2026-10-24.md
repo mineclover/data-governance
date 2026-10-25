@@ -9,6 +9,11 @@
 **Branch at implementation handoff:** `main` clean and synchronized with `origin/main`
 **Recorded published package:** `@oa-sdk/dpm@0.1.3`, OIDC-published 2026-10-24
 
+**Current direction:** [Always-on/shared search is deferred TODO](./shared-search-todo.md).
+Maintain the file-based read-only CLI; it requires no database. The DB-oriented material below
+records prior preparation/evidence, not the next active implementation task. Do not continue
+privilege, client/adapter, container, migration, or service work without explicitly reopening the TODO.
+
 This is the current resumption/handoff document; the original filename is retained for existing
 links and the authoring boundary guard. Subsequent CLI/read-model maintenance is committed in the
 repository but has not been published as a new npm version. Local verification below is not a
@@ -200,16 +205,14 @@ This work unit is complete; no additional implementation or activation is implie
 
 1. Maintain the current read-only CLI, private conformance, and consumer evidence. Re-check git
    state rather than assuming this recorded clean snapshot is still current.
-2. For the first operational follow-on, review the staging design in the read-model activation
-   packet and local PostgreSQL design with intended owner `mineclover` and Issue #4. Review the
-   SQL/transaction contracts and completed local evidence. Next review the unverified source
-   registrar and builder/reader privilege boundaries before any driver/client or further execution;
-   approve actual execution authorities, projection-writer authority, durable target configuration,
-   source reconciliation, authorization, observation, backup/restore, and fallback before durable
-   shadow. Approve the consumer read-only pilot separately; keep consumers disabled beforehand.
-3. Only after a separate mutation decision, consider automatic authoring apply with durable
-   authorization/concurrency/idempotency/audit/rollback contracts. Bulk authoring follows accepted
-   read-model and mutation foundations; it is not the next unapproved task.
+2. Keep always-on/shared search parked in `TODO-SHARED-SEARCH`. Preserve its contracts and evidence,
+   but do not run another DB rehearsal or start privilege/client/adapter/service implementation.
+   Current offline search and default local verification do not require a database or Docker.
+3. Reopen the TODO only after a concrete shared-service need is accepted and the user explicitly
+   selects a new scope. Re-evaluate storage alternatives and operations cost before selecting a
+   database; prior PostgreSQL work and intended owner `mineclover` are reference inputs, not a
+   requirement or current activation approval. Mutation and bulk authoring remain separately gated;
+   parking search does not automatically promote either to the next task.
 4. Keep Phase 10 as a separate owner/security/deployment program. Its plans/synthetic evidence
    are reference-only and not required DPM release/CI gates.
 5. Any new package release requires the existing owner-approved T1/release process. Do not bump,

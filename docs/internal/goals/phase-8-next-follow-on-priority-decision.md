@@ -6,11 +6,20 @@ This record defines the recommended order for capabilities that remain outside t
 definition-scoped Phase 8 representative slice. It does not activate implementation, database
 migration, external authorization, or any public-release action.
 
-## Recommended order
+## Current priority amendment — 2026-10-25
+
+The user has parked always-on/shared search in [TODO-SHARED-SEARCH](./shared-search-todo.md).
+The current task is DB-free file-based CLI maintenance, not further database/privilege/adapter
+preparation. The ordering below is conditional on a future explicit capability reopening; it is
+not an instruction to start the first row. Earlier preparation and one-off local evidence remain
+valid historical records, not current product requirements. Mutation and bulk edit are not
+automatically promoted when search is deferred.
+
+## Conditional future order
 
 | Priority | Capability | Decision now | Required entry conditions |
 | --- | --- | --- | --- |
-| 1 | Cross-definition search/read model | Prepare the entry contract; defer runtime activation until the operational owner and durable indexing target are approved. | Stable cross-definition identity keys, metadata ownership, index freshness/rebuild rules, authorization scope, and bounded result semantics. |
+| 1 | Always-on cross-definition search/read model | Deferred TODO; retain existing contract/reference evidence and do not continue implementation. | Accepted shared-service need and explicit reopening first, then storage selection, stable identity, freshness, authorization, and bounded results. |
 | 2 | Automatic mutation from review suggestions | Defer activation; keep current quick-fix output review-only. | Explicit apply contract, role-gated authorization, optimistic concurrency, audit events, dry-run, and rollback behavior. |
 | 3 | Bulk authoring/edit | Defer until mutation and the read model are accepted. | Batch conflict policy, partial-failure semantics, per-item audit, idempotency, bounded batch size, and rollback/recovery evidence. |
 
@@ -30,9 +39,9 @@ multiplies conflict, audit, and rollback concerns across definitions.
 - Maintain the [read-model activation packet](./phase-8-cross-definition-read-model-activation-packet.md)
   with disabled rollout values until an operational owner and authorization/persistence approvals
   are recorded.
-- Collect those activation values in [Issue #4](https://github.com/mineclover/data-governance/issues/4);
-  the issue approves only a private CI-only shadow rehearsal; keep the consumer/runtime flag
-  `disabled` until a separate production activation decision.
+- Keep [Issue #4](https://github.com/mineclover/data-governance/issues/4) as historical activation
+  tracking, not the active task queue. Its CI-only approval and the completed local exception do
+  not reopen the TODO; keep the consumer/runtime flag `disabled`.
 - Do not apply PostgreSQL migrations or integrate external authorization until the operational
   owner approves the [persistence proposal](./phase-8-persistence-proposal.md) and
   [operational migration packet](./phase-8-operational-migration-packet.md).
@@ -42,7 +51,7 @@ multiplies conflict, audit, and rollback concerns across definitions.
 
 ## Revisit trigger
 
-Reopen this priority for runtime activation only when the owner selects the next capability, its
-operational owner, and the corresponding persistence/authorization contract. The cross-definition
-entry contract is now prepared, but a passing private test or preflight alone does not activate
-any deferred capability.
+Reopen only after the shared-service user need is accepted and the user explicitly selects the
+capability. Then revisit storage alternatives, operational ownership and authorization/persistence
+contracts. Existing tests, a previous owner name, or a generic continuation request alone do not
+reactivate any deferred capability.

@@ -33,9 +33,11 @@ non-publishing source/compatibility mirror; it is not the release authority for 
 The OA SDK classification is recorded in its
 [platform scope](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/platform-scope.md)
 and [release policy](https://github.com/mineclover/oa-sdk/blob/main/docs/internal/release-policy.json).
-The next read-model work is limited by the
-[activation packet](./docs/internal/goals/phase-8-cross-definition-read-model-activation-packet.md):
-private no-write evidence does not authorize a persistent index, consumer service, or authoring mutation.
+Always-on/shared search is a
+[deferred TODO](./docs/internal/goals/shared-search-todo.md), not the next active work item.
+The current file-based read-only CLI, including offline authoring search, requires no database,
+Docker, persistent index or hosted service. SQL/design/rehearsal records are retained reference
+evidence, not an instruction to adopt PostgreSQL or continue DB integration.
 
 ## What this repository owns
 
@@ -70,6 +72,7 @@ These require a separate runtime owner, security/deployment contract, and owner 
 | License | Apache-2.0 |
 | Canonical contract | `data_definitions` `1.0` frozen; `1.1` experimental |
 | Release authority | `mineclover` repository owner |
+| Always-on/shared search | Deferred TODO; current CLI has no database requirement |
 | Phase 10 data-plane | Explicitly deferred |
 
 Publication uses the `publish.yml` workflow with npm Trusted Publishing through GitHub Actions

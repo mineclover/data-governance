@@ -6,6 +6,11 @@
 **Selected design environment:** isolated disposable local PostgreSQL
 **Consumer flag:** `disabled`
 
+**Current disposition — 2026-10-25:** retained design reference for
+[TODO-SHARED-SEARCH](./shared-search-todo.md), not active staging work. PostgreSQL is not required
+by the current CLI and is not a predetermined product choice. Earlier local preparation and the
+completed/cleaned rehearsal do not authorize continuing DB integration or another run.
+
 The user selected this environment for design, not execution. This document refines the
 [activation packet](./phase-8-cross-definition-read-model-activation-packet.md) and
 [read-model contract](./phase-8-cross-definition-read-model-contract.md). It contains no SQL,
@@ -171,8 +176,8 @@ Separately approve:
 - retry/concurrency, retention and cleanup, backup/restore and recovery requirements;
 - observation window and latency/error/lag/cardinality thresholds, plus telemetry access/retention.
 
-The immediate next step is review of the local evidence and the unverified privilege/source
-authority boundaries, then completion of these values before further execution or a storage
-adapter. No scope change is
+There is no immediate staging/DB next step: the feature is parked as TODO. Only after explicit
+reopening and product-need/storage review would the local evidence, privilege/source-authority
+gaps and these execution values be revisited. No scope change is
 implied for authoring mutation, managed staging, production,
 consumer pilots, external IdP deployment, package release, or Phase 10.

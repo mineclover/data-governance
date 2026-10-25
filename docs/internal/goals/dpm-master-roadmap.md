@@ -13,6 +13,12 @@
 
 ## Executive state
 
+**Priority amendment — 2026-10-25:** always-on/shared search is
+[TODO-SHARED-SEARCH](./shared-search-todo.md), explicitly deferred rather than active DB work.
+The current file-based read-only CLI needs no database. Existing SQL/design/local rehearsal
+artifacts remain reference evidence; reopen the capability only after product-need review and an
+explicit new scope decision. The phase dependencies below are conditional, not a next-task queue.
+
 DPM의 relationship governance loop은 Goal 4~67을 통해 구현되어 있다. 현재 남은 핵심 contract
 gap은 “논리 데이터 정의가 없다”가 아니라, 이미 존재하는 logical entity/relationship와
 API artifact, DB catalog object를 독립 identity로 연결하고 그 binding을 semantic
@@ -41,7 +47,7 @@ production pseudonymization       = outside current oa-sdk boundary
 |---|---|---|
 | Spec management | logical entity/relationship, explicit field identity, semantic validation, neutral artifact, immutable revision, semantic diff and breaking-change review | broader lifecycle metadata and owner-approved operational activation |
 | Unique-key management | column coordinate uniqueness, versioned canonical-key encoding, and separate object/revision/locator/binding identities | final external wire ownership and migration compatibility |
-| Search | profile/registry/audit readback, definition-scoped identity/field lookup, bounded offline CLI search, and private read-model conformance | durable cross-definition service; separately owned metadata and where-used contracts |
+| Search | DB-free file-based readback/lookup, bounded offline CLI search, and private read-model conformance | always-on/shared service is deferred TODO; metadata and where-used need separate contracts |
 | Edit | representative draft/approval/publish/audit/rollback helpers; read-only CLI diff/review and apply/rollback plans | CLI mutation and durable operational authoring require separate approval |
 | Convenience | public subpaths, package smoke, import/export, explain, and machine-readable quick-fix suggestions | automatic mutation, bulk edit and broader authoring workflows |
 
@@ -57,7 +63,7 @@ production pseudonymization       = outside current oa-sdk boundary
 | 5. Logical identity contract | Goal 68.1 | stable object/revision identity, namespace-safe refs, binding cardinality | Implemented and accepted for owner contract | future wire revisions |
 | 6. Semantic binding | Goal 68.2 | entity/API/catalog resolution and deterministic diagnostics | Implemented and accepted for owner contract | future owner-authorized capability |
 | 7. Neutral artifact and provenance | Goal 68.3 | binding freshness, compiled plan, trace/review links, read-model source | Implemented and accepted for owner contract | future owner-authorized capability |
-| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Active private slice implemented; cross-definition search first, automatic mutation second, and bulk authoring last remain deferred | [Next follow-on priority decision](./phase-8-next-follow-on-priority-decision.md) |
+| 8. Search, edit and authoring control plane | Private representative product slice | exact cross-identity lookup, scoped field filters, canonical import/export/explain, semantic-diff quick-fix suggestions, draft/revision/publish, diff, and rollback | Existing slice maintained; always-on/shared search parked as TODO; mutation and bulk authoring independently gated | [Shared-search TODO](./shared-search-todo.md) and [conditional future order](./phase-8-next-follow-on-priority-decision.md) |
 | 9. Extraction rehearsal | Goal 68.4 | external consumer, migration, compatibility adapter | Owner acceptance recorded; `@oa-sdk/dpm@0.1.3` OIDC-published; mirror transition separately governed | breaking removal and future release metadata |
 | 10. Data-plane runtime | Future external/runtime program | vault, tokenization worker, row rewrite, post-run integrity | Explicitly outside current roadmap | requires separate runtime owner, security model, and deployment authority |
 

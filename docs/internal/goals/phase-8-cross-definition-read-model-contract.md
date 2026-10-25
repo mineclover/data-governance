@@ -3,6 +3,10 @@
 **Status: private contract prepared 2026-07-15; runtime activation deferred**
 **Runtime activation: deferred**
 
+**Current priority — 2026-10-25:** the always-on/shared service is
+[TODO-SHARED-SEARCH](./shared-search-todo.md), not active implementation. Preserve this contract
+and existing checks as reference/regression evidence; current offline CLI search needs no DB.
+
 This document prepares the entry contract for the first Phase 8 follow-on: a bounded,
 cross-definition read model. It does not activate a search service, add a public package surface,
 apply a PostgreSQL migration, integrate an external authorization provider, or authorize any T1

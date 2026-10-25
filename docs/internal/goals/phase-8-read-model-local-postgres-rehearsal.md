@@ -5,6 +5,10 @@
 **SQL candidate:** `c73e166`, private `proposal-1`
 **Execution change record:** this report (`read-model-local-validation-2026-10-25`)
 
+**Current use:** historical feasibility evidence for the
+[deferred shared-search TODO](./shared-search-todo.md), not a DB prerequisite for the CLI or
+permission for further staging/privilege/adapter work. Preserve the results and cleanup record.
+
 The user authorized proceeding from offline SQL contracts to actual PostgreSQL validation.
 This authorization is limited to disposable local synthetic fixtures. It does not activate a
 package/CLI storage adapter, consumers, managed staging, production, authoring mutation, or Phase 10.

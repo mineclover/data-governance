@@ -69,6 +69,11 @@ The representative Phase 8 authoring slice is activated under
 import/export, explain, quick fix, draft/revision/publish, audit, and rollback. Broader
 control-plane search, editing, and authoring workflows remain gated.
 
+The current file-based read-only management CLI needs no live database, Docker, persistent index
+or hosted query service. Always-on/shared search is [deferred TODO](./goals/shared-search-todo.md),
+not an active product requirement. Retained private SQL/local rehearsal evidence does not make
+PostgreSQL mandatory or authorize further integration; reopen the feature explicitly on user need.
+
 ### Phase 10 data-plane
 
 Phase 10 is a separate runtime program. The current decision authorizes only non-executing design

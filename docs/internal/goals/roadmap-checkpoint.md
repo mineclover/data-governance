@@ -9,6 +9,9 @@ Issue is not required for ordinary roadmap updates.
 
 ## Current focus
 
+- Maintain the file-based read-only CLI with no database requirement. Always-on/shared search is
+  [TODO-SHARED-SEARCH](./shared-search-todo.md), explicitly deferred by the user, not an active
+  staging/adapter/privilege/database work queue. Preserve earlier feasibility evidence only.
 - Maintain the accepted DPM contract and owner boundary.
 - Maintain the T1 release-gate workflow for future owner-approved `v*` releases.
 - `@oa-sdk/dpm@0.1.2` was published on 2026-07-28, and `@oa-sdk/dpm@0.1.3` was successfully
@@ -43,15 +46,9 @@ Issue is not required for ordinary roadmap updates.
   for any future apply discussion; it is recommendation-only and does not activate mutation.
 - Use the [authoring mutation review checklist](./phase-8-authoring-mutation-review-checklist.md)
   to collect owner decisions before any mutation implementation discussion.
-- Read-model intended operational owner `mineclover` and staging design-only scope were explicitly
-  selected on 2026-10-25. Review the synthetic-input topology, role separation, and acceptance/stop
-  criteria in the activation packet; durable shadow, deployment, and consumer traffic stay unapproved.
-- The selected staging design baseline is isolated disposable local PostgreSQL. The
-  [local read-model design](./phase-8-read-model-local-staging-design.md) prepares logical records,
-  source-expectation/ownership transactions, scoped reads, and a rehearsal acceptance matrix;
-  the subsequently approved private SQL proposal adds schema/statement/recipe constants and
-  offline structural tests, not a package driver/client or adapter. A separately approved one-off
-  PostgreSQL 17.10 rehearsal passed and was cleaned up; operational activation remains deferred.
+- Earlier owner/staging selections, private SQL preparation and the cleaned-up PostgreSQL 17.10
+  rehearsal are retained as reference evidence for the deferred TODO. They do not make a DB
+  necessary for the CLI or authorize continued integration, another run, or consumer activation.
 
 ## Completed
 
@@ -122,10 +119,9 @@ Issue is not required for ordinary roadmap updates.
 
 - Retain the completed T1/OIDC evidence in [Issue #3](https://github.com/mineclover/data-governance/issues/3)
   and apply the same owner-approved `v*` release gate to future package changes.
-- Review the async service integration boundary and operational migration packet; keep production
-  schema application and deployment deferred.
-- Review the [operational change decision](./phase-8-operational-change-decision.md) to prepare
-  target, role, backup, flag, observation, and rollback values before any owner-approved run.
+- Maintain existing contracts/consumer compatibility without implementing service integration.
+  Keep operational migration, DB-role/privilege work, new rehearsals and deployment deferred;
+  reopening the shared-search TODO requires product need and a new explicit scope decision first.
 - Run `pnpm check:operational-change` whenever the operational decision or migration packet changes.
 - Run `pnpm check:t1-readiness` whenever the T1 readiness or candidate decision packet changes.
 - Keep scoped lookup, canonical import/export, explain, and quick-fix consumer evidence green; defer
@@ -143,6 +139,9 @@ Issue is not required for ordinary roadmap updates.
 
 ## Deferred
 
+- [Always-on/shared search — TODO-SHARED-SEARCH](./shared-search-todo.md): persistence/index,
+  driver/client, hosted query service, workers, DB privilege/deployment and further rehearsals.
+  PostgreSQL is not a required dependency or predetermined product choice.
 - Production vaults, tokenization, row rewriting, source database mutation, and Phase 10 data-plane
   runtime until a separate runtime-owner, security, and deployment decision is approved.
 - Re-enabling publication from the historical `oa-sdk` repository without a separate owner decision.
@@ -215,6 +214,7 @@ Issue is not required for ordinary roadmap updates.
 | 2026-10-25 | The user selected isolated disposable local PostgreSQL as the read-model staging design baseline, without authorizing execution. | adopt local design target / defer implementation | Prepare source-expectation, attempt, projection and ready-pointer responsibilities plus durable fencing/freshness, least-privilege and recovery acceptance; distinguish historical authoring PostgreSQL evidence from unimplemented read-model storage. | [Local staging design](./phase-8-read-model-local-staging-design.md), [Activation packet](./phase-8-cross-definition-read-model-activation-packet.md) |
 | 2026-10-25 | The user explicitly expanded the design-only scope to private SQL contracts and offline tests, excluding execution and clients/adapters. | adopt unexecuted SQL proposal / defer integration | Prepare isolated scoped schema, parameterized lifecycle/readiness statements and lock-first transaction recipes; test structure and prevent public/CLI wiring without claiming PostgreSQL syntax, concurrency, rollback, or durable execution evidence. | `packages/dpm/src/authoring/read-model-postgres-contract.ts`, `packages/dpm/test/authoring-read-model-postgres-contract.test.ts`, [Local design](./phase-8-read-model-local-staging-design.md) |
 | 2026-10-25 | The user subsequently authorized actual isolated local PostgreSQL validation, without production or runtime activation. | execute bounded local evidence / defer integration | Use cached digest-pinned PostgreSQL 17.10, synthetic fixtures, no network/ports/host volumes and disposable tmpfs; record 19 passed checks, restore parity and cleanup. Keep bootstrap-role evidence separate from runtime privileges/source authority and add no package client or CI database dependency. | `c73e166`, [Local rehearsal report](./phase-8-read-model-local-postgres-rehearsal.md), [Result record](./evidence/read-model-postgres-local-2026-10-25.json) |
+| 2026-10-25 | The user clarified that always-on/shared search should be TODO rather than an active requirement or DB integration sequence. | defer feature / restore file-based focus | Keep the existing read-only CLI DB-free; park service/index/adapter/privilege and further DB work, preserve earlier evidence, and require a concrete user need plus explicit reopening before selecting storage or activating a service. | [TODO-SHARED-SEARCH](./shared-search-todo.md), [Handoff](./dpm-cli-checkpoint-2026-10-24.md) |
 
 ## Formal approvals
 

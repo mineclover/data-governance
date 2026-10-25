@@ -21,7 +21,10 @@ canonical owner for the extracted contract plane.
   rebuild-session safety maintenance do not activate a durable index, consumer service, or CLI
   approval/publish/apply/rollback execution; these changes have not been republished.
 - Resume from the [CLI/read-model handoff](./goals/dpm-cli-checkpoint-2026-10-24.md), updated
-  2026-10-25 for verified implementation `be47ccc` (DPM 422 tests; private read-model 81 included).
+  2026-10-25 (DPM 441 tests; private read-model 81 and SQL structural 19 included).
+- Always-on/shared search is [deferred TODO](./goals/shared-search-todo.md), not the current work
+  sequence. The CLI and default verification need no database or Docker. Existing SQL and the
+  completed disposable rehearsal are preserved reference evidence, not a mandatory DB direction.
 
 ## Work sequence
 
@@ -34,9 +37,10 @@ canonical owner for the extracted contract plane.
    adapter and carry the deprecation notice through the next compatibility release.
    This is a separately governed mirror transition, not authorization to modify the historical
    repository during read-only CLI maintenance.
-6. Before any operational follow-on, collect the read-model owner values and separate durable
-   shadow/pilot approvals; automatic mutation and bulk authoring follow their own accepted gates.
-   Until then, maintain no-write CLI and ephemeral conformance evidence only.
+6. Maintain the current no-write CLI and offline conformance. Do not resume shared-search
+   privileges, drivers/adapters, infrastructure or further DB rehearsals unless its TODO is
+   explicitly reopened after product-need review. Storage selection and all execution/pilot
+   approvals would then be separate decisions; mutation/bulk authoring remain independently gated.
 
 ## Canonical documents
 
